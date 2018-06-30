@@ -2,8 +2,6 @@
   "groups": {
     "default": {
       "packages": [
-        "examples/generatedProject/package.json",
-        "lib/templates/package.json",
         "package.json"
       ]
     }
