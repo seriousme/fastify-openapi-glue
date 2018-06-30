@@ -1,0 +1,28 @@
+{
+  "files": {
+    "spec": {
+      "fileName": "openApi.json",
+      "checksum": "3c28ccdcb46cf1c5298e3c0b4353dcd7c82f5b64ed290303ee17661bc72e2599"
+    },
+    "service": {
+      "fileName": "service.js",
+      "checksum": "19e2f72ab635bc0fd8adbea0df363627109fbe0f6ce736f6e830b51761e7ecbf"
+    },
+    "plugin": {
+      "fileName": "index.js",
+      "checksum": "00af90fca52aeaa749b09e95e3b9828b59dda639bd1a993636e89ebf3375d632"
+    },
+    "package": {
+      "fileName": "package.json",
+      "checksum": "fc04a413ec722379c8508bb7f16c70e3afaef73c087b1073fd8ce2f0b9f2ac17"
+    },
+    "readme": {
+      "fileName": "README.md",
+      "checksum": "616bd2979f9054675aa3ba42f635fe0d1c69490749bbfa2064e253c910bd6abb"
+    },
+    "testPlugin": {
+      "fileName": "test-plugin.js",
+      "checksum": "3685ed2bb0c831591705ecd58dbaa1bac322c4be68a1c837ba4ab5cb4cce2d85"
+    }
+  }
+}

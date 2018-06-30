@@ -1,0 +1,33 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Test swagger",
+    "description": "testing the fastify swagger api",
+    "version": "0.1.0"
+  },
+  "host": "localhost",
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/pathParam/{id}": {
+      "get": {
+        "operationId": "getPathParam",
+        "summary": "Test path parameters",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  }
+}
