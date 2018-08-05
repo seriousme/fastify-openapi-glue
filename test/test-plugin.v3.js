@@ -244,3 +244,24 @@ test("full pet store V3 definition does not throw error ", t => {
     }
   });
 });
+
+test("V3.0.1 definition does not throw error", t => {
+	const spec301 = JSON.parse(JSON.stringify(petStoreSpec));
+	spec301["openapi"] = "3.0.1";
+	const opts301 = {
+		specification: spec301,
+		service
+	};
+
+	t.plan(1);
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, opts301);
+	fastify.ready(err => {
+		if (err) {
+			t.fail("got unexpected error");
+		} else {
+			t.pass("no unexpected error");
+		}
+	});
+});
+
