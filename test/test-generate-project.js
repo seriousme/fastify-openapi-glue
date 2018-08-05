@@ -2,7 +2,6 @@ const t = require("tap");
 const test = t.test;
 
 const path = require("path");
-const fs = require("fs");
 const Generator = require("../lib/generator");
 
 const specPath = path.join(__dirname, "petstore-swagger.v2.json");
@@ -10,6 +9,8 @@ const specPath3 = path.join(__dirname, "petstore-openapi.v3.json");
 const projectName = "generatedProject";
 const dir = path.resolve(__dirname, "../examples");
 const nonExistentDir = path.join(__dirname, "non-existent-directory");
+const spec301 = require(specPath3);
+
 const checksumOnly = false;
 const localPlugin = true;
 const noLocalPlugin = false;
@@ -40,7 +41,6 @@ test("generator generates V3.0.0 project without error", t => {
 });
 
 test("generator generates V3.0.1 project without error", t => {
-  const spec301 = JSON.parse(fs.readFileSync(specPath3, 'utf8'));
   spec301["openapi"] = "3.0.1";
   t.plan(1);
   generator
