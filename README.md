@@ -39,7 +39,7 @@ See the [examples](#examples) section for a demo.
 <a name="generator"></a>
 ## Generator
 
-To make life even more easy there is the `openapi-glue` cli. The `openapi-glue` cli takes a valid OpenApi (v2/v3) file (JSON or YAML) and generates a project including a fastify flugin that you can use on any fastify server, a stub of the service class and a skeleton of a test harness to test the plugin. 
+To make life even more easy there is the `openapi-glue` cli. The `openapi-glue` cli takes a valid OpenApi (v2/v3) file (JSON or YAML) and generates a project including a fastify plugin that you can use on any fastify server, a stub of the service class and a skeleton of a test harness to test the plugin. 
 
 <a name="generatorUsage"></a>
 ### Usage
