@@ -21,7 +21,7 @@
     "fastify-plugin": "^1.0.1",
     "js-yaml": "^3.11.0",
     "minimist": "^1.2.0",
-    "swagger-parser": "^5.0.0"
+    "swagger-parser": "^6.0.0"
   },
   "directories": {
     "example": "./examples",
