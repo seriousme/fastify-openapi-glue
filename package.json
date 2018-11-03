@@ -1,6 +1,6 @@
 {
   "name": "fastify-openapi-glue",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "generate a fastify configuration from an openapi specification",
   "main": "index.js",
   "scripts": {
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "fastify": "^1.13.0",
-    "fastify-cli": "^0.23.0",
+    "fastify-cli": "^0.25.0",
     "tap": "^12.0.0"
   },
   "repository": {
