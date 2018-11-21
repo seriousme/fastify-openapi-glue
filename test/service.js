@@ -70,6 +70,18 @@ class Service {
     return "";
   }
 
+  // Operation: getNoParam
+  // summary:  Test no parameters
+  //
+  // valid responses:
+  //   '200':
+  //     description: ok
+  //
+
+  async getNoParam(req, reply) {
+    return "";
+  }
+
   // Operation: postBodyParam
   // summary:  Test body parameters
   // req.body:
