@@ -92,17 +92,6 @@
         }
       }
     },
-    "/noParam": {
-      "get": {
-        "operationId": "getNoParam",
-        "summary": "Test without parameters",
-        "responses": {
-          "200": {
-            "description": "ok"
-          }
-        }
-      }
-    },
     "/noOperationId/{id}":{
       "get":{
         "summary": "Test missing operationid",

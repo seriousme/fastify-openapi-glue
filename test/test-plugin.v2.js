@@ -117,23 +117,6 @@ test("body parameters work", t => {
   );
 });
 
-test("no parameters work", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts);
-
-  fastify.inject(
-    {
-      method: "get",
-      url: "/v2/noParam"
-    },
-    (err, res) => {
-      t.error(err);
-      t.strictEqual(res.statusCode, 200);
-    }
-  );
-});
-
 test("missing operation from service returns error 500", t => {
   t.plan(2);
   const fastify = Fastify();
