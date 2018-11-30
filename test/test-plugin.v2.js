@@ -6,10 +6,9 @@ const fastifyOpenapiGlue = require("../index");
 const testSpec = require("./test-swagger.v2.json");
 const petStoreSpec = require("./petstore-swagger.v2.json");
 const serviceFile = `${__dirname}/service.js`;
-const testInfoSpec = `${__dirname}/test-swagger-info.v2.json`;
 const testSpecYAML = `${__dirname}/test-swagger.v2.yaml`;
 const service = require(serviceFile);
-const testInfo = require(testInfoSpec);
+
 const opts = {
   specification: testSpec,
   service
@@ -33,11 +32,6 @@ const invalidServiceOpts = {
 const missingServiceOpts = {
   specification: testSpecYAML,
   service: `${__dirname}/not-a-valid-service.js`
-};
-
-const infoOpts = {
-  specification: testInfoSpec,
-  service: serviceFile
 };
 
 const petStoreOpts = {
