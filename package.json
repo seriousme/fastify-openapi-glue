@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "fastify": "^2.0.0",
-    "fastify-cli": "^0.27.0",
-    "tap": "^12.0.0"
+    "fastify-cli": "^1.0.0",
+    "tap": "^12.5.3"
   },
   "repository": {
     "type": "git",
