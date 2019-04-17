@@ -27,7 +27,8 @@ test("generator generates data matching checksums", t => {
     .parse(specPath)
     .then(_ => {
       const checksums = generator.generateProject(dir, projectName);
-      t.strictSame(checksums, testChecksums, "checksums match");
+
+      t.same(checksums, testChecksums, "checksums match");
     })
     .catch(e => t.fail(e.message));
 });
@@ -39,7 +40,7 @@ test("generator generates data matching checksums for swagger without basePath",
     .parse(noBasePathSpecPath)
     .then(_ => {
       const checksums = generator.generateProject(dir, projectName);
-      t.strictSame(checksums, noBasePathChecksums, "checksums match");
+      t.same(checksums, noBasePathChecksums, "checksums match");
     })
     .catch(e => t.fail(e.message));
 });
