@@ -32,7 +32,7 @@
   "devDependencies": {
     "fastify": "^2.2.0",
     "fastify-cli": "^1.0.0",
-    "tap": "^13.0.0"
+    "tap": "^14.0.0"
   },
   "repository": {
     "type": "git",
