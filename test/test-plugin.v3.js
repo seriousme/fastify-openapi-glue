@@ -109,6 +109,23 @@ test("missing header parameters returns error 500", t => {
   );
 });
 
+test("missing authorization header returns error 500", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/authHeaderParam"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 500);
+    }
+  );
+});
+
 test("body parameters work", t => {
   t.plan(2);
   const fastify = Fastify();
