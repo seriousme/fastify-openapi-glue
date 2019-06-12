@@ -79,6 +79,26 @@
         }
       }
     },
+    "/authHeaderParam": {
+      "get": {
+        "operationId": "getAuthHeaderParam",
+        "summary": "Test authorization header parameters",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
     "/bodyParam": {
       "post": {
         "operationId": "postBodyParam",

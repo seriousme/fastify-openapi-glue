@@ -70,6 +70,26 @@ class Service {
     return "";
   }
 
+  // Operation: getAuthHeaderParam
+  // summary:  Test authorization header parameters
+  // req.headers:
+  //   type: object
+  //   properties:
+  //     authorization:
+  //       type: string
+  //
+  // valid responses:
+  //   '200':
+  //     description: ok
+  //
+
+  async getAuthHeaderParam(req, reply) {
+    if (typeof req.headers["authorization"] !== "string") {
+      throw new Error("req.header['authorization'] is not a string");
+    }
+    return "";
+  }
+
   // Operation: getNoParam
   // summary:  Test no parameters
   //
