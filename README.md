@@ -20,7 +20,8 @@ const openapiGlue = require("fastify-openapi-glue");
 
 const options = {
   specification: `${__dirname}/petstore-swagger.v2.json`,
-  service: `${__dirname}/service.js`
+  service: `${__dirname}/service.js`,
+  prefix: "v1"
 };
 
 
@@ -119,7 +120,7 @@ as the pet returned by service.js does not match the response schema.
 ### Generator
 The folder [examples/generatedProject](examples/generatedProject) contains the result of running `openapi-glue -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (you will need to run `npm i` in the generated folder first)
 <a name="Notes"></a>
-# Notes
+## Notes
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes.
 - the plugin ignores `securitySchemes` in a v3 specification as fastify has no built-in support for securitySchemes. You can add custom verification logic to your services or use additional fastify plugins to implement securitySchemes yourself.
 <a name="Fastify-swaggergen"></a>
