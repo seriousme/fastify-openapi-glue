@@ -5,7 +5,7 @@
 A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
 <a name="install"></a>
-## Install: 
+## Install 
 ```
 npm i fastify-openapi-glue --save
 ```
@@ -56,7 +56,7 @@ This will generate a project based on the provided OpenApi specification.
 Any existing files in the project folder will be overwritten!
 See the [generator examples](#examples) section for a demo.
 <a name="generatorOptions"></a>
-### Options:
+### Options
 ```
 
   -p <name>                   The name of the project to generate
