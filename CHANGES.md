@@ -1,5 +1,8 @@
 # Changelog
 
+## [current release]
+### Changed
+ - Added notes section to README.md to explain plugin behaviour better
 ## [v1.1.0] 14-06-2019
 ### Added 
  - `prefix` option, see README.md
