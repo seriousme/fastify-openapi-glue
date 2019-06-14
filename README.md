@@ -32,8 +32,9 @@ All schema and routes will be taken from the OpenApi specification listed in the
 ### Options
   - `specification`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
   - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
+  - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if your the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. 
 
-Both options are mandatory.
+`specification` and `service` are mandatory, `prefix` is optional.
 
 See the [examples](#examples) section for a demo.
 <a name="generator"></a>
