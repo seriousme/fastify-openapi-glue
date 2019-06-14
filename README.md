@@ -118,14 +118,16 @@ as the pet returned by service.js does not match the response schema.
 <a name="generatorExamples"></a>
 ### Generator
 The folder [examples/generatedProject](examples/generatedProject) contains the result of running `openapi-glue -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (you will need to run `npm i` in the generated folder first)
-<a name="license"></a>
-
-<a name="generatorExamples"></a>
+<a name="Notes"></a>
+# Notes
+- the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes.
+- the plugin ignores `securitySchemes` in a v3 specification as fastify has no built-in support for securitySchemes. You can add custom verification logic to your services or use additional fastify plugins to implement securitySchemes yourself.
+<a name="Fastify-swaggergen"></a>
 ## Fastify-swaggergen
 Fastify-openapi-glue is the successor to the now deprecated [fastify-swaggergen](https://github.com/seriousme/fastify-swaggergen) project.
 Main difference is that it: 
 - aims to support OpenApi and not just Swagger V2 (hence the name change)
 - does not include fastify-swagger support anymore. If you need to show the swagger UI you can include it yourself. Removing the swagger UI clears up a number of dependencies.
-
+<a name="license"></a>
 # License
 Licensed under [MIT](license.txt)
