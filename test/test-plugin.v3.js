@@ -13,6 +13,12 @@ const opts = {
   service
 };
 
+const prefixOpts = {
+  specification: testSpec,
+  service,
+  prefix: "prefix"
+};
+
 const yamlOpts = {
   specification: testSpecYAML,
   service
@@ -153,6 +159,23 @@ test("no parameters work", t => {
     {
       method: "get",
       url: "/noParam"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+    }
+  );
+});
+
+test("prefix in opts works", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, prefixOpts);
+
+  fastify.inject(
+    {
+      method: "get",
+      url: "/prefix/noParam"
     },
     (err, res) => {
       t.error(err);

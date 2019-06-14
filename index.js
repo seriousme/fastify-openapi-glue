@@ -57,7 +57,9 @@ async function fastifyOpenapiGlue(instance, opts) {
 
   instance.setSchemaCompiler(schema => ajv.compile(schema));
 
-  if (config.prefix) {
+  if (opts.prefix) {
+    routeConf.prefix = opts.prefix;
+  } else if (config.prefix) {
     routeConf.prefix = config.prefix;
   }
 
