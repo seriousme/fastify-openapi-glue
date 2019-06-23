@@ -3,6 +3,7 @@
 ## [current release]
 ### Changed
  - Added notes section to README.md to explain plugin behaviour better
+ - Updated swagger-parser to 8.0.0
 ## [v1.1.0] 14-06-2019
 ### Added 
  - `prefix` option, see README.md
