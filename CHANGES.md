@@ -6,8 +6,9 @@
  - Updated dependencies:
    - swagger-parser  ^7.0.1  →   ^8.0.0
    - fastify-plugin   ^1.5.0  →   ^1.6.0
-   - fastify          ^2.2.0  →   ^2.5.0
-   - tap             ^14.0.0  →  ^14.2.5
+   - fastify          ^2.2.0  →   ^2.6.0
+   - fastify-cli      ^1.0.0  →   ^1.1.0
+   - tap             ^14.0.0  →  ^14.4.2
 ## [v1.1.0] 14-06-2019
 ### Added 
  - `prefix` option, see README.md
