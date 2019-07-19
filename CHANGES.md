@@ -2,6 +2,10 @@
 
 ## [current release]
 ### Changed
+
+## [v1.2.0] 19-07-2019
+### Changed
+ - enabled generic parameters on path items
  - Added notes section to README.md to explain plugin behaviour better
  - Updated dependencies:
    - swagger-parser  ^7.0.1  →   ^8.0.0
