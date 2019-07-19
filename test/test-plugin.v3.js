@@ -7,6 +7,7 @@ const testSpec = require("./test-openapi.v3.json");
 const petStoreSpec = require("./petstore-openapi.v3.json");
 const serviceFile = `${__dirname}/service.js`;
 const testSpecYAML = `${__dirname}/test-openapi.v3.yaml`;
+const genericPathItemsSpec = require("./test-openapi-v3-generic-path-items.json");
 const service = require(serviceFile);
 const opts = {
   specification: testSpec,
@@ -41,6 +42,11 @@ const missingServiceOpts = {
 
 const petStoreOpts = {
   specification: petStoreSpec,
+  service
+};
+
+const genericPathItemsOpts = {
+  specification: genericPathItemsSpec,
   service
 };
 
@@ -244,6 +250,40 @@ test("yaml spec works", t => {
     {
       method: "GET",
       url: "/pathParam/2"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+    }
+  );
+});
+
+test("generic path parameters work", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/pathParam/2"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+    }
+  );
+});
+
+test("generic path parameters override works", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/noParam"
     },
     (err, res) => {
       t.error(err);
