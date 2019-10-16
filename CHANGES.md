@@ -3,6 +3,14 @@
 ## [current release]
 ### Changed
 
+## [1.3.0] 16-10-2019
+### Changed
+ - Enabled async service creation
+ - Updated dependencies:
+   - swagger-parser   ^8.0.0  →   ^8.0.2
+   - fastify          ^2.6.0  →  ^2.10.0
+   - fastify-cli      ^1.1.0  →   ^1.3.0
+   - tap             ^14.4.2  →  ^14.7.1
 ## [v1.2.0] 19-07-2019
 ### Changed
  - enabled generic parameters on path items
