@@ -18,7 +18,7 @@ function getObject(param) {
     data = data();
   }
 
-  return data;
+  return Promise.resolve(data);
 }
 
 // fastify uses the built-in AJV instance during serialization, and that
@@ -38,7 +38,7 @@ function stripResponseFormats(schema) {
 }
 
 async function fastifyOpenapiGlue(instance, opts) {
-  const service = getObject(opts.service);
+  const service = await getObject(opts.service);
   if (!isObject(service)) {
     throw new Error("'service' parameter must refer to an object");
   }

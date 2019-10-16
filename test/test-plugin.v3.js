@@ -40,6 +40,11 @@ const missingServiceOpts = {
   service: `${__dirname}/not-a-valid-service.js`
 };
 
+const asyncServiceOpts = {
+  specification: testSpec,
+  service: `${__dirname}/async-service.js`
+};
+
 const petStoreOpts = {
   specification: petStoreSpec,
   service
@@ -337,6 +342,22 @@ test("invalid service definition throws error ", t => {
       t.fail("missed expected error");
     }
   });
+});
+
+test("async service definition does not throw error", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, asyncServiceOpts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/pathParam/2"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+    }
+  );
 });
 
 test("full pet store V3 definition does not throw error ", t => {
