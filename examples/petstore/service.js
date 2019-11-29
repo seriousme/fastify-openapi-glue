@@ -13,10 +13,9 @@ class Service {
       return {
         id: req.params.petId,
         name: "Kitty the cat",
-        photoUrls: {
-          photoUrl:
+        photoUrls: [
             "https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg"
-        },
+        ],
         status: "available"
       };
     }
