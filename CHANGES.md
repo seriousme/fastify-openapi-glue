@@ -3,6 +3,14 @@
 ## [current release]
 ### Changed
 
+## [1.3.1] 29-11-2019
+### Changed
+ - Fixed bug in Petshop example
+ - Updated dependencies:
+   - swagger-parser   ^8.0.2  →   ^8.0.3
+   - ajv-oai          ^1.1.1  →   ^1.1.5
+   - tap             ^14.7.1  →  ^14.10.2
+
 ## [1.3.0] 16-10-2019
 ### Changed
  - Enabled async service creation
