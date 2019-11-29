@@ -17,6 +17,7 @@
     "openapi-glue": "./bin/openapi-glue-cli.js"
   },
   "dependencies": {
+    "ajv": "^6.10.2",
     "ajv-oai": "^1.1.5",
     "fastify-plugin": "^1.6.0",
     "js-yaml": "^3.13.1",
