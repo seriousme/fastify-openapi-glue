@@ -2,6 +2,9 @@
 
 ## [current release]
 ### Changed
+
+## [1.4.1] 21-01-2020
+### Changed
  - Added nullable flag to ajv config
  - Updated dependencies
   - ajv              ^6.10.2  →   ^6.11.0 
