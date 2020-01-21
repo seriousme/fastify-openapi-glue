@@ -2,6 +2,13 @@
 
 ## [current release]
 ### Changed
+ - Added nullable flag to ajv config
+ - Updated dependencies
+  - ajv              ^6.10.2  →   ^6.11.0 
+  - ajv-oai           ^1.1.5  →    ^1.2.0 
+  - swagger-parser    ^8.0.3  →    ^8.0.4 
+  - fastify          ^2.10.0  →   ^2.11.0 
+  - tap             ^14.10.2  →  ^14.10.6 
 
 ## [1.3.1] 29-11-2019
 ### Changed
