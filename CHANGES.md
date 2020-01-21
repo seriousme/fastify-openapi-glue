@@ -3,7 +3,7 @@
 ## [current release]
 ### Changed
 
-## [1.4.1] 21-01-2020
+## [1.4.0] 21-01-2020
 ### Changed
  - Added nullable flag to ajv config
  - Updated dependencies
