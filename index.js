@@ -52,7 +52,8 @@ async function fastifyOpenapiGlue(instance, opts) {
     // the fastify defaults
     removeAdditional: true,
     useDefaults: true,
-    coerceTypes: true
+    coerceTypes: true,
+    nullable: true
   });
 
   instance.setSchemaCompiler(schema => ajv.compile(schema));
