@@ -190,6 +190,7 @@
     "schemas": {
       "bodyObject": {
         "type": "object",
+        "additionalProperties":false,
         "properties": {
           "str1": {
             "type": "string"

@@ -55,6 +55,12 @@ const genericPathItemsOpts = {
   service
 };
 
+const noAdditionalParamsOpts = {
+    specification: testSpec,
+    service,
+    noAdditional: true
+}
+
 test("path parameters work", t => {
   t.plan(2);
   const fastify = Fastify();
@@ -152,11 +158,36 @@ test("body parameters work", t => {
     {
       method: "post",
       url: "/bodyParam",
-      payload: { str1: "test data" }
+      payload: { 
+        str1: "test data",
+        str2: "test data",
+     }
     },
     (err, res) => {
       t.error(err);
       t.strictEqual(res.statusCode, 200);
+    }
+  );
+});
+
+
+test("extra body parameters with ajv opts returns error 400", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, noAdditionalParamsOpts);
+
+  fastify.inject(
+    {
+      method: "post",
+      url: "/bodyParam",
+      payload: { 
+        str1: "test data",
+        str2: "test data",
+     }
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 400);
     }
   );
 });
