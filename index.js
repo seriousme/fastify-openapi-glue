@@ -48,13 +48,14 @@ async function fastifyOpenapiGlue(instance, opts) {
 
   // AJV misses some validators for int32, int64 etc which ajv-oai adds
   const Ajv = require("ajv-oai");
-  const ajv = new Ajv({
-    // the fastify defaults
-    removeAdditional: true,
+  const ajvConfig={  // the fastify defaults
+    removeAdditional: !opts.noAdditional,
     useDefaults: true,
     coerceTypes: true,
     nullable: true
-  });
+  }
+
+  const ajv = new Ajv(Object.assign(ajvConfig,opts.ajv));
 
   instance.setSchemaCompiler(schema => ajv.compile(schema));
 
