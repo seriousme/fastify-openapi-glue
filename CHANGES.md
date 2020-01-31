@@ -2,9 +2,6 @@
 
 ## [current release]
 ### Changed
-
-## [1.5.0] 31-01-2020
-### Changed
  - Added noAdditional option
 
 ## [1.4.0] 21-01-2020
