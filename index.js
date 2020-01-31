@@ -49,7 +49,7 @@ async function fastifyOpenapiGlue(instance, opts) {
   // AJV misses some validators for int32, int64 etc which ajv-oai adds
   const Ajv = require("ajv-oai");
   const ajvConfig={  // the fastify defaults
-    removeAdditional: opts.noAdditional?false:true,
+    removeAdditional: !opts.noAdditional,
     useDefaults: true,
     coerceTypes: true,
     nullable: true
