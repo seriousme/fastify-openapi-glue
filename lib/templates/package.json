@@ -4,14 +4,14 @@
   "version": "0.1.0",
   "scripts": {
     "start": "fastify start index.js",
-    "test": "tap test/test-*.js",
     "dev": "fastify start -l info -P index.js"
   },
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": ""
+    "fastify-plugin": "",
+    "fastify-jwt": "^1.2.1"
   },
   "devDependencies": {
     "fastify": "",
