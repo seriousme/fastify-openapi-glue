@@ -24,8 +24,7 @@ function getObject(param) {
 // fastify uses the built-in AJV instance during serialization, and that
 // instance does not know about int32 and int64 so remove those formats
 // from the responses
-const unknownFormats = { int32: true, int64: true };
-
+const unknownFormats = { int32: true, int64: true, binary: true };
 function stripResponseFormats(schema) {
   for (let item in schema) {
     if (isObject(schema[item])) {
