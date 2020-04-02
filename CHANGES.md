@@ -2,6 +2,14 @@
 
 ## [current release]
 ### Changed
+ - Updated dependencies
+   - ajv              ^6.11.0  →   ^6.12.0 
+   - fastify-plugin    ^1.6.0  →    ^1.6.1 
+   - minimist          ^1.2.0  →    ^1.2.5 
+   - swagger-parser    ^9.0.0  →    ^9.0.1 
+    - fastify          ^2.11.0  →   ^2.13.0 
+   - fastify-cli       ^1.3.0  →    ^1.5.0 
+    - tap             ^14.10.6  →  ^14.10.7 
 
 ## [1.5.0] 31-01-2020
 ### Changed
@@ -11,11 +19,11 @@
 ### Changed
  - Added nullable flag to ajv config
  - Updated dependencies
-  - ajv              ^6.10.2  →   ^6.11.0 
-  - ajv-oai           ^1.1.5  →    ^1.2.0 
-  - swagger-parser    ^8.0.3  →    ^8.0.4 
-  - fastify          ^2.10.0  →   ^2.11.0 
-  - tap             ^14.10.2  →  ^14.10.6 
+   - ajv              ^6.10.2  →   ^6.11.0 
+   - ajv-oai           ^1.1.5  →    ^1.2.0 
+   - swagger-parser    ^8.0.3  →    ^8.0.4 
+   - fastify          ^2.10.0  →   ^2.11.0 
+   - tap             ^14.10.2  →  ^14.10.6 
 
 ## [1.3.1] 29-11-2019
 ### Changed
