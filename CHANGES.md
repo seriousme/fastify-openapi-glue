@@ -2,6 +2,9 @@
 
 ## [current release]
 ### Changed
+
+## [1.5.1] 06-04-2020
+### Changed
  - Updated dependencies
    - ajv              ^6.11.0  →   ^6.12.0 
    - fastify-plugin    ^1.6.0  →    ^1.6.1 
