@@ -2,7 +2,11 @@
 
 ## [current release]
 ### Changed
-
+  - Added Typescript definitions (Xaver Schulz)
+  - Fixed loss of 'this' in service.js (Xaver Schulz)
+  - Updated dependencies
+    - ajv              ^6.12.0  →   ^6.12.2
+    - fastify          ^2.13.0  →   ^2.13.1
 ## [1.5.1] 06-04-2020
 ### Changed
  - Updated dependencies
