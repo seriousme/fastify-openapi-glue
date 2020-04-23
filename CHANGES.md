@@ -2,6 +2,9 @@
 
 ## [current release]
 ### Changed
+
+## [1.5.2] 23-04-2020
+### Changed
   - Added Typescript definitions (Xaver Schulz)
   - Fixed loss of 'this' in service.js (Xaver Schulz)
   - Updated dependencies
