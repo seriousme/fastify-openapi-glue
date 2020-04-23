@@ -71,7 +71,7 @@ async function fastifyOpenapiGlue(instance, opts) {
       }
       if (service[item.operationId]) {
         routesInstance.log.debug("service has", item.operationId);
-        item.handler = service[item.operationId];
+        item.handler = service[item.operationId].bind(service);
       } else {
         item.handler = async (request, reply) => {
           throw new Error(`Operation ${item.operationId} not implemented`);
