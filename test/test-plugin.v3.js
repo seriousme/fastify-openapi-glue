@@ -5,6 +5,7 @@ const fastifyOpenapiGlue = require("../index");
 
 const testSpec = require("./test-openapi.v3.json");
 const petStoreSpec = require("./petstore-openapi.v3.json");
+const securityHandlers = require('./security');
 const serviceFile = `${__dirname}/service.js`;
 const testSpecYAML = `${__dirname}/test-openapi.v3.yaml`;
 const genericPathItemsSpec = require("./test-openapi-v3-generic-path-items.json");
@@ -59,7 +60,7 @@ const noAdditionalParamsOpts = {
     specification: testSpec,
     service,
     noAdditional: true
-}
+};
 
 test("path parameters work", t => {
   t.plan(2);
@@ -397,6 +398,7 @@ test("full pet store V3 definition does not throw error ", t => {
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
   fastify.ready(err => {
     if (err) {
+      console.error(err);
       t.fail("got unexpected error");
     } else {
       t.pass("no unexpected error");
@@ -422,4 +424,101 @@ test("V3.0.1 definition does not throw error", t => {
       t.pass("no unexpected error");
     }
   });
+});
+
+test("v3 security handler registration succeeds", t => {
+  const spec = JSON.parse(JSON.stringify(petStoreSpec));
+  const opts = {
+    specification: spec,
+    service,
+    securityHandlers
+  };
+
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.ready(err => {
+    if (err) {
+      t.fail("got unexpected error");
+    } else {
+      t.pass("no unexpected error");
+    }
+  });
+});
+
+test("v3 security preHandler throws error", t => {
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      api_key: securityHandlers.failingAuthCheck
+    }
+  };
+
+  t.plan(3);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 401);
+      t.strictEqual(res.statusMessage, 'Unauthorized');
+    }
+  );
+});
+
+test("v3 security preHandler passes w/ short-circuit", t => {
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      api_key: securityHandlers.goodAuthCheck,
+      failing: securityHandlers.failingAuthCheck
+    }
+  };
+
+  t.plan(3);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+      t.strictEqual(res.statusMessage, 'OK');
+    }
+  );
+});
+
+test("v3 security preHandler handles multiple failures", t => {
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      api_key: securityHandlers.failingAuthCheck,
+      failing: securityHandlers.failingAuthCheck
+    }
+  };
+
+  t.plan(3);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 401);
+      t.strictEqual(res.statusMessage, 'Unauthorized');
+    }
+  );
 });

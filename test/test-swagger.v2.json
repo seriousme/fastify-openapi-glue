@@ -10,6 +10,9 @@
   "schemes": ["http"],
   "consumes": ["application/json"],
   "produces": ["application/json"],
+  "security": [
+    { "skipped": [] }
+  ],
   "paths": {
     "/pathParam/{id}": {
       "get": {
@@ -144,6 +147,31 @@
           }
         }
       }
+    },
+    "/operationSecurity": {
+      "get": {
+        "operationId": "testOperationSecurity",
+        "summary": "Test security handling",
+        "security": [
+          { "api_key": [] },
+          { "skipped": [] },
+          { "failing": [] }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/responseObject"
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/errorObject"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -164,6 +192,28 @@
         }
       },
       "required": ["response"]
+    },
+    "errorObject": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-Key"
+    },
+    "skipped": {
+      "type": "basic"
     }
   }
 }

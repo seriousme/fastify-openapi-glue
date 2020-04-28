@@ -10,6 +10,9 @@
     "description": "testing the fastify openapi glue",
     "version": "0.1.0"
   },
+  "security": [
+    { "skipped": [] }
+  ],
   "paths": {
     "/pathParam/{id}": {
       "get": {
@@ -184,6 +187,39 @@
           }
         }
       }
+    },
+    "/operationSecurity": {
+      "get": {
+        "operationId": "testOperationSecurity",
+        "summary": "Test security handling",
+        "security": [
+          { "api_key": [] },
+          { "skipped": [] },
+          { "failing": [] }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseObject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorObject"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -210,6 +246,28 @@
         "required": [
           "response"
         ]
+      },
+      "errorObject": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "statusCode": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "api_key": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      },
+      "skipped": {
+        "type": "http",
+        "scheme": "basic"
       }
     }
   }
