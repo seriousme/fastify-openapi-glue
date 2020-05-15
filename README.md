@@ -1,5 +1,5 @@
 # Fastify OpenApi Glue
-[![Build Status](https://travis-ci.org/seriousme/fastify-openapi-glue.svg?branch=master)](https://travis-ci.org/seriousme/fastify-openapi-glue)
+[![CI status](https://github.com/seriousme/fastify-openapi-glue/workflows/Node.js%20CI/badge.svg)](https://github.com/seriousme/fastify-openapi-glue/actions?query=workflow%3A%22Node.js+CI%22)
 
 A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
