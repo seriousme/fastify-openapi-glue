@@ -11,7 +11,12 @@ const genericPathItemsSpec = require("./test-openapi-v3-generic-path-items.json"
 const service = require(serviceFile);
 const opts = {
   specification: testSpec,
-  service
+  service,
+  ajvOptions: {
+    formats: {
+      "custom-format": /test data/
+    }
+  }
 };
 
 const prefixOpts = {
@@ -170,6 +175,26 @@ test("body parameters work", t => {
   );
 });
 
+test("body parameters that don't match custom-format set through ajvOptions returns error 400", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+
+  fastify.inject(
+    {
+      method: "post",
+      url: "/bodyParam",
+      payload: {
+        str1: "WRONG-FORMAT",
+        str2: "test data",
+     }
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 400);
+    }
+  );
+});
 
 test("extra body parameters with ajv opts returns error 400", t => {
   t.plan(2);

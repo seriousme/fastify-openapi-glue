@@ -10,6 +10,7 @@ declare module 'fastify-openapi-glue'
       service: string | object | Function;
       prefix?: string;
       noAdditional?: boolean;
+      ajvOptions: object;
     }
   }
 
