@@ -3,6 +3,10 @@
 ## [current release]
 ### Changed
 
+## [1.6.0]
+### Changed
+  - Added ajvOptions parameter (justinsc )
+
 ## [1.5.2] 23-04-2020
 ### Changed
   - Added Typescript definitions (Xaver Schulz)
