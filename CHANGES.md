@@ -3,7 +3,7 @@
 ## [current release]
 ### Changed
 
-## [1.6.0]
+## [1.6.0] 17-06-2020
 ### Changed
   - Added ajvOptions parameter (justinsc )
 
