@@ -21,7 +21,12 @@ const options = {
   specification: `${__dirname}/petstore-swagger.v2.json`,
   service: `${__dirname}/service.js`,
   prefix: "v1",
-  noAdditional: true
+  noAdditional: true,
+  ajvOptions: {
+    formats: {
+      "custom-format": /\d{2}-\d{4}/
+    }
+  }
 };
 
 
@@ -35,6 +40,7 @@ All schema and routes will be taken from the OpenApi specification listed in the
   - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. 
   - `noAdditional`: by default Fastify will silently ignore additional properties in a message. Setting `noAdditional` to `true` will change this behaviour and will make Fastify return a HTTP error 400 when additional properties are present. Default value for this option is `false`.
+  - `ajvOptions`: Pass additional options to AJV (see https://ajv.js.org/#options)
 
 `specification` and `service` are mandatory, `prefix` and `noAdditional` are optional.
 

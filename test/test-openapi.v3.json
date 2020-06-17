@@ -193,7 +193,8 @@
         "additionalProperties":false,
         "properties": {
           "str1": {
-            "type": "string"
+            "type": "string",
+            "format": "custom-format"
           }
         },
         "required": [
