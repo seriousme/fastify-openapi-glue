@@ -8,9 +8,13 @@
       "fileName": "service.js",
       "checksum": "4d2e21f503df4826e843b1a0dc884dc59f8e9f18e1bce05728b229703cad2113"
     },
+    "security": {
+      "fileName": "security.js",
+      "checksum": "cf620fa3afeb9c65cc0a031572c8dbc516e28edabca6d8f0da55cb32418ba422"
+    },
     "plugin": {
       "fileName": "index.js",
-      "checksum": "00af90fca52aeaa749b09e95e3b9828b59dda639bd1a993636e89ebf3375d632"
+      "checksum": "23de93c169cc1c83d1c53c049007466b35defdb3bd6838d0ed5c6deb41f2b263"
     },
     "package": {
       "fileName": "package.json",

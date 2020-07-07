@@ -1,12 +1,14 @@
-async function goodAuthCheck(req, reply) {
-    // Do nothing--auth check succeeds!
+class Security {
+    constructor() { }
+
+    async goodAuthCheck(req, reply) {
+        // Do nothing--auth check succeeds!
+    }
+
+    async failingAuthCheck(req, reply) {
+        throw new Error('API key was invalid or not found');
+    }
+
 }
 
-async function failingAuthCheck(req, reply) {
-    throw new Error('API key was invalid or not found');
-}
-
-module.exports = {
-    goodAuthCheck,
-    failingAuthCheck
-}
+module.exports = new Security();

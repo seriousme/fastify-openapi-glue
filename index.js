@@ -83,7 +83,7 @@ async function fastifyOpenapiGlue(instance, opts) {
     let secHandler = async (req, reply) => {
       let numSchemes = schemes.length;
       let numChecks = 0;
-      for (scheme of schemes) {
+      for (let scheme of schemes) {
         numChecks++;
 
         try {          
