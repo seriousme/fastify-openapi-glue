@@ -8,6 +8,7 @@ declare module 'fastify-openapi-glue'
     interface FastifyOpenapiGlueOptions {
       specification: string;
       service: string | object | Function;
+      securityHandlers: string | object | Function;
       prefix?: string;
       noAdditional?: boolean;
       ajvOptions: object;
