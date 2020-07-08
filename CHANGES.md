@@ -2,6 +2,9 @@
 
 ## [current release]
 ### Changed
+
+## [1.7.0] 08-07-2020
+### Changed
   - Added securityHandlers parameter (mhamann)
   - Updated dependencies
     - ajv      ^6.12.2  →  ^6.12.3 
