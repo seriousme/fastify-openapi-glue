@@ -65,7 +65,52 @@ async function fastifyOpenapiGlue(instance, opts) {
     routeConf.prefix = config.prefix;
   }
 
-  async function generateRoutes(routesInstance, opts) {
+  let generatedSecurityHandlers = {};
+  let missingSecurityHandlers = [];
+  function getSecurityHandler(schemes) {
+    // Don't pollute memory with redundant functions
+    let schemeKey = schemes.join(':');
+    if (generatedSecurityHandlers[schemeKey]) {
+      return generatedSecurityHandlers[schemeKey];
+    }
+
+    // Ignore missing security handlers (we'll warn later on)
+    let localMissingSecurityHandlers = schemes.filter(scheme => !Object.keys(opts.securityHandlers).find(name => name === scheme));
+    missingSecurityHandlers = missingSecurityHandlers.concat(missingSecurityHandlers, localMissingSecurityHandlers);
+
+    // Only check registered schemes
+    schemes = schemes.filter(scheme => Object.keys(opts.securityHandlers).find(name => name === scheme));
+
+    // This is a new handler, so build it once
+    let secHandler = async (req, reply) => {
+      let numSchemes = schemes.length;
+      let numChecks = 0;
+      for (let scheme of schemes) {
+        numChecks++;
+
+        try {          
+          await opts.securityHandlers[scheme](req, reply);
+          return; // If one security check passes, no need to try any others
+        } catch (err) {
+          req.log.debug('Security check failed:', err, err.stack);
+          
+          // Only throw if no security handlers validated this request
+          if (numChecks === numSchemes) {
+            let err = new Error(`None of the security schemes (${schemes.join(', ')}) successfully authenticated this request.`);
+            err.statusCode = 401;
+            err.name = 'Unauthorized';
+            throw err;
+          }
+        }
+      }
+    }
+
+    generatedSecurityHandlers[schemeKey] = secHandler;
+
+    return secHandler;
+  }
+
+  async function generateRoutes(routesInstance, routesOpts) {
     config.routes.forEach(item => {
       const response = item.schema.response;
       if (response) {
@@ -79,8 +124,18 @@ async function fastifyOpenapiGlue(instance, opts) {
           throw new Error(`Operation ${item.operationId} not implemented`);
         };
       }
+
+      // Apply security requirements if present and at least one handler is defined
+      if (item.security && opts.securityHandlers) {
+        item.preHandler = getSecurityHandler.apply(routesInstance, [item.security]);
+      }
+
       routesInstance.route(item);
     });
+
+    if (missingSecurityHandlers.length > 0) {
+      routesInstance.log.warn(`Handlers for some security requirements were missing: ${missingSecurityHandlers.join(', ')}`);
+    }
   }
 
   instance.register(generateRoutes, routeConf);

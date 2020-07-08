@@ -4,6 +4,7 @@ const openapiGlue = require("../../index.js");
 const options = {
   specification: `${__dirname}/openApi.json`,
   service: `${__dirname}/service.js`
+  securityHandlers: require("./security.js")
 };
 
 module.exports = async function(fastify, opts) {

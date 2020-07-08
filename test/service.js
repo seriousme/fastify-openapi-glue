@@ -146,6 +146,32 @@ class Service {
       return { invalid: 1 };
     }
   }
+
+  // Operation: testOperationSecurity
+  // summary:  Test response serialization
+  // req.query:
+  //   type: object
+  //   properties:
+  //     respType:
+  //       type: string
+  //
+  // valid responses:
+  //   '200':
+  //     description: ok
+  //     schema:
+  //       type: object
+  //       properties:
+  //         response:
+  //           type: string
+  //       required:
+  //         - response
+  //
+
+  async testOperationSecurity(req, reply) {
+    return {
+      response: "authentication succeeded!"
+    }
+  }
 }
 
 module.exports = opts => new Service(opts);

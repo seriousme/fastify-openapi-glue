@@ -9,7 +9,7 @@ const Generator = require("../lib/generator");
 const testChecksums = require("./test-swagger.v2.checksums.json");
 const specPath = path.join(__dirname, "test-swagger.v2.json");
 
-// run `node ..\generator.js -c test-swagger-noBasePath.v2.json > test-swagger-noBasePath.v2.checksums.json
+// run `node ..\generator.js -c test-swagger-noBasePath.v2.json > test-swagger-noBasePath.v2.checksums.json`
 const noBasePathChecksums = require("./test-swagger-noBasePath.v2.checksums.json");
 const noBasePathSpecPath = require("./test-swagger-noBasePath.v2.json");
 
