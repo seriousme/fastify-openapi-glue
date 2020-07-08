@@ -20,6 +20,7 @@ const openapiGlue = require("fastify-openapi-glue");
 const options = {
   specification: `${__dirname}/petstore-swagger.v2.json`,
   service: `${__dirname}/service.js`,
+  securityHandlers: `${__dirname}/security.js`,
   prefix: "v1",
   noAdditional: true,
   ajvOptions: {
@@ -38,11 +39,12 @@ All schema and routes will be taken from the OpenApi specification listed in the
 ### Options
   - `specification`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
   - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
+  - `securityHandlers`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. 
   - `noAdditional`: by default Fastify will silently ignore additional properties in a message. Setting `noAdditional` to `true` will change this behaviour and will make Fastify return a HTTP error 400 when additional properties are present. Default value for this option is `false`.
   - `ajvOptions`: Pass additional options to AJV (see https://ajv.js.org/#options)
 
-`specification` and `service` are mandatory, `prefix` and `noAdditional` are optional.
+`specification` and `service` are mandatory, `securityHandlers`, `prefix` and `noAdditional` are optional.
 
 See the [examples](#examples) section for a demo.
 <a name="generator"></a>
@@ -129,7 +131,6 @@ The folder [examples/generatedProject](examples/generatedProject) contains the r
 <a name="Notes"></a>
 ## Notes
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes.
-- the plugin ignores `securitySchemes` in a v3 specification as fastify has no built-in support for securitySchemes. You can add custom verification logic to your services or use additional fastify plugins to implement securitySchemes yourself.
 <a name="Fastify-swaggergen"></a>
 ## Fastify-swaggergen
 Fastify-openapi-glue is the successor to the now deprecated [fastify-swaggergen](https://github.com/seriousme/fastify-swaggergen) project.
