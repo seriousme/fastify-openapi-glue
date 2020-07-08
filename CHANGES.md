@@ -2,6 +2,11 @@
 
 ## [current release]
 ### Changed
+  - Added securityHandlers parameter (mhamann)
+  - Updated dependencies
+    - ajv      ^6.12.2  →  ^6.12.3 
+    - js-yaml  ^3.13.1  →  ^3.14.0 
+    - fastify  ^2.13.1  →  ^2.15.1
 
 ## [1.6.0] 17-06-2020
 ### Changed
