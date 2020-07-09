@@ -57,7 +57,9 @@ async function fastifyOpenapiGlue(instance, opts) {
   Object.assign(ajvOptions, opts.ajvOptions)
   const ajv = new Ajv(ajvOptions);
 
-  instance.setSchemaCompiler(schema => ajv.compile(schema));
+  instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
+    ajv.compile(schema)
+  );
 
   if (opts.prefix) {
     routeConf.prefix = opts.prefix;
@@ -88,12 +90,12 @@ async function fastifyOpenapiGlue(instance, opts) {
       for (let scheme of schemes) {
         numChecks++;
 
-        try {          
+        try {
           await opts.securityHandlers[scheme](req, reply);
           return; // If one security check passes, no need to try any others
         } catch (err) {
           req.log.debug('Security check failed:', err, err.stack);
-          
+
           // Only throw if no security handlers validated this request
           if (numChecks === numSchemes) {
             let err = new Error(`None of the security schemes (${schemes.join(', ')}) successfully authenticated this request.`);
@@ -142,7 +144,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 }
 
 module.exports = fp(fastifyOpenapiGlue, {
-  fastify: ">=0.39.0",
+  fastify: ">=3.0.0",
   name: "fastify-openapi-glue"
 });
 
