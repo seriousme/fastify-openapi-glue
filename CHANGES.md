@@ -2,6 +2,7 @@
 
 ## [current release]
 ### Changed
+  - Made securityHandlers parameter optional in Typescript signature
 
 ## [1.7.0] 08-07-2020
 ### Changed
