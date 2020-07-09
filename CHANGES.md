@@ -2,6 +2,7 @@
 
 ## [current release]
 ### Changed
+ - Migrated to fastify 3.0.0
 
 ## [1.7.1] 09-07-2020
 ### Changed
