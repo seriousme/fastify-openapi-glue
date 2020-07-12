@@ -480,8 +480,12 @@ test("v3 security preHandler throws error", t => {
     }
   };
 
-  t.plan(3);
+  t.plan(4);
   const fastify = Fastify();
+  fastify.setErrorHandler((err, req, reply) => {
+    t.strictEqual(err.errors.length, 1);
+    reply.code(err.statusCode).send(err);
+  });
   fastify.register(fastifyOpenapiGlue, opts);
   fastify.inject(
     {
@@ -532,8 +536,12 @@ test("v3 security preHandler handles multiple failures", t => {
     }
   };
 
-  t.plan(3);
+  t.plan(4);
   const fastify = Fastify();
+  fastify.setErrorHandler((err, req, reply) => {
+    t.strictEqual(err.errors.length, 2);
+    reply.code(err.statusCode).send(err);
+  });
   fastify.register(fastifyOpenapiGlue, opts);
   fastify.inject(
     {
