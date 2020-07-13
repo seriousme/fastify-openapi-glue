@@ -1,6 +1,6 @@
 # Changelog
 
-## [current release]
+## [Unreleased]
 ### Changed 
  - Bump fastify from 3.0.0 to 3.0.2
  - Bump swagger-parser from 9.0.1 to 10.0.
