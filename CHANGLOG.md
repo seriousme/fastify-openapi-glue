@@ -2,9 +2,10 @@
 
 ## [Unreleased]
 ### Changed 
- - Bump fastify from 3.0.0 to 3.0.2
+ - Bump fastify from 3.0.0 to 3.0.3
  - Bump swagger-parser from 9.0.1 to 10.0.
- - Bump fastify-plugin from 2.0.0 to 2.0.1 
+ - Bump fastify-plugin from 2.0.0 to 2.0.1
+ - [Security] Bump lodash from 4.17.15 to 4.17.19
 
 ## [2.0.0] 11-07-2020
 ### Changed
