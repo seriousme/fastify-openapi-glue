@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+### Changed
+
+## [2.0.2] - 16-07-2020
+### Changed 
+ - Just a version bump to fix operator error
+
 ## [2.0.1] - 16-07-2020
 ### Changed 
  - Bump fastify from 3.0.0 to 3.0.3
