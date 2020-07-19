@@ -1,8 +1,11 @@
-declare module 'fastify-openapi-glue'
-{
-  import * as http from 'http';
-  import * as http2 from 'http2';
-  import * as fastify from 'fastify';
+declare module "fastify-openapi-glue" {
+  import * as http from "http";
+  import * as http2 from "http2";
+  import {
+    FastifyInstance,
+    RawRequestDefaultExpression,
+    RawReplyDefaultExpression,
+  } from "fastify";
 
   namespace fastifyOpenapiGlue {
     interface FastifyOpenapiGlueOptions {
@@ -16,12 +19,16 @@ declare module 'fastify-openapi-glue'
   }
 
   function fastifyOpenapiGlue<
-    HttpServer extends (http.Server | http2.Http2Server),
-    HttpRequest extends (http.IncomingMessage | http2.Http2ServerRequest),
-    HttpResponse extends (http.ServerResponse | http2.Http2ServerResponse),
+    HttpServer extends http.Server | http2.Http2Server,
+    HttpRequest extends http.IncomingMessage | http2.Http2ServerRequest,
+    HttpResponse extends http.ServerResponse | http2.Http2ServerResponse,
     OpenapiGlueOptions = fastifyOpenapiGlue.FastifyOpenapiGlueOptions
   >(
-    fastify: fastify.FastifyInstance<HttpServer, HttpRequest, HttpResponse>,
+    fastify: FastifyInstance<
+      HttpServer,
+      RawRequestDefaultExpression<HttpServer>,
+      RawReplyDefaultExpression<HttpServer>
+    >,
     opts: OpenapiGlueOptions
   ): Promise<void>;
 
