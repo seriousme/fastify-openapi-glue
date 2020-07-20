@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 ### Changed
-
+ - Bump swagger-parser from 10.0.0 to 10.0.1
+ 
 ## [2.0.2] - 16-07-2020
 ### Changed 
  - Just a version bump to fix operator error
