@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - Bump fastify from 3.0.3 to 3.1.1
  - Bump swagger-parser from 10.0.0 to 10.0.1
  
 ## [2.0.2] - 16-07-2020
