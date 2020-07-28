@@ -26,13 +26,16 @@ function getObject(param) {
 // from the responses
 const unknownFormats = { int32: true, int64: true };
 
-function stripResponseFormats(schema) {
-  for (let item in schema) {
+function stripResponseFormats(schema, visited = new Set()) {
+  for (const item in schema) {
     if (isObject(schema[item])) {
       if (schema[item].format && unknownFormats[schema[item].format]) {
         schema[item].format = undefined;
       }
-      stripResponseFormats(schema[item]);
+      if (!visited.has(item)) {
+        visited.add(item);
+        stripResponseFormats(schema[item], visited);
+      }
     }
   }
 }
