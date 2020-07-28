@@ -5,7 +5,7 @@
 
 ## [2.0.4] - 28-07-2020
 ### Changed 
- - Fix stripResponseFormats for recursive schemas
+ - Fix stripResponseFormats for recursive schemas (lundibundi)
  - Bump fastify-plugin from 2.0.1 to 2.0.2
  - Bump tap from 14.10.7 to 14.10.8
 
