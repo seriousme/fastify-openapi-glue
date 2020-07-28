@@ -3,6 +3,12 @@
 ## [Unreleased]
 ### Changed
 
+## [2.0.4] - 28-07-2020
+### Changed 
+ - Fix stripResponseFormats for recursive schemas
+ - Bump fastify-plugin from 2.0.1 to 2.0.2
+ - Bump tap from 14.10.7 to 14.10.8
+
 ## [2.0.3] - 20-07-2020
 ### Changed
  - Bump fastify from 3.0.3 to 3.1.1
