@@ -131,6 +131,7 @@ The folder [examples/generatedProject](examples/generatedProject) contains the r
 <a name="Notes"></a>
 ## Notes
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes.
+- fastify only supports `application/json` and `text/plain` out of the box. The default charset is `utf-8`.  If you need to support different content types, you can use the fastify `addContentTypeParser` API.
 <a name="Fastify-swaggergen"></a>
 ## Fastify-swaggergen
 Fastify-openapi-glue is the successor to the now deprecated [fastify-swaggergen](https://github.com/seriousme/fastify-swaggergen) project.
