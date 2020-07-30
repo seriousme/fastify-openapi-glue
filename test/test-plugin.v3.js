@@ -62,9 +62,9 @@ const genericPathItemsOpts = {
 };
 
 const noAdditionalParamsOpts = {
-    specification: testSpec,
-    service,
-    noAdditional: true
+  specification: testSpec,
+  service,
+  noAdditional: true
 };
 
 test("path parameters work", t => {
@@ -164,10 +164,10 @@ test("body parameters work", t => {
     {
       method: "post",
       url: "/bodyParam",
-      payload: { 
+      payload: {
         str1: "test data",
         str2: "test data",
-     }
+      }
     },
     (err, res) => {
       t.error(err);
@@ -188,7 +188,7 @@ test("body parameters that don't match custom-format set through ajvOptions retu
       payload: {
         str1: "WRONG-FORMAT",
         str2: "test data",
-     }
+      }
     },
     (err, res) => {
       t.error(err);
@@ -206,10 +206,10 @@ test("extra body parameters with ajv opts returns error 400", t => {
     {
       method: "post",
       url: "/bodyParam",
-      payload: { 
+      payload: {
         str1: "test data",
         str2: "test data",
-     }
+      }
     },
     (err, res) => {
       t.error(err);
@@ -420,6 +420,11 @@ test("async service definition does not throw error", t => {
 test("full pet store V3 definition does not throw error ", t => {
   t.plan(1);
   const fastify = Fastify();
+  // dummy parser to fix coverage testing
+  fastify.addContentTypeParser('application/xml', { parseAs: 'string' }, function (req, body, done) {
+    return body;
+  }
+  )
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
   fastify.ready(err => {
     if (err) {
