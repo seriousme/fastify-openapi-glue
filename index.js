@@ -70,6 +70,21 @@ async function fastifyOpenapiGlue(instance, opts) {
     routeConf.prefix = config.prefix;
   }
 
+
+  // quick hack because of https://github.com/fastify/fastify/issues/2448
+  const buildinTypes = new Set();
+  buildinTypes.add('application/json');
+  buildinTypes.add('text/plain');
+  // end of hack
+
+  config.contentTypes.forEach(contentType => {
+    if (!(buildinTypes.has(contentType) || instance.hasContentTypeParser(contentType))) {
+      instance.log.warn(`ContentTypeParser for '${contentType}' not found`);
+    }
+  });
+
+
+
   let generatedSecurityHandlers = {};
   let missingSecurityHandlers = [];
   function getSecurityHandler(schemes) {
