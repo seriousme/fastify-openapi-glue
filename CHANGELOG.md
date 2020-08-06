@@ -3,6 +3,12 @@
 ## [Unreleased]
 ### Changed
 
+
+## [2.0.5] - 06-08-2020
+### Changed 
+ - Warnings for missing content handlers now go to the fastify log
+ - Bump fastify-plugin from 2.0.2 to 2.1.1
+
 ## [2.0.4] - 28-07-2020
 ### Changed 
  - Fix stripResponseFormats for recursive schemas (lundibundi)
