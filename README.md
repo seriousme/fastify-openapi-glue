@@ -50,6 +50,16 @@ All schema and routes will be taken from the OpenApi specification listed in the
 `specification` and `service` are mandatory, `securityHandlers`, `prefix` and `noAdditional` are optional.
 
 See the [examples](#examples) section for a demo.
+
+Any errors that result from `securityHandlers` are available to registered error handlers. E.g.:
+```javascript
+  fastify.setErrorHandler((err, req, reply) => {
+    reply.code(err.statusCode).send(err);
+  });
+```
+will return errors originating from the securityHandlers as well.
+**Please make sure this does not expose sensitive information to the requestor!**
+
 <a name="generator"></a>
 ## Generator
 
@@ -84,6 +94,7 @@ The following options are only usefull for testing the openapi-glue plugin:
   -l --localPlugin            Use a local path to the plugin.
 ```
 See the [generator example](#generatorExamples) section for a demo.
+
 
 <a name="examples"></a>
 ## Examples
