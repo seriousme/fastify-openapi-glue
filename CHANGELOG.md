@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 ### Changed
-
+ - Enable passthrough of security handler errors (mhamann)
+ - Bump fastify from 3.1.1 to 3.2.0
+ - Bump fastify-plugin from 2.1.1 to 2.2.0
 
 ## [2.0.5] - 06-08-2020
 ### Changed 
