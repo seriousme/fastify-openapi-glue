@@ -105,6 +105,7 @@ async function fastifyOpenapiGlue(instance, opts) {
     let secHandler = async (req, reply) => {
       let numSchemes = schemes.length;
       let numChecks = 0;
+      let handlerErrors = [];
       for (let scheme of schemes) {
         numChecks++;
 
@@ -113,12 +114,14 @@ async function fastifyOpenapiGlue(instance, opts) {
           return; // If one security check passes, no need to try any others
         } catch (err) {
           req.log.debug('Security check failed:', err, err.stack);
+          handlerErrors.push(err);
 
           // Only throw if no security handlers validated this request
           if (numChecks === numSchemes) {
             let err = new Error(`None of the security schemes (${schemes.join(', ')}) successfully authenticated this request.`);
             err.statusCode = 401;
             err.name = 'Unauthorized';
+            err.errors = handlerErrors;
             throw err;
           }
         }
