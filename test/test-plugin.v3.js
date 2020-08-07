@@ -67,6 +67,12 @@ const noAdditionalParamsOpts = {
   noAdditional: true
 };
 
+const invalidSecurityOpts = {
+  specification: testSpec,
+  service,
+  securityHandlers: ()=>{}
+};
+
 test("path parameters work", t => {
   t.plan(2);
   const fastify = Fastify();
@@ -559,4 +565,48 @@ test("v3 security preHandler handles multiple failures", t => {
       t.strictEqual(res.statusMessage, 'Unauthorized');
     }
   );
+});
+
+
+test("v3 security preHandler handles missing handler", t => {
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      ipa_key: securityHandlers.failingAuthCheck
+    }
+  };
+
+  t.plan(4);
+  const fastify = Fastify();
+  fastify.setErrorHandler((err, req, reply) => {
+    t.strictEqual(err.errors.length, 0);
+    reply.code(err.statusCode).send(err);
+  });
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 401);
+      t.strictEqual(res.statusMessage, 'Unauthorized');
+    }
+  );
+});
+
+test("invalid securityHandler definition throws error ", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, invalidSecurityOpts);
+  fastify.ready(err => {
+    if (err) {
+      console.log("-->Error message", err.message)
+      t.match(err.message, "'securityHandlers' parameter must refer to an object", "got expected error");
+    } else {
+      t.fail("missed expected error");
+    }
+  });
 });
