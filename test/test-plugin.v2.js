@@ -259,7 +259,7 @@ test("full pet store V2 definition does not throw error ", t => {
 });
 
 
-test("v2 security registration succeeds, but preHandler throws error", t => {
+test("security registration succeeds, but preHandler throws error", t => {
   const opts = {
     specification: testSpec,
     service,
@@ -271,7 +271,7 @@ test("v2 security registration succeeds, but preHandler throws error", t => {
   t.plan(4);
   const fastify = Fastify();
   fastify.setErrorHandler((err, req, reply) => {
-    t.strictEqual(err.errors.length, 1);
+    t.strictEqual(err.errors.length, 3);
     reply.code(err.statusCode).send(err);
   });
   fastify.register(fastifyOpenapiGlue, opts);
@@ -288,7 +288,7 @@ test("v2 security registration succeeds, but preHandler throws error", t => {
   );
 });
 
-test("v2 security preHandler passes w/ short-circuit", t => {
+test("security preHandler passes with short-circuit", t => {
   const opts = {
     specification: testSpec,
     service,
@@ -314,7 +314,7 @@ test("v2 security preHandler passes w/ short-circuit", t => {
   );
 });
 
-test("v2 security preHandler handles multiple failures", t => {
+test("security preHandler handles multiple failures", t => {
   const opts = {
     specification: testSpec,
     service,
@@ -327,7 +327,7 @@ test("v2 security preHandler handles multiple failures", t => {
   t.plan(4);
   const fastify = Fastify();
   fastify.setErrorHandler((err, req, reply) => {
-    t.strictEqual(err.errors.length, 2);
+    t.strictEqual(err.errors.length, 3);
     reply.code(err.statusCode).send(err);
   });
   fastify.register(fastifyOpenapiGlue, opts);

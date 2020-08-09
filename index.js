@@ -1,5 +1,6 @@
 const fp = require("fastify-plugin");
 const parser = require("./lib/parser");
+const Security = require("./lib/securityHandlers");
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
@@ -22,6 +23,7 @@ function getObject(param) {
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
+  // AJV misses some validators for int32, int64 etc which ajv-oai adds
   const Ajv = require("ajv-oai");
   let ajvOptions = {
     removeAdditional: !noAdditional,
@@ -80,89 +82,33 @@ function notImplemented(operationId) {
   };
 }
 
-function buildSecHandler(schemes, securityHandlers) {
-  return async (req, reply) => {
-    const handlerErrors = [];
-    for (let scheme of schemes) {
-      try {
-        await securityHandlers[scheme](req, reply);
-        return; // If one security check passes, no need to try any others
-      } catch (err) {
-        req.log.debug("Security check failed:", err, err.stack);
-        handlerErrors.push(err);
-      }
-    }
-    // if we get this far no security handlers validated this request
-    const err = new Error(
-      `None of the security schemes (${schemes.join(
-        ", "
-      )}) successfully authenticated this request.`
-    );
-    err.statusCode = 401;
-    err.name = "Unauthorized";
-    err.errors = handlerErrors;
-    throw err;
-  };
-}
-
-function getSecurityHandler(schemes, securityHandlers, handlerCache, missingHandlers) {
-  const registeredSchemes = [];
-  // Don't pollute memory with redundant functions
-  const schemeKey = schemes.join(":");
-  if (handlerCache[schemeKey]) {
-    return handlerCache[schemeKey];
-  }
-
-  schemes.forEach((scheme) => {
-    if (scheme in securityHandlers) {
-      registeredSchemes.push(scheme);
-    } else {
-      missingHandlers.push(scheme);
-    }
-  });
-
-  // This is a new handler, so build it once
-  handlerCache[schemeKey] = buildSecHandler(registeredSchemes, securityHandlers);
-  return handlerCache[schemeKey];
-}
-
 async function fastifyOpenapiGlue(instance, opts) {
+  setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
+
+  const config = await parser().parse(opts.specification);
+  checkParserValidators(instance, config.contentTypes);
+
   const service = await getObject(opts.service);
   if (!isObject(service)) {
     throw new Error("'service' parameter must refer to an object");
   }
 
-  const config = await parser().parse(opts.specification);
-
-  // AJV misses some validators for int32, int64 etc which ajv-oai adds
-  setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
-
-  checkParserValidators(instance, config.contentTypes);
-
-  const routeConf = {};
-  if (opts.prefix) {
-    routeConf.prefix = opts.prefix;
-  } else if (config.prefix) {
-    routeConf.prefix = config.prefix;
-  }
-
-  let securityHandlers;
+  let security;
   if (opts.securityHandlers) {
-    securityHandlers = await getObject(opts.securityHandlers);
+    const securityHandlers = await getObject(opts.securityHandlers);
     if (!isObject(securityHandlers)) {
       throw new Error("'securityHandlers' parameter must refer to an object");
     }
+    security = new Security(securityHandlers);
   }
 
   async function generateRoutes(routesInstance, routesOpts) {
-    const securityHandlersCache = {};
-    const missingSecurityHandlers = [];
     config.routes.forEach((item) => {
       const response = item.schema.response;
       if (response) {
         stripResponseFormats(response);
       }
-      if (service[item.operationId]) {
+      if (item.operationId in service) {
         routesInstance.log.debug("service has", item.operationId);
         item.handler = service[item.operationId].bind(service);
       } else {
@@ -170,25 +116,29 @@ async function fastifyOpenapiGlue(instance, opts) {
       }
 
       // Apply security requirements if present and at least one handler is defined
-      if (item.security && opts.securityHandlers) {
-        item.preHandler = getSecurityHandler(
-          item.security,
-          securityHandlers,
-          securityHandlersCache,
-          missingSecurityHandlers
-        ).bind(routesInstance);
+      if (security && security.has(item.security)) {
+        item.preHandler = security.get(item.security).bind(routesInstance);
       }
-
       routesInstance.route(item);
     });
 
-    if (missingSecurityHandlers.length > 0) {
-      routesInstance.log.warn(
-        `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
-          ", "
-        )}`
-      );
+    if (security) {
+      const missingSecurityHandlers = security.getMissingHandlers();
+      if (missingSecurityHandlers.length > 0) {
+        routesInstance.log.warn(
+          `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
+            ", "
+          )}`
+        );
+      }
     }
+  }
+
+  const routeConf = {};
+  if (opts.prefix) {
+    routeConf.prefix = opts.prefix;
+  } else if (config.prefix) {
+    routeConf.prefix = config.prefix;
   }
 
   instance.register(generateRoutes, routeConf);
