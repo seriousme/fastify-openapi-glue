@@ -6,7 +6,7 @@ class Security {
     }
 
     async failingAuthCheck(req, reply) {
-        throw new Error('API key was invalid or not found');
+        throw 'API key was invalid or not found';
     }
 
 }

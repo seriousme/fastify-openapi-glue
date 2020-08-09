@@ -11,7 +11,9 @@
     "version": "0.1.0"
   },
   "security": [
-    { "skipped": [] }
+    {
+      "skipped": []
+    }
   ],
   "paths": {
     "/pathParam/{id}": {
@@ -193,9 +195,49 @@
         "operationId": "testOperationSecurity",
         "summary": "Test security handling",
         "security": [
-          { "api_key": [] },
-          { "skipped": [] },
-          { "failing": [] }
+          {
+            "api_key": []
+          },
+          {
+            "skipped": []
+          },
+          {
+            "failing": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseObject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operationSecurityEmptyHandler": {
+      "get": {
+        "operationId": "testOperationSecurity",
+        "summary": "Test security handling",
+        "security": [
+          {},
+          {
+            "failing": []
+          }
         ],
         "responses": {
           "200": {
@@ -226,7 +268,7 @@
     "schemas": {
       "bodyObject": {
         "type": "object",
-        "additionalProperties":false,
+        "additionalProperties": false,
         "properties": {
           "str1": {
             "type": "string",
