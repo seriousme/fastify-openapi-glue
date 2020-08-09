@@ -103,7 +103,7 @@ Clone this repository and run `npm i`
 <a name="pluginExamples"></a>
 ### Plugin
 Executing `npm start` will start fastify on localhost port 3000 with the
-routes extracted from the [petstore example](examples/petstore/petstore-swagger.v2.json) and the [accompanying service definition](examples/petstore/service.js)
+routes extracted from the [petstore example](examples/petstore/petstore-openapi.v3.json) and the [accompanying service definition](examples/petstore/service.js)
 
 * http://localhost:3000/v2/pet/24 will return a pet as specified in service.js
 * http://localhost:3000/v2/pet/myPet will return a fastify validation error:
@@ -116,7 +116,7 @@ routes extracted from the [petstore example](examples/petstore/petstore-swagger.
 }
 ```
 
-* http://localhost:3000/v2/pet/findByStatus?status=a&status=b will return
+* http://localhost:3000/v2/pet/findByStatus?status=available&status=pending will return
   the following error:
 
 ```json
@@ -133,7 +133,7 @@ routes extracted from the [petstore example](examples/petstore/petstore-swagger.
 {
   "statusCode": 500,
   "error": "Internal Server Error",
-  "message": "name is required!"
+  "message":"\"name\" is required!"
 }
 ```
 
