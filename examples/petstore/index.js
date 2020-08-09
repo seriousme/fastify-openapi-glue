@@ -4,10 +4,11 @@
 const openapiGlue = require("../../index.js");
 
 const options = {
-  specification: `${__dirname}/petstore-swagger.v2.json`,
-  service: `${__dirname}/service.js`
+  specification: `${__dirname}/petstore-openapi.v3.json`,
+  service: `${__dirname}/service.js`,
+  prefix: 'v2'
 };
 
-module.exports = async function(fastify, opts) {
+module.exports = async function (fastify, opts) {
   fastify.register(openapiGlue, options);
 };
