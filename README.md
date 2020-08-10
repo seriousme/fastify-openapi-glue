@@ -21,7 +21,7 @@ Add the plugin to your project with `register` and pass it some basic options an
 const openapiGlue = require("fastify-openapi-glue");
 
 const options = {
-  specification: `${__dirname}/petstore-swagger.v2.json`,
+  specification: `${__dirname}/petstore-openapi.v3.json`,
   service: `${__dirname}/service.js`,
   securityHandlers: `${__dirname}/security.js`,
   prefix: "v1",
