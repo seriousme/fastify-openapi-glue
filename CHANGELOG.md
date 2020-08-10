@@ -6,6 +6,7 @@
  - Bump fastify from 3.1.1 to 3.2.0
  - Bump fastify-plugin from 2.1.1 to 2.2.0
  - Refactored index.js and parsers
+ - Updated examples to v3
  - Added tests
 
 ## [2.0.5] - 06-08-2020
