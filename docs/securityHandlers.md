@@ -1,7 +1,7 @@
 <h1 align="center">fastify-openapi-glue</h1>
 
 ## SecurityHandlers
-The [OpenApi](https://www.openapis.org/) `Operation object allows for `security requirements` that speficify which security scheme(s) should be applied to this operation.
+The [OpenApi](https://www.openapis.org/) `Operation` object allows for `security requirements` that speficify which security scheme(s) should be applied to this operation.
 
 You can specify your own securityHandlers with the `securityHandlers` option.
 If the provided object has an `initialize` function then fastify-openapi-glue will call this function with the `/components/securitySchemes` property (v3) or the `/securityDefinitions` property (v2) of the specification provided.
