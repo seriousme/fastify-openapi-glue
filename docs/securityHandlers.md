@@ -40,4 +40,4 @@ Any errors that result from `securityHandlers` are available to registered error
 will return errors originating from the securityHandlers as well.
 **Please make sure this does not expose sensitive information to the requestor!**
 
-For a more elaborate example see the [examples/generatedProject](examples/generatedProject) folder.
+For a more elaborate example see the [examples/generatedProject](/examples/generatedProject) folder.
