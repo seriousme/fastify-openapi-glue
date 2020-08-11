@@ -427,7 +427,6 @@ test("full pet store V3 definition does not throw error ", t => {
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
   fastify.ready(err => {
     if (err) {
-      console.error(err);
       t.fail("got unexpected error");
     } else {
       t.pass("no unexpected error");

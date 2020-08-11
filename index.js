@@ -94,12 +94,16 @@ async function fastifyOpenapiGlue(instance, opts) {
   }
 
   let security;
+  let securityHandlers;
   if (opts.securityHandlers) {
-    const securityHandlers = await getObject(opts.securityHandlers);
+    securityHandlers = await getObject(opts.securityHandlers);
     if (!isObject(securityHandlers)) {
       throw new Error("'securityHandlers' parameter must refer to an object");
     }
     security = new Security(securityHandlers);
+    if ("initialize" in securityHandlers){
+      securityHandlers.initialize(config.securitySchemes);
+    }
   }
 
   async function generateRoutes(routesInstance, routesOpts) {
@@ -117,7 +121,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 
       // Apply security requirements if present and at least one handler is defined
       if (security && security.has(item.security)) {
-        item.preHandler = security.get(item.security).bind(routesInstance);
+        item.preHandler = security.get(item.security).bind(securityHandlers);
       }
       routesInstance.route(item);
     });

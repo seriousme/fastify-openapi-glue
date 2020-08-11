@@ -10,7 +10,7 @@
     },
     "security": {
       "fileName": "security.js",
-      "checksum": "cf620fa3afeb9c65cc0a031572c8dbc516e28edabca6d8f0da55cb32418ba422"
+      "checksum": "1d7e91be0b10637c8486ed6613ca1d3780d98e5b5dd3ba1e8f66f97d57d6fc63"
     },
     "plugin": {
       "fileName": "index.js",

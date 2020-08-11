@@ -172,8 +172,34 @@
           }
         }
       }
+    },
+    "/operationSecurityWithParameter": {
+      "get": {
+        "operationId": "testOperationSecurityWithParameter",
+        "summary": "Test security handling",
+        "security": [
+          { "api_key": [] },
+          { "skipped": ["skipped"] },
+          { "failing": [] }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "$ref": "#/definitions/responseObject"
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "schema": {
+              "$ref": "#/definitions/errorObject"
+            }
+          }
+        }
+      }
     }
   },
+  
   "definitions": {
     "bodyObject": {
       "type": "object",

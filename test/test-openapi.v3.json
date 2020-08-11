@@ -229,6 +229,45 @@
         }
       }
     },
+    "/operationSecurityWithParameter": {
+      "get": {
+        "operationId": "testOperationSecurityWithParameter",
+        "summary": "Test security handling",
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "skipped": ["skipped"]
+          },
+          {
+            "failing": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseObject"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/errorObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/operationSecurityEmptyHandler": {
       "get": {
         "operationId": "testOperationSecurity",

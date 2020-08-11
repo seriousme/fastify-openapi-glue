@@ -169,8 +169,14 @@ class Service {
 
   async testOperationSecurity(req, reply) {
     return {
-      response: "authentication succeeded!"
-    }
+      response: req.scope || "authentication succeeded!"
+    };
+  }
+  
+  async testOperationSecurityWithParameter(req, reply) {
+    return {
+      response: req.scope || "authentication succeeded!"
+    };
   }
 }
 

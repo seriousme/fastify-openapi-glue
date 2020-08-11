@@ -27,7 +27,6 @@ test("security handler registration succeeds", t => {
   fastify.register(fastifyOpenapiGlue, opts);
   fastify.ready(err => {
     if (err) {
-      console.log(err);
       t.fail("got unexpected error");
     } else {
       t.pass("no unexpected error");
@@ -78,7 +77,7 @@ test("security preHandler passes on succes", t => {
   t.plan(3);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
-  
+
   fastify.inject(
     {
       method: "GET",
@@ -102,14 +101,13 @@ test("security preHandler passes with empty handler", t => {
   t.plan(3);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
-  
+
   fastify.inject(
     {
       method: "GET",
       url: "/operationSecurityEmptyHandler",
     },
     (err, res) => {
-      console.log("#####", err)
       t.error(err);
       t.strictEqual(res.statusCode, 200);
       t.strictEqual(res.statusMessage, 'OK');
@@ -152,10 +150,76 @@ test("invalid securityHandler definition throws error ", t => {
   fastify.register(fastifyOpenapiGlue, invalidSecurityOpts);
   fastify.ready(err => {
     if (err) {
-      console.log("-->Error message", err.message)
       t.match(err.message, "'securityHandlers' parameter must refer to an object", "got expected error");
     } else {
       t.fail("missed expected error");
     }
   });
+});
+
+test("initalization of securityHandlers succeeds", t => {
+  t.plan(2);
+
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      initialize: (securitySchemes) => {
+        const securitySchemeFromSpec = JSON.stringify(testSpec.components.securitySchemes);
+        t.strictEqual(JSON.stringify(securitySchemes), securitySchemeFromSpec);
+      }
+    }
+  };
+
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.ready(err => {
+    if (err) {
+      t.fail("got unexpected error");
+    } else {
+      t.pass("no unexpected error");
+    }
+  });
+});
+
+test("security preHandler gets parameters passed", t => {
+  t.plan(8);
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      api_key: securityHandlers.failingAuthCheck,
+      skipped: (req, repl, param) => { req.scope = param[0] },
+      failing: securityHandlers.failingAuthCheck
+    }
+  };
+
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+      t.strictEqual(res.statusMessage, 'OK');
+      t.strictEqual(res.body, '{"response":"authentication succeeded!"}');
+    }
+  );
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurityWithParameter",
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+      t.strictEqual(res.statusMessage, 'OK');
+      t.strictEqual(res.body, '{"response":"skipped"}');
+    }
+  );
 });
