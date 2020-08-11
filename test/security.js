@@ -1,11 +1,11 @@
 class Security {
     constructor() { }
 
-    async goodAuthCheck(req, reply) {
+    async goodAuthCheck(req, reply, params) {
         // Do nothing--auth check succeeds!
     }
 
-    async failingAuthCheck(req, reply) {
+    async failingAuthCheck(req, reply, params) {
         throw 'API key was invalid or not found';
     }
 
