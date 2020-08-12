@@ -3,11 +3,15 @@
 ## [Unreleased]
 ### Changed
  - Enable passthrough of security handler errors (mhamann)
- - Bump fastify from 3.1.1 to 3.2.0
- - Bump fastify-plugin from 2.1.1 to 2.2.0
  - Refactored index.js and parsers
  - Updated examples to v3
  - Added tests
+ - Updated dependencies:
+    - fastify-plugin    ^2.0.0  →    ^2.3.0 
+    - swagger-parser   ^10.0.0  →   ^10.0.1 
+    - fastify           ^3.0.0  →    ^3.2.0 
+    - fastify-cli       ^2.0.2  →    ^2.1.0 
+    - tap             ^14.10.7  →  ^14.10.8 
 
 ## [2.0.5] - 06-08-2020
 ### Changed 
