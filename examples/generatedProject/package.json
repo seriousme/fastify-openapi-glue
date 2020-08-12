@@ -11,11 +11,11 @@
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": "^2.0.0"
+    "fastify-plugin": "^2.3.0"
   },
   "devDependencies": {
-    "fastify": "^3.0.0",
-    "fastify-cli": "^2.0.2",
-    "tap": "^14.10.7"
+    "fastify": "^3.2.0",
+    "fastify-cli": "^2.1.0",
+    "tap": "^14.10.8"
   }
 }

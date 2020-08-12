@@ -21,10 +21,10 @@
   "dependencies": {
     "ajv": "^6.12.3",
     "ajv-oai": "^1.2.0",
-    "fastify-plugin": "^2.0.0",
+    "fastify-plugin": "^2.3.0",
     "js-yaml": "^3.14.0",
     "minimist": "^1.2.5",
-    "swagger-parser": "^10.0.0"
+    "swagger-parser": "^10.0.1"
   },
   "directories": {
     "example": "./examples",
@@ -33,9 +33,9 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "fastify": "^3.0.0",
-    "fastify-cli": "^2.0.2",
-    "tap": "^14.10.7"
+    "fastify": "^3.2.0",
+    "fastify-cli": "^2.1.0",
+    "tap": "^14.10.8"
   },
   "repository": {
     "type": "git",
