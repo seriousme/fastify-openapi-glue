@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 ### Changed
+
+## [2.1.0] - 14-08-2020
+### Changed 
  - Enable passthrough of security handler errors (mhamann)
+ - Added parameters and initializer to securityHandlers (see docs/securityHandlers.md)
  - Refactored index.js and parsers
  - Updated examples to v3
  - Added tests
