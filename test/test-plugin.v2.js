@@ -255,3 +255,27 @@ test("full pet store V2 definition does not throw error ", t => {
     }
   });
 });
+
+test("x- props are copied", t => {
+  t.plan(3);
+  const fastify = Fastify();
+  fastify.addHook('preHandler', async (request, reply) => {
+    if (reply.context.schema['x-tap-ok']) {
+      t.pass("found x- prop");
+    } else {
+      t.fail("missing x- prop");
+    }
+  });
+  fastify.register(fastifyOpenapiGlue, opts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/v2/queryParam?int1=1&int2=2"
+    },
+    (err, res) => {
+      t.error(err);
+      t.strictEqual(res.statusCode, 200);
+    }
+  );
+});
