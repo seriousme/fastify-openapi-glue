@@ -152,8 +152,8 @@ class Service {
   //   type: object
   //   properties:
   //     status:
-  //       type: array
   //       description: Status values that need to be considered for filter
+  //       type: array
   //   required:
   //     - status
   //
@@ -232,8 +232,8 @@ class Service {
   //   type: object
   //   properties:
   //     tags:
-  //       type: array
   //       description: Tags to filter by
+  //       type: array
   //   required:
   //     - tags
   //
@@ -312,8 +312,8 @@ class Service {
   //   type: object
   //   properties:
   //     petId:
-  //       type: integer
   //       description: ID of pet to return
+  //       type: integer
   //   required:
   //     - petId
   //
@@ -392,8 +392,8 @@ class Service {
   //   type: object
   //   properties:
   //     petId:
-  //       type: integer
   //       description: ID of pet that needs to be updated
+  //       type: integer
   //   required:
   //     - petId
   //
@@ -401,11 +401,11 @@ class Service {
   //   type: object
   //   properties:
   //     name:
-  //       type: string
   //       description: Updated name of the pet
-  //     status:
   //       type: string
+  //     status:
   //       description: Updated status of the pet
+  //       type: string
   //
   // valid responses
   //   '405':
@@ -431,8 +431,8 @@ class Service {
   //   type: object
   //   properties:
   //     petId:
-  //       type: integer
   //       description: Pet id to delete
+  //       type: integer
   //   required:
   //     - petId
   //
@@ -456,8 +456,8 @@ class Service {
   //   type: object
   //   properties:
   //     petId:
-  //       type: integer
   //       description: ID of pet to update
+  //       type: integer
   //   required:
   //     - petId
   //
@@ -465,11 +465,11 @@ class Service {
   //   type: object
   //   properties:
   //     additionalMetadata:
-  //       type: string
   //       description: Additional data to pass to server
-  //     file:
   //       type: string
+  //     file:
   //       description: file to upload
+  //       type: string
   //
   // valid responses
   //   '200':
@@ -589,8 +589,8 @@ class Service {
   //   type: object
   //   properties:
   //     orderId:
-  //       type: integer
   //       description: ID of pet that needs to be fetched
+  //       type: integer
   //   required:
   //     - orderId
   //
@@ -643,8 +643,8 @@ class Service {
   //   type: object
   //   properties:
   //     orderId:
-  //       type: integer
   //       description: ID of the order that needs to be deleted
+  //       type: integer
   //   required:
   //     - orderId
   //
@@ -789,11 +789,11 @@ class Service {
   //   type: object
   //   properties:
   //     username:
-  //       type: string
   //       description: The user name for login
-  //     password:
   //       type: string
+  //     password:
   //       description: The password for login in clear text
+  //       type: string
   //   required:
   //     - username
   //     - password
@@ -843,8 +843,8 @@ class Service {
   //   type: object
   //   properties:
   //     username:
-  //       type: string
   //       description: 'The name that needs to be fetched. Use user1 for testing. '
+  //       type: string
   //   required:
   //     - username
   //
@@ -894,8 +894,8 @@ class Service {
   //   type: object
   //   properties:
   //     username:
-  //       type: string
   //       description: name that need to be updated
+  //       type: string
   //   required:
   //     - username
   //
@@ -944,8 +944,8 @@ class Service {
   //   type: object
   //   properties:
   //     username:
-  //       type: string
   //       description: The name that needs to be deleted
+  //       type: string
   //   required:
   //     - username
   //

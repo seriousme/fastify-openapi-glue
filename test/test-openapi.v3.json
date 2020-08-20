@@ -61,7 +61,8 @@
           "200": {
             "description": "ok"
           }
-        }
+        },
+        "x-tap-ok": true
       }
     },
     "/headerParam": {

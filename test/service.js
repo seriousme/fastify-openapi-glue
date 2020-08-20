@@ -172,6 +172,26 @@ class Service {
       response: req.scope || "authentication succeeded!"
     };
   }
+
+  // Operation: testOperationSecurityWithParameter
+  // summary:  Test response serialization
+  // req.query:
+  //   type: object
+  //   properties:
+  //     respType:
+  //       type: string
+  //
+  // valid responses:
+  //   '200':
+  //     description: ok
+  //     schema:
+  //       type: object
+  //       properties:
+  //         response:
+  //           type: string
+  //       required:
+  //         - response
+  //
   
   async testOperationSecurityWithParameter(req, reply) {
     return {

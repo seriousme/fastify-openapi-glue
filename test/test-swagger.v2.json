@@ -7,11 +7,19 @@
   },
   "host": "localhost",
   "basePath": "/v2",
-  "schemes": ["http"],
-  "consumes": ["application/json"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "security": [
-    { "skipped": [] }
+    {
+      "skipped": []
+    }
   ],
   "paths": {
     "/pathParam/{id}": {
@@ -53,7 +61,8 @@
           "200": {
             "description": "ok"
           }
-        }
+        },
+        "x-tap-ok": true
       }
     },
     "/headerParam": {
@@ -106,8 +115,8 @@
         }
       }
     },
-    "/noOperationId/{id}":{
-      "get":{
+    "/noOperationId/{id}": {
+      "get": {
         "summary": "Test missing operationid",
         "parameters": [
           {
@@ -153,9 +162,15 @@
         "operationId": "testOperationSecurity",
         "summary": "Test security handling",
         "security": [
-          { "api_key": [] },
-          { "skipped": [] },
-          { "failing": [] }
+          {
+            "api_key": []
+          },
+          {
+            "skipped": []
+          },
+          {
+            "failing": []
+          }
         ],
         "responses": {
           "200": {
@@ -178,9 +193,17 @@
         "operationId": "testOperationSecurityWithParameter",
         "summary": "Test security handling",
         "security": [
-          { "api_key": [] },
-          { "skipped": ["skipped"] },
-          { "failing": [] }
+          {
+            "api_key": []
+          },
+          {
+            "skipped": [
+              "skipped"
+            ]
+          },
+          {
+            "failing": []
+          }
         ],
         "responses": {
           "200": {
@@ -199,7 +222,6 @@
       }
     }
   },
-  
   "definitions": {
     "bodyObject": {
       "type": "object",
@@ -208,7 +230,9 @@
           "type": "string"
         }
       },
-      "required": ["str1"]
+      "required": [
+        "str1"
+      ]
     },
     "responseObject": {
       "type": "object",
@@ -217,7 +241,9 @@
           "type": "string"
         }
       },
-      "required": ["response"]
+      "required": [
+        "response"
+      ]
     },
     "errorObject": {
       "type": "object",
@@ -231,7 +257,6 @@
       }
     }
   },
-
   "securityDefinitions": {
     "api_key": {
       "type": "apiKey",
