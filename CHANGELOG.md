@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 ### Changed
+ - Added "x-" properties to the fastify reply context
+ - Updated dependencies:
+  - ajv             ^6.12.3  →  ^6.12.4 
+  - fastify-plugin   ^2.3.0  →   ^2.3.1 
+  - fastify          ^3.2.0  →   ^3.2.1 
+  - fastify-cli      ^2.1.0  →   ^2.2.0 
 
 ## [2.1.0] - 14-08-2020
 ### Changed 
