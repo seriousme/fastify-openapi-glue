@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Changed
+
+## [2.2.0] - 20-08-2020
+### Changed 
  - Added "x-" properties to the fastify reply context
  - Updated dependencies:
   - ajv             ^6.12.3  →  ^6.12.4 
