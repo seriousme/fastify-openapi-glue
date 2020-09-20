@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 ### Changed
+ - Fixed missing slash in generator template
+ - Updated dependencies:
+    - ajv             ^6.12.4  →  ^6.12.5   
+    - fastify-plugin   ^2.3.1  →   ^2.3.4   
+    - swagger-parser  ^10.0.1  →  ^10.0.2   
+    - fastify          ^3.2.1  →   ^3.4.1  
 
 ## [2.2.0] - 20-08-2020
 ### Changed 
