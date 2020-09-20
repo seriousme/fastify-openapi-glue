@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Changed
+
+## [2.2.1] - 20-09-2020
+### Changed 
  - Fixed missing slash in generator template
  - Updated dependencies:
     - ajv             ^6.12.4  →  ^6.12.5   
