@@ -21,7 +21,7 @@
   "dependencies": {
     "ajv": "^6.12.5",
     "ajv-oai": "^1.2.0",
-    "fastify-plugin": "^2.3.4",
+    "fastify-plugin": "^3.0.0",
     "js-yaml": "^3.14.0",
     "minimist": "^1.2.5",
     "swagger-parser": "^10.0.2"
