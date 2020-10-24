@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [2.2.2] - 24-10-2020
+ - Added types property to package.json
+ - Updated dependencies:
+    - ajv          ^6.12.5  →  ^6.12.6   
+    - ajv-oai       ^1.2.0  →   ^1.2.1   
+    - fastify       ^3.4.1  →   ^3.7.0   
+    - fastify-cli   ^2.2.0  →   ^2.5.1   
+
 ## [2.2.1] - 20-09-2020
 ### Changed 
  - Fixed missing slash in generator template
