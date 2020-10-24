@@ -20,8 +20,8 @@
     "openapi-glue": "./bin/openapi-glue-cli.js"
   },
   "dependencies": {
-    "ajv": "^6.12.5",
-    "ajv-oai": "^1.2.0",
+    "ajv": "^6.12.6",
+    "ajv-oai": "^1.2.1",
     "fastify-plugin": "^3.0.0",
     "js-yaml": "^3.14.0",
     "minimist": "^1.2.5",
@@ -34,8 +34,8 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "fastify": "^3.4.1",
-    "fastify-cli": "^2.2.0",
+    "fastify": "^3.7.0",
+    "fastify-cli": "^2.5.1",
     "tap": "^14.10.8"
   },
   "repository": {
