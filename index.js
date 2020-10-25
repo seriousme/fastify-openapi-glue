@@ -1,25 +1,33 @@
 const fp = require("fastify-plugin");
 const parser = require("./lib/parser");
 const Security = require("./lib/securityHandlers");
+const hasESM = process.version.split(/[v|\./]/)[1] >= 14;
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
 }
 
-function getObject(param) {
+async function getObject(param) {
   let data = param;
   if (typeof param === "string") {
     try {
-      data = require(param);
+      /* istanbul ignore next */
+      if (hasESM) {
+        data = (await import(param)).default;
+      }
+      else {
+        data = require(param);
+      }
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
+
   }
   if (typeof data === "function") {
     data = data();
   }
 
-  return Promise.resolve(data);
+  return data;
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
@@ -101,7 +109,7 @@ async function fastifyOpenapiGlue(instance, opts) {
       throw new Error("'securityHandlers' parameter must refer to an object");
     }
     security = new Security(securityHandlers);
-    if ("initialize" in securityHandlers){
+    if ("initialize" in securityHandlers) {
       securityHandlers.initialize(config.securitySchemes);
     }
   }

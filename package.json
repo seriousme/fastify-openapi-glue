@@ -6,7 +6,7 @@
   "types": "index.d.ts",
   "scripts": {
     "start": "fastify start examples/petstore/index.js",
-    "test": "tap test/test-*.js",
+    "test": "tap --no-esm test/test-*.js",
     "covtest": "tap test/test-*.js --coverage-report=html",
     "dev": "fastify start -l info -P examples/petstore/index.js",
     "updateChecksums": "node bin/openapi-glue-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
