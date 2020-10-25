@@ -2,6 +2,7 @@ const t = require("tap");
 const test = t.test;
 const Fastify = require("fastify");
 const fastifyOpenapiGlue = require("../index");
+const hasESM = process.version.split(/[v|\./]/)[1] >= 14;
 
 const testSpec = require("./test-openapi.v3.json");
 const petStoreSpec = require("./petstore-openapi.v3.json");
@@ -48,6 +49,11 @@ const missingServiceOpts = {
 const asyncServiceOpts = {
   specification: testSpec,
   service: `${__dirname}/async-service.js`
+};
+
+const ES6ServiceOpts = {
+  specification: testSpec,
+  service: `${__dirname}/service.mjs`
 };
 
 const petStoreOpts = {
@@ -415,6 +421,24 @@ test("async service definition does not throw error", t => {
     }
   );
 });
+
+if (hasESM) {
+  test("ES6 service definition does not throw error", t => {
+    t.plan(2);
+    const fastify = Fastify();
+    fastify.register(fastifyOpenapiGlue, ES6ServiceOpts);
+    fastify.inject(
+      {
+        method: "GET",
+        url: "/pathParam/2"
+      },
+      (err, res) => {
+        t.error(err);
+        t.strictEqual(res.statusCode, 200);
+      }
+    );
+  });
+}
 
 test("full pet store V3 definition does not throw error ", t => {
   t.plan(1);
