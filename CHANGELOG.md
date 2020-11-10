@@ -4,7 +4,7 @@
 ### Changed
 
 ## [2.3.0] - 10-10-2020
- - Add ES6 module support for service.js and security.js
+ - Added ES6 module support for service.js and security.js
  - Updated dependencies:
     - fastify       ^3.7.0  →   ^3.8.0  
 
