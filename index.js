@@ -1,7 +1,8 @@
 const fp = require("fastify-plugin");
+const url = require("url")
 const parser = require("./lib/parser");
 const Security = require("./lib/securityHandlers");
-const hasESM = process.version.split(/[v|\./]/)[1] >= 14;
+const hasESM = Number(process.versions.node.split('.')[0]) >= 14;
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
@@ -12,12 +13,7 @@ async function getObject(param) {
   if (typeof param === "string") {
     try {
       /* istanbul ignore next */
-      if (hasESM) {
-        data = (await import(param)).default;
-      }
-      else {
-        data = require(param);
-      }
+      data = hasESM ? (await import(url.pathToFileURL(param).href)).default : require(param);
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
