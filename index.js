@@ -27,16 +27,21 @@ async function getObject(param) {
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
-  // AJV misses some validators for int32, int64 etc which ajv-oai adds
-  const Ajv = require("ajv-oai");
+  const Ajv = require("ajv");
+  // AJV misses some validators for byte, float, double, int32 and int64 that oai-formats adds
+  const oaiFormats = require("./lib/oai-formats");
   let ajvOptions = {
     removeAdditional: !noAdditional,
     useDefaults: true,
     coerceTypes: true,
+    unknownFormats: 'ignore',
     nullable: true,
   };
   Object.assign(ajvOptions, ajvOpts);
   const ajv = new Ajv(ajvOptions);
+  for (const fmt in oaiFormats){
+    ajv.addFormat(fmt,oaiFormats[fmt]);
+  }
 
   instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
     ajv.compile(schema)

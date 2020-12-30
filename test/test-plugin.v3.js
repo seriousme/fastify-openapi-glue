@@ -10,12 +10,20 @@ const serviceFile = `${__dirname}/service.js`;
 const testSpecYAML = `${__dirname}/test-openapi.v3.yaml`;
 const genericPathItemsSpec = require("./test-openapi-v3-generic-path-items.json");
 const service = require(serviceFile);
+const customTestSpec = JSON.parse(JSON.stringify(testSpec));
+customTestSpec.components.schemas.bodyObject.properties.str1.format = "custom-format";
+
 const opts = {
   specification: testSpec,
+  service
+};
+
+const customOpts = {
+  specification: customTestSpec,
   service,
   ajvOptions: {
     formats: {
-      "custom-format": /test data/
+      'custom-format': { type: 'string', validate: /test data/ }
     }
   }
 };
@@ -184,7 +192,7 @@ test("body parameters work", t => {
 test("body parameters that don't match custom-format set through ajvOptions returns error 400", t => {
   t.plan(2);
   const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.register(fastifyOpenapiGlue, customOpts);
 
   fastify.inject(
     {

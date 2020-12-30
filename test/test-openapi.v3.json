@@ -311,8 +311,7 @@
         "additionalProperties": false,
         "properties": {
           "str1": {
-            "type": "string",
-            "format": "custom-format"
+            "type": "string"
           }
         },
         "required": [
