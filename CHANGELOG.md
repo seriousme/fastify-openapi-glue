@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - Removed dependency on ajv-oai
 
 ## [2.3.1] - 30-12-2020
 ### Changed 
