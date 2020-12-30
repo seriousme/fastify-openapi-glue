@@ -3,12 +3,22 @@
 ## [Unreleased]
 ### Changed
 
+## [2.3.1] - 30-12-2020
+### Changed 
+ - Updated dependencies:
+    - js-yaml       ^3.14.0  →   ^3.14.1     
+    - fastify        ^3.8.0  →    ^3.9.2     
+    - fastify-cli    ^2.5.1  →    ^2.7.0     
+    - tap          ^14.10.8  →  ^14.11.0    
+
 ## [2.3.0] - 10-10-2020
+### Changed 
  - Added ES6 module support for service.js and security.js
  - Updated dependencies:
     - fastify       ^3.7.0  →   ^3.8.0  
 
 ## [2.2.2] - 24-10-2020
+### Changed 
  - Added types property to package.json
  - Updated dependencies:
     - ajv          ^6.12.5  →  ^6.12.6   

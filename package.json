@@ -23,7 +23,7 @@
     "ajv": "^6.12.6",
     "ajv-oai": "^1.2.1",
     "fastify-plugin": "^3.0.0",
-    "js-yaml": "^3.14.0",
+    "js-yaml": "^3.14.1",
     "minimist": "^1.2.5",
     "swagger-parser": "^10.0.2"
   },
@@ -34,9 +34,9 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "fastify": "^3.8.0",
-    "fastify-cli": "^2.5.1",
-    "tap": "^14.10.8"
+    "fastify": "^3.9.2",
+    "fastify-cli": "^2.7.0",
+    "tap": "^14.11.0"
   },
   "repository": {
     "type": "git",
