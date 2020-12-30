@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "ajv": "^6.12.6",
-    "ajv-oai": "^1.2.1",
+    "decimal.js-light": "^2.5.1",
     "fastify-plugin": "^3.0.0",
     "js-yaml": "^3.14.1",
     "minimist": "^1.2.5",
