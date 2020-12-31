@@ -1,5 +1,8 @@
 const fp = require("fastify-plugin");
-const url = require("url")
+const url = require("url");
+const Ajv = require("ajv").default;
+const addFormats  = require("ajv-formats");
+const oaiFormats = require("./lib/oai-formats");
 const parser = require("./lib/parser");
 const Security = require("./lib/securityHandlers");
 const hasESM = Number(process.versions.node.split('.')[0]) >= 14;
@@ -27,20 +30,19 @@ async function getObject(param) {
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
-  const Ajv = require("ajv");
-  // AJV misses some validators for byte, float, double, int32 and int64 that oai-formats adds
-  const oaiFormats = require("./lib/oai-formats");
   let ajvOptions = {
     removeAdditional: !noAdditional,
     useDefaults: true,
     coerceTypes: true,
-    unknownFormats: 'ignore',
-    nullable: true,
+    strict: false
   };
   Object.assign(ajvOptions, ajvOpts);
   const ajv = new Ajv(ajvOptions);
-  for (const fmt in oaiFormats){
-    ajv.addFormat(fmt,oaiFormats[fmt]);
+  // add default AJV formats
+  addFormats(ajv);
+  // ajv-formats misses some validators for byte, float, double, int32 and int64 that oai-formats adds
+  for (const fmt in oaiFormats) {
+    ajv.addFormat(fmt, oaiFormats[fmt]);
   }
 
   instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
