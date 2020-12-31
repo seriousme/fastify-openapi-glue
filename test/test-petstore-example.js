@@ -33,7 +33,7 @@ test("/v2/pet/myPet returns Fastify validation error", t => {
     (err, res) => {
       t.error(err);
       t.strictEqual(res.statusCode, 400);
-      t.strictEqual(res.body, '{"statusCode":400,"error":"Bad Request","message":"params.petId should be integer"}');
+      t.strictEqual(res.body, '{"statusCode":400,"error":"Bad Request","message":"params/petId should be integer"}');
     }
   );
 });

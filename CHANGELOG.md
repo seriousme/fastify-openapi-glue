@@ -3,6 +3,8 @@
 ## [Unreleased]
 ### Changed
  - Removed dependency on ajv-oai
+ - Updated dependencies:
+    - ajv          ^6.12.6  →  ^7.0.2  
 
 ## [2.3.1] - 30-12-2020
 ### Changed 
