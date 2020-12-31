@@ -1,7 +1,7 @@
 const fp = require("fastify-plugin");
 const url = require("url");
 const Ajv = require("ajv").default;
-const addFormats  = require("ajv-formats");
+const addFormats = require("ajv-formats");
 const oaiFormats = require("./lib/oai-formats");
 const parser = require("./lib/parser");
 const Security = require("./lib/securityHandlers");
@@ -11,7 +11,7 @@ function isObject(obj) {
   return typeof obj === "object" && obj !== null;
 }
 
-async function getObject(param) {
+async function getObject(param, name) {
   let data = param;
   if (typeof param === "string") {
     try {
@@ -20,13 +20,27 @@ async function getObject(param) {
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
-
   }
   if (typeof data === "function") {
     data = data();
   }
-
+  if (!isObject(data)) {
+    throw new Error(`'${name}' parameter must refer to an object`);
+  }
   return data;
+}
+
+async function getSecurityHandlers(opts, config) {
+  let security;
+  let securityHandlers;
+  if (opts.securityHandlers) {
+    securityHandlers = await getObject(opts.securityHandlers, 'securityHandlers');
+    security = new Security(securityHandlers);
+    if ("initialize" in securityHandlers) {
+      securityHandlers.initialize(config.securitySchemes);
+    }
+  }
+  return { securityHandlers, security };
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
@@ -51,32 +65,23 @@ function setValidatorCompiler(instance, ajvOpts, noAdditional) {
 }
 
 function checkParserValidators(instance, contentTypes) {
-  // quick hack because of https://github.com/fastify/fastify/issues/2448
-  const buildinTypes = new Set();
-  buildinTypes.add("application/json");
-  buildinTypes.add("text/plain");
-  // end of hack
   contentTypes.forEach((contentType) => {
-    if (
-      !(
-        buildinTypes.has(contentType) ||
-        instance.hasContentTypeParser(contentType)
-      )
-    ) {
+    if (!instance.hasContentTypeParser(contentType)) {
       instance.log.warn(`ContentTypeParser for '${contentType}' not found`);
     }
   });
 }
 
 // fastify uses the built-in AJV instance during serialization, and that
-// instance does not know about int32 and int64 so remove those formats
+// instance does not know about int32, int64 etc so remove those formats
 // from the responses
-const unknownFormats = { int32: true, int64: true };
+
+const unknownFormats = oaiFormats;
 
 function stripResponseFormats(schema, visited = new Set()) {
   for (const item in schema) {
     if (isObject(schema[item])) {
-      if (schema[item].format && unknownFormats[schema[item].format]) {
+      if (schema[item].format && unknownFormats[schema[item].format] !== undefined) {
         schema[item].format = undefined;
       }
       if (!visited.has(item)) {
@@ -93,29 +98,16 @@ function notImplemented(operationId) {
   };
 }
 
+// this is the main function for the plugin
 async function fastifyOpenapiGlue(instance, opts) {
   setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
 
   const config = await parser().parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
-  const service = await getObject(opts.service);
-  if (!isObject(service)) {
-    throw new Error("'service' parameter must refer to an object");
-  }
+  const service = await getObject(opts.service, 'service');
 
-  let security;
-  let securityHandlers;
-  if (opts.securityHandlers) {
-    securityHandlers = await getObject(opts.securityHandlers);
-    if (!isObject(securityHandlers)) {
-      throw new Error("'securityHandlers' parameter must refer to an object");
-    }
-    security = new Security(securityHandlers);
-    if ("initialize" in securityHandlers) {
-      securityHandlers.initialize(config.securitySchemes);
-    }
-  }
+  const { securityHandlers, security } = await getSecurityHandlers(opts, config);
 
   async function generateRoutes(routesInstance, routesOpts) {
     config.routes.forEach((item) => {
@@ -160,7 +152,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 }
 
 module.exports = fp(fastifyOpenapiGlue, {
-  fastify: ">=3.0.0",
+  fastify: ">=3.2.1",
   name: "fastify-openapi-glue",
 });
 
