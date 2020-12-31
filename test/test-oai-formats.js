@@ -70,3 +70,12 @@ test("binary", t => {
     t.ok(validator('binary string'), "'binary string' ok");
 });
 
+test("password", t => {
+    t.plan(2);
+    const ajv = new Ajv();
+    t.throws(() => ajv.compile({ type: 'string', format: 'password' }), "throws without definition for password")
+    ajv.addFormat('password', oaiFormats.password);
+    const validator = ajv.compile({ type: 'string', format: 'password' });
+    t.ok(validator('password string'), "'password string' ok");
+});
+
