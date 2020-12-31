@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Changed
  - Removed dependency on ajv-oai
+ - Added AJV formats for 'binary' and 'password' to reduce warnings
  - Updated dependencies:
     - ajv          ^6.12.6  →  ^7.0.2  
 
