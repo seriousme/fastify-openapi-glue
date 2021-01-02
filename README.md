@@ -1,10 +1,13 @@
 # Fastify OpenApi Glue
 [![CI status](https://github.com/seriousme/fastify-openapi-glue/workflows/Node.js%20CI/badge.svg)](https://github.com/seriousme/fastify-openapi-glue/actions?query=workflow%3A%22Node.js+CI%22)
-
 [![NPM version](https://img.shields.io/npm/v/fastify-openapi-glue.svg)](https://www.npmjs.com/package/fastify-openapi-glue)
 ![npm](https://img.shields.io/npm/dm/fastify-openapi-glue)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/seriousme/fastify-openapi-glue.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/seriousme/fastify-openapi-glue/context:javascript)
+
 
 A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
+
+It aims at facilitating ["design first" API development](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/) i.e. you write or obtain an API specification and use that to generate code. Given an OpenApi specification Fastify-openapi-glue handles the fastify configuration of routes and schemas etc. You can also [generate](#generator) your own project from a OpenApi specification.
 
 <a name="install"></a>
 ## Install 
