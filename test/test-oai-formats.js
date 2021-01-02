@@ -12,12 +12,14 @@ test("adding formats to AJV works", t => {
 
 
 test("byte", t => {
-    t.plan(3);
+    t.plan(4);
     const ajv = new Ajv();
     t.throws(() => ajv.compile({ type: 'string', format: 'byte' }), "throws without definition for byte")
     ajv.addFormat('byte', oaiFormats.byte);
     const validator = ajv.compile({ type: 'string', format: 'byte' });
     t.ok(validator("aGVsbG8gd29ybGQ="), "'hello world' encoded in base64");
+    t.ok(validator(`VGhpcyBpcyBhIGJhc2U2NCBtdWx0aWxpbmUgc3RyaW5nIHRoYXQgc3BhbnMgbW9yZSB0aGFuIDc2
+IGNoYXJhY3RlcnMgdG8gdGVzdCBtdWx0aWxpbmUgY2FwYWJpbGl0aWVzCg==`),"multiline base64")
     t.notOk(validator("aGVsbG8gd29ybG="), "invalid base64");
 });
 
