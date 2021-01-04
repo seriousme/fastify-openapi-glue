@@ -6,7 +6,8 @@
  - Removed workaround for hasContentTypeParser
  - Added AJV formats for 'binary' and 'password' to reduce warnings
  - Updated dependencies:
-    - ajv          ^6.12.6  →  ^7.0.2  
+    - ajv          ^6.12.6  →  ^7.0.3  
+    - js-yaml       ^3.14.1  →   ^4.0.0
 
 ## [2.3.1] - 30-12-2020
 ### Changed 
