@@ -20,11 +20,11 @@
     "openapi-glue": "./bin/openapi-glue-cli.js"
   },
   "dependencies": {
-    "ajv": "^7.0.2",
+    "ajv": "^7.0.3",
     "ajv-formats": "^1.5.1",
     "decimal.js-light": "^2.5.1",
     "fastify-plugin": "^3.0.0",
-    "js-yaml": "^3.14.1",
+    "js-yaml": "^4.0.0",
     "minimist": "^1.2.5",
     "swagger-parser": "^10.0.2"
   },
