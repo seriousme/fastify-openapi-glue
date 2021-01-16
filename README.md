@@ -46,7 +46,7 @@ All schema and routes will be taken from the OpenApi specification listed in the
 <a name="pluginOptions"></a>
 ### Options
   - `specification`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
-  - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import.
+  - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import. 
   - `securityHandlers`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import. See the [securityHandlers documentation](docs/securityHandlers.md) for more details.
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. See the [servers documentation](docs/servers.md) for more details on using prefix with a v3 specification.
   - `noAdditional`: by default Fastify will silently ignore additional properties in a message. Setting `noAdditional` to `true` will change this behaviour and will make Fastify return a HTTP error 400 when additional properties are present. Default value for this option is `false`.
@@ -55,6 +55,8 @@ All schema and routes will be taken from the OpenApi specification listed in the
 `specification` and `service` are mandatory, `securityHandlers`, `prefix` and `noAdditional` are optional.
 
 See the [examples](#examples) section for a demo.
+
+Please be aware that `this` will refer to your service object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)
 
 <a name="generator"></a>
 ## Generator
