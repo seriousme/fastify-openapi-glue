@@ -1,13 +1,15 @@
-const t = require("tap");
-const test = t.test;
-const Fastify = require("fastify");
-const fastifyOpenapiGlue = require("../index");
+import tap from "tap";
+const test = tap.test;
+import Fastify from "fastify";
+import fastifyOpenapiGlue from "../index.js";
+import { importJSON } from "../lib/importJSON-esm.js";
+import { dirname } from "../lib/dirname-esm.js";
+const dir = dirname(import.meta);
 
-const testSpec = require("./test-swagger.v2.json");
-const petStoreSpec = require("./petstore-swagger.v2.json");
-const securityHandlers = require('./security');
-const serviceFile = `${__dirname}/service.js`;
-const service = require(serviceFile);
+const testSpec = await importJSON(`${dir}/test-swagger.v2.json`);
+const petStoreSpec = await importJSON(`${dir}/petstore-swagger.v2.json`);
+import service from './service.js';
+import securityHandlers from './security.js';
 
 test("security handler registration succeeds", t => {
   const opts = {

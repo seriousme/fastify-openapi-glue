@@ -2,6 +2,7 @@
   "name": "mypackage",
   "description": "no description for this package yet",
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "start": "fastify start index.js",
     "test": "tap test/test-*.js",

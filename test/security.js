@@ -11,4 +11,4 @@ class Security {
 
 }
 
-module.exports = new Security();
+export default new Security();

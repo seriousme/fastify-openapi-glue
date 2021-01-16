@@ -1,11 +1,11 @@
-const fp = require("fastify-plugin");
-const url = require("url");
-const Ajv = require("ajv").default;
-const addFormats = require("ajv-formats");
-const oaiFormats = require("./lib/oai-formats");
-const parser = require("./lib/parser");
-const Security = require("./lib/securityHandlers");
-const hasESM = Number(process.versions.node.split('.')[0]) >= 14;
+import fp from "fastify-plugin";
+import { pathToFileURL } from "url";
+import AJV from "ajv";
+const Ajv= AJV.default;
+import addFormats from "ajv-formats";
+import oaiFormats from "./lib/oai-formats.js";
+import { Parser } from "./lib/Parser.js";
+import Security from "./lib/securityHandlers.js";
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
@@ -16,7 +16,7 @@ async function getObject(param, name) {
   if (typeof param === "string") {
     try {
       /* istanbul ignore next */
-      data = hasESM ? (await import(url.pathToFileURL(param).href)).default : require(param);
+      data = (await import(pathToFileURL(param).href)).default
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
@@ -101,8 +101,8 @@ function notImplemented(operationId) {
 // this is the main function for the plugin
 async function fastifyOpenapiGlue(instance, opts) {
   setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
-
-  const config = await parser().parse(opts.specification);
+  const parser = new Parser();
+  const config = await parser.parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
   const service = await getObject(opts.service, 'service');
@@ -151,12 +151,12 @@ async function fastifyOpenapiGlue(instance, opts) {
   instance.register(generateRoutes, routeConf);
 }
 
-module.exports = fp(fastifyOpenapiGlue, {
+export default fp(fastifyOpenapiGlue, {
   fastify: ">=3.2.1",
   name: "fastify-openapi-glue",
 });
 
-module.exports.options = {
+export const options = {
   specification: "examples/petstore/petstore-swagger.v2.json",
   service: "examples/petstore/service.js",
 };
