@@ -6,15 +6,15 @@
     },
     "service": {
       "fileName": "service.js",
-      "checksum": "4d2e21f503df4826e843b1a0dc884dc59f8e9f18e1bce05728b229703cad2113"
+      "checksum": "427b6cd42fd558b2e27fdb2cf36c58cfaa58a682ef8a041d26790326438a72c8"
     },
     "security": {
       "fileName": "security.js",
-      "checksum": "1d7e91be0b10637c8486ed6613ca1d3780d98e5b5dd3ba1e8f66f97d57d6fc63"
+      "checksum": "da5b0b816aa7337242df1b1043b076f5f2b546b0b111e0c33fd2b688886ba9d5"
     },
     "plugin": {
       "fileName": "index.js",
-      "checksum": "b0c01ace6c2d55a0c3f68743c14a66ffe5b262104d81dc7c4a54e38fdce23a52"
+      "checksum": "a57e50f912fa080740b004fb99c5840e9bbf4807b7ecaa11c700b49a44cad005"
     },
     "package": {
       "fileName": "package.json",
@@ -26,7 +26,7 @@
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "670e780601523feb0b0ae53cb466592757f3b51f44e1f661f8fdb4953468f1a9"
+      "checksum": "3bf0f2a63fc8d9d126aa83531353eb5f38b8ce6684e0296e7afcb553cb2631d5"
     }
   }
 }

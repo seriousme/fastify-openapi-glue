@@ -21,16 +21,7 @@ const noLocalPlugin = false;
 const localGenerator = new Generator(checksumOnly, localPlugin);
 const generator = new Generator(checksumOnly, noLocalPlugin);
 
-test("generator generates project without error", t => {
-  t.plan(1);
-  generator
-    .parse(specPath)
-    .then(_ => {
-      generator.generateProject(dir, projectName);
-      t.pass("no error occurred");
-    })
-    .catch(e => t.fail(e.message));
-});
+
 
 test("generator generates V3.0.0 project without error", t => {
   t.plan(1);
@@ -76,4 +67,17 @@ test("generator throws error on non-existent basedir", t => {
       t.fail("no error occurred");
     })
     .catch(e => t.equal(e.code, "ENOENT", "got expected error"));
+});
+
+// this one needs to be last
+
+test("generator generates project without error", t => {
+  t.plan(1);
+  generator
+    .parse(specPath)
+    .then(_ => {
+      generator.generateProject(dir, projectName);
+      t.pass("no error occurred");
+    })
+    .catch(e => t.fail(e.message));
 });
