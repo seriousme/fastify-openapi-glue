@@ -60,16 +60,20 @@ The 'prefix' option only allows for a single value.
 However since the result produced by fastify-openapi-glue is a fastify plugin there is nothing that prevents you from creating multiple plugins on multiple prefixes and loading them all up in Fastify. E.g. something along the lines of:
 
 ```javascript
-const fastify = require('fastify')()
-const openapiGlue = require("fastify-openapi-glue");
+import Fastify from "fastify";
+import openapiGlue from "fastify-openapi-glue";
+import DevService from "./dev/service.js";
+import StagingService from "./staging/service.js";
+import ProdService from "./prod/service.js";
 
-const specification = `${__dirname}/petstore-openapi.v3.json`;
+const fastify = new Fastify();
+const specification = `./petstore-openapi.v3.json`;
 
 fastify.register(
     openapiGlue,
     {
         specification,
-        service: `${__dirname}/dev/service.js`,
+        service: new DevService(),
         prefix: "dev/v1"
     }
 )
@@ -78,7 +82,7 @@ fastify.register(
     openapiGlue,
     {
         specification,
-        service: `${__dirname}/staging/service.js`,
+        service: new StagingService(),
         prefix: "staging/v1"
     }
 )
@@ -87,7 +91,7 @@ fastify.register(
     openapiGlue,
     {
         specification,
-        service: `${__dirname}/prod/service.js`,
+        service: new ProdService(),
         prefix: "v1"
     }
 )

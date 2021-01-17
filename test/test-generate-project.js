@@ -1,17 +1,16 @@
 import tap from "tap";
 const test = tap.test;
 
-import { join, resolve } from "path";
 import Generator from "../lib/generator.js";
-import { importJSON } from "../lib/importJSON-esm.js";
-import { dirname } from "../lib/dirname-esm.js";
-const currentDir = dirname(import.meta);
+import { createRequire } from 'module';
+const importJSON = createRequire(import.meta.url);
+const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
 
-const specPath = join(currentDir, "petstore-swagger.v2.json");
-const specPath3 = join(currentDir, "petstore-openapi.v3.json");
+const specPath = localFile("./petstore-swagger.v2.json");
+const specPath3 = localFile("./petstore-openapi.v3.json");
 const projectName = "generatedProject";
-const dir = resolve(currentDir, "../examples");
-const nonExistentDir = join(currentDir, "non-existent-directory");
+const dir = localFile("../examples");
+const nonExistentDir = localFile("./non-existent-directory");
 const spec301 = await importJSON(specPath3);
 
 const checksumOnly = false;

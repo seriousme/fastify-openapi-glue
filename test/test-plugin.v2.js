@@ -2,13 +2,13 @@ import tap from "tap";
 const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { importJSON } from "../lib/importJSON-esm.js";
-import { dirname } from "../lib/dirname-esm.js";
-const dir = dirname(import.meta);
+import { createRequire } from 'module';
+const importJSON = createRequire(import.meta.url);
+const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
 
-const testSpec = await importJSON(`${dir}/test-swagger.v2.json`);
-const petStoreSpec = await importJSON(`${dir}/petstore-swagger.v2.json`);
-const testSpecYAML = `${dir}/test-swagger.v2.yaml`;
+const testSpec = await importJSON('./test-swagger.v2.json');
+const petStoreSpec = await importJSON('./petstore-swagger.v2.json');
+const testSpecYAML = localFile('./test-swagger.v2.yaml');
 import service from './service.js';
 
 const opts = {
@@ -33,7 +33,7 @@ const invalidServiceOpts = {
 
 const missingServiceOpts = {
   specification: testSpecYAML,
-  service: `${dir}/not-a-valid-service.js`
+  service: localFile('./not-a-valid-service.js')
 };
 
 const petStoreOpts = {

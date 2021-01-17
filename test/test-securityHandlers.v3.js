@@ -2,12 +2,11 @@ import tap from "tap";
 const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { importJSON } from "../lib/importJSON-esm.js";
-import { dirname } from "../lib/dirname-esm.js";
-const dir = dirname(import.meta);
+import { createRequire } from 'module';
+const importJSON = createRequire(import.meta.url);
 
-const testSpec = await importJSON(`${dir}/test-openapi.v3.json`);
-const petStoreSpec = await importJSON(`${dir}/petstore-openapi.v3.json`);
+const testSpec = await importJSON('./test-openapi.v3.json');
+const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
 import service from './service.js';
 import securityHandlers from './security.js';
 

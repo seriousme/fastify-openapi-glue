@@ -2,15 +2,15 @@ import tap from "tap";
 const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { importJSON } from "../lib/importJSON-esm.js";
-import { dirname } from "../lib/dirname-esm.js";
-const dir = dirname(import.meta);
+import { createRequire } from 'module';
+const importJSON = createRequire(import.meta.url);
+const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
 
-const testSpec = await importJSON(`${dir}/test-openapi.v3.json`);
-const petStoreSpec = await importJSON(`${dir}/petstore-openapi.v3.json`);
-const testSpecYAML = `${dir}/test-openapi.v3.yaml`;
-const genericPathItemsSpec= await importJSON(`${dir}/test-openapi-v3-generic-path-items.json`);
-import service from './service.js' 
+const testSpec = await importJSON('./test-openapi.v3.json');
+const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
+const testSpecYAML = localFile('./test-openapi.v3.yaml');
+const genericPathItemsSpec = await importJSON('./test-openapi-v3-generic-path-items.json');
+import service from './service.js'
 const customTestSpec = JSON.parse(JSON.stringify(testSpec));
 customTestSpec.components.schemas.bodyObject.properties.str1.format = "custom-format";
 
@@ -52,17 +52,17 @@ const invalidServiceOpts = {
 
 const missingServiceOpts = {
   specification: testSpecYAML,
-  service: `${dir}/not-a-valid-service.js`
+  service: localFile('./not-a-valid-service.js')
 };
 
 const asyncServiceOpts = {
   specification: testSpec,
-  service: `${dir}/async-service.js`
+  service: localFile('./async-service.js')
 };
 
 const CJSServiceOpts = {
   specification: testSpec,
-  service: `${dir}/service.cjs`
+  service: localFile('./service.cjs')
 };
 
 const petStoreOpts = {

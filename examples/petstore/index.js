@@ -2,12 +2,12 @@
 // it can be run as plugin on any fastify server
 // or standalone using "fastify start plugin.js"
 import openapiGlue from "../../index.js";
-import { dirname } from "../../lib/dirname-esm.js";
-const dir = dirname(import.meta);
+import service from "./service.js"
+const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
 
 const options = {
-  specification: `${dir}/petstore-openapi.v3.json`,
-  service: `${dir}/service.js`,
+  specification: localFile('./petstore-openapi.v3.json'),
+  service,
   prefix: 'v2'
 };
 

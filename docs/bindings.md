@@ -13,9 +13,11 @@ If you ever have a need to have a reference to the Fastify instance you can pass
 E.g. something like:
 
 ```javascript
-const fastify = require('fastify')()
-const openapiGlue = require("fastify-openapi-glue");
-const Service = require("./service.js");
+import Fastify from "fastify";
+import openapiGlue from "fastify-openapi-glue";
+import Service from "./service.js";
+
+const fastify = new Fastify();
 const service = new Service(fastify);
 
 const specification = `myServiceSpec.json`;
