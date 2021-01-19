@@ -15,7 +15,6 @@ async function getObject(param, name) {
   let data = param;
   if (typeof param === "string") {
     try {
-      /* istanbul ignore next */
       data = (await import(pathToFileURL(param).href)).default
     } catch (error) {
       throw new Error(`failed to load ${param}`);
