@@ -2,12 +2,16 @@
 
 ## [Unreleased]
 ### Changed
+
+## [2.4.0] - 24-01-2021
+### Changed
  - Removed dependency on ajv-oai
  - Removed workaround for hasContentTypeParser
  - Added AJV formats for 'binary' and 'password' to reduce warnings
  - Updated dependencies:
     - ajv          ^6.12.6  →  ^7.0.3  
     - js-yaml       ^3.14.1  →   ^4.0.0
+    - fastify  ^3.9.2  →  ^3.10.1 
 
 ## [2.3.1] - 30-12-2020
 ### Changed 
