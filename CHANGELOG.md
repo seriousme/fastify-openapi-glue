@@ -4,10 +4,10 @@
 ### Changed
  - Removed dependency on decimal.js-light
  - Updated dependencies:
-  - ajv           ^7.0.3  →   ^8.0.1     
-  - ajv-formats   ^1.5.1  →   ^2.0.1     
-  - fastify      ^3.10.1  →  ^3.14.1     
-  - fastify-cli   ^2.7.0  →   ^2.9.1   
+    - ajv           ^7.0.3  →   ^8.0.1     
+    - ajv-formats   ^1.5.1  →   ^2.0.1     
+    - fastify      ^3.10.1  →  ^3.14.1     
+    - fastify-cli   ^2.7.0  →   ^2.9.1   
 
 ## [2.4.0] - 24-01-2021
 ### Changed
