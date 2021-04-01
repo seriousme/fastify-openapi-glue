@@ -15,8 +15,8 @@ test("/v2/pet/24 works", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
-      t.strictEqual(res.body, '{"id":24,"name":"Kitty the cat","photoUrls":["https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg"],"status":"available"}');
+      t.equal(res.statusCode, 200);
+      t.equal(res.body, '{"id":24,"name":"Kitty the cat","photoUrls":["https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg"],"status":"available"}');
     }
   );
 });
@@ -32,8 +32,8 @@ test("/v2/pet/myPet returns Fastify validation error", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 400);
-      t.strictEqual(res.body, '{"statusCode":400,"error":"Bad Request","message":"params must be integer"}');
+      t.equal(res.statusCode, 400);
+      t.equal(res.body, '{"statusCode":400,"error":"Bad Request","message":"params must be integer"}');
     }
   );
 });
@@ -49,8 +49,8 @@ test("v2/pet/findByStatus?status=available&status=pending returns 'not implement
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 500);
-      t.strictEqual(res.body, '{"statusCode":500,"error":"Internal Server Error","message":"Operation findPetsByStatus not implemented"}');
+      t.equal(res.statusCode, 500);
+      t.equal(res.body, '{"statusCode":500,"error":"Internal Server Error","message":"Operation findPetsByStatus not implemented"}');
     }
   );
 });
@@ -66,8 +66,8 @@ test("v2/pet/0 returns serialization error", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 500);
-      t.strictEqual(res.body, '{"statusCode":500,"error":"Internal Server Error","message":"\\"name\\" is required!"}');
+      t.equal(res.statusCode, 500);
+      t.equal(res.body, '{"statusCode":500,"error":"Internal Server Error","message":"\\"name\\" is required!"}');
     }
   );
 });

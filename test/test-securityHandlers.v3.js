@@ -46,7 +46,7 @@ test("security preHandler throws error", t => {
   t.plan(4);
   const fastify = Fastify();
   fastify.setErrorHandler((err, req, reply) => {
-    t.strictEqual(err.errors.length, 3);
+    t.equal(err.errors.length, 3);
     reply.code(err.statusCode).send(err);
   });
   fastify.register(fastifyOpenapiGlue, opts);
@@ -57,8 +57,8 @@ test("security preHandler throws error", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 401);
-      t.strictEqual(res.statusMessage, 'Unauthorized');
+      t.equal(res.statusCode, 401);
+      t.equal(res.statusMessage, 'Unauthorized');
     }
   );
 });
@@ -85,8 +85,8 @@ test("security preHandler passes on succes", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
-      t.strictEqual(res.statusMessage, 'OK');
+      t.equal(res.statusCode, 200);
+      t.equal(res.statusMessage, 'OK');
     }
   );
 });
@@ -109,8 +109,8 @@ test("security preHandler passes with empty handler", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
-      t.strictEqual(res.statusMessage, 'OK');
+      t.equal(res.statusCode, 200);
+      t.equal(res.statusMessage, 'OK');
     }
   );
 });
@@ -127,7 +127,7 @@ test("security preHandler handles missing handlers", t => {
   t.plan(4);
   const fastify = Fastify();
   fastify.setErrorHandler((err, req, reply) => {
-    t.strictEqual(err.errors.length, 3);
+    t.equal(err.errors.length, 3);
     reply.code(err.statusCode).send(err);
   });
   fastify.register(fastifyOpenapiGlue, opts);
@@ -138,8 +138,8 @@ test("security preHandler handles missing handlers", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 401);
-      t.strictEqual(res.statusMessage, 'Unauthorized');
+      t.equal(res.statusCode, 401);
+      t.equal(res.statusMessage, 'Unauthorized');
     }
   );
 });
@@ -166,7 +166,7 @@ test("initalization of securityHandlers succeeds", t => {
     securityHandlers: {
       initialize: (securitySchemes) => {
         const securitySchemeFromSpec = JSON.stringify(testSpec.components.securitySchemes);
-        t.strictEqual(JSON.stringify(securitySchemes), securitySchemeFromSpec);
+        t.equal(JSON.stringify(securitySchemes), securitySchemeFromSpec);
       }
     }
   };
@@ -204,9 +204,9 @@ test("security preHandler gets parameters passed", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
-      t.strictEqual(res.statusMessage, 'OK');
-      t.strictEqual(res.body, '{"response":"authentication succeeded!"}');
+      t.equal(res.statusCode, 200);
+      t.equal(res.statusMessage, 'OK');
+      t.equal(res.body, '{"response":"authentication succeeded!"}');
     }
   );
 
@@ -217,9 +217,9 @@ test("security preHandler gets parameters passed", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
-      t.strictEqual(res.statusMessage, 'OK');
-      t.strictEqual(res.body, '{"response":"skipped"}');
+      t.equal(res.statusCode, 200);
+      t.equal(res.statusMessage, 'OK');
+      t.equal(res.body, '{"response":"skipped"}');
     }
   );
 });

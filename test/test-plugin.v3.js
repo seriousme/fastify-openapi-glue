@@ -92,7 +92,7 @@ test("path parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -109,7 +109,7 @@ test("query parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -129,7 +129,7 @@ test("header parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -146,7 +146,7 @@ test("missing header parameters returns error 500", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 500);
+      t.equal(res.statusCode, 500);
     }
   );
 });
@@ -163,7 +163,7 @@ test("missing authorization header returns error 500", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 500);
+      t.equal(res.statusCode, 500);
     }
   );
 });
@@ -184,7 +184,7 @@ test("body parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -205,7 +205,7 @@ test("body parameters that don't match custom-format set through ajvOptions retu
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 400);
+      t.equal(res.statusCode, 400);
     }
   );
 });
@@ -226,7 +226,7 @@ test("extra body parameters with ajv opts returns error 400", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 400);
+      t.equal(res.statusCode, 400);
     }
   );
 });
@@ -243,7 +243,7 @@ test("no parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -260,7 +260,7 @@ test("prefix in opts works", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -277,7 +277,7 @@ test("missing operation from service returns error 500", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 500);
+      t.equal(res.statusCode, 500);
     }
   );
 });
@@ -294,7 +294,7 @@ test("response schema works with valid response", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -311,7 +311,7 @@ test("response schema works with invalid response", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 500);
+      t.equal(res.statusCode, 500);
     }
   );
 });
@@ -328,7 +328,7 @@ test("yaml spec works", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -345,7 +345,7 @@ test("generic path parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -362,7 +362,7 @@ test("generic path parameters override works", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -425,7 +425,7 @@ test("async service definition does not throw error", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -442,7 +442,7 @@ test("ES6 service definition does not throw error", { skip: !hasESM }, t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -545,7 +545,7 @@ test("x- props are copied", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
