@@ -93,7 +93,7 @@ test("testing addPet", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -181,7 +181,7 @@ test("testing updatePet", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -277,7 +277,7 @@ test("testing findPetsByStatus", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -373,7 +373,7 @@ test("testing findPetsByTags", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -469,7 +469,7 @@ test("testing getPetById", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -518,7 +518,7 @@ test("testing updatePetWithForm", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -565,7 +565,7 @@ test("testing deletePet", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -624,7 +624,7 @@ test("testing uploadFile", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -659,7 +659,7 @@ test("testing getInventory", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -746,7 +746,7 @@ test("testing placeOrder", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -816,7 +816,7 @@ test("testing getOrderById", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -857,7 +857,7 @@ test("testing deleteOrder", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -912,7 +912,7 @@ test("testing createUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -969,7 +969,7 @@ test("testing createUsersWithArrayInput", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -1026,7 +1026,7 @@ test("testing createUsersWithListInput", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -1082,7 +1082,7 @@ test("testing loginUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -1112,7 +1112,7 @@ test("testing logoutUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -1179,7 +1179,7 @@ test("testing getUserByName", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -1245,7 +1245,7 @@ test("testing updateUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
@@ -1286,7 +1286,7 @@ test("testing deleteUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.strictEqual(res.statusCode, 200);
+      t.equal(res.statusCode, 200);
     }
   );
 });
