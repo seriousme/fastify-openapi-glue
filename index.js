@@ -1,7 +1,7 @@
 import fp from "fastify-plugin";
 import { pathToFileURL } from "url";
 import AJV from "ajv";
-const Ajv= AJV.default;
+const Ajv = AJV.default;
 import addFormats from "ajv-formats";
 import oaiFormats from "./lib/oai-formats.js";
 import { Parser } from "./lib/Parser.js";
@@ -11,45 +11,47 @@ function isObject(obj) {
   return typeof obj === "object" && obj !== null;
 }
 
-async function getObject(param, name) {
-  let data = param;
+async function getObjectFromParam(param) {
   if (typeof param === "string") {
     try {
-      data = (await import(pathToFileURL(param).href)).default
+      return (await import(pathToFileURL(param).href)).default
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
   }
-  if (typeof data === "function") {
-    data = data();
-  }
-  if (!isObject(data)) {
+  return param;
+}
+
+async function getObject(param, name) {
+  const data = await getObjectFromParam(param);
+  const obj = (typeof data === "function") ? data() : data;
+
+  if (!isObject(obj)) {
     throw new Error(`'${name}' parameter must refer to an object`);
   }
-  return data;
+  return obj;
 }
 
 async function getSecurityHandlers(opts, config) {
-  let security;
-  let securityHandlers;
   if (opts.securityHandlers) {
-    securityHandlers = await getObject(opts.securityHandlers, 'securityHandlers');
-    security = new Security(securityHandlers);
+    const securityHandlers = await getObject(opts.securityHandlers, 'securityHandlers');
+    const security = new Security(securityHandlers);
     if ("initialize" in securityHandlers) {
       securityHandlers.initialize(config.securitySchemes);
     }
+    return { securityHandlers, security };
   }
-  return { securityHandlers, security };
+  return {}
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
-  let ajvOptions = {
+  const defaultOptions = {
     removeAdditional: !noAdditional,
     useDefaults: true,
     coerceTypes: true,
     strict: false
   };
-  Object.assign(ajvOptions, ajvOpts);
+  const ajvOptions = Object.assign(defaultOptions, ajvOpts);
   const ajv = new Ajv(ajvOptions);
   // add default AJV formats
   addFormats(ajv);
