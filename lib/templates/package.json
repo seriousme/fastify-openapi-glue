@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "fastify start index.js",
-    "test": "tap test/test-*.js",
+    "test": "c8 tap test/test-*.js",
     "dev": "fastify start -l info -P index.js"
   },
   "directories": {
@@ -17,6 +17,7 @@
   "devDependencies": {
     "fastify": "",
     "fastify-cli": "",
-    "tap": ""
+    "tap": "",
+    "c8": ""
   }
 }
