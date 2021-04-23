@@ -3,7 +3,8 @@
 ## [Unreleased]
 ### Changed
  - Migrated to ES Modules format
- - Deprecation of Node.js < 12.17.0 
+ - Deprecation of Nodejs < 12.17.0 
+ - Added Nodejs 16 to CI
 
 ## [2.4.1] - 23-04-2021
 ### Changed
