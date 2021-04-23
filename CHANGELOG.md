@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 ### Changed
+
+## [2.4.1] - 23-04-2021
+### Changed
  - Removed dependency on decimal.js-light
+ - Fixed bug in validation of 'Byte' format
  - Updated dependencies:
     - ajv           ^7.0.3  →   ^8.0.1     
     - ajv-formats   ^1.5.1  →   ^2.0.2   
