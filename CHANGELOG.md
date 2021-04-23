@@ -2,13 +2,15 @@
 
 ## [Unreleased]
 ### Changed
+ - Migrated to ES Modules format
+ - Deprecation of Node.js < 12.17.0 
 
 ## [2.4.1] - 23-04-2021
 ### Changed
  - Removed dependency on decimal.js-light
  - Fixed bug in validation of 'Byte' format
  - Updated dependencies:
-    - ajv           ^7.0.3  →   ^8.0.1     
+    - ajv           ^7.0.3  →   ^8.1.0     
     - ajv-formats   ^1.5.1  →   ^2.0.2   
     - fastify      ^3.10.1  →  ^3.15.0    
     - fastify-cli   ^2.7.0  →   ^2.9.1  
