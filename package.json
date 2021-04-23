@@ -3,11 +3,15 @@
   "version": "2.4.1",
   "description": "generate a fastify configuration from an openapi specification",
   "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=12.17.0"
+  },
   "types": "index.d.ts",
   "scripts": {
     "start": "fastify start examples/petstore/index.js",
-    "test": "tap test/test-*.js",
-    "covtest": "tap test/test-*.js --coverage-report=html",
+    "test": "c8 tap test/test-*.js",
+    "covtest": "c8 --reporter=lcov --checkcoverage --lines 100 --functions 100 --branches 100 npm test",
     "dev": "fastify start -l info -P examples/petstore/index.js",
     "updateChecksums": "node bin/openapi-glue-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
     "postupdateChecksums": "node bin/openapi-glue-cli -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json",
@@ -34,6 +38,7 @@
     "bin": "./bin"
   },
   "devDependencies": {
+    "c8": "^7.7.1",
     "fastify": "^3.15.0",
     "fastify-cli": "^2.9.1",
     "tap": "^15.0.4"

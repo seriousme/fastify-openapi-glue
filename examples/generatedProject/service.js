@@ -962,4 +962,4 @@ class Service {
   }
 }
 
-module.exports = opts => new Service(opts);
+export default opts => new Service(opts);

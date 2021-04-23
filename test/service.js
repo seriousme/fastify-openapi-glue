@@ -1,4 +1,4 @@
-// implementation of the operations in the openapi specification
+// ES6 Module implementation of the operations in the openapi specification
 
 class Service {
   constructor() {}
@@ -200,4 +200,4 @@ class Service {
   }
 }
 
-module.exports = opts => new Service(opts);
+export default opts => new Service(opts);

@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-const path = require("path");
-const Generator = require("../lib/generator");
-const argvParser = require("minimist");
+import { basename, resolve } from "path";
+import Generator from "../lib/generator.js";
+import argvParser from "minimist";
 
 function usage() {
   console.log(`
 Usage:
-  ${path.basename(__filename)} [options] <openapi specification>
+  ${basename(__filename)} [options] <openapi specification>
   
 Generate a project based on the provided openapi specification.
 Any existing files in the project folder will be overwritten!
@@ -55,7 +55,7 @@ if (!argv.specification) {
   usage();
 }
 
-const specPath = path.resolve(process.cwd(), argv.specification);
+const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
 const handler = str => (argv.checksumOnly ? JSON.stringify(str, null, 2) : str);
 if (generator.localPlugin) {

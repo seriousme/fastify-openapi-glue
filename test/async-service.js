@@ -1,3 +1,3 @@
 // async service provider example
-const service = require("./service.js");
-module.exports = async opts => new Promise(resolve => resolve(service(opts)));
+import service from "./service.js";
+export default async opts => new Promise(resolve => resolve(service(opts)));

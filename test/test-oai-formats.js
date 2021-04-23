@@ -1,9 +1,11 @@
-const t = require("tap");
-const Ajv = require("ajv").default;
+import tap from "tap";
+const test = tap.test;
+import AJV from "ajv";
+const Ajv= AJV.default;
 
 // AJV misses some validators for byte, float, double, int32 and int64 that oai-formats adds
-const oaiFormats = require("../lib/oai-formats");
-const test = t.test;
+import oaiFormats from "../lib/oai-formats.js";
+
 
 
 test("adding formats to AJV works", t => {

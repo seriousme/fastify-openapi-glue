@@ -23,12 +23,14 @@ npm i fastify-openapi-glue --save
 
 Add the plugin to your project with `register` and pass it some basic options and you are done !
 ```javascript
-const openapiGlue = require("fastify-openapi-glue");
+import openapiGlue from "fastify-openapi-glue";
+import Service from "./service.js";
+import Security from "./security.js";
 
 const options = {
-  specification: `${__dirname}/petstore-openapi.v3.json`,
-  service: `${__dirname}/service.js`,
-  securityHandlers: `${__dirname}/security.js`,
+  specification: `${currentDir}/petstore-openapi.v3.json`,
+  service: new Service(),
+  securityHandlers: new Security(),
   prefix: "v1",
   noAdditional: true,
   ajvOptions: {

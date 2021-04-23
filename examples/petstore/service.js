@@ -22,4 +22,4 @@ class Service {
   }
 }
 
-module.exports = config => new Service();
+export default config => new Service();

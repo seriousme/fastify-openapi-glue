@@ -1,8 +1,8 @@
 // this suite tests the examples shown in README.md
-const t = require("tap");
-const test = t.test;
-const Fastify = require("fastify");
-const petstoreExample = require("../examples/petstore/index");
+import tap from "tap";
+const test = tap.test;
+import Fastify from "fastify";
+import petstoreExample from "../examples/petstore/index.js";
 
 test("/v2/pet/24 works", t => {
   t.plan(3);

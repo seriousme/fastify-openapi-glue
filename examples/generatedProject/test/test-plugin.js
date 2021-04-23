@@ -2,13 +2,14 @@
 // running the tests directly after generation will probably fail as the parameters
 // need to be manually added.
 
-const t = require("tap");
-const test = t.test;
-const Fastify = require("fastify");
-const fastifyPlugin = require("../index.js");
+import tap from "tap";
+const test = tap.test;
+import Fastify from "fastify";
+import fastifyPlugin from "../index.js";
+import service from "../service.js";
 
 const specification = "../openApi.json";
-const service = require("../service.js");
+
 
 const opts = {
   specification,

@@ -1,13 +1,14 @@
-const t = require("tap");
-const test = t.test;
-const Fastify = require("fastify");
-const fastifyOpenapiGlue = require("../index");
+import tap from "tap";
+const test = tap.test;
+import Fastify from "fastify";
+import fastifyOpenapiGlue from "../index.js";
+import { createRequire } from 'module';
+const importJSON = createRequire(import.meta.url);
 
-const testSpec = require("./test-openapi.v3.json");
-const petStoreSpec = require("./petstore-openapi.v3.json");
-const securityHandlers = require('./security');
-const serviceFile = `${__dirname}/service.js`;
-const service = require(serviceFile);
+const testSpec = await importJSON('./test-openapi.v3.json');
+const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
+import service from './service.js';
+import securityHandlers from './security.js';
 
 const invalidSecurityOpts = {
   specification: testSpec,

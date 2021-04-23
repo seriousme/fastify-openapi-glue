@@ -1,15 +1,16 @@
-const t = require("tap");
-const test = t.test;
-const Fastify = require("fastify");
-const fastifyOpenapiGlue = require("../index");
-const hasESM = Number(process.versions.node.split('.')[0]) >= 14;
+import tap from "tap";
+const test = tap.test;
+import Fastify from "fastify";
+import fastifyOpenapiGlue from "../index.js";
+import { createRequire } from 'module';
+const importJSON = createRequire(import.meta.url);
+const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
 
-const testSpec = require("./test-openapi.v3.json");
-const petStoreSpec = require("./petstore-openapi.v3.json");
-const serviceFile = `${__dirname}/service.js`;
-const testSpecYAML = `${__dirname}/test-openapi.v3.yaml`;
-const genericPathItemsSpec = require("./test-openapi-v3-generic-path-items.json");
-const service = require(serviceFile);
+const testSpec = await importJSON('./test-openapi.v3.json');
+const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
+const testSpecYAML = localFile('./test-openapi.v3.yaml');
+const genericPathItemsSpec = await importJSON('./test-openapi-v3-generic-path-items.json');
+import service from './service.js'
 const customTestSpec = JSON.parse(JSON.stringify(testSpec));
 customTestSpec.components.schemas.bodyObject.properties.str1.format = "custom-format";
 
@@ -51,17 +52,17 @@ const invalidServiceOpts = {
 
 const missingServiceOpts = {
   specification: testSpecYAML,
-  service: `${__dirname}/not-a-valid-service.js`
+  service: localFile('./not-a-valid-service.js')
 };
 
 const asyncServiceOpts = {
   specification: testSpec,
-  service: `${__dirname}/async-service.js`
+  service: localFile('./async-service.js')
 };
 
-const ES6ServiceOpts = {
+const CJSServiceOpts = {
   specification: testSpec,
-  service: `${__dirname}/service.mjs`
+  service: localFile('./service.cjs')
 };
 
 const petStoreOpts = {
@@ -431,10 +432,10 @@ test("async service definition does not throw error", t => {
 });
 
 
-test("ES6 service definition does not throw error", { skip: !hasESM }, t => {
+test("CommonJS service definition does not throw error", t => {
   t.plan(2);
   const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, ES6ServiceOpts);
+  fastify.register(fastifyOpenapiGlue, CJSServiceOpts);
   fastify.inject(
     {
       method: "GET",
