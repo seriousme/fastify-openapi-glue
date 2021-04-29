@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [2.5.0] - 29-04-2021
+### Changed
+ - Added support for objects in querystring 
+
 ## [2.4.1] - 23-04-2021
 ### Changed
  - Removed dependency on decimal.js-light
