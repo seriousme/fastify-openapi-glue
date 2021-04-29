@@ -115,6 +115,24 @@ test("query parameters work", t => {
   );
 });
 
+test("query parameters with object schema work", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, opts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/queryParamObject?int1=1&int2=2"
+    },
+    (err, res) => {
+      console.log(res.body)
+      t.error(err);
+      t.equal(res.statusCode, 200);
+    }
+  );
+});
+
 test("header parameters work", t => {
   t.plan(2);
   const fastify = Fastify();
