@@ -56,5 +56,8 @@
   "bugs": {
     "url": "https://github.com/seriousme/fastify-openapi-glue/issues"
   },
-  "homepage": "https://github.com/seriousme/fastify-openapi-glue#readme"
+  "homepage": "https://github.com/seriousme/fastify-openapi-glue#readme",
+  "exports": {
+    "import": "./index.js"
+  }
 }
