@@ -50,6 +50,31 @@ class Service {
     return "";
   }
 
+    // Operation: getQueryParam
+  // summary:  Test query parameters
+  // req.query:
+  //   type: object
+  //   properties:
+  //     int1:
+  //       type: integer
+  //     int2:
+  //       type: integer
+  //
+  // valid responses:
+  //   '200':
+  //     description: ok
+  //
+
+  async getQueryParamObject(req, reply) {
+    if (
+      typeof req.query.int1 !== "number" ||
+      typeof req.query.int2 !== "number"
+    ) {
+      throw new Error("req.params.int1 or req.params.int2 is not a number");
+    }
+    return "";
+  }
+
   // Operation: getHeaderParam
   // summary:  Test header parameters
   // req.headers:
