@@ -155,4 +155,4 @@ Main difference is that it:
 - does not include fastify-swagger support anymore. If you need to show the swagger UI you can include it yourself. Removing the swagger UI clears up a number of dependencies.
 <a name="license"></a>
 # License
-Licensed under [MIT](license.txt)
+Licensed under [MIT](LICENSE.txt)
