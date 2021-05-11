@@ -62,6 +62,10 @@ function setValidatorCompiler(instance, ajvOpts, noAdditional) {
   instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
     ajv.compile(schema)
   );
+
+  instance.setSchemaErrorFormatter(
+    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar }))
+  );
 }
 
 function checkParserValidators(instance, contentTypes) {
