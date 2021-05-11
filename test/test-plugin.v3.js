@@ -393,7 +393,7 @@ test("invalid openapi v3 specification throws error ", t => {
     if (err) {
       t.equal(
         err.message,
-        "'specification' parameter must contain a valid version 2.0 or 3.0.x specification",
+        "'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
         "got expected error"
       );
     } else {

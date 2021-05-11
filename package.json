@@ -20,12 +20,12 @@
     "openapi-glue": "./bin/openapi-glue-cli.js"
   },
   "dependencies": {
+    "@seriousme/openapi-schema-validator": "^1.1.1",
     "ajv": "^8.1.0",
     "ajv-formats": "^2.0.2",
     "fastify-plugin": "^3.0.0",
     "js-yaml": "^4.1.0",
-    "minimist": "^1.2.5",
-    "swagger-parser": "^10.0.2"
+    "minimist": "^1.2.5"
   },
   "directories": {
     "example": "./examples",
