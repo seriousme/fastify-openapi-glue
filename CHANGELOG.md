@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [2.5.1] - 12-05-2021
+### Changed
+ - Fix: formats ajv error to include property names (kutyepov)
+
 ## [2.5.0] - 29-04-2021
 ### Changed
  - Added support for objects in querystring 
