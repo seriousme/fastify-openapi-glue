@@ -6,6 +6,19 @@
  - Deprecation of Nodejs < 12.17.0 
  - Added Nodejs 16 to CI
 
+## [2.6.0] - 15-05-2021
+### Changed
+ - Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
+ - Added support for OpenApi 3.1
+
+## [2.5.1] - 12-05-2021
+### Changed
+ - Fix: formats ajv error to include property names (kutyepov)
+
+## [2.5.0] - 29-04-2021
+### Changed
+ - Added support for objects in querystring 
+
 ## [2.4.1] - 23-04-2021
 ### Changed
  - Removed dependency on decimal.js-light
