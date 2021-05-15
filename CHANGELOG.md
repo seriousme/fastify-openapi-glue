@@ -3,6 +3,11 @@
 ## [Unreleased]
 ### Changed
 
+## [2.6.0] - 15-05-2021
+### Changed
+ - Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
+ - Added support for OpenApi 3.1
+
 ## [2.5.1] - 12-05-2021
 ### Changed
  - Fix: formats ajv error to include property names (kutyepov)
