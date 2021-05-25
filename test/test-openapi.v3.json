@@ -160,6 +160,21 @@
         }
       }
     },
+    "/bodyParamWithoutContent": {
+      "post": {
+        "operationId": "postBodyParam",
+        "summary": "Test body parameters",
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        },
+        "requestBody": {
+          "content": {},
+          "required": true
+        }
+      }
+    },
     "/noParam": {
       "get": {
         "operationId": "getNoParam",
