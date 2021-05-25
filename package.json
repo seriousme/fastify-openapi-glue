@@ -11,7 +11,8 @@
   "scripts": {
     "start": "fastify start examples/petstore/index.js",
     "test": "c8 tap test/test-*.js",
-    "covtest": "c8 --reporter=lcov --checkcoverage --lines 100 --functions 100 --branches 100 npm test",
+    "posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
+    "covtest": "c8 --reporter=lcov npm test",
     "dev": "fastify start -l info -P examples/petstore/index.js",
     "updateChecksums": "node bin/openapi-glue-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
     "postupdateChecksums": "node bin/openapi-glue-cli -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json",
