@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [2.6.1] - 05-06-2021
+### Changed
+ - Fixed makeOperation so "get /user/{name}" becomes getUserByName as it used to
+
 ## [2.6.0] - 15-05-2021
 ### Changed
  - Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
