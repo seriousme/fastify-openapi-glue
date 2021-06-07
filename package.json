@@ -5,8 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "fastify start examples/petstore/index.js",
-    "test": "tap test/test-*.js",
-    "covtest": "tap test/test-*.js --coverage-report=html",
     "dev": "fastify start -l info -P examples/petstore/index.js",
     "updateChecksums": "node bin/openapi-glue-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
     "postupdateChecksums": "node bin/openapi-glue-cli -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json"
@@ -34,8 +32,7 @@
   },
   "devDependencies": {
     "fastify": "^2.0.0",
-    "fastify-cli": "^1.0.0",
-    "tap": "^12.5.3"
+    "fastify-cli": "^1.0.0"
   },
   "repository": {
     "type": "git",
