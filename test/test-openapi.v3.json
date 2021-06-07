@@ -10,11 +10,6 @@
     "description": "testing the fastify openapi glue",
     "version": "0.1.0"
   },
-  "security": [
-    {
-      "skipped": []
-    }
-  ],
   "paths": {
     "/pathParam/{id}": {
       "get": {
@@ -47,68 +42,13 @@
             "name": "int1",
             "schema": {
               "type": "integer"
-            },
-            "required":true
+            }
           },
           {
             "in": "query",
             "name": "int2",
             "schema": {
               "type": "integer"
-            },
-            "required":true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok"
-          }
-        },
-        "x-tap-ok": true
-      }
-    },
-    "/queryParamObject": {
-      "get": {
-        "operationId": "getQueryParamObject",
-        "summary": "Test query parameters in an object",
-        "parameters": [
-          {
-            "in": "query",
-            "name": "obj",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "int1":
-                {
-                  "type": "integer"
-                },
-                "int2": {
-                  "type": "integer"
-                }
-              },
-              "required":["int1","int2"]
-            },
-            "required":true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok"
-          }
-        },
-        "x-tap-ok": true
-      }
-    },
-    "/headerParam": {
-      "get": {
-        "operationId": "getHeaderParam",
-        "summary": "Test header parameters",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "X-Request-ID",
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -119,14 +59,14 @@
         }
       }
     },
-    "/authHeaderParam": {
+    "/headerParam": {
       "get": {
-        "operationId": "getAuthHeaderParam",
-        "summary": "Test authorization header parameters",
+        "operationId": "getHeaderParam",
+        "summary": "Test header parameters",
         "parameters": [
           {
             "in": "header",
-            "name": "authorization",
+            "name": "X-Request-ID",
             "schema": {
               "type": "string"
             }
@@ -156,21 +96,6 @@
               }
             }
           },
-          "required": true
-        }
-      }
-    },
-    "/bodyParamWithoutContent": {
-      "post": {
-        "operationId": "postBodyParam",
-        "summary": "Test body parameters",
-        "responses": {
-          "200": {
-            "description": "ok"
-          }
-        },
-        "requestBody": {
-          "content": {},
           "required": true
         }
       }
@@ -239,125 +164,12 @@
           }
         }
       }
-    },
-    "/operationSecurity": {
-      "get": {
-        "operationId": "testOperationSecurity",
-        "summary": "Test security handling",
-        "security": [
-          {
-            "api_key": []
-          },
-          {
-            "skipped": []
-          },
-          {
-            "failing": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/responseObject"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorObject"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/operationSecurityWithParameter": {
-      "get": {
-        "operationId": "testOperationSecurityWithParameter",
-        "summary": "Test security handling",
-        "security": [
-          {
-            "api_key": []
-          },
-          {
-            "skipped": ["skipped"]
-          },
-          {
-            "failing": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/responseObject"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorObject"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/operationSecurityEmptyHandler": {
-      "get": {
-        "operationId": "testOperationSecurity",
-        "summary": "Test security handling",
-        "security": [
-          {},
-          {
-            "failing": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/responseObject"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/errorObject"
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
       "bodyObject": {
         "type": "object",
-        "additionalProperties": false,
         "properties": {
           "str1": {
             "type": "string"
@@ -377,28 +189,6 @@
         "required": [
           "response"
         ]
-      },
-      "errorObject": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string"
-          },
-          "statusCode": {
-            "type": "integer"
-          }
-        }
-      }
-    },
-    "securitySchemes": {
-      "api_key": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "X-API-Key"
-      },
-      "skipped": {
-        "type": "http",
-        "scheme": "basic"
       }
     }
   }

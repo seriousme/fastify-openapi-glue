@@ -1,23 +1,20 @@
-import tap from "tap";
-const test = tap.test;
-import { join } from "path";
-import Generator from "../lib/generator.js";
-import { createRequire } from 'module';
-const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
-const dir = localFile('.');
+const t = require("tap");
+const test = t.test;
+
+const path = require("path");
+const Generator = require("../lib/generator");
 
 // if you need new checksums (e.g. because you changed template or swaggerfile)
 // run `node ..\generator.js -c test-swagger.v2.json > test-swagger.v2.checksums.json`
-const testChecksums = await importJSON("./test-swagger.v2.checksums.json");
-const specPath = localFile("./test-swagger.v2.json");
+const testChecksums = require("./test-swagger.v2.checksums.json");
+const specPath = path.join(__dirname, "test-swagger.v2.json");
 
-// run `node ..\generator.js -c test-swagger-noBasePath.v2.json > test-swagger-noBasePath.v2.checksums.json`
-const noBasePathChecksums = await importJSON("./test-swagger-noBasePath.v2.checksums.json");
-const noBasePathSpecPath = await importJSON("./test-swagger-noBasePath.v2.json");
+// run `node ..\generator.js -c test-swagger-noBasePath.v2.json > test-swagger-noBasePath.v2.checksums.json
+const noBasePathChecksums = require("./test-swagger-noBasePath.v2.checksums.json");
+const noBasePathSpecPath = require("./test-swagger-noBasePath.v2.json");
 
 const projectName = "generatedProject";
-
+const dir = __dirname;
 const checksumOnly = true;
 const localPlugin = false;
 
@@ -30,8 +27,7 @@ test("generator generates data matching checksums", t => {
     .parse(specPath)
     .then(_ => {
       const checksums = generator.generateProject(dir, projectName);
-
-      t.same(checksums, testChecksums, "checksums match");
+      t.strictSame(checksums, testChecksums, "checksums match");
     })
     .catch(e => t.fail(e.message));
 });
@@ -43,7 +39,7 @@ test("generator generates data matching checksums for swagger without basePath",
     .parse(noBasePathSpecPath)
     .then(_ => {
       const checksums = generator.generateProject(dir, projectName);
-      t.same(checksums, noBasePathChecksums, "checksums match");
+      t.strictSame(checksums, noBasePathChecksums, "checksums match");
     })
     .catch(e => t.fail(e.message));
 });

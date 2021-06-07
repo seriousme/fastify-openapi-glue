@@ -1,17 +1,15 @@
-import tap from "tap";
-const test = tap.test;
+const t = require("tap");
+const test = t.test;
 
-import Generator from "../lib/generator.js";
-import { createRequire } from 'module';
-const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
+const path = require("path");
+const Generator = require("../lib/generator");
 
-const specPath = localFile("./petstore-swagger.v2.json");
-const specPath3 = localFile("./petstore-openapi.v3.json");
+const specPath = path.join(__dirname, "petstore-swagger.v2.json");
+const specPath3 = path.join(__dirname, "petstore-openapi.v3.json");
 const projectName = "generatedProject";
-const dir = localFile("../examples");
-const nonExistentDir = localFile("./non-existent-directory");
-const spec301 = await importJSON(specPath3);
+const dir = path.resolve(__dirname, "../examples");
+const nonExistentDir = path.join(__dirname, "non-existent-directory");
+const spec301 = require(specPath3);
 
 const checksumOnly = false;
 const localPlugin = true;
@@ -20,7 +18,16 @@ const noLocalPlugin = false;
 const localGenerator = new Generator(checksumOnly, localPlugin);
 const generator = new Generator(checksumOnly, noLocalPlugin);
 
-
+test("generator generates project without error", t => {
+  t.plan(1);
+  generator
+    .parse(specPath)
+    .then(_ => {
+      generator.generateProject(dir, projectName);
+      t.pass("no error occurred");
+    })
+    .catch(e => t.fail(e.message));
+});
 
 test("generator generates V3.0.0 project without error", t => {
   t.plan(1);
@@ -66,17 +73,4 @@ test("generator throws error on non-existent basedir", t => {
       t.fail("no error occurred");
     })
     .catch(e => t.equal(e.code, "ENOENT", "got expected error"));
-});
-
-// this one needs to be last
-
-test("generator generates project without error", t => {
-  t.plan(1);
-  generator
-    .parse(specPath)
-    .then(_ => {
-      generator.generateProject(dir, projectName);
-      t.pass("no error occurred");
-    })
-    .catch(e => t.fail(e.message));
 });

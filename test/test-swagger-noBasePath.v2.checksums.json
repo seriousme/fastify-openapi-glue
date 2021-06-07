@@ -6,19 +6,15 @@
     },
     "service": {
       "fileName": "service.js",
-      "checksum": "427b6cd42fd558b2e27fdb2cf36c58cfaa58a682ef8a041d26790326438a72c8"
-    },
-    "security": {
-      "fileName": "security.js",
-      "checksum": "da5b0b816aa7337242df1b1043b076f5f2b546b0b111e0c33fd2b688886ba9d5"
+      "checksum": "4d2e21f503df4826e843b1a0dc884dc59f8e9f18e1bce05728b229703cad2113"
     },
     "plugin": {
       "fileName": "index.js",
-      "checksum": "ff712b66997f8ec5f17f930ae695b2e93b0fc6b2643d6f320f380ce36929b63c"
+      "checksum": "00af90fca52aeaa749b09e95e3b9828b59dda639bd1a993636e89ebf3375d632"
     },
     "package": {
       "fileName": "package.json",
-      "checksum": "18b026fab726e0125f25463a26c1cbe1308a6219bd3269f70d5106037e904473"
+      "checksum": "fc04a413ec722379c8508bb7f16c70e3afaef73c087b1073fd8ce2f0b9f2ac17"
     },
     "readme": {
       "fileName": "README.md",
@@ -26,7 +22,7 @@
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "3bf0f2a63fc8d9d126aa83531353eb5f38b8ce6684e0296e7afcb553cb2631d5"
+      "checksum": "e8294eb0d46311d33155ba98ff0f96615f38213b9d0523dc24e571ebd052f6fa"
     }
   }
 }

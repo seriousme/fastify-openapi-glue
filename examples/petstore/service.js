@@ -13,13 +13,14 @@ class Service {
       return {
         id: req.params.petId,
         name: "Kitty the cat",
-        photoUrls: [
+        photoUrls: {
+          photoUrl:
             "https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg"
-        ],
+        },
         status: "available"
       };
     }
   }
 }
 
-export default config => new Service();
+module.exports = config => new Service();

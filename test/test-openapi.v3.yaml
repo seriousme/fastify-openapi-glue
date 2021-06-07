@@ -99,7 +99,6 @@ components:
       properties:
         str1:
           type: string
-          format: custom-format
       required:
         - str1
     responseObject:

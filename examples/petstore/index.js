@@ -1,16 +1,13 @@
 // a fastify plugin do demo fastify-openapi-glue
 // it can be run as plugin on any fastify server
 // or standalone using "fastify start plugin.js"
-import openapiGlue from "../../index.js";
-import service from "./service.js"
-const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
+const openapiGlue = require("../../index.js");
 
 const options = {
-  specification: localFile('./petstore-openapi.v3.json'),
-  service,
-  prefix: 'v2'
+  specification: `${__dirname}/petstore-swagger.v2.json`,
+  service: `${__dirname}/service.js`
 };
 
-export default async function (fastify, opts) {
+module.exports = async function(fastify, opts) {
   fastify.register(openapiGlue, options);
 };

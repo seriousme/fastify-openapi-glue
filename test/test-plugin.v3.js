@@ -1,38 +1,16 @@
-import tap from "tap";
-const test = tap.test;
-import Fastify from "fastify";
-import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from 'module';
-const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
+const t = require("tap");
+const test = t.test;
+const Fastify = require("fastify");
+const fastifyOpenapiGlue = require("../index");
 
-const testSpec = await importJSON('./test-openapi.v3.json');
-const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
-const testSpecYAML = localFile('./test-openapi.v3.yaml');
-const genericPathItemsSpec = await importJSON('./test-openapi-v3-generic-path-items.json');
-import service from './service.js'
-const customTestSpec = JSON.parse(JSON.stringify(testSpec));
-customTestSpec.components.schemas.bodyObject.properties.str1.format = "custom-format";
-
+const testSpec = require("./test-openapi.v3.json");
+const petStoreSpec = require("./petstore-openapi.v3.json");
+const serviceFile = `${__dirname}/service.js`;
+const testSpecYAML = `${__dirname}/test-openapi.v3.yaml`;
+const service = require(serviceFile);
 const opts = {
   specification: testSpec,
   service
-};
-
-const customOpts = {
-  specification: customTestSpec,
-  service,
-  ajvOptions: {
-    formats: {
-      'custom-format': { type: 'string', validate: /test data/ }
-    }
-  }
-};
-
-const prefixOpts = {
-  specification: testSpec,
-  service,
-  prefix: "prefix"
 };
 
 const yamlOpts = {
@@ -52,33 +30,12 @@ const invalidServiceOpts = {
 
 const missingServiceOpts = {
   specification: testSpecYAML,
-  service: localFile('./not-a-valid-service.js')
-};
-
-const asyncServiceOpts = {
-  specification: testSpec,
-  service: localFile('./async-service.js')
-};
-
-const CJSServiceOpts = {
-  specification: testSpec,
-  service: localFile('./service.cjs')
+  service: `${__dirname}/not-a-valid-service.js`
 };
 
 const petStoreOpts = {
   specification: petStoreSpec,
   service
-};
-
-const genericPathItemsOpts = {
-  specification: genericPathItemsSpec,
-  service
-};
-
-const noAdditionalParamsOpts = {
-  specification: testSpec,
-  service,
-  noAdditional: true
 };
 
 test("path parameters work", t => {
@@ -93,7 +50,7 @@ test("path parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -110,25 +67,7 @@ test("query parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("query parameters with object schema work", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/queryParamObject?int1=1&int2=2"
-    },
-    (err, res) => {
-      console.log(res.body)
-      t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -148,41 +87,7 @@ test("header parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("missing header parameters returns error 500", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/headerParam"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 500);
-    }
-  );
-});
-
-test("missing authorization header returns error 500", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/authHeaderParam"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 500);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -196,56 +101,11 @@ test("body parameters work", t => {
     {
       method: "post",
       url: "/bodyParam",
-      payload: {
-        str1: "test data",
-        str2: "test data",
-      }
+      payload: { str1: "test data" }
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("body parameters that don't match custom-format set through ajvOptions returns error 400", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, customOpts);
-
-  fastify.inject(
-    {
-      method: "post",
-      url: "/bodyParam",
-      payload: {
-        str1: "WRONG-FORMAT",
-        str2: "test data",
-      }
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 400);
-    }
-  );
-});
-
-test("extra body parameters with ajv opts returns error 400", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, noAdditionalParamsOpts);
-
-  fastify.inject(
-    {
-      method: "post",
-      url: "/bodyParam",
-      payload: {
-        str1: "test data",
-        str2: "test data",
-      }
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 400);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -262,24 +122,7 @@ test("no parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("prefix in opts works", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, prefixOpts);
-
-  fastify.inject(
-    {
-      method: "get",
-      url: "/prefix/noParam"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -296,7 +139,7 @@ test("missing operation from service returns error 500", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 500);
+      t.strictEqual(res.statusCode, 500);
     }
   );
 });
@@ -313,7 +156,7 @@ test("response schema works with valid response", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -330,7 +173,7 @@ test("response schema works with invalid response", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 500);
+      t.strictEqual(res.statusCode, 500);
     }
   );
 });
@@ -347,41 +190,7 @@ test("yaml spec works", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("generic path parameters work", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/pathParam/2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("generic path parameters override works", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/noParam"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -394,7 +203,7 @@ test("invalid openapi v3 specification throws error ", t => {
     if (err) {
       t.equal(
         err.message,
-        "'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
+        "'specification' parameter must contain a valid version 2.0 or 3.0.x specification",
         "got expected error"
       );
     } else {
@@ -433,48 +242,9 @@ test("invalid service definition throws error ", t => {
   });
 });
 
-test("async service definition does not throw error", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, asyncServiceOpts);
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/pathParam/2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-
-test("CommonJS service definition does not throw error", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, CJSServiceOpts);
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/pathParam/2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-
 test("full pet store V3 definition does not throw error ", t => {
   t.plan(1);
   const fastify = Fastify();
-  // dummy parser to fix coverage testing
-  fastify.addContentTypeParser('application/xml', { parseAs: 'string' }, function (req, body, done) {
-    return body;
-  }
-  )
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
   fastify.ready(err => {
     if (err) {
@@ -503,68 +273,4 @@ test("V3.0.1 definition does not throw error", t => {
       t.pass("no unexpected error");
     }
   });
-});
-
-test("V3.0.2 definition does not throw error", t => {
-  const spec302 = JSON.parse(JSON.stringify(petStoreSpec));
-  spec302["openapi"] = "3.0.2";
-  const opts302 = {
-    specification: spec302,
-    service
-  };
-
-  t.plan(1);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts302);
-  fastify.ready(err => {
-    if (err) {
-      t.fail("got unexpected error");
-    } else {
-      t.pass("no unexpected error");
-    }
-  });
-});
-
-test("V3.0.3 definition does not throw error", t => {
-  const spec303 = JSON.parse(JSON.stringify(petStoreSpec));
-  spec303["openapi"] = "3.0.3";
-  const opts303 = {
-    specification: spec303,
-    service
-  };
-
-  t.plan(1);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, opts303);
-  fastify.ready(err => {
-    if (err) {
-      t.fail("got unexpected error");
-    } else {
-      t.pass("no unexpected error");
-    }
-  });
-});
-
-test("x- props are copied", t => {
-  t.plan(3);
-  const fastify = Fastify();
-  fastify.addHook('preHandler', async (request, reply) => {
-    if (reply.context.schema['x-tap-ok']) {
-      t.pass("found x- prop");
-    } else {
-      t.fail("missing x- prop");
-    }
-  });
-  fastify.register(fastifyOpenapiGlue, opts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/queryParam?int1=1&int2=2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
 });

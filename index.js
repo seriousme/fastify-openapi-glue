@@ -1,167 +1,171 @@
-import fp from "fastify-plugin";
-import { pathToFileURL } from "url";
-import AJV from "ajv";
-const Ajv = AJV.default;
-import addFormats from "ajv-formats";
-import oaiFormats from "./lib/oai-formats.js";
-import { Parser } from "./lib/Parser.js";
-import Security from "./lib/securityHandlers.js";
+const fp = require("fastify-plugin");
+const ip = require('ip');
+const jwt = require('jsonwebtoken');
+const parser = require("./lib/parser");
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
 }
 
-async function getObjectFromParam(param) {
+function getObject(param) {
+  let data = param;
   if (typeof param === "string") {
     try {
-      return (await import(pathToFileURL(param).href)).default
+      data = require(param);
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
   }
-  return param;
-}
-
-async function getObject(param, name) {
-  const data = await getObjectFromParam(param);
-  const obj = (typeof data === "function") ? data() : data;
-
-  if (!isObject(obj)) {
-    throw new Error(`'${name}' parameter must refer to an object`);
-  }
-  return obj;
-}
-
-async function getSecurityHandlers(opts, config) {
-  if (opts.securityHandlers) {
-    const securityHandlers = await getObject(opts.securityHandlers, 'securityHandlers');
-    const security = new Security(securityHandlers);
-    if ("initialize" in securityHandlers) {
-      securityHandlers.initialize(config.securitySchemes);
-    }
-    return { securityHandlers, security };
-  }
-  return {}
-}
-
-function setValidatorCompiler(instance, ajvOpts, noAdditional) {
-  const defaultOptions = {
-    removeAdditional: !noAdditional,
-    useDefaults: true,
-    coerceTypes: true,
-    strict: false
-  };
-  const ajvOptions = Object.assign(defaultOptions, ajvOpts);
-  const ajv = new Ajv(ajvOptions);
-  // add default AJV formats
-  addFormats(ajv);
-  // ajv-formats misses some validators for byte, float, double, int32 and int64 that oai-formats adds
-  for (const fmt in oaiFormats) {
-    ajv.addFormat(fmt, oaiFormats[fmt]);
+  if (typeof data === "function") {
+    data = data();
   }
 
-  instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
-    ajv.compile(schema)
-  );
-
-  instance.setSchemaErrorFormatter(
-    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar }))
-  );
-}
-
-function checkParserValidators(instance, contentTypes) {
-  contentTypes.forEach((contentType) => {
-    if (!instance.hasContentTypeParser(contentType)) {
-      instance.log.warn(`ContentTypeParser for '${contentType}' not found`);
-    }
-  });
+  return data;
 }
 
 // fastify uses the built-in AJV instance during serialization, and that
-// instance does not know about int32, int64 etc so remove those formats
+// instance does not know about int32 and int64 so remove those formats
 // from the responses
+const unknownFormats = { int32: true, int64: true };
 
-const unknownFormats = oaiFormats;
-
-function stripResponseFormats(schema, visited = new Set()) {
-  for (const item in schema) {
+function stripResponseFormats(schema) {
+  for (let item in schema) {
     if (isObject(schema[item])) {
-      if (schema[item].format && unknownFormats[schema[item].format] !== undefined) {
+      if (schema[item].format && unknownFormats[schema[item].format]) {
         schema[item].format = undefined;
       }
-      if (!visited.has(item)) {
-        visited.add(item);
-        stripResponseFormats(schema[item], visited);
-      }
+      stripResponseFormats(schema[item]);
     }
   }
 }
 
-function notImplemented(operationId) {
-  return async (request, reply) => {
-    throw new Error(`Operation ${operationId} not implemented`);
-  };
-}
-
-// this is the main function for the plugin
 async function fastifyOpenapiGlue(instance, opts) {
-  setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
-  const parser = new Parser();
-  const config = await parser.parse(opts.specification);
-  checkParserValidators(instance, config.contentTypes);
+  const service = getObject(opts.service);
+  if (!isObject(service)) {
+    throw new Error("'service' parameter must refer to an object");
+  }
 
-  const service = await getObject(opts.service, 'service');
+  const config = await parser().parse(opts.specification);
+  const routeConf = {};
 
-  const { securityHandlers, security } = await getSecurityHandlers(opts, config);
+  // AJV misses some validators for int32, int64 etc which ajv-oai adds
+  const Ajv = require("ajv-oai");
+  const ajv = new Ajv({
+    // the fastify defaults
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true
+  });
 
-  async function generateRoutes(routesInstance, routesOpts) {
-    config.routes.forEach((item) => {
+  instance.setValidatorCompiler(schema => ajv.compile(schema));
+
+  if (config.prefix) {
+    routeConf.prefix = config.prefix;
+  }
+
+  /**
+   * @param request {request}
+   * @param entity {string} name of object or field, used for error handling
+   * @return {Promise.<void>}
+   */
+  async function checkJWT(request, entity) {
+    if (!('authorization' in request.headers)) {
+      const message = `Missing authorization header for ${entity}`;
+      await global.mq.openapiFailures(request, null, message);
+      throw new Error(message);
+    }
+    const token = request.headers['authorization'].split(' ')[1];
+    let payload;
+
+    // check if the token is expired or broken
+    try {
+      payload = jwt.verify(token, global.PUBLIC_KEY, { algorithm: "RS256" });
+    } catch (err) {
+      const message = `${err.name} ${err.message} for ${entity}`;
+      await global.mq.openapiFailures(request, null, message);
+      throw new Error(message);
+    }
+
+    const { IpList, Role } = payload;
+
+    // check that client IP in token range
+    if (IpList && IpList.length) {
+      const ipInAllowedRange = IpList.some(ipRange => ip.cidrSubnet(ipRange).contains(request.req.ip));
+      if (!ipInAllowedRange) {
+        const message = 'IP address if out of range you permit for';
+        await global.mq.openapiFailures(request, payload, message);
+        throw new Error(message);
+      }
+    }
+
+    request.Roles = Role;
+    request.EntityId = payload.EntityId || 'not provided';
+    request.EntityType = payload.EntityType || 'not provided';
+
+    // send requet message to the AMQP if everything's fine
+    if (global.mq) {
+      global.mq.openapiRequests(request, payload);
+    }
+  }
+
+  async function checkAccess(request, item) {
+    if (item.schema) {
+      const schema = item.schema;
+      // TODO extend rule for more x-auth-type
+      const xAuthTypes = item.openapiSource['x-AuthType'];
+      if (xAuthTypes.length && !xAuthTypes.some(el => el === "None")) {
+        request.xAuthTypes = xAuthTypes;
+        await checkJWT(request, schema.operationId);
+      }
+    }
+  }
+
+  async function generateRoutes(routesInstance, opt) {
+    config.routes.forEach(item => {
       const response = item.schema.response;
       if (response) {
         stripResponseFormats(response);
       }
-      if (item.operationId in service) {
-        routesInstance.log.debug("service has", item.operationId);
-        item.handler = service[item.operationId].bind(service);
+      if (service[item.operationId]) {
+        const controllerName = item.operationId;
+        routesInstance.log.debug("service has", controllerName);
+        item.preValidation = async (request, reply, done) => {
+          if (opts.metrics && opts.metrics[`${controllerName}${opts.metrics.suffix.total}`]) {
+            opts.metrics[`${controllerName}${opts.metrics.suffix.total}`].mark();
+          }
+          request.controllerName = controllerName;
+          try {
+            if (global.CHECK_TOKEN) await checkAccess(request, item);
+          } catch (error) {
+            if (error.message.split(' ').includes('expired')) {
+              reply.code(440).send({ 'Status': 440, 'Description': `${error.message}` });
+            }
+            else {
+              reply.code(401).send({ 'Status': 401, 'Description': `${error.message}` });
+            }
+          }
+        };
+        item.handler = async (request, reply) => {
+          return service[item.operationId](request, reply);
+        };
       } else {
-        item.handler = notImplemented(item.operationId);
-      }
-
-      // Apply security requirements if present and at least one handler is defined
-      if (security && security.has(item.security)) {
-        item.preHandler = security.get(item.security).bind(securityHandlers);
+        item.handler = async (request, reply) => {
+          throw new Error(`Operation ${item.operationId} not implemented`);
+        };
       }
       routesInstance.route(item);
     });
-
-    if (security) {
-      const missingSecurityHandlers = security.getMissingHandlers();
-      if (missingSecurityHandlers.length > 0) {
-        routesInstance.log.warn(
-          `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
-            ", "
-          )}`
-        );
-      }
-    }
-  }
-
-  const routeConf = {};
-  if (opts.prefix) {
-    routeConf.prefix = opts.prefix;
-  } else if (config.prefix) {
-    routeConf.prefix = config.prefix;
   }
 
   instance.register(generateRoutes, routeConf);
 }
 
-export default fp(fastifyOpenapiGlue, {
-  fastify: ">=3.2.1",
-  name: "fastify-openapi-glue",
+module.exports = fp(fastifyOpenapiGlue, {
+  fastify: ">=0.39.0",
+  name: "fastify-openapi-glue"
 });
 
-export const options = {
+module.exports.options = {
   specification: "examples/petstore/petstore-swagger.v2.json",
-  service: "examples/petstore/service.js",
+  service: "examples/petstore/service.js"
 };

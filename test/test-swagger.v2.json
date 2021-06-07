@@ -7,20 +7,9 @@
   },
   "host": "localhost",
   "basePath": "/v2",
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "security": [
-    {
-      "skipped": []
-    }
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/pathParam/{id}": {
       "get": {
@@ -61,8 +50,7 @@
           "200": {
             "description": "ok"
           }
-        },
-        "x-tap-ok": true
+        }
       }
     },
     "/headerParam": {
@@ -115,8 +103,8 @@
         }
       }
     },
-    "/noOperationId/{id}": {
-      "get": {
+    "/noOperationId/{id}":{
+      "get":{
         "summary": "Test missing operationid",
         "parameters": [
           {
@@ -156,70 +144,6 @@
           }
         }
       }
-    },
-    "/operationSecurity": {
-      "get": {
-        "operationId": "testOperationSecurity",
-        "summary": "Test security handling",
-        "security": [
-          {
-            "api_key": []
-          },
-          {
-            "skipped": []
-          },
-          {
-            "failing": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "schema": {
-              "$ref": "#/definitions/responseObject"
-            }
-          },
-          "401": {
-            "description": "unauthorized",
-            "schema": {
-              "$ref": "#/definitions/errorObject"
-            }
-          }
-        }
-      }
-    },
-    "/operationSecurityWithParameter": {
-      "get": {
-        "operationId": "testOperationSecurityWithParameter",
-        "summary": "Test security handling",
-        "security": [
-          {
-            "api_key": []
-          },
-          {
-            "skipped": [
-              "skipped"
-            ]
-          },
-          {
-            "failing": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "ok",
-            "schema": {
-              "$ref": "#/definitions/responseObject"
-            }
-          },
-          "401": {
-            "description": "unauthorized",
-            "schema": {
-              "$ref": "#/definitions/errorObject"
-            }
-          }
-        }
-      }
     }
   },
   "definitions": {
@@ -230,9 +154,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "str1"
-      ]
+      "required": ["str1"]
     },
     "responseObject": {
       "type": "object",
@@ -241,30 +163,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "response"
-      ]
-    },
-    "errorObject": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "statusCode": {
-          "type": "integer"
-        }
-      }
-    }
-  },
-  "securityDefinitions": {
-    "api_key": {
-      "type": "apiKey",
-      "in": "header",
-      "name": "X-API-Key"
-    },
-    "skipped": {
-      "type": "basic"
+      "required": ["response"]
     }
   }
 }

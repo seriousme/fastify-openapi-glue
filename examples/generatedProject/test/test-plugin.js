@@ -2,14 +2,13 @@
 // running the tests directly after generation will probably fail as the parameters
 // need to be manually added.
 
-import tap from "tap";
-const test = tap.test;
-import Fastify from "fastify";
-import fastifyPlugin from "../index.js";
-import service from "../service.js";
+const t = require("tap");
+const test = t.test;
+const Fastify = require("fastify");
+const fastifyPlugin = require("../index.js");
 
 const specification = "../openApi.json";
-
+const service = require("../service.js");
 
 const opts = {
   specification,
@@ -94,7 +93,7 @@ test("testing addPet", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -182,7 +181,7 @@ test("testing updatePet", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -196,8 +195,8 @@ test("testing updatePet", t => {
   //   type: object
   //   properties:
   //     status:
-  //       description: Status values that need to be considered for filter
   //       type: array
+  //       description: Status values that need to be considered for filter
   //   required:
   //     - status
   //
@@ -278,7 +277,7 @@ test("testing findPetsByStatus", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -292,8 +291,8 @@ test("testing findPetsByStatus", t => {
   //   type: object
   //   properties:
   //     tags:
-  //       description: Tags to filter by
   //       type: array
+  //       description: Tags to filter by
   //   required:
   //     - tags
   //
@@ -374,7 +373,7 @@ test("testing findPetsByTags", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -388,8 +387,8 @@ test("testing findPetsByTags", t => {
   //   type: object
   //   properties:
   //     petId:
-  //       description: ID of pet to return
   //       type: integer
+  //       description: ID of pet to return
   //   required:
   //     - petId
   //
@@ -470,7 +469,7 @@ test("testing getPetById", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -484,8 +483,8 @@ test("testing getPetById", t => {
   //   type: object
   //   properties:
   //     petId:
-  //       description: ID of pet that needs to be updated
   //       type: integer
+  //       description: ID of pet that needs to be updated
   //   required:
   //     - petId
   //
@@ -493,11 +492,11 @@ test("testing getPetById", t => {
   //   type: object
   //   properties:
   //     name:
+  //       type: string
   //       description: Updated name of the pet
-  //       type: string
   //     status:
-  //       description: Updated status of the pet
   //       type: string
+  //       description: Updated status of the pet
   //
   // valid responses
   //   '405':
@@ -519,7 +518,7 @@ test("testing updatePetWithForm", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -539,8 +538,8 @@ test("testing updatePetWithForm", t => {
   //   type: object
   //   properties:
   //     petId:
-  //       description: Pet id to delete
   //       type: integer
+  //       description: Pet id to delete
   //   required:
   //     - petId
   //
@@ -566,7 +565,7 @@ test("testing deletePet", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -580,8 +579,8 @@ test("testing deletePet", t => {
   //   type: object
   //   properties:
   //     petId:
-  //       description: ID of pet to update
   //       type: integer
+  //       description: ID of pet to update
   //   required:
   //     - petId
   //
@@ -589,11 +588,11 @@ test("testing deletePet", t => {
   //   type: object
   //   properties:
   //     additionalMetadata:
+  //       type: string
   //       description: Additional data to pass to server
-  //       type: string
   //     file:
-  //       description: file to upload
   //       type: string
+  //       description: file to upload
   //
   // valid responses
   //   '200':
@@ -625,7 +624,7 @@ test("testing uploadFile", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -660,7 +659,7 @@ test("testing getInventory", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -747,7 +746,7 @@ test("testing placeOrder", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -761,8 +760,8 @@ test("testing placeOrder", t => {
   //   type: object
   //   properties:
   //     orderId:
-  //       description: ID of pet that needs to be fetched
   //       type: integer
+  //       description: ID of pet that needs to be fetched
   //   required:
   //     - orderId
   //
@@ -817,7 +816,7 @@ test("testing getOrderById", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -831,8 +830,8 @@ test("testing getOrderById", t => {
   //   type: object
   //   properties:
   //     orderId:
-  //       description: ID of the order that needs to be deleted
   //       type: integer
+  //       description: ID of the order that needs to be deleted
   //   required:
   //     - orderId
   //
@@ -858,7 +857,7 @@ test("testing deleteOrder", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -913,7 +912,7 @@ test("testing createUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -970,7 +969,7 @@ test("testing createUsersWithArrayInput", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -1027,7 +1026,7 @@ test("testing createUsersWithListInput", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -1041,11 +1040,11 @@ test("testing createUsersWithListInput", t => {
   //   type: object
   //   properties:
   //     username:
+  //       type: string
   //       description: The user name for login
-  //       type: string
   //     password:
-  //       description: The password for login in clear text
   //       type: string
+  //       description: The password for login in clear text
   //   required:
   //     - username
   //     - password
@@ -1083,7 +1082,7 @@ test("testing loginUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -1113,7 +1112,7 @@ test("testing logoutUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -1127,8 +1126,8 @@ test("testing logoutUser", t => {
   //   type: object
   //   properties:
   //     username:
-  //       description: 'The name that needs to be fetched. Use user1 for testing. '
   //       type: string
+  //       description: 'The name that needs to be fetched. Use user1 for testing. '
   //   required:
   //     - username
   //
@@ -1180,7 +1179,7 @@ test("testing getUserByName", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -1194,8 +1193,8 @@ test("testing getUserByName", t => {
   //   type: object
   //   properties:
   //     username:
-  //       description: name that need to be updated
   //       type: string
+  //       description: name that need to be updated
   //   required:
   //     - username
   //
@@ -1246,7 +1245,7 @@ test("testing updateUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -1260,8 +1259,8 @@ test("testing updateUser", t => {
   //   type: object
   //   properties:
   //     username:
-  //       description: The name that needs to be deleted
   //       type: string
+  //       description: The name that needs to be deleted
   //   required:
   //     - username
   //
@@ -1287,7 +1286,7 @@ test("testing deleteUser", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });

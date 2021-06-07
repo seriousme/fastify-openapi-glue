@@ -84,3 +84,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# IDE config
+.idea

@@ -1,15 +1,13 @@
-import tap from "tap";
-const test = tap.test;
-import Fastify from "fastify";
-import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from 'module';
-const importJSON = createRequire(import.meta.url);
-const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
+const t = require("tap");
+const test = t.test;
+const Fastify = require("fastify");
+const fastifyOpenapiGlue = require("../index");
 
-const testSpec = await importJSON('./test-swagger.v2.json');
-const petStoreSpec = await importJSON('./petstore-swagger.v2.json');
-const testSpecYAML = localFile('./test-swagger.v2.yaml');
-import service from './service.js';
+const testSpec = require("./test-swagger.v2.json");
+const petStoreSpec = require("./petstore-swagger.v2.json");
+const serviceFile = `${__dirname}/service.js`;
+const testSpecYAML = `${__dirname}/test-swagger.v2.yaml`;
+const service = require(serviceFile);
 
 const opts = {
   specification: testSpec,
@@ -33,7 +31,7 @@ const invalidServiceOpts = {
 
 const missingServiceOpts = {
   specification: testSpecYAML,
-  service: localFile('./not-a-valid-service.js')
+  service: `${__dirname}/not-a-valid-service.js`
 };
 
 const petStoreOpts = {
@@ -53,7 +51,7 @@ test("path parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -70,7 +68,7 @@ test("query parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -90,7 +88,7 @@ test("header parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -108,7 +106,7 @@ test("body parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -125,7 +123,7 @@ test("no parameters work", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -142,7 +140,7 @@ test("missing operation from service returns error 500", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 500);
+      t.strictEqual(res.statusCode, 500);
     }
   );
 });
@@ -159,7 +157,7 @@ test("response schema works with valid response", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -176,7 +174,7 @@ test("response schema works with invalid response", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 500);
+      t.strictEqual(res.statusCode, 500);
     }
   );
 });
@@ -193,7 +191,7 @@ test("yaml spec works", t => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(res.statusCode, 200);
+      t.strictEqual(res.statusCode, 200);
     }
   );
 });
@@ -206,7 +204,7 @@ test("invalid openapi v2 specification throws error ", t => {
     if (err) {
       t.equal(
         err.message,
-        "'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
+        "'specification' parameter must contain a valid version 2.0 or 3.0.x specification",
         "got expected error"
       );
     } else {
@@ -256,28 +254,4 @@ test("full pet store V2 definition does not throw error ", t => {
       t.pass("no unexpected error");
     }
   });
-});
-
-test("x- props are copied", t => {
-  t.plan(3);
-  const fastify = Fastify();
-  fastify.addHook('preHandler', async (request, reply) => {
-    if (reply.context.schema['x-tap-ok']) {
-      t.pass("found x- prop");
-    } else {
-      t.fail("missing x- prop");
-    }
-  });
-  fastify.register(fastifyOpenapiGlue, opts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/queryParam?int1=1&int2=2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
 });
