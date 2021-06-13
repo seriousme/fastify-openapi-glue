@@ -5,6 +5,7 @@ const addFormats = require("ajv-formats");
 const oaiFormats = require("./lib/oai-formats");
 const parser = require("./lib/parser");
 const Security = require("./lib/securityHandlers");
+const mergeDeepObjectParam = require("./lib/paramUtils").mergeDeepObjectParam;
 const hasESM = Number(process.versions.node.split('.')[0]) >= 14;
 
 function isObject(obj) {
@@ -124,6 +125,32 @@ async function fastifyOpenapiGlue(instance, opts) {
         item.handler = service[item.operationId].bind(service);
       } else {
         item.handler = notImplemented(item.operationId);
+      }
+
+      const jsonParams = item.openapiSource.parameters
+        ? item.openapiSource.parameters
+          .filter((p) => p.content && p.content['application/json'])
+          .map((p) => ({ in: p.in, name: p.name }))
+        : [];
+      const deepObjectParams = item.openapiSource.parameters
+        ? item.openapiSource.parameters
+          .filter((p) => p.style === 'deepObject')
+          .map((p) => ({ in: p.in, name: p.name }))
+        : [];
+      if (jsonParams.length || deepObjectParams.length) {
+        item.preValidation = (request, reply, done) => {
+          jsonParams.forEach((p) => {
+            if (p.in in request && p.name in request[p.in]) {
+              request[p.in][p.name] = JSON.parse(request[p.in][p.name]);
+            }
+          });
+          deepObjectParams.forEach((p) => {
+            if (p.in in request) {
+              mergeDeepObjectParam(request[p.in], p.name)
+            }
+          });
+          done()
+        }
       }
 
       // Apply security requirements if present and at least one handler is defined
