@@ -121,7 +121,7 @@ async function fastifyOpenapiGlue(instance, opts) {
         stripResponseFormats(response);
       }
       if (item.operationId in service) {
-        routesInstance.log.debug("service has", item.operationId);
+        routesInstance.log.debug("service has %s", item.operationId);
         item.handler = service[item.operationId].bind(service);
       } else {
         item.handler = notImplemented(item.operationId);
