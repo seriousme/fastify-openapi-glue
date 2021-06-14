@@ -147,6 +147,13 @@ The folder [examples/generatedProject](examples/generatedProject) contains the r
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes. See the [servers documentation](docs/servers.md) for more details.
 - fastify only supports `application/json` and `text/plain` out of the box. The default charset is `utf-8`.  If you need to support different content types, you can use the fastify `addContentTypeParser` API.
 - fastify only supports one schema per route. So while the v3 standard allows for multiple content types per route, each with their own schema this is currently not going to work with fastify. Potential workarounds include a custom content type parser and merging schemas upfront using JSON schema `oneOf`.
+- the plugin aims to follow fastify and does not compensate for features that are possible according to the OpenApi specification but not possible in standard fastify (without plugins). This will keep the plugin lightweigth and maintainable.
+<a name="Contributing"></a>
+## Contributing
+- contributions are always welcome. 
+- if you plan on submitting new features then please create an issue first to discuss and avoid disappointments.
+- main development is done on the master branch therefore PRs to that branch are preferred.
+- please make sure you have run `npm test` before you submit a PR.
 <a name="Fastify-swaggergen"></a>
 ## Fastify-swaggergen
 Fastify-openapi-glue is the successor to the now deprecated [fastify-swaggergen](https://github.com/seriousme/fastify-swaggergen) project.
