@@ -6,6 +6,20 @@
  - Deprecation of Nodejs < 12.17.0 
  - Added Nodejs 16 to CI
 
+## [2.6.2] - 25-06-2021
+### Changed
+- Updated dependencies:
+  - fastify                              ^3.15.0  →  ^3.18.0     
+  - fastify-cli                           ^2.9.1  →  ^2.13.0     
+  - tap                                  ^15.0.4  →  ^15.0.8     
+  - @seriousme/openapi-schema-validator   ^1.1.2  →   ^1.1.5     
+  - ajv                                   ^8.1.0  →   ^8.6.0     
+  - ajv-formats                           ^2.0.2  →   ^2.1.0   
+
+## [2.6.1] - 05-06-2021
+### Changed
+ - Fixed makeOperation so "get /user/{name}" becomes getUserByName as it used to
+ 
 ## [2.6.0] - 15-05-2021
 ### Changed
  - Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
