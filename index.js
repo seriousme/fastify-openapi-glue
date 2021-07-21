@@ -79,7 +79,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 
     // check if the token is expired or broken
     try {
-      payload = jwt.verify(token, opts.publicKey, { algorithm: "RS256" });
+      payload = jwt.verify(token, opts.publicKey, { algorithms: ['RS256'] });
     } catch (err) {
       const message = `${err.name} ${err.message} for ${entity}`;
       // await global.mq.openapiFailures(request, null, message);
