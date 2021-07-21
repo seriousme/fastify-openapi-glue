@@ -71,7 +71,7 @@ async function fastifyOpenapiGlue(instance, opts) {
   async function checkJWT(request, entity) {
     if (!('authorization' in request.headers)) {
       const message = `Missing authorization header for ${entity}`;
-      await global.mq.openapiFailures(request, null, message);
+      // await global.mq.openapiFailures(request, null, message);
       throw new Error(message);
     }
     const token = request.headers['authorization'].split(' ')[1];
@@ -79,10 +79,10 @@ async function fastifyOpenapiGlue(instance, opts) {
 
     // check if the token is expired or broken
     try {
-      payload = jwt.verify(token, global.PUBLIC_KEY, { algorithm: "RS256" });
+      payload = jwt.verify(token, opts.publicKey, { algorithm: "RS256" });
     } catch (err) {
       const message = `${err.name} ${err.message} for ${entity}`;
-      await global.mq.openapiFailures(request, null, message);
+      // await global.mq.openapiFailures(request, null, message);
       throw new Error(message);
     }
 
@@ -93,7 +93,7 @@ async function fastifyOpenapiGlue(instance, opts) {
       const ipInAllowedRange = IpList.some(ipRange => ip.cidrSubnet(ipRange).contains(request.req.ip));
       if (!ipInAllowedRange) {
         const message = 'IP address if out of range you permit for';
-        await global.mq.openapiFailures(request, payload, message);
+        // await global.mq.openapiFailures(request, payload, message);
         throw new Error(message);
       }
     }
@@ -103,9 +103,9 @@ async function fastifyOpenapiGlue(instance, opts) {
     request.EntityType = payload.EntityType || 'not provided';
 
     // send requet message to the AMQP if everything's fine
-    if (global.mq) {
-      global.mq.openapiRequests(request, payload);
-    }
+    // if (global.mq) {
+    //   global.mq.openapiRequests(request, payload);
+    // }
   }
 
   async function checkAccess(request, item) {
@@ -135,7 +135,7 @@ async function fastifyOpenapiGlue(instance, opts) {
           }
           request.controllerName = controllerName;
           try {
-            if (global.CHECK_TOKEN) await checkAccess(request, item);
+            if (opts.checkToken) await checkAccess(request, item);
           } catch (error) {
             if (error.message.split(' ').includes('expired')) {
               reply.code(440).send({ 'Status': 440, 'Description': `${error.message}` });
