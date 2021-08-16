@@ -5,6 +5,7 @@
 
 ## [2.6.3] - 16-08-2021
 ### Changed
+- Replaced custom oai-formats by default ajv-formats
 - Updated dependencies:
   - fastify                              ^3.18.0  →  ^3.20.2     
   - tap                                  ^15.0.8  →  ^15.0.9     
