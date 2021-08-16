@@ -1,9 +1,7 @@
 import fp from "fastify-plugin";
 import { pathToFileURL } from "url";
-import AJV from "ajv";
-const Ajv = AJV.default;
+import Ajv from "ajv";
 import addFormats from "ajv-formats";
-import oaiFormats from "./lib/oai-formats.js";
 import { Parser } from "./lib/Parser.js";
 import Security from "./lib/securityHandlers.js";
 
@@ -14,7 +12,7 @@ function isObject(obj) {
 async function getObjectFromParam(param) {
   if (typeof param === "string") {
     try {
-      return (await import(pathToFileURL(param).href)).default
+      return (await import(pathToFileURL(param).href)).default;
     } catch (error) {
       throw new Error(`failed to load ${param}`);
     }
@@ -34,14 +32,17 @@ async function getObject(param, name) {
 
 async function getSecurityHandlers(opts, config) {
   if (opts.securityHandlers) {
-    const securityHandlers = await getObject(opts.securityHandlers, 'securityHandlers');
+    const securityHandlers = await getObject(
+      opts.securityHandlers,
+      "securityHandlers",
+    );
     const security = new Security(securityHandlers);
     if ("initialize" in securityHandlers) {
       securityHandlers.initialize(config.securitySchemes);
     }
     return { securityHandlers, security };
   }
-  return {}
+  return {};
 }
 
 function setValidatorCompiler(instance, ajvOpts, noAdditional) {
@@ -49,23 +50,19 @@ function setValidatorCompiler(instance, ajvOpts, noAdditional) {
     removeAdditional: !noAdditional,
     useDefaults: true,
     coerceTypes: true,
-    strict: false
+    strict: false,
   };
   const ajvOptions = Object.assign(defaultOptions, ajvOpts);
   const ajv = new Ajv(ajvOptions);
   // add default AJV formats
   addFormats(ajv);
-  // ajv-formats misses some validators for byte, float, double, int32 and int64 that oai-formats adds
-  for (const fmt in oaiFormats) {
-    ajv.addFormat(fmt, oaiFormats[fmt]);
-  }
 
   instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
     ajv.compile(schema)
   );
 
   instance.setSchemaErrorFormatter(
-    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar }))
+    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar })),
   );
 }
 
@@ -81,12 +78,22 @@ function checkParserValidators(instance, contentTypes) {
 // instance does not know about int32, int64 etc so remove those formats
 // from the responses
 
-const unknownFormats = oaiFormats;
+const unknownFormats = new Set([
+  "byte",
+  "int32",
+  "int64",
+  "float",
+  "double",
+  "binary",
+  "password",
+]);
 
 function stripResponseFormats(schema, visited = new Set()) {
   for (const item in schema) {
     if (isObject(schema[item])) {
-      if (schema[item].format && unknownFormats[schema[item].format] !== undefined) {
+      if (
+        schema[item].format && unknownFormats.has(schema[item].format)
+      ) {
         schema[item].format = undefined;
       }
       if (!visited.has(item)) {
@@ -110,9 +117,12 @@ async function fastifyOpenapiGlue(instance, opts) {
   const config = await parser.parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
-  const service = await getObject(opts.service, 'service');
+  const service = await getObject(opts.service, "service");
 
-  const { securityHandlers, security } = await getSecurityHandlers(opts, config);
+  const { securityHandlers, security } = await getSecurityHandlers(
+    opts,
+    config,
+  );
 
   async function generateRoutes(routesInstance, routesOpts) {
     config.routes.forEach((item) => {
@@ -138,9 +148,11 @@ async function fastifyOpenapiGlue(instance, opts) {
       const missingSecurityHandlers = security.getMissingHandlers();
       if (missingSecurityHandlers.length > 0) {
         routesInstance.log.warn(
-          `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
-            ", "
-          )}`
+          `Handlers for some security requirements were missing: ${
+            missingSecurityHandlers.join(
+              ", ",
+            )
+          }`,
         );
       }
     }
