@@ -2,7 +2,6 @@ const fp = require("fastify-plugin");
 const url = require("url");
 const Ajv = require("ajv").default;
 const addFormats = require("ajv-formats");
-const oaiFormats = require("./lib/oai-formats");
 const parser = require("./lib/parser");
 const Security = require("./lib/securityHandlers");
 const hasESM = Number(process.versions.node.split('.')[0]) >= 14;
@@ -48,23 +47,19 @@ function setValidatorCompiler(instance, ajvOpts, noAdditional) {
     removeAdditional: !noAdditional,
     useDefaults: true,
     coerceTypes: true,
-    strict: false
+    strict: false,
   };
   Object.assign(ajvOptions, ajvOpts);
   const ajv = new Ajv(ajvOptions);
   // add default AJV formats
   addFormats(ajv);
-  // ajv-formats misses some validators for byte, float, double, int32 and int64 that oai-formats adds
-  for (const fmt in oaiFormats) {
-    ajv.addFormat(fmt, oaiFormats[fmt]);
-  }
 
   instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
     ajv.compile(schema)
   );
 
   instance.setSchemaErrorFormatter(
-    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar }))
+    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar })),
   );
 }
 
@@ -80,12 +75,22 @@ function checkParserValidators(instance, contentTypes) {
 // instance does not know about int32, int64 etc so remove those formats
 // from the responses
 
-const unknownFormats = oaiFormats;
+const unknownFormats = new Set([
+  "byte",
+  "int32",
+  "int64",
+  "float",
+  "double",
+  "binary",
+  "password",
+]);
 
 function stripResponseFormats(schema, visited = new Set()) {
   for (const item in schema) {
     if (isObject(schema[item])) {
-      if (schema[item].format && unknownFormats[schema[item].format] !== undefined) {
+      if (
+        schema[item].format && unknownFormats.has(schema[item].format)
+      ) {
         schema[item].format = undefined;
       }
       if (!visited.has(item)) {
@@ -109,9 +114,12 @@ async function fastifyOpenapiGlue(instance, opts) {
   const config = await parser().parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
-  const service = await getObject(opts.service, 'service');
+  const service = await getObject(opts.service, "service");
 
-  const { securityHandlers, security } = await getSecurityHandlers(opts, config);
+  const { securityHandlers, security } = await getSecurityHandlers(
+    opts,
+    config,
+  );
 
   async function generateRoutes(routesInstance, routesOpts) {
     config.routes.forEach((item) => {
@@ -137,9 +145,11 @@ async function fastifyOpenapiGlue(instance, opts) {
       const missingSecurityHandlers = security.getMissingHandlers();
       if (missingSecurityHandlers.length > 0) {
         routesInstance.log.warn(
-          `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
-            ", "
-          )}`
+          `Handlers for some security requirements were missing: ${
+            missingSecurityHandlers.join(
+              ", ",
+            )
+          }`,
         );
       }
     }
