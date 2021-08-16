@@ -3,6 +3,15 @@
 ## [Unreleased]
 ### Changed
 
+## [2.6.3] - 16-08-2021
+### Changed
+- Updated dependencies:
+  - fastify                              ^3.18.0  →  ^3.20.2     
+  - tap                                  ^15.0.8  →  ^15.0.9     
+  - @seriousme/openapi-schema-validator   ^1.1.5  →   ^1.3.0     
+  - ajv                                   ^8.6.0  →   ^8.6.2     
+  - ajv-formats                           ^2.1.0  →   ^2.1.1   
+
 ## [2.6.2] - 25-06-2021
 ### Changed
 - Updated dependencies:
