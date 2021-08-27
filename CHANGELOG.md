@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [2.6.4] - 27-08-2021
+### Changed
+- fix(log): additional log params get swallowed (mhamann)
+
 ## [2.6.3] - 16-08-2021
 ### Changed
 - Replaced custom oai-formats by default ajv-formats
