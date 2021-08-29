@@ -3,7 +3,7 @@
 ## [Unreleased]
 ### Changed
 
-## [2.6.5] - 27-08-2021
+## [2.6.5] - 29-08-2021
 ### Changed
 - fix(log): debug log of security handlers shows `undefined`
 
