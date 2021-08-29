@@ -6,6 +6,14 @@
  - Deprecation of Nodejs < 12.17.0 
  - Added Nodejs 16 to CI
 
+## [2.6.5] - 27-08-2021
+### Changed
+- fix(log): debug log of security handlers shows `undefined`
+
+## [2.6.4] - 27-08-2021
+### Changed
+- fix(log): additional log params get swallowed (mhamann)
+
 ## [2.6.3] - 16-08-2021
 ### Changed
 - Replaced custom oai-formats by default ajv-formats
