@@ -6,7 +6,7 @@
  - Deprecation of Nodejs < 12.17.0 
  - Added Nodejs 16 to CI
 
-## [2.6.5] - 27-08-2021
+## [2.6.5] - 29-08-2021
 ### Changed
 - fix(log): debug log of security handlers shows `undefined`
 
