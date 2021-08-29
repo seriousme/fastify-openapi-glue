@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [2.6.5] - 27-08-2021
+### Changed
+- fix(log): debug log of security handlers shows `undefined`
+
 ## [2.6.4] - 27-08-2021
 ### Changed
 - fix(log): additional log params get swallowed (mhamann)
