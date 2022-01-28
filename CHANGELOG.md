@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 ### Changed
+ - Migrated to ES Modules format
+ - Deprecation of Nodejs < 12.17.0 
+ - Added Nodejs 16 to CI
+
+## [2.6.6] - 28-01-2022
+### Changed
+ - Updated dependencies:
+  - @seriousme/openapi-schema-validator   ^1.3.0  →   ^1.6.0     
+  - ajv                                   ^8.6.2  →   ^8.9.0     
+  - fastify-plugin                        ^3.0.0  →   ^3.0.1     
+  - fastify                              ^3.20.2  →  ^3.27.0     
+  - fastify-cli                          ^2.13.0  →  ^2.15.0     
+  - tap                                  ^15.0.9  →  ^15.1.6     
 
 ## [2.6.5] - 29-08-2021
 ### Changed
@@ -19,7 +32,7 @@
   - tap                                  ^15.0.8  →  ^15.0.9     
   - @seriousme/openapi-schema-validator   ^1.1.5  →   ^1.3.0     
   - ajv                                   ^8.6.0  →   ^8.6.2     
-  - ajv-formats                           ^2.1.0  →   ^2.1.1   
+  - ajv-formats                           ^2.1.0  →   ^2.1.1 
 
 ## [2.6.2] - 25-06-2021
 ### Changed
@@ -34,7 +47,7 @@
 ## [2.6.1] - 05-06-2021
 ### Changed
  - Fixed makeOperation so "get /user/{name}" becomes getUserByName as it used to
-
+ 
 ## [2.6.0] - 15-05-2021
 ### Changed
  - Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
@@ -53,7 +66,7 @@
  - Removed dependency on decimal.js-light
  - Fixed bug in validation of 'Byte' format
  - Updated dependencies:
-    - ajv           ^7.0.3  →   ^8.0.1     
+    - ajv           ^7.0.3  →   ^8.1.0     
     - ajv-formats   ^1.5.1  →   ^2.0.2   
     - fastify      ^3.10.1  →  ^3.15.0    
     - fastify-cli   ^2.7.0  →   ^2.9.1  
