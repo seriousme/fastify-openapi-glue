@@ -1,6 +1,6 @@
-// a fastify plugin do demo fastify-openapi-glue
+// a fastify plugin to demo fastify-openapi-glue
 // it can be run as plugin on any fastify server
-// or standalone using "fastify start plugin.js"
+// or standalone using "fastify start index.js"
 const openapiGlue = require("../../index.js");
 
 const options = {
