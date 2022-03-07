@@ -42,7 +42,7 @@
     "c8": "^7.11.0",
     "fastify": "^3.27.1",
     "fastify-cli": "^2.15.0",
-    "tap": "^15.1.6"
+    "tap": "^16.0.0"
   },
   "repository": {
     "type": "git",
