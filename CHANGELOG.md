@@ -3,8 +3,17 @@
 ## [Unreleased]
 ### Changed
  - Migrated to ES Modules format
- - Deprecation of Nodejs < 12.17.0 
- - Added Nodejs 16 to CI
+ 
+## [2.6.7] - 22-04-2022
+### Changed
+ - Deprecation of Nodejs < 14 
+ - Added Nodejs 18 to CI
+ - Updated dependencies:
+    @seriousme/openapi-schema-validator   ^1.6.0  →   ^1.7.1    
+    ajv                                   ^8.9.0  →  ^8.11.0     
+    minimist                              ^1.2.5  →   ^1.2.6     
+    fastify                              ^3.27.0  →  ^3.28.0     
+    tap                                  ^15.1.6  →  ^16.0.1   
 
 ## [2.6.6] - 28-01-2022
 ### Changed
