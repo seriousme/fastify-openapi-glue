@@ -3,6 +3,9 @@
   "version": "2.6.6",
   "description": "generate a fastify configuration from an openapi specification",
   "main": "index.js",
+  "engines": {
+    "node": ">=14"
+  },
   "types": "index.d.ts",
   "scripts": {
     "start": "fastify start examples/petstore/index.js",
