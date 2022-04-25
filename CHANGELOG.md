@@ -4,6 +4,12 @@
 ### Changed
  - Migrated to ES Modules format
  
+## [2.6.8] - 25-04-2022
+### Changed
+ - Updated dependencies:
+    @seriousme/openapi-schema-validator   ^1.7.1  →   ^2.0.0      
+    tap                                  ^16.0.1  →  ^16.1.0   
+
 ## [2.6.7] - 22-04-2022
 ### Changed
  - Deprecation of Nodejs < 14 
