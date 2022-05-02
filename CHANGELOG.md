@@ -6,6 +6,33 @@
  - Deprecation of Nodejs < 12.17.0 
  - Added Nodejs 16 to CI
 
+## [2.6.8] - 25-04-2022
+### Changed
+ - Updated dependencies:
+    @seriousme/openapi-schema-validator   ^1.7.1  →   ^2.0.0      
+    tap                                  ^16.0.1  →  ^16.1.0   
+
+## [2.6.7] - 22-04-2022
+### Changed
+ - Deprecation of Nodejs < 14 
+ - Added Nodejs 18 to CI
+ - Updated dependencies:
+    @seriousme/openapi-schema-validator   ^1.6.0  →   ^1.7.1    
+    ajv                                   ^8.9.0  →  ^8.11.0     
+    minimist                              ^1.2.5  →   ^1.2.6     
+    fastify                              ^3.27.0  →  ^3.28.0     
+    tap                                  ^15.1.6  →  ^16.0.1   
+
+## [2.6.6] - 28-01-2022
+### Changed
+ - Updated dependencies:
+  - @seriousme/openapi-schema-validator   ^1.3.0  →   ^1.6.0     
+  - ajv                                   ^8.6.2  →   ^8.9.0     
+  - fastify-plugin                        ^3.0.0  →   ^3.0.1     
+  - fastify                              ^3.20.2  →  ^3.27.0     
+  - fastify-cli                          ^2.13.0  →  ^2.15.0     
+  - tap                                  ^15.0.9  →  ^15.1.6     
+
 ## [2.6.5] - 29-08-2021
 ### Changed
 - fix(log): debug log of security handlers shows `undefined`
