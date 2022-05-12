@@ -3,7 +3,15 @@
 ## [Unreleased]
 ### Changed
  - Migrated to ES Modules format
- 
+
+## [2.6.9] - 12-05-2022
+### Changed
+ - Updated dependencies:
+    @seriousme/openapi-schema-validator   ^2.0.0  →   ^2.0.2     
+    fastify                              ^3.28.0  →  ^3.29.0     
+    fastify-cli                          ^2.15.0  →   ^3.0.1     
+    tap                                  ^16.1.0  →  ^16.2.0    
+
 ## [2.6.8] - 25-04-2022
 ### Changed
  - Updated dependencies:
