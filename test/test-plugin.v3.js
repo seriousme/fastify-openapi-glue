@@ -3,6 +3,8 @@ const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from 'module';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
 
@@ -37,6 +39,12 @@ const prefixOpts = {
 
 const yamlOpts = {
   specification: testSpecYAML,
+  service
+};
+
+const yamlDefaultAJVOpts = {
+  specification: testSpecYAML,
+  defaultAJV: true,
   service
 };
 
@@ -339,6 +347,40 @@ test("yaml spec works", t => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, yamlOpts);
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/pathParam/2"
+    },
+    (err, res) => {
+      t.error(err);
+      t.equal(res.statusCode, 200);
+    }
+  );
+});
+
+test("yaml spec works with default AJV instance provided by Fastify", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  const ajv = new Ajv({
+    removeAdditional: true,
+    useDefaults: true,
+    coerceTypes: true,
+    strict: false,
+  });
+  
+  addFormats(ajv);
+
+  fastify.setValidatorCompiler(({ schema, method, url, httpPart }) =>
+    ajv.compile(schema)
+  );
+
+  fastify.setSchemaErrorFormatter(
+    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar })),
+  );
+  
+  fastify.register(fastifyOpenapiGlue, yamlDefaultAJVOpts);
 
   fastify.inject(
     {

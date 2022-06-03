@@ -39,7 +39,7 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "c8": "^7.11.2",
+    "c8": "^7.11.3",
     "fastify": "^3.28.0",
     "fastify-cli": "^3.0.0",
     "tap": "^16.1.0"
