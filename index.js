@@ -71,36 +71,6 @@ function checkParserValidators(instance, contentTypes) {
   });
 }
 
-// fastify uses the built-in AJV instance during serialization, and that
-// instance does not know about int32, int64 etc so remove those formats
-// from the responses
-
-const unknownFormats = new Set([
-  "byte",
-  "int32",
-  "int64",
-  "float",
-  "double",
-  "binary",
-  "password",
-]);
-
-function stripResponseFormats(schema, visited = new Set()) {
-  for (const item in schema) {
-    if (isObject(schema[item])) {
-      if (
-        schema[item].format && unknownFormats.has(schema[item].format)
-      ) {
-        schema[item].format = undefined;
-      }
-      if (!visited.has(item)) {
-        visited.add(item);
-        stripResponseFormats(schema[item], visited);
-      }
-    }
-  }
-}
-
 function notImplemented(operationId) {
   return async (request, reply) => {
     throw new Error(`Operation ${operationId} not implemented`);
@@ -110,7 +80,7 @@ function notImplemented(operationId) {
 // this is the main function for the plugin
 async function fastifyOpenapiGlue(instance, opts) {
   setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
-
+  
   const config = await parser().parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
@@ -124,9 +94,6 @@ async function fastifyOpenapiGlue(instance, opts) {
   async function generateRoutes(routesInstance, routesOpts) {
     config.routes.forEach((item) => {
       const response = item.schema.response;
-      if (response) {
-        stripResponseFormats(response);
-      }
       if (item.operationId in service) {
         routesInstance.log.debug(`service has '${item.operationId}'`);
         item.handler = service[item.operationId].bind(service);
@@ -145,10 +112,9 @@ async function fastifyOpenapiGlue(instance, opts) {
       const missingSecurityHandlers = security.getMissingHandlers();
       if (missingSecurityHandlers.length > 0) {
         routesInstance.log.warn(
-          `Handlers for some security requirements were missing: ${
-            missingSecurityHandlers.join(
-              ", ",
-            )
+          `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
+            ", ",
+          )
           }`,
         );
       }
