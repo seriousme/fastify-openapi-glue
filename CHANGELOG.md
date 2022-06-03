@@ -4,6 +4,12 @@
 ### Changed
  - Migrated to ES Modules format
 
+## [2.7.0] - 03-06-2022
+### Changed
+ - Added 'defaultAJV' option
+ - Updated dependencies:
+    fastify-cli                          ^3.0.1  →   ^3.1.0
+
 ## [2.6.9] - 12-05-2022
 ### Changed
  - Updated dependencies:
