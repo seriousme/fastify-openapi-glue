@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { FastifyPlugin } from "fastify";
+import { FastifyRegister } from "fastify";
 
 
 export interface FastifyOpenapiGlueOptions {
@@ -9,10 +9,11 @@ export interface FastifyOpenapiGlueOptions {
   securityHandlers?: string | object | Function;
   prefix?: string;
   noAdditional?: boolean;
+  defaultAJV?: boolean;
   ajvOptions?: object;
 }
 
 
-declare const FastifyOpenApiGlue: FastifyPlugin<FastifyOpenapiGlueOptions>;
+declare const FastifyOpenApiGlue: FastifyRegister<FastifyOpenapiGlueOptions>;
 
 export default FastifyOpenApiGlue;
