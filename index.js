@@ -1,41 +1,10 @@
 import fp from "fastify-plugin";
-import { pathToFileURL } from "url";
-import Ajv from "ajv";
-import addFormats from "ajv-formats";
 import { Parser } from "./lib/Parser.js";
 import Security from "./lib/securityHandlers.js";
 
-function isObject(obj) {
-  return typeof obj === "object" && obj !== null;
-}
 
-async function getObjectFromParam(param) {
-  if (typeof param === "string") {
-    try {
-      return (await import(pathToFileURL(param).href)).default;
-    } catch (error) {
-      throw new Error(`failed to load ${param}`);
-    }
-  }
-  return param;
-}
-
-async function getObject(param, name) {
-  const data = await getObjectFromParam(param);
-  const obj = (typeof data === "function") ? data() : data;
-
-  if (!isObject(obj)) {
-    throw new Error(`'${name}' parameter must refer to an object`);
-  }
-  return obj;
-}
-
-async function getSecurityHandlers(opts, config) {
-  if (opts.securityHandlers) {
-    const securityHandlers = await getObject(
-      opts.securityHandlers,
-      "securityHandlers",
-    );
+async function getSecurityHandlers(securityHandlers, config) {
+  if (securityHandlers) {
     const security = new Security(securityHandlers);
     if ("initialize" in securityHandlers) {
       securityHandlers.initialize(config.securitySchemes);
@@ -43,27 +12,6 @@ async function getSecurityHandlers(opts, config) {
     return { securityHandlers, security };
   }
   return {};
-}
-
-function setValidatorCompiler(instance, ajvOpts, noAdditional) {
-  const defaultOptions = {
-    removeAdditional: !noAdditional,
-    useDefaults: true,
-    coerceTypes: true,
-    strict: false,
-  };
-  const ajvOptions = Object.assign(defaultOptions, ajvOpts);
-  const ajv = new Ajv(ajvOptions);
-  // add default AJV formats
-  addFormats(ajv);
-
-  instance.setValidatorCompiler(({ schema, method, url, httpPart }) =>
-    ajv.compile(schema)
-  );
-
-  instance.setSchemaErrorFormatter(
-    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar })),
-  );
 }
 
 function checkParserValidators(instance, contentTypes) {
@@ -82,17 +30,14 @@ function notImplemented(operationId) {
 
 // this is the main function for the plugin
 async function fastifyOpenapiGlue(instance, opts) {
-  if (!opts.defaultAJV) {
-    setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
-  }
   const parser = new Parser();
   const config = await parser.parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
-  const service = await getObject(opts.service, "service");
+  const service = opts.service;
 
   const { securityHandlers, security } = await getSecurityHandlers(
-    opts,
+    opts.securityHandlers,
     config,
   );
 
@@ -107,7 +52,7 @@ async function fastifyOpenapiGlue(instance, opts) {
       }
 
       // Apply security requirements if present and at least one handler is defined
-      if (security && security.has(item.security)) {
+      if (security?.has(item.security)) {
         item.preHandler = security.get(item.security).bind(securityHandlers);
       }
       routesInstance.route(item);
@@ -137,7 +82,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 }
 
 export default fp(fastifyOpenapiGlue, {
-  fastify: ">=3.2.1",
+  fastify: ">=4.0.0",
   name: "fastify-openapi-glue",
 });
 

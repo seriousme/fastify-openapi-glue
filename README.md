@@ -11,6 +11,11 @@ A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration b
 
 It aims at facilitating ["design first" API development](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/) i.e. you write or obtain an API specification and use that to generate code. Given an OpenApi specification Fastify-openapi-glue handles the fastify configuration of routes and schemas etc. You can also [generate](#generator) your own project from a OpenApi specification.
 
+<a name="upgrading"></a>
+## Upgrading
+
+If you are upgrading from a previous major version of `fastify-openapi-glue` then please checkout [UPGRADING.md](UPGRADING.md).
+
 <a name="install"></a>
 ## Install 
 ```
@@ -32,12 +37,6 @@ const options = {
   service: new Service(),
   securityHandlers: new Security(),
   prefix: "v1",
-  noAdditional: true,
-  ajvOptions: {
-    formats: {
-      "custom-format": /\d{2}-\d{4}/
-    }
-  }
 };
 
 
@@ -48,15 +47,11 @@ All schema and routes will be taken from the OpenApi specification listed in the
 <a name="pluginOptions"></a>
 ### Options
   - `specification`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
-  - `service`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import. 
-  - `securityHandlers`: this can be a javascript object or class, or the name of a javascript file containing such an object. If the import of the file results in a function instead of an object then the function will be executed during import. See the [securityHandlers documentation](docs/securityHandlers.md) for more details.
+  - `service`: this can be a javascript object or class instance
+  - `securityHandlers`: this can be a javascript object or class instance. See the [securityHandlers documentation](docs/securityHandlers.md) for more details.
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. See the [servers documentation](docs/servers.md) for more details on using prefix with a v3 specification.
-  - `noAdditional`: by default Fastify will silently ignore additional properties in a message. Setting `noAdditional` to `true` will change this behaviour and will make Fastify return a HTTP error 400 when additional properties are present. Default value for this option is `false`.
-  - `ajvOptions`: Pass additional options to AJV (see https://ajv.js.org/options.html)
-  - `defaultAJV`: by default this plugin will create its own AJV instance and override the default AJV instance provided by Fastify. Setting this option to 'true' will skip the creation of an AJV instance and will use the AJV instance provided by Fastify, or added to Fastify before registration of the plugin.
 
-`specification` and `service` are mandatory, `securityHandlers`, `prefix` and `noAdditional` are optional.
-
+`specification` and `service` are mandatory, `securityHandlers` and `prefix` are optional.
 See the [examples](#examples) section for a demo.
 
 Please be aware that `this` will refer to your service object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)

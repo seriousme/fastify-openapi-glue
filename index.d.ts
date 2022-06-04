@@ -5,12 +5,9 @@ import { FastifyPluginAsync } from "fastify";
 
 export interface FastifyOpenapiGlueOptions {
   specification: object | string;
-  service: string | object | Function;
-  securityHandlers?: string | object | Function;
+  service: object;
+  securityHandlers?: object;
   prefix?: string;
-  noAdditional?: boolean;
-  defaultAJV?: boolean;
-  ajvOptions?: object;
 }
 
 
