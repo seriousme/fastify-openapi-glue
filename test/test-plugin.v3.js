@@ -3,8 +3,7 @@ const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from 'module';
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
+
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
 
@@ -12,24 +11,23 @@ const testSpec = await importJSON('./test-openapi.v3.json');
 const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
 const testSpecYAML = localFile('./test-openapi.v3.yaml');
 const genericPathItemsSpec = await importJSON('./test-openapi-v3-generic-path-items.json');
-import service from './service.js'
-const customTestSpec = JSON.parse(JSON.stringify(testSpec));
-customTestSpec.components.schemas.bodyObject.properties.str1.format = "custom-format";
+import { Service } from './service.js'
+const service = new Service();
+
+const noStrict = {
+  ajv: {
+    customOptions: {
+      strict: false
+    }
+  }
+}
+
 
 const opts = {
   specification: testSpec,
   service
 };
 
-const customOpts = {
-  specification: customTestSpec,
-  service,
-  ajvOptions: {
-    formats: {
-      'custom-format': { type: 'string', validate: /test data/ }
-    }
-  }
-};
 
 const prefixOpts = {
   specification: testSpec,
@@ -42,11 +40,6 @@ const yamlOpts = {
   service
 };
 
-const yamlDefaultAJVOpts = {
-  specification: testSpecYAML,
-  defaultAJV: true,
-  service
-};
 
 const invalidSwaggerOpts = {
   specification: { valid: false },
@@ -58,20 +51,6 @@ const invalidServiceOpts = {
   service: null
 };
 
-const missingServiceOpts = {
-  specification: testSpecYAML,
-  service: localFile('./not-a-valid-service.js')
-};
-
-const asyncServiceOpts = {
-  specification: testSpec,
-  service: localFile('./async-service.js')
-};
-
-const CJSServiceOpts = {
-  specification: testSpec,
-  service: localFile('./service.cjs')
-};
 
 const petStoreOpts = {
   specification: petStoreSpec,
@@ -83,11 +62,6 @@ const genericPathItemsOpts = {
   service
 };
 
-const noAdditionalParamsOpts = {
-  specification: testSpec,
-  service,
-  noAdditional: true
-};
 
 test("path parameters work", t => {
   t.plan(2);
@@ -134,7 +108,6 @@ test("query parameters with object schema work", t => {
       url: "/queryParamObject?int1=1&int2=2"
     },
     (err, res) => {
-      console.log(res.body)
       t.error(err);
       t.equal(res.statusCode, 200);
     }
@@ -212,48 +185,6 @@ test("body parameters work", t => {
     (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("body parameters that don't match custom-format set through ajvOptions returns error 400", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, customOpts);
-
-  fastify.inject(
-    {
-      method: "post",
-      url: "/bodyParam",
-      payload: {
-        str1: "WRONG-FORMAT",
-        str2: "test data",
-      }
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 400);
-    }
-  );
-});
-
-test("extra body parameters with ajv opts returns error 400", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, noAdditionalParamsOpts);
-
-  fastify.inject(
-    {
-      method: "post",
-      url: "/bodyParam",
-      payload: {
-        str1: "test data",
-        str2: "test data",
-      }
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 400);
     }
   );
 });
@@ -345,42 +276,8 @@ test("response schema works with invalid response", t => {
 
 test("yaml spec works", t => {
   t.plan(2);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, yamlOpts);
-
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/pathParam/2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-test("yaml spec works with default AJV instance provided by Fastify", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  const ajv = new Ajv({
-    removeAdditional: true,
-    useDefaults: true,
-    coerceTypes: true,
-    strict: false,
-  });
-  
-  addFormats(ajv);
-
-  fastify.setValidatorCompiler(({ schema, method, url, httpPart }) =>
-    ajv.compile(schema)
-  );
-
-  fastify.setSchemaErrorFormatter(
-    (errors, dataVar) => new Error(ajv.errorsText(errors, { dataVar })),
-  );
-  
-  fastify.register(fastifyOpenapiGlue, yamlDefaultAJVOpts);
 
   fastify.inject(
     {
@@ -462,56 +359,9 @@ test("missing service definition throws error ", t => {
   });
 });
 
-test("invalid service definition throws error ", t => {
-  t.plan(1);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, missingServiceOpts);
-  fastify.ready(err => {
-    if (err) {
-      t.match(err.message, /^failed to load/, "got expected error");
-    } else {
-      t.fail("missed expected error");
-    }
-  });
-});
-
-test("async service definition does not throw error", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, asyncServiceOpts);
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/pathParam/2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-
-test("CommonJS service definition does not throw error", t => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, CJSServiceOpts);
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/pathParam/2"
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
-});
-
-
 test("full pet store V3 definition does not throw error ", t => {
   t.plan(1);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   // dummy parser to fix coverage testing
   fastify.addContentTypeParser('application/xml', { parseAs: 'string' }, function (req, body, done) {
     return body;
@@ -536,7 +386,7 @@ test("V3.0.1 definition does not throw error", t => {
   };
 
   t.plan(1);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts301);
   fastify.ready(err => {
     if (err) {
@@ -556,7 +406,7 @@ test("V3.0.2 definition does not throw error", t => {
   };
 
   t.plan(1);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts302);
   fastify.ready(err => {
     if (err) {
@@ -576,7 +426,7 @@ test("V3.0.3 definition does not throw error", t => {
   };
 
   t.plan(1);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts303);
   fastify.ready(err => {
     if (err) {

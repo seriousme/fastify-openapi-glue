@@ -8,7 +8,8 @@ const importJSON = createRequire(import.meta.url);
 import { Writable } from "stream";
 
 const testSpec = await importJSON("./test-openapi.v3.json");
-import service from "./service.js";
+import { Service } from "./service.js";
+const service = new Service();
 import securityHandlers from "./security.js";
 
 class DebugCatcher {
@@ -26,8 +27,7 @@ class DebugCatcher {
   }
 }
 
-const missingMethods = (serviceFn, methodSet) => {
-  const service = serviceFn();
+const missingMethods = (service, methodSet) => {
   const proto = Object.getPrototypeOf(service);
   const notPresent = (item) => ((typeof service[item] === "function" &&
     item.match(/^(get|post|test)/)) && !methodSet.has(item));
@@ -95,7 +95,7 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (
       method: "GET",
       url: "/operationSecurity",
     });
-  t.equal(res.statusCode,200,"request succeeded");
+  t.equal(res.statusCode, 200, "request succeeded");
   const handlers = new Set();
   for await (const data of catcher.data) {
     const match = data.match(/Security handler 'api_key' failed: 'API key was invalid or not found'/);

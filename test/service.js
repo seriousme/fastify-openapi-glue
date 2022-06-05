@@ -1,6 +1,6 @@
 // ES6 Module implementation of the operations in the openapi specification
 
-class Service {
+export class Service {
   constructor() {}
 
   // Operation: getPathParam
@@ -225,4 +225,3 @@ class Service {
   }
 }
 
-export default opts => new Service(opts);

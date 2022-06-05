@@ -4,9 +4,18 @@ const test = tap.test;
 import Fastify from "fastify";
 import petstoreExample from "../examples/petstore/index.js";
 
+const noStrict = {
+  ajv: {
+    customOptions: {
+      strict: false
+    }
+  }
+}
+
+
 test("/v2/pet/24 works", t => {
   t.plan(3);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(petstoreExample, {});
   fastify.inject(
     {
@@ -23,7 +32,7 @@ test("/v2/pet/24 works", t => {
 
 test("/v2/pet/myPet returns Fastify validation error", t => {
   t.plan(3);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(petstoreExample, {});
   fastify.inject(
     {
@@ -40,7 +49,7 @@ test("/v2/pet/myPet returns Fastify validation error", t => {
 
 test("v2/pet/findByStatus?status=available&status=pending returns 'not implemented'", t => {
   t.plan(3);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(petstoreExample, {});
   fastify.inject(
     {
@@ -57,7 +66,7 @@ test("v2/pet/findByStatus?status=available&status=pending returns 'not implement
 
 test("v2/pet/0 returns serialization error", t => {
   t.plan(3);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(petstoreExample, {});
   fastify.inject(
     {

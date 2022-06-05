@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "engines": {
-    "node": ">=12.17.0"
+    "node": ">=14.0.0"
   },
   "types": "index.d.ts",
   "scripts": {
@@ -26,8 +26,6 @@
   },
   "dependencies": {
     "@seriousme/openapi-schema-validator": "^2.0.2",
-    "ajv": "^8.11.0",
-    "ajv-formats": "^2.1.1",
     "fastify-plugin": "^3.0.1",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.6"
@@ -40,8 +38,8 @@
   },
   "devDependencies": {
     "c8": "^7.11.3",
-    "fastify": "^4.0.0",
-    "fastify-cli": "^4.0.0",
+    "fastify": "^4.0.0-rc.4",
+    "fastify-cli": "^3.1.0",
     "tap": "^16.2.0"
   },
   "repository": {

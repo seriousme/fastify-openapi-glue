@@ -4,12 +4,22 @@ import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from 'module';
 const importJSON = createRequire(import.meta.url);
-const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
+const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
 
 const testSpec = await importJSON('./test-swagger.v2.json');
 const petStoreSpec = await importJSON('./petstore-swagger.v2.json');
 const testSpecYAML = localFile('./test-swagger.v2.yaml');
-import service from './service.js';
+import { Service } from './service.js';
+import { notStrictEqual } from "assert";
+const service = new Service();
+
+const noStrict = {
+  ajv: {
+    customOptions: {
+      strict: false
+    }
+  }
+}
 
 const opts = {
   specification: testSpec,
@@ -238,7 +248,7 @@ test("invalid service definition throws error ", t => {
   fastify.register(fastifyOpenapiGlue, missingServiceOpts);
   fastify.ready(err => {
     if (err) {
-      t.match(err.message, /^failed to load/, "got expected error");
+      t.match(err.message, "'service' parameter must refer to an object", "got expected error");
     } else {
       t.fail("missed expected error");
     }
@@ -247,7 +257,7 @@ test("invalid service definition throws error ", t => {
 
 test("full pet store V2 definition does not throw error ", t => {
   t.plan(1);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
   fastify.ready(err => {
     if (err) {

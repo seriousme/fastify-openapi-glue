@@ -2,7 +2,8 @@
 // it can be run as plugin on any fastify server
 // or standalone using "fastify start index.js"
 import openapiGlue from "../../index.js";
-import service from "./service.js"
+import { Service } from "./service.js"
+const service = new Service();
 const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
 
 const options = {

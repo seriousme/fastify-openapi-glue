@@ -7,8 +7,18 @@ const importJSON = createRequire(import.meta.url);
 
 const testSpec = await importJSON('./test-swagger.v2.json');
 const petStoreSpec = await importJSON('./petstore-swagger.v2.json');
-import service from './service.js';
 import securityHandlers from './security.js';
+import { Service } from './service.js';
+const service = new Service();
+
+const noStrict = {
+  ajv: {
+    customOptions: {
+      strict: false
+    }
+  }
+}
+
 
 test("security handler registration succeeds", t => {
   const opts = {
@@ -18,7 +28,7 @@ test("security handler registration succeeds", t => {
   };
 
   t.plan(1);
-  const fastify = Fastify();
+  const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts);
   fastify.ready(err => {
     if (err) {

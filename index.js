@@ -2,9 +2,16 @@ import fp from "fastify-plugin";
 import { Parser } from "./lib/Parser.js";
 import Security from "./lib/securityHandlers.js";
 
+function checkObject(obj, name) {
+  if (typeof obj === "object" && obj !== null) {
+    return;
+  }
+  throw new Error(`'${name}' parameter must refer to an object`);
+}
 
 async function getSecurityHandlers(securityHandlers, config) {
   if (securityHandlers) {
+    checkObject(securityHandlers, 'securityHandlers');
     const security = new Security(securityHandlers);
     if ("initialize" in securityHandlers) {
       securityHandlers.initialize(config.securitySchemes);
@@ -35,6 +42,7 @@ async function fastifyOpenapiGlue(instance, opts) {
   checkParserValidators(instance, config.contentTypes);
 
   const service = opts.service;
+  checkObject(service, 'service');
 
   const { securityHandlers, security } = await getSecurityHandlers(
     opts.securityHandlers,
@@ -82,7 +90,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 }
 
 export default fp(fastifyOpenapiGlue, {
-  fastify: ">=4.0.0",
+  fastify: ">=3.2.1",
   name: "fastify-openapi-glue",
 });
 

@@ -1,6 +1,6 @@
 // an example of implementation of the operations in the openapi specification
 
-class Service {
+export class Service {
   constructor() {}
 
   async getPetById(req, resp) {
@@ -22,4 +22,3 @@ class Service {
   }
 }
 
-export default config => new Service();
