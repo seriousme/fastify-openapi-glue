@@ -4,6 +4,9 @@
 ### Changed
  - Migrated to ES Modules format
 
+## [2.7.1] - 06-06-2022
+ - Fix 'defaultAJV' option
+
 ## [2.7.0] - 03-06-2022
 ### Changed
  - Added 'defaultAJV' option
