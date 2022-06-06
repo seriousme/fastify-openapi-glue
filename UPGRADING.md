@@ -6,7 +6,7 @@ This is a major change with the following breaking changes:
 
 ### ESM module
 
-`Fastify OpenApi Glue` is now an ESM module. If your code contains:
+Version 3.x is an ESM module. If your code contains:
 
 ```javascript
 const openapiGlue = require("fastify-openapi-glue");
@@ -19,7 +19,7 @@ const openapiGlue = await import("fastify-openapi-glue");
 ```
 
 ### AJV: 
-`Fastify OpenApi Glue` now fully relies on AJV instance provided by Fastify.
+Version 3.x fully relies on AJV instance provided by Fastify.
 So if you want to change AJV's behaviour you need to add your configuration to Fastify instead of passing it to `Fastify OpenApi Glue`. The options `noAdditional`, `ajvOptions` and `defaultAJV` have been deprecated. The new behaviour is identical to `defaultAJV:true` in 2.x.
 
 E.g. if you had:
