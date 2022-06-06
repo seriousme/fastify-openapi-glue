@@ -79,7 +79,9 @@ function notImplemented(operationId) {
 
 // this is the main function for the plugin
 async function fastifyOpenapiGlue(instance, opts) {
-  setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
+  if (!opts.defaultAJV) {
+    setValidatorCompiler(instance, opts.ajvOptions, opts.noAdditional);
+  }
   
   const config = await parser().parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
