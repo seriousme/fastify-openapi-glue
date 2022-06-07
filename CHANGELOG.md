@@ -4,6 +4,9 @@
 ### Changed
  - Migrated to ES Modules format
 
+## [2.7.2] - 07-06-2022
+ - Fix Typescript definition
+
 ## [2.7.1] - 06-06-2022
  - Fix 'defaultAJV' option
 
