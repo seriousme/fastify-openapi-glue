@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import { FastifyRegister } from "fastify";
+import { FastifyPluginAsync } from "fastify";
 
 
 export interface FastifyOpenapiGlueOptions {
@@ -14,6 +14,6 @@ export interface FastifyOpenapiGlueOptions {
 }
 
 
-declare const FastifyOpenApiGlue: FastifyRegister<FastifyOpenapiGlueOptions>;
+declare const FastifyOpenApiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
 
 export default FastifyOpenApiGlue;
