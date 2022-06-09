@@ -2,7 +2,26 @@
 
 ## [Unreleased]
 ### Changed
+
+## [3.0.0] - 09-06-2022
+### New
+ - Support for Fastify 4.x
+ - User has full control over AJV behaviour, outside of the plugin.
+
+### Changed
  - Migrated to ES Modules format
+ - Removed AJV options
+ - Service and Securityhandlers options can now only be an object or a class instance and no longer a filename or a function.
+
+See [UPGRADING.md](UPGRADING.md) for more details on how to upgrade.
+
+## [2.7.2] - 07-06-2022
+### Changed
+ - Fix Typescript definition
+
+## [2.7.1] - 06-06-2022
+### Changed
+ - Fix 'defaultAJV' option
 
 ## [2.7.0] - 03-06-2022
 ### Changed
