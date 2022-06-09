@@ -144,7 +144,7 @@ The folder [examples/generatedProject](examples/generatedProject) contains the r
 - fastify only supports `application/json` and `text/plain` out of the box. The default charset is `utf-8`.  If you need to support different content types, you can use the fastify `addContentTypeParser` API.
 - fastify only supports one schema per route. So while the v3 standard allows for multiple content types per route, each with their own schema this is currently not going to work with fastify. Potential workarounds include a custom content type parser and merging schemas upfront using JSON schema `oneOf`.
 - the plugin aims to follow fastify and does not compensate for features that are possible according to the OpenApi specification but not possible in standard fastify (without plugins). This will keep the plugin lightweigth and maintainable.
-- if you have special needs on querystring handling (e.g. arrays, objects etc) then fastify supports a [custom querystring parser](https://www.fastify.io/docs/latest/Server/#querystringparser). You might need to pass the AJV option `coerceTypes: 'array'` as an [option](#pluginOptions).
+- if you have special needs on querystring handling (e.g. arrays, objects etc) then fastify supports a [custom querystring parser](https://www.fastify.io/docs/latest/Server/#querystringparser). You might need to pass the AJV option `coerceTypes: 'array'` as an option to Fastify.
 <a name="Contributing"></a>
 ## Contributing
 - contributions are always welcome. 
