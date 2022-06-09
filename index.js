@@ -90,7 +90,7 @@ async function fastifyOpenapiGlue(instance, opts) {
 }
 
 export default fp(fastifyOpenapiGlue, {
-  fastify: ">=3.2.1",
+  fastify: ">=4.0.0",
   name: "fastify-openapi-glue",
 });
 
