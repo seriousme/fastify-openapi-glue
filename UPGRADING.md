@@ -18,7 +18,7 @@ You now need to use:
 const openapiGlue = await import("fastify-openapi-glue");
 ```
 
-### AJV: 
+### AJV 
 Version 3.x fully relies on AJV instance provided by Fastify.
 So if you want to change AJV's behaviour you need to add your configuration to Fastify instead of passing it to `Fastify OpenApi Glue`. The options `noAdditional`, `ajvOptions` and `defaultAJV` have been deprecated. The new behaviour is identical to `defaultAJV:true` in 2.x.
 
@@ -48,7 +48,7 @@ fastify.register(openapiGlue, options);
 
 You now need to pass the AJV options to Fastify at startup. (see: https://www.fastify.io/docs/latest/Reference/Server/#ajv) or add them to your own AJV instance (see: https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#schema-validator).  The `noAdditional:true` flag should be mapped to AJV's `removeAdditional:false` option (see: https://ajv.js.org/options.html#removeadditional)
 
-### service and securityhandlers options:
+### service and securityhandlers options
 
 In version 2.x you could either pass:
 - an object or a class instance
