@@ -6,15 +6,15 @@
     },
     "service": {
       "fileName": "service.js",
-      "checksum": "427b6cd42fd558b2e27fdb2cf36c58cfaa58a682ef8a041d26790326438a72c8"
+      "checksum": "5ab5309da1a71799d9d4d63d1059d1ef0eef5e9b98c2c2ed2d9a7948e7034bf8"
     },
     "security": {
       "fileName": "security.js",
-      "checksum": "da5b0b816aa7337242df1b1043b076f5f2b546b0b111e0c33fd2b688886ba9d5"
+      "checksum": "b6021cd304ac1403f0239f4bf1d15f0af8cf14032f6ba05cefaf5fca594f28af"
     },
     "plugin": {
       "fileName": "index.js",
-      "checksum": "ff712b66997f8ec5f17f930ae695b2e93b0fc6b2643d6f320f380ce36929b63c"
+      "checksum": "cbbf4adc994fe7a2db5f411a038344c8fa617ee9e212e318df18a8f4ab3ad5fe"
     },
     "package": {
       "fileName": "package.json",

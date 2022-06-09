@@ -1,6 +1,6 @@
 // implementation of the operations in the openapi specification
 
-class Service {
+export class Service {
   constructor() {}
 
 
@@ -961,5 +961,3 @@ class Service {
     return { key: "value" };
   }
 }
-
-export default opts => new Service(opts);

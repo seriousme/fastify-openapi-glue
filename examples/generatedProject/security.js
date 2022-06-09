@@ -1,6 +1,6 @@
 // implementation of the security schemes in the openapi specification
 
-class Security {
+export class Security {
   constructor() {}
 
   initialize(schemes){
@@ -31,5 +31,3 @@ class Security {
     // The request object can also be mutated here (e.g. to set 'req.user')
   }
 }
-
-export default new Security();
