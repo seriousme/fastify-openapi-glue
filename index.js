@@ -36,7 +36,7 @@ function notImplemented(operationId) {
 }
 
 // this is the main function for the plugin
-async function fastifyOpenapiGlue(instance, opts) {
+async function plugin(instance, opts) {
   const parser = new Parser();
   const config = await parser.parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
@@ -89,10 +89,14 @@ async function fastifyOpenapiGlue(instance, opts) {
   instance.register(generateRoutes, routeConf);
 }
 
-export default fp(fastifyOpenapiGlue, {
+const fastifyOpenapiGlue = fp(plugin, {
   fastify: ">=4.0.0",
   name: "fastify-openapi-glue",
 });
+
+export default fastifyOpenapiGlue;
+export { fastifyOpenapiGlue };
+
 
 export const options = {
   specification: "examples/petstore/petstore-swagger.v2.json",

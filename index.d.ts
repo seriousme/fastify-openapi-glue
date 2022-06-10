@@ -2,7 +2,6 @@
 
 import { FastifyPluginAsync } from "fastify";
 
-
 export interface FastifyOpenapiGlueOptions {
   specification: object | string;
   service: object;
@@ -10,7 +9,7 @@ export interface FastifyOpenapiGlueOptions {
   prefix?: string;
 }
 
+declare const fastifyOpenapiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
 
-declare const FastifyOpenApiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
-
-export default FastifyOpenApiGlue;
+export default fastifyOpenapiGlue;
+export { fastifyOpenapiGlue };
