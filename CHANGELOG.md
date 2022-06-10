@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [3.0.1] - 10-06-2022
+### Changed
+ - Fixed import of fastify-openapi-glue in CommonJS code
+
 ## [3.0.0] - 09-06-2022
 ### New
  - Support for Fastify 4.x
