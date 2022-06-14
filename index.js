@@ -2,6 +2,7 @@ const fp = require("fastify-plugin");
 const ip = require('ip');
 const jwt = require('jsonwebtoken');
 const parser = require("./lib/parser");
+const jwksClient = require('jwks-rsa');
 
 function isObject(obj) {
   return typeof obj === "object" && obj !== null;
@@ -79,6 +80,15 @@ async function fastifyOpenapiGlue(instance, opts) {
 
     // check if the token is expired or broken
     try {
+      if(typeof opts.jwks === 'object'){
+        const getJwks = jwksClient({
+            jwksUri: opts.jwks.Uri,
+            requestHeaders: opts.jwks.requestHeaders, // Optional
+            timeout: opts.jwks.timeout || 30000 // Defaults to 30s
+          });
+        const { header: { kid, alg }, payload: { iss } } =  jwt.decode(token, {complete: true});
+        opts.publicKey = await getJwks.getSigningKey(kid).then(key => key.getPublicKey())
+      }
       payload = jwt.verify(token, opts.publicKey, { algorithms: ['RS256'] });
     } catch (err) {
       const message = `${err.name} ${err.message} for ${entity}`;
