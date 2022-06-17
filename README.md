@@ -58,7 +58,7 @@ Please be aware that `this` will refer to your service object or your securityHa
 
 <a name="pluginApiExtensions"></a>
 ### OpenAPI extensions
-The OpenAPI specification supports [extending an API spec](https://swagger.io/docs/specification/openapi-extensions/) to describe extra functionality that isn't covered by the official specification. Extensions start with `x-` (e.g., `x-myapp-logo`) and can contain a primitive, an array, an object, or `null`.
+The OpenAPI specification supports [extending an API spec](https://spec.openapis.org/oas/latest.html#specification-extensions) to describe extra functionality that isn't covered by the official specification. Extensions start with `x-` (e.g., `x-myapp-logo`) and can contain a primitive, an array, an object, or `null`.
 
 The following extensions are provided by the plugin:
 - `x-fastify-config` (object): any properties will be added to the `routeOptions.config` / `context.config` property of the Fastify route.
