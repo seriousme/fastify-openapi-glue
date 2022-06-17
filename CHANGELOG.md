@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 ### Changed
+ - feat(route): allow passing route config in api spec (mhamann)
+ - Updated dependencies:
+    fastify       ^4.0.0  →   ^4.0.3     
+    fastify-cli   ^4.0.0  →   ^4.1.1     
+    tap          ^16.2.0  →  ^16.3.0     
 
 ## [3.0.1] - 10-06-2022
 ### Changed
