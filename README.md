@@ -56,6 +56,29 @@ See the [examples](#examples) section for a demo.
 
 Please be aware that `this` will refer to your service object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)
 
+<a name="pluginApiExtensions"></a>
+### OpenAPI extensions
+The OpenAPI specification supports [extending an API spec](https://swagger.io/docs/specification/openapi-extensions/) to describe extra functionality that isn't covered by the official specification. Extensions start with `x-` (e.g., `x-myapp-logo`) and can contain a primitive, an array, an object, or `null`.
+
+The following extensions are provided by the plugin:
+- `x-fastify-config` (object): any properties will be added to the `routeOptions.config` / `context.config` property of the Fastify route.
+
+  For example, if you wanted to use the fastify-raw-body plugin to compute a checksum of the request body, you could add the following extension to your OpenAPI spec to signal the plugin to specially handle this route:
+
+  ```yaml
+  paths:
+    /webhooks:
+      post:
+        operationId: processWebhook
+        x-fastify-config:
+          rawBody: true
+        responses:
+          204:
+            description: Webhook processed successfully
+  ```
+
+You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.context`. Extensions specified on a schema are also accessible (e.g., `context.schema.body` or `context.schema.responses[<statusCode>]`).
+
 <a name="generator"></a>
 ## Generator
 

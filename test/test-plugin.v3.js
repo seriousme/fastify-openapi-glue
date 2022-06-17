@@ -460,3 +460,27 @@ test("x- props are copied", t => {
     }
   );
 });
+
+test("x-fastify-config is applied", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, {
+    ...opts,
+    service: {
+      operationWithFastifyConfigExtension: (req, reply) => {
+        t.equal(req.context.config.rawBody, true, "config.rawBody is true");
+        return reply;
+      }
+    }
+  });
+
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationWithFastifyConfigExtension",
+    },
+    (err, res) => {
+      t.pass();
+    }
+  );
+});
