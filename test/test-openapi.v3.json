@@ -351,6 +351,27 @@
           }
         }
       }
+    },
+    "/operationWithFastifyConfigExtension": {
+      "get": {
+        "operationId": "operationWithFastifyConfigExtension",
+        "summary": "Test fastify config extension",
+        "x-fastify-config": {
+          "rawBody": true
+        },
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseObject"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
