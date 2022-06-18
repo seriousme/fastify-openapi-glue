@@ -31,13 +31,17 @@ If you provide a securityHandler called `petstore_auth` then it will be called a
 
 If you want authentication to succeed you can simply return. If you want authentication to fail you can just throw an error. 
 
+If your error contains a `statusCode` property then the status code of the last failing handler will be passed to fastify. The default status code that is returned upon validation failure is `401`.
+
 Any errors that result from `securityHandlers` are available to registered error handlers. E.g.:
 ```javascript
   fastify.setErrorHandler((err, req, reply) => {
     reply.code(err.statusCode).send(err);
   });
 ```
-will return errors originating from the securityHandlers as well.
+will return errors originating from the securityHandlers as well in `err.errors`.
 **Please make sure this does not expose sensitive information to the requestor!**
+
+You can use `err.errors` also to trigger other behaviour in a registered error handler.
 
 For a more elaborate example see the [examples/generatedProject](/examples/generatedProject) folder.
