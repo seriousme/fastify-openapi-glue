@@ -234,3 +234,32 @@ test("security preHandler gets parameters passed", t => {
     }
   );
 });
+
+test("security preHandler throws error with custom StatusCode", t => {
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      api_key: securityHandlers.failingAuthCheckCustomStatusCode
+    }
+  };
+
+  t.plan(4);
+  const fastify = Fastify();
+  fastify.setErrorHandler((err, req, reply) => {
+    t.equal(err.errors.length, 3);
+    reply.code(err.statusCode).send(err);
+  });
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.equal(res.statusCode, 451);
+      t.equal(res.statusMessage, 'Unavailable For Legal Reasons');
+    }
+  );
+});
