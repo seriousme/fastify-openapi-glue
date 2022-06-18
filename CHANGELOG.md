@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [3.2.0] - 18-06-2022
+### Changed
+ - feat: allow custom status code in security handlers
+
 ## [3.1.0] - 17-06-2022
 ### Changed
  - feat(route): allow passing route config in api spec (mhamann)
