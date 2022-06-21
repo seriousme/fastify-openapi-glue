@@ -41,24 +41,32 @@ async function plugin(instance, opts) {
   const config = await parser.parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
-  const service = opts.service;
-  checkObject(service, 'service');
-
   const { securityHandlers, security } = await getSecurityHandlers(
     opts.securityHandlers,
     config,
   );
 
-  async function generateRoutes(routesInstance, routesOpts) {
-    config.routes.forEach((item) => {
+  function defaultResolverFactory(routesInstance, pluginOpts) {
+    // check is the service property exists and is valid
+    const service = pluginOpts.service;
+    checkObject(service, 'service');
+    // return the resolver function
+    return function (item, routesOpts) {
       const response = item.schema.response;
       if (item.operationId in service) {
         routesInstance.log.debug(`service has '${item.operationId}'`);
-        item.handler = service[item.operationId].bind(service);
-      } else {
-        item.handler = notImplemented(item.operationId);
+        return service[item.operationId].bind(service);
       }
+    }
+  }
 
+  const resolverFactory = opts.resolverFactory || defaultResolverFactory
+
+  async function generateRoutes(routesInstance, routesOpts) {
+    const resolver = resolverFactory(routesInstance, opts)
+    config.routes.forEach((item) => {
+      const handler = resolver(item, routesOpts)
+      item.handler = handler || notImplemented(item.operationId)
       // Apply security requirements if present and at least one handler is defined
       if (security?.has(item.security)) {
         item.preHandler = security.get(item.security).bind(securityHandlers);
