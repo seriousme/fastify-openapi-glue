@@ -48,7 +48,7 @@ const invalidSwaggerOpts = {
 
 const invalidServiceOpts = {
   specification: testSpecYAML,
-  service: null
+  service: "wrong",
 };
 
 
@@ -62,6 +62,26 @@ const genericPathItemsOpts = {
   service
 };
 
+const serviceAndOperationResolver = {
+  specification: testSpec,
+  service: localFile('./not-a-valid-service.js'),
+  operationResolver(operationId) {
+    return
+  }
+}
+
+const noServiceNoResolver = {
+  specification: testSpec,
+}
+
+const withOperationResolver = {
+  specification: testSpec,
+  operationResolver(operationId) {
+    return function(req, reply) {
+      reply.send("ok")
+    }
+  }
+}
 
 test("path parameters work", t => {
   t.plan(2);
@@ -481,6 +501,74 @@ test("x-fastify-config is applied", t => {
     },
     (err, res) => {
       t.pass();
+    }
+  );
+});
+
+test("service and operationResolver together throw error", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
+  fastify.ready(err => {
+    if (err) {
+      t.equal(
+        err.message,
+        "'service' and 'operationResolver' are mutually exclusive",
+        "got expected error"
+      );
+    } else {
+      t.fail("missed expected error");
+    }
+  });
+});
+
+test("service and operationResolver together throw error", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
+  fastify.ready(err => {
+    if (err) {
+      t.equal(
+        err.message,
+        "'service' and 'operationResolver' are mutually exclusive",
+        "got expected error"
+      );
+    } else {
+      t.fail("missed expected error");
+    }
+  });
+});
+
+test("no service and no operationResolver throw error", t => {
+  t.plan(1);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, noServiceNoResolver);
+  fastify.ready(err => {
+    if (err) {
+      t.equal(
+        err.message,
+        "either 'service' or 'operationResolver' are required",
+        "got expected error"
+      );
+    } else {
+      t.fail("missed expected error");
+    }
+  });
+});
+
+test("operation resolver works", t => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, withOperationResolver);
+
+  fastify.inject(
+    {
+      method: "get",
+      url: "/noParam"
+    },
+    (err, res) => {
+      t.error(err);
+      t.equal(res.body, "ok");
     }
   );
 });

@@ -45,7 +45,11 @@ async function plugin(instance, opts) {
   const operationResolver = opts.operationResolver;
 
   if (service && operationResolver) {
-    throw new Error("service and operationResolver are mutually exclusive")
+    throw new Error("'service' and 'operationResolver' are mutually exclusive")
+  }
+
+  if (!service && !operationResolver) {
+    throw new Error("either 'service' or 'operationResolver' are required")
   }
 
   if (service) {

@@ -38,7 +38,7 @@ const invalidSwaggerOpts = {
 
 const invalidServiceOpts = {
   specification: testSpecYAML,
-  service: null
+  service: "wrong"
 };
 
 const missingServiceOpts = {
