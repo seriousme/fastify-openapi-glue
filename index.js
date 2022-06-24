@@ -61,7 +61,7 @@ async function plugin(instance, opts) {
     // use the provided operation resolver or default to looking in the service
     const resolver = operationResolver || function (operationId) {
       if (operationId in service) {
-        routesInstance.log.debug(`service has '${item.operationId}'`);
+        routesInstance.log.debug(`service has '${operationId}'`);
         return service[operationId].bind(service);
       }
     }
