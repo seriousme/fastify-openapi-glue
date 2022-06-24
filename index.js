@@ -42,7 +42,19 @@ async function plugin(instance, opts) {
   checkParserValidators(instance, config.contentTypes);
 
   const service = opts.service;
-  checkObject(service, 'service');
+  const operationResolver = opts.operationResolver;
+
+  if (service && operationResolver) {
+    throw new Error("'service' and 'operationResolver' are mutually exclusive")
+  }
+
+  if (!service && !operationResolver) {
+    throw new Error("either 'service' or 'operationResolver' are required")
+  }
+
+  if (service) {
+    checkObject(service, 'service');
+  }
 
   const { securityHandlers, security } = await getSecurityHandlers(
     opts.securityHandlers,
@@ -50,15 +62,17 @@ async function plugin(instance, opts) {
   );
 
   async function generateRoutes(routesInstance, routesOpts) {
+    // use the provided operation resolver or default to looking in the service
+    const resolver = operationResolver || function (operationId) {
+      if (operationId in service) {
+        routesInstance.log.debug(`service has '${operationId}'`);
+        return service[operationId].bind(service);
+      }
+    }
+
     config.routes.forEach((item) => {
       const response = item.schema.response;
-      if (item.operationId in service) {
-        routesInstance.log.debug(`service has '${item.operationId}'`);
-        item.handler = service[item.operationId].bind(service);
-      } else {
-        item.handler = notImplemented(item.operationId);
-      }
-
+      item.handler = resolver(item.operationId) || notImplemented(item.operationId);
       // Apply security requirements if present and at least one handler is defined
       if (security?.has(item.security)) {
         item.preHandler = security.get(item.security).bind(securityHandlers);

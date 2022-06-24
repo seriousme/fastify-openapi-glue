@@ -50,6 +50,7 @@ All schema and routes will be taken from the OpenApi specification listed in the
   - `service`: this can be a javascript object or class instance
   - `securityHandlers`: this can be a javascript object or class instance. See the [securityHandlers documentation](docs/securityHandlers.md) for more details.
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. See the [servers documentation](docs/servers.md) for more details on using prefix with a v3 specification.
+ - `operationResolver`: a custom operation resolver function, `(operationId) => handler`. Mutually exclusive with `service`.
 
 `specification` and `service` are mandatory, `securityHandlers` and `prefix` are optional.
 See the [examples](#examples) section for a demo.
