@@ -71,7 +71,6 @@ async function plugin(instance, opts) {
     }
 
     config.routes.forEach((item) => {
-      const response = item.schema.response;
       item.handler = resolver(item.operationId) || notImplemented(item.operationId);
       // Apply security requirements if present and at least one handler is defined
       if (security?.has(item.security)) {
