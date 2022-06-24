@@ -41,32 +41,34 @@ async function plugin(instance, opts) {
   const config = await parser.parse(opts.specification);
   checkParserValidators(instance, config.contentTypes);
 
+  const service = opts.service;
+  const operationResolver = opts.operationResolver;
+
+  if (service && operationResolver) {
+    throw new Error("service and operationResolver are mutually exclusive")
+  }
+
+  if (service) {
+    checkObject(service, 'service');
+  }
+
   const { securityHandlers, security } = await getSecurityHandlers(
     opts.securityHandlers,
     config,
   );
 
-  function defaultResolverFactory(routesInstance, pluginOpts) {
-    // check is the service property exists and is valid
-    const service = pluginOpts.service;
-    checkObject(service, 'service');
-    // return the resolver function
-    return function (item, routesOpts) {
-      const response = item.schema.response;
-      if (item.operationId in service) {
+  async function generateRoutes(routesInstance, routesOpts) {
+    // use the provided operation resolver or default to looking in the service
+    const resolver = operationResolver || function (operationId) {
+      if (operationId in service) {
         routesInstance.log.debug(`service has '${item.operationId}'`);
-        return service[item.operationId].bind(service);
+        return service[operationId].bind(service);
       }
     }
-  }
 
-  const resolverFactory = opts.resolverFactory || defaultResolverFactory
-
-  async function generateRoutes(routesInstance, routesOpts) {
-    const resolver = resolverFactory(routesInstance, opts)
     config.routes.forEach((item) => {
-      const handler = resolver(item, routesOpts)
-      item.handler = handler || notImplemented(item.operationId)
+      const response = item.schema.response;
+      item.handler = resolver(item.operationId) || notImplemented(item.operationId);
       // Apply security requirements if present and at least one handler is defined
       if (security?.has(item.security)) {
         item.preHandler = security.get(item.security).bind(securityHandlers);
