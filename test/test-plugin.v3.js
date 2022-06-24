@@ -522,23 +522,6 @@ test("service and operationResolver together throw error", t => {
   });
 });
 
-test("service and operationResolver together throw error", t => {
-  t.plan(1);
-  const fastify = Fastify();
-  fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
-  fastify.ready(err => {
-    if (err) {
-      t.equal(
-        err.message,
-        "'service' and 'operationResolver' are mutually exclusive",
-        "got expected error"
-      );
-    } else {
-      t.fail("missed expected error");
-    }
-  });
-});
-
 test("no service and no operationResolver throw error", t => {
   t.plan(1);
   const fastify = Fastify();
