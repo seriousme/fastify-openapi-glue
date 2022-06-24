@@ -35,6 +35,26 @@ function notImplemented(operationId) {
   };
 }
 
+function defaultOperationResolver(routesInstance, service) {
+  return function (operationId) {
+    if (operationId in service) {
+      routesInstance.log.debug(`service has '${operationId}'`);
+      return service[operationId].bind(service);
+    }
+  };
+}
+
+function reportMissingSecurityHandlers(routesInstance, security) {
+  const missingSecurityHandlers = security.getMissingHandlers();
+  if (missingSecurityHandlers.length > 0) {
+    routesInstance.log.warn(
+      `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
+        ", "
+      )}`
+    );
+  }
+}
+
 // this is the main function for the plugin
 async function plugin(instance, opts) {
   const parser = new Parser();
@@ -63,12 +83,7 @@ async function plugin(instance, opts) {
 
   async function generateRoutes(routesInstance, routesOpts) {
     // use the provided operation resolver or default to looking in the service
-    const resolver = operationResolver || function (operationId) {
-      if (operationId in service) {
-        routesInstance.log.debug(`service has '${operationId}'`);
-        return service[operationId].bind(service);
-      }
-    }
+    const resolver = operationResolver || defaultOperationResolver(routesInstance, service);
 
     config.routes.forEach((item) => {
       item.handler = resolver(item.operationId) || notImplemented(item.operationId);
@@ -80,15 +95,7 @@ async function plugin(instance, opts) {
     });
 
     if (security) {
-      const missingSecurityHandlers = security.getMissingHandlers();
-      if (missingSecurityHandlers.length > 0) {
-        routesInstance.log.warn(
-          `Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
-            ", ",
-          )
-          }`,
-        );
-      }
+      reportMissingSecurityHandlers(routesInstance, security);
     }
   }
 
@@ -115,3 +122,5 @@ export const options = {
   specification: "examples/petstore/petstore-swagger.v2.json",
   service: "examples/petstore/service.js",
 };
+
+
