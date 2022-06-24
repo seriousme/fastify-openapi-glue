@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [3.3.0] - 24-06-2022
+### Changed
+ - feat: custom operation resolver (bluebrown)
+
 ## [3.2.0] - 18-06-2022
 ### Changed
  - feat: allow custom status code in security handlers
