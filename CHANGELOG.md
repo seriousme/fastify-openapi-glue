@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - fix: add operationResolver to Typescript definitions
 
 ## [3.3.0] - 24-06-2022
 ### Changed
