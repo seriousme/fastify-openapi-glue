@@ -5,6 +5,7 @@ import { FastifyPluginAsync } from "fastify";
 export interface FastifyOpenapiGlueOptions {
   specification: object | string;
   service: object;
+  operationResolver: function;
   securityHandlers?: object;
   prefix?: string;
 }
