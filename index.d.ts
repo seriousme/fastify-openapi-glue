@@ -2,12 +2,15 @@
 
 import { FastifyPluginAsync } from "fastify";
 
+type OperationResolver = (operationId: string) => (req: any, res: any) => void;
+
 export interface FastifyOpenapiGlueOptions {
   specification: object | string;
-  service: object;
+  service?: object;
   securityHandlers?: object;
+  operationResolver?: OperationResolver;
   prefix?: string;
-}
+} 
 
 declare const fastifyOpenapiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
 
