@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "fastify-plugin": "^3.0.1",
-    "fastify-openapi-glue": "^3.2.0"
+    "fastify-openapi-glue": "^3.3.0"
   },
   "devDependencies": {
     "fastify": "^4.0.3",
