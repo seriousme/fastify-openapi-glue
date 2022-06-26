@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Changed
+
+## [3.3.1] - 26-06-2022
+### Changed
+ - fix: make cli working again
  - fix: add operationResolver to Typescript definitions
 
 ## [3.3.0] - 24-06-2022
