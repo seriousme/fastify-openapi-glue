@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
 import { basename, resolve } from "path";
+import { fileURLToPath } from 'url';
 import Generator from "../lib/generator.js";
 import argvParser from "minimist";
+import { exit } from "process";
+const __filename = fileURLToPath(import.meta.url)
 
 function usage() {
   console.log(`
@@ -27,7 +30,7 @@ Options:
   -l --localPlugin            Use a local path to the plugin. 
                         
 `);
-  process.exit(1);
+  exit(1);
 }
 
 const argvOptions = {
@@ -57,17 +60,19 @@ if (!argv.specification) {
 
 const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
+/* c8 ignore next */
 const handler = str => (argv.checksumOnly ? JSON.stringify(str, null, 2) : str);
 if (generator.localPlugin) {
   console.log(`Using local plugin at: ${generator.localPlugin}
   `);
 }
 
-generator
-  .parse(specPath)
-  .then(_ =>
-    console.log(
-      handler(generator.generateProject(argv.baseDir, argv.projectName))
-    )
+try {
+  await generator.parse(specPath)
+  console.log(
+    handler(generator.generateProject(argv.baseDir, argv.projectName))
   )
-  .catch(e => console.log(e.message));
+} catch (e) {
+  console.log(e.message);
+  exit(1);
+};
