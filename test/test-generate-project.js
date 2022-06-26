@@ -1,7 +1,7 @@
 import tap from "tap";
 const test = tap.test;
 
-import Generator from "../lib/generator.js";
+import { Generator } from "../lib/generator.js";
 import { createRequire } from 'module';
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
@@ -25,7 +25,7 @@ test("generator generates V3.0.0 project without error", async t => {
 
   try {
     await generator.parse(specPath3);
-    generator.generateProject(dir, projectName);
+    await generator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
     t.fail(e.message)
@@ -38,7 +38,7 @@ test("generator generates V3.0.1 project without error", async t => {
 
   try {
     await generator.parse(spec301);
-    generator.generateProject(dir, projectName);
+    await generator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
     t.fail(e.message)
@@ -50,7 +50,7 @@ test("generator generates project with local plugin without error", async t => {
 
   try {
     await localGenerator.parse(specPath);
-    localGenerator.generateProject(dir, projectName);
+    await localGenerator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
     t.fail(e.message)
@@ -62,7 +62,7 @@ test("generator throws error on non-existent basedir", async t => {
 
   try {
     await generator.parse(specPath);
-    generator.generateProject(nonExistentDir, projectName);
+    await generator.generateProject(nonExistentDir, projectName);
     t.fail("no error occurred");
   } catch (e) {
     t.equal(e.code, "ENOENT", "got expected error")
@@ -75,7 +75,7 @@ test("generator generates project without error", async t => {
   t.plan(1);
   try {
     await generator.parse(specPath);
-    generator.generateProject(dir, projectName);
+    await generator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
     t.fail(e.message)
