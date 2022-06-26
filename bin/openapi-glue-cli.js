@@ -30,7 +30,7 @@ Options:
   -l --localPlugin            Use a local path to the plugin. 
                         
 `);
-  process.exit(1);
+  exit(1);
 }
 
 const argvOptions = {
@@ -74,5 +74,5 @@ try {
   )
 } catch (e) {
   console.log(e.message);
-  process.exit(1);
+  exit(1);
 };
