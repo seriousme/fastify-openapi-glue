@@ -2,7 +2,7 @@
 
 import { basename, resolve } from "path";
 import { fileURLToPath } from 'url';
-import Generator from "../lib/generator.js";
+import { Generator } from "../lib/generator.js";
 import argvParser from "minimist";
 import { exit } from "process";
 const __filename = fileURLToPath(import.meta.url)
@@ -70,7 +70,7 @@ if (generator.localPlugin) {
 try {
   await generator.parse(specPath)
   console.log(
-    handler(generator.generateProject(argv.baseDir, argv.projectName))
+    handler(await generator.generateProject(argv.baseDir, argv.projectName))
   )
 } catch (e) {
   console.log(e.message);

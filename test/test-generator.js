@@ -1,7 +1,7 @@
 import tap from "tap";
 const test = tap.test;
 import { join } from "path";
-import Generator from "../lib/generator.js";
+import { Generator } from "../lib/generator.js";
 import { createRequire } from 'module';
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
@@ -27,7 +27,7 @@ test("generator generates data matching checksums", async t => {
 
   try {
     await generator.parse(specPath)
-    const checksums = generator.generateProject(dir, projectName);
+    const checksums = await generator.generateProject(dir, projectName);
     t.same(checksums, testChecksums, "checksums match");
   } catch (e) {
     t.fail(e.message);
@@ -39,7 +39,7 @@ test("generator generates data matching checksums for swagger without basePath",
 
   try {
     await generator.parse(noBasePathSpecPath);
-    const checksums = generator.generateProject(dir, projectName);
+    const checksums = await generator.generateProject(dir, projectName);
     t.same(checksums, noBasePathChecksums, "checksums match");
   } catch (e) {
     t.fail(e.message);
