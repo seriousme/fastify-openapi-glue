@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 import { basename, resolve } from "path";
-import Generator from "../lib/generator.js";
+import { fileURLToPath } from 'url';
+import { Generator } from "../lib/generator.js";
 import argvParser from "minimist";
+const __filename = fileURLToPath(import.meta.url)
 
 function usage() {
   console.log(`
@@ -63,11 +65,11 @@ if (generator.localPlugin) {
   `);
 }
 
-generator
-  .parse(specPath)
-  .then(_ =>
-    console.log(
-      handler(generator.generateProject(argv.baseDir, argv.projectName))
-    )
+try {
+  await generator.parse(specPath)
+  console.log(
+    handler(await generator.generateProject(argv.baseDir, argv.projectName))
   )
-  .catch(e => console.log(e.message));
+} catch (e) {
+  console.log(e.message);
+};
