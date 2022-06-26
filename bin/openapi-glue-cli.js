@@ -2,7 +2,7 @@
 
 import { basename, resolve } from "path";
 import { fileURLToPath } from 'url';
-import { Generator } from "../lib/generator.js";
+import Generator from "../lib/generator.js";
 import argvParser from "minimist";
 const __filename = fileURLToPath(import.meta.url)
 
