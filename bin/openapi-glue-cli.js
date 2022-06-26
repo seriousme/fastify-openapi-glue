@@ -68,7 +68,7 @@ if (generator.localPlugin) {
 try {
   await generator.parse(specPath)
   console.log(
-    handler(await generator.generateProject(argv.baseDir, argv.projectName))
+    handler(generator.generateProject(argv.baseDir, argv.projectName))
   )
 } catch (e) {
   console.log(e.message);
