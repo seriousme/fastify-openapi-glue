@@ -22,27 +22,26 @@ const localPlugin = false;
 
 const generator = new Generator(checksumOnly, localPlugin);
 
-test("generator generates data matching checksums", t => {
+test("generator generates data matching checksums", async t => {
   t.plan(1);
 
-  generator
-    .parse(specPath)
-    .then(_ => {
-      const checksums = generator.generateProject(dir, projectName);
-
-      t.same(checksums, testChecksums, "checksums match");
-    })
-    .catch(e => t.fail(e.message));
+  try {
+    await generator.parse(specPath)
+    const checksums = generator.generateProject(dir, projectName);
+    t.same(checksums, testChecksums, "checksums match");
+  } catch (e) {
+    t.fail(e.message);
+  }
 });
 
-test("generator generates data matching checksums for swagger without basePath", t => {
+test("generator generates data matching checksums for swagger without basePath", async t => {
   t.plan(1);
 
-  generator
-    .parse(noBasePathSpecPath)
-    .then(_ => {
-      const checksums = generator.generateProject(dir, projectName);
-      t.same(checksums, noBasePathChecksums, "checksums match");
-    })
-    .catch(e => t.fail(e.message));
+  try {
+    await generator.parse(noBasePathSpecPath);
+    const checksums = generator.generateProject(dir, projectName);
+    t.same(checksums, noBasePathChecksums, "checksums match");
+  } catch (e) {
+    t.fail(e.message);
+  }
 });
