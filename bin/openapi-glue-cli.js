@@ -60,8 +60,8 @@ if (!argv.specification) {
 
 const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
-/* c8 ignore next */
 const handler = (str) =>
+  /* c8 ignore next */
   argv.checksumOnly ? JSON.stringify(str, null, 2) : str;
 if (generator.localPlugin) {
   console.log(`Using local plugin at: ${generator.localPlugin}
