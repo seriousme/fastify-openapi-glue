@@ -2,35 +2,34 @@ import tap from "tap";
 const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from 'module';
+import { createRequire } from "module";
 const importJSON = createRequire(import.meta.url);
 
-const testSpec = await importJSON('./test-swagger.v2.json');
-const petStoreSpec = await importJSON('./petstore-swagger.v2.json');
-import securityHandlers from './security.js';
-import { Service } from './service.js';
+const testSpec = await importJSON("./test-swagger.v2.json");
+const petStoreSpec = await importJSON("./petstore-swagger.v2.json");
+import securityHandlers from "./security.js";
+import { Service } from "./service.js";
 const service = new Service();
 
 const noStrict = {
   ajv: {
     customOptions: {
-      strict: false
-    }
-  }
-}
+      strict: false,
+    },
+  },
+};
 
-
-test("security handler registration succeeds", t => {
+test("security handler registration succeeds", (t) => {
   const opts = {
     specification: petStoreSpec,
     service,
-    securityHandlers
+    securityHandlers,
   };
 
   t.plan(1);
   const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -39,13 +38,13 @@ test("security handler registration succeeds", t => {
   });
 });
 
-test("security registration succeeds, but preHandler throws error", t => {
+test("security registration succeeds, but preHandler throws error", (t) => {
   const opts = {
     specification: testSpec,
     service,
     securityHandlers: {
-      api_key: securityHandlers.failingAuthCheck
-    }
+      api_key: securityHandlers.failingAuthCheck,
+    },
   };
 
   t.plan(4);
@@ -63,19 +62,19 @@ test("security registration succeeds, but preHandler throws error", t => {
     (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 401);
-      t.equal(res.statusMessage, 'Unauthorized');
+      t.equal(res.statusMessage, "Unauthorized");
     }
   );
 });
 
-test("security preHandler passes with short-circuit", t => {
+test("security preHandler passes with short-circuit", (t) => {
   const opts = {
     specification: testSpec,
     service,
     securityHandlers: {
       api_key: securityHandlers.goodAuthCheck,
-      failing: securityHandlers.failingAuthCheck
-    }
+      failing: securityHandlers.failingAuthCheck,
+    },
   };
 
   t.plan(3);
@@ -89,19 +88,19 @@ test("security preHandler passes with short-circuit", t => {
     (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 200);
-      t.equal(res.statusMessage, 'OK');
+      t.equal(res.statusMessage, "OK");
     }
   );
 });
 
-test("security preHandler handles multiple failures", t => {
+test("security preHandler handles multiple failures", (t) => {
   const opts = {
     specification: testSpec,
     service,
     securityHandlers: {
       api_key: securityHandlers.failingAuthCheck,
-      failing: securityHandlers.failingAuthCheck
-    }
+      failing: securityHandlers.failingAuthCheck,
+    },
   };
 
   t.plan(4);
@@ -119,12 +118,12 @@ test("security preHandler handles multiple failures", t => {
     (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 401);
-      t.equal(res.statusMessage, 'Unauthorized');
+      t.equal(res.statusMessage, "Unauthorized");
     }
   );
 });
 
-test("initalization of securityHandlers succeeds", t => {
+test("initalization of securityHandlers succeeds", (t) => {
   t.plan(2);
 
   const opts = {
@@ -132,15 +131,17 @@ test("initalization of securityHandlers succeeds", t => {
     service,
     securityHandlers: {
       initialize: (securitySchemes) => {
-        const securitySchemeFromSpec = JSON.stringify(testSpec.securityDefinitions);
+        const securitySchemeFromSpec = JSON.stringify(
+          testSpec.securityDefinitions
+        );
         t.equal(JSON.stringify(securitySchemes), securitySchemeFromSpec);
-      }
-    }
+      },
+    },
   };
 
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -149,16 +150,18 @@ test("initalization of securityHandlers succeeds", t => {
   });
 });
 
-test("security preHandler gets parameters passed", t => {
+test("security preHandler gets parameters passed", (t) => {
   t.plan(8);
   const opts = {
     specification: testSpec,
     service,
     securityHandlers: {
       api_key: securityHandlers.failingAuthCheck,
-      skipped: (req, repl, param) => { req.scope = param[0] },
-      failing: securityHandlers.failingAuthCheck
-    }
+      skipped: (req, repl, param) => {
+        req.scope = param[0];
+      },
+      failing: securityHandlers.failingAuthCheck,
+    },
   };
 
   const fastify = Fastify();
@@ -172,7 +175,7 @@ test("security preHandler gets parameters passed", t => {
     (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 200);
-      t.equal(res.statusMessage, 'OK');
+      t.equal(res.statusMessage, "OK");
       t.equal(res.body, '{"response":"authentication succeeded!"}');
     }
   );
@@ -185,7 +188,7 @@ test("security preHandler gets parameters passed", t => {
     (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 200);
-      t.equal(res.statusMessage, 'OK');
+      t.equal(res.statusMessage, "OK");
       t.equal(res.body, '{"response":"skipped"}');
     }
   );

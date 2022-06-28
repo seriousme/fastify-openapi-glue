@@ -2,9 +2,9 @@ import tap from "tap";
 const test = tap.test;
 
 import { Generator } from "../lib/generator.js";
-import { createRequire } from 'module';
+import { createRequire } from "module";
 const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const specPath = localFile("./petstore-swagger.v2.json");
 const specPath3 = localFile("./petstore-openapi.v3.json");
@@ -20,7 +20,7 @@ const noLocalPlugin = false;
 const localGenerator = new Generator(checksumOnly, localPlugin);
 const generator = new Generator(checksumOnly, noLocalPlugin);
 
-test("generator generates V3.0.0 project without error", async t => {
+test("generator generates V3.0.0 project without error", async (t) => {
   t.plan(1);
 
   try {
@@ -28,11 +28,11 @@ test("generator generates V3.0.0 project without error", async t => {
     await generator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
-    t.fail(e.message)
+    t.fail(e.message);
   }
 });
 
-test("generator generates V3.0.1 project without error", async t => {
+test("generator generates V3.0.1 project without error", async (t) => {
   spec301["openapi"] = "3.0.1";
   t.plan(1);
 
@@ -41,11 +41,11 @@ test("generator generates V3.0.1 project without error", async t => {
     await generator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
-    t.fail(e.message)
+    t.fail(e.message);
   }
 });
 
-test("generator generates project with local plugin without error", async t => {
+test("generator generates project with local plugin without error", async (t) => {
   t.plan(1);
 
   try {
@@ -53,11 +53,11 @@ test("generator generates project with local plugin without error", async t => {
     await localGenerator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
-    t.fail(e.message)
+    t.fail(e.message);
   }
 });
 
-test("generator throws error on non-existent basedir", async t => {
+test("generator throws error on non-existent basedir", async (t) => {
   t.plan(1);
 
   try {
@@ -65,19 +65,19 @@ test("generator throws error on non-existent basedir", async t => {
     await generator.generateProject(nonExistentDir, projectName);
     t.fail("no error occurred");
   } catch (e) {
-    t.equal(e.code, "ENOENT", "got expected error")
+    t.equal(e.code, "ENOENT", "got expected error");
   }
 });
 
 // this one needs to be last
 
-test("generator generates project without error", async t => {
+test("generator generates project without error", async (t) => {
   t.plan(1);
   try {
     await generator.parse(specPath);
     await generator.generateProject(dir, projectName);
     t.pass("no error occurred");
   } catch (e) {
-    t.fail(e.message)
+    t.fail(e.message);
   }
 });

@@ -29,8 +29,10 @@ class DebugCatcher {
 
 const missingMethods = (service, methodSet) => {
   const proto = Object.getPrototypeOf(service);
-  const notPresent = (item) => ((typeof service[item] === "function" &&
-    item.match(/^(get|post|test)/)) && !methodSet.has(item));
+  const notPresent = (item) =>
+    typeof service[item] === "function" &&
+    item.match(/^(get|post|test)/) &&
+    !methodSet.has(item);
   return Object.getOwnPropertyNames(proto).some(notPresent);
 };
 
@@ -48,12 +50,10 @@ test("Service registration is logged at level 'debug'", async (t) => {
     },
   });
   fastify.register(fastifyOpenapiGlue, opts);
-  const res = await fastify.inject(
-    {
-      method: "get",
-      url: "/noParam",
-    },
-  );
+  const res = await fastify.inject({
+    method: "get",
+    url: "/noParam",
+  });
   t.equal(res.statusCode, 200, "result is ok");
   const operations = new Set();
   for await (const data of catcher.data) {
@@ -65,13 +65,11 @@ test("Service registration is logged at level 'debug'", async (t) => {
   t.equal(
     missingMethods(service, operations),
     false,
-    "all operations are present in the debug log",
+    "all operations are present in the debug log"
   );
 });
 
-test("Error from invalid securityHandler is logged at level 'debug' ", async (
-  t,
-) => {
+test("Error from invalid securityHandler is logged at level 'debug' ", async (t) => {
   const catcher = new DebugCatcher();
   const opts = {
     specification: testSpec,
@@ -90,22 +88,25 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (
     },
   });
   fastify.register(fastifyOpenapiGlue, opts);
-  const res = await fastify.inject(
-    {
-      method: "GET",
-      url: "/operationSecurity",
-    });
+  const res = await fastify.inject({
+    method: "GET",
+    url: "/operationSecurity",
+  });
   t.equal(res.statusCode, 200, "request succeeded");
   const handlers = new Set();
   for await (const data of catcher.data) {
-    const match = data.match(/Security handler 'api_key' failed: 'API key was invalid or not found'/);
+    const match = data.match(
+      /Security handler 'api_key' failed: 'API key was invalid or not found'/
+    );
     if (match !== null) {
       handlers.add(match[0]);
     }
   }
   t.equal(
-    handlers.has("Security handler 'api_key' failed: 'API key was invalid or not found'"),
+    handlers.has(
+      "Security handler 'api_key' failed: 'API key was invalid or not found'"
+    ),
     true,
-    "securityHandler error is present in the debug log",
+    "securityHandler error is present in the debug log"
   );
 });

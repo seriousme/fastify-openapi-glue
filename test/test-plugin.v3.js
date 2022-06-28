@@ -2,48 +2,47 @@ import tap from "tap";
 const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from 'module';
+import { createRequire } from "module";
 
 const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
-const testSpec = await importJSON('./test-openapi.v3.json');
-const petStoreSpec = await importJSON('./petstore-openapi.v3.json');
-const testSpecYAML = localFile('./test-openapi.v3.yaml');
-const genericPathItemsSpec = await importJSON('./test-openapi-v3-generic-path-items.json');
-import { Service } from './service.js'
+const testSpec = await importJSON("./test-openapi.v3.json");
+const petStoreSpec = await importJSON("./petstore-openapi.v3.json");
+const testSpecYAML = localFile("./test-openapi.v3.yaml");
+const genericPathItemsSpec = await importJSON(
+  "./test-openapi-v3-generic-path-items.json"
+);
+import { Service } from "./service.js";
 const service = new Service();
 
 const noStrict = {
   ajv: {
     customOptions: {
-      strict: false
-    }
-  }
-}
-
+      strict: false,
+    },
+  },
+};
 
 const opts = {
   specification: testSpec,
-  service
+  service,
 };
-
 
 const prefixOpts = {
   specification: testSpec,
   service,
-  prefix: "prefix"
+  prefix: "prefix",
 };
 
 const yamlOpts = {
   specification: testSpecYAML,
-  service
+  service,
 };
-
 
 const invalidSwaggerOpts = {
   specification: { valid: false },
-  service
+  service,
 };
 
 const invalidServiceOpts = {
@@ -51,39 +50,38 @@ const invalidServiceOpts = {
   service: "wrong",
 };
 
-
 const petStoreOpts = {
   specification: petStoreSpec,
-  service
+  service,
 };
 
 const genericPathItemsOpts = {
   specification: genericPathItemsSpec,
-  service
+  service,
 };
 
 const serviceAndOperationResolver = {
   specification: testSpec,
-  service: localFile('./not-a-valid-service.js'),
-  operationResolver(operationId) {
-    return
-  }
-}
+  service: localFile("./not-a-valid-service.js"),
+  operationResolver() {
+    return;
+  },
+};
 
 const noServiceNoResolver = {
   specification: testSpec,
-}
+};
 
 const withOperationResolver = {
   specification: testSpec,
-  operationResolver(operationId) {
-    return function(req, reply) {
-      reply.send("ok")
-    }
-  }
-}
+  operationResolver() {
+    return function (req, reply) {
+      reply.send("ok");
+    };
+  },
+};
 
-test("path parameters work", t => {
+test("path parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -91,7 +89,7 @@ test("path parameters work", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/pathParam/2"
+      url: "/pathParam/2",
     },
     (err, res) => {
       t.error(err);
@@ -100,7 +98,7 @@ test("path parameters work", t => {
   );
 });
 
-test("query parameters work", t => {
+test("query parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -108,7 +106,7 @@ test("query parameters work", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/queryParam?int1=1&int2=2"
+      url: "/queryParam?int1=1&int2=2",
     },
     (err, res) => {
       t.error(err);
@@ -117,7 +115,7 @@ test("query parameters work", t => {
   );
 });
 
-test("query parameters with object schema work", t => {
+test("query parameters with object schema work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -125,7 +123,7 @@ test("query parameters with object schema work", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/queryParamObject?int1=1&int2=2"
+      url: "/queryParamObject?int1=1&int2=2",
     },
     (err, res) => {
       t.error(err);
@@ -134,7 +132,7 @@ test("query parameters with object schema work", t => {
   );
 });
 
-test("header parameters work", t => {
+test("header parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -144,8 +142,8 @@ test("header parameters work", t => {
       method: "GET",
       url: "/headerParam",
       headers: {
-        "X-Request-ID": "test data"
-      }
+        "X-Request-ID": "test data",
+      },
     },
     (err, res) => {
       t.error(err);
@@ -154,7 +152,7 @@ test("header parameters work", t => {
   );
 });
 
-test("missing header parameters returns error 500", t => {
+test("missing header parameters returns error 500", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -162,7 +160,7 @@ test("missing header parameters returns error 500", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/headerParam"
+      url: "/headerParam",
     },
     (err, res) => {
       t.error(err);
@@ -171,7 +169,7 @@ test("missing header parameters returns error 500", t => {
   );
 });
 
-test("missing authorization header returns error 500", t => {
+test("missing authorization header returns error 500", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -179,7 +177,7 @@ test("missing authorization header returns error 500", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/authHeaderParam"
+      url: "/authHeaderParam",
     },
     (err, res) => {
       t.error(err);
@@ -188,7 +186,7 @@ test("missing authorization header returns error 500", t => {
   );
 });
 
-test("body parameters work", t => {
+test("body parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -200,7 +198,7 @@ test("body parameters work", t => {
       payload: {
         str1: "test data",
         str2: "test data",
-      }
+      },
     },
     (err, res) => {
       t.error(err);
@@ -209,7 +207,7 @@ test("body parameters work", t => {
   );
 });
 
-test("no parameters work", t => {
+test("no parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -217,7 +215,7 @@ test("no parameters work", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/noParam"
+      url: "/noParam",
     },
     (err, res) => {
       t.error(err);
@@ -226,7 +224,7 @@ test("no parameters work", t => {
   );
 });
 
-test("prefix in opts works", t => {
+test("prefix in opts works", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, prefixOpts);
@@ -234,7 +232,7 @@ test("prefix in opts works", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/prefix/noParam"
+      url: "/prefix/noParam",
     },
     (err, res) => {
       t.error(err);
@@ -243,7 +241,7 @@ test("prefix in opts works", t => {
   );
 });
 
-test("missing operation from service returns error 500", t => {
+test("missing operation from service returns error 500", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -251,7 +249,7 @@ test("missing operation from service returns error 500", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/noOperationId/1"
+      url: "/noOperationId/1",
     },
     (err, res) => {
       t.error(err);
@@ -260,7 +258,7 @@ test("missing operation from service returns error 500", t => {
   );
 });
 
-test("response schema works with valid response", t => {
+test("response schema works with valid response", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -268,7 +266,7 @@ test("response schema works with valid response", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/responses?replyType=valid"
+      url: "/responses?replyType=valid",
     },
     (err, res) => {
       t.error(err);
@@ -277,7 +275,7 @@ test("response schema works with valid response", t => {
   );
 });
 
-test("response schema works with invalid response", t => {
+test("response schema works with invalid response", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -285,7 +283,7 @@ test("response schema works with invalid response", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/responses?replyType=invalid"
+      url: "/responses?replyType=invalid",
     },
     (err, res) => {
       t.error(err);
@@ -294,7 +292,7 @@ test("response schema works with invalid response", t => {
   );
 });
 
-test("yaml spec works", t => {
+test("yaml spec works", (t) => {
   t.plan(2);
   const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, yamlOpts);
@@ -302,7 +300,7 @@ test("yaml spec works", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/pathParam/2"
+      url: "/pathParam/2",
     },
     (err, res) => {
       t.error(err);
@@ -311,7 +309,7 @@ test("yaml spec works", t => {
   );
 });
 
-test("generic path parameters work", t => {
+test("generic path parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
@@ -319,7 +317,7 @@ test("generic path parameters work", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/pathParam/2"
+      url: "/pathParam/2",
     },
     (err, res) => {
       t.error(err);
@@ -328,7 +326,7 @@ test("generic path parameters work", t => {
   );
 });
 
-test("generic path parameters override works", t => {
+test("generic path parameters override works", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
@@ -336,7 +334,7 @@ test("generic path parameters override works", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/noParam"
+      url: "/noParam",
     },
     (err, res) => {
       t.error(err);
@@ -345,11 +343,11 @@ test("generic path parameters override works", t => {
   );
 });
 
-test("invalid openapi v3 specification throws error ", t => {
+test("invalid openapi v3 specification throws error ", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, invalidSwaggerOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.equal(
         err.message,
@@ -362,11 +360,11 @@ test("invalid openapi v3 specification throws error ", t => {
   });
 });
 
-test("missing service definition throws error ", t => {
+test("missing service definition throws error ", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, invalidServiceOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.equal(
         err.message,
@@ -379,16 +377,19 @@ test("missing service definition throws error ", t => {
   });
 });
 
-test("full pet store V3 definition does not throw error ", t => {
+test("full pet store V3 definition does not throw error ", (t) => {
   t.plan(1);
   const fastify = Fastify(noStrict);
   // dummy parser to fix coverage testing
-  fastify.addContentTypeParser('application/xml', { parseAs: 'string' }, function (req, body, done) {
-    return body;
-  }
-  )
+  fastify.addContentTypeParser(
+    "application/xml",
+    { parseAs: "string" },
+    function (req, body) {
+      return body;
+    }
+  );
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -397,18 +398,18 @@ test("full pet store V3 definition does not throw error ", t => {
   });
 });
 
-test("V3.0.1 definition does not throw error", t => {
+test("V3.0.1 definition does not throw error", (t) => {
   const spec301 = JSON.parse(JSON.stringify(petStoreSpec));
   spec301["openapi"] = "3.0.1";
   const opts301 = {
     specification: spec301,
-    service
+    service,
   };
 
   t.plan(1);
   const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts301);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -417,18 +418,18 @@ test("V3.0.1 definition does not throw error", t => {
   });
 });
 
-test("V3.0.2 definition does not throw error", t => {
+test("V3.0.2 definition does not throw error", (t) => {
   const spec302 = JSON.parse(JSON.stringify(petStoreSpec));
   spec302["openapi"] = "3.0.2";
   const opts302 = {
     specification: spec302,
-    service
+    service,
   };
 
   t.plan(1);
   const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts302);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -437,18 +438,18 @@ test("V3.0.2 definition does not throw error", t => {
   });
 });
 
-test("V3.0.3 definition does not throw error", t => {
+test("V3.0.3 definition does not throw error", (t) => {
   const spec303 = JSON.parse(JSON.stringify(petStoreSpec));
   spec303["openapi"] = "3.0.3";
   const opts303 = {
     specification: spec303,
-    service
+    service,
   };
 
   t.plan(1);
   const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, opts303);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -457,11 +458,11 @@ test("V3.0.3 definition does not throw error", t => {
   });
 });
 
-test("x- props are copied", t => {
+test("x- props are copied", (t) => {
   t.plan(3);
   const fastify = Fastify();
-  fastify.addHook('preHandler', async (request, reply) => {
-    if (reply.context.schema['x-tap-ok']) {
+  fastify.addHook("preHandler", async (request, reply) => {
+    if (reply.context.schema["x-tap-ok"]) {
       t.pass("found x- prop");
     } else {
       t.fail("missing x- prop");
@@ -472,7 +473,7 @@ test("x- props are copied", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/queryParam?int1=1&int2=2"
+      url: "/queryParam?int1=1&int2=2",
     },
     (err, res) => {
       t.error(err);
@@ -481,7 +482,7 @@ test("x- props are copied", t => {
   );
 });
 
-test("x-fastify-config is applied", t => {
+test("x-fastify-config is applied", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, {
@@ -490,8 +491,8 @@ test("x-fastify-config is applied", t => {
       operationWithFastifyConfigExtension: (req, reply) => {
         t.equal(req.context.config.rawBody, true, "config.rawBody is true");
         return reply;
-      }
-    }
+      },
+    },
   });
 
   fastify.inject(
@@ -499,17 +500,17 @@ test("x-fastify-config is applied", t => {
       method: "GET",
       url: "/operationWithFastifyConfigExtension",
     },
-    (err, res) => {
+    () => {
       t.pass();
     }
   );
 });
 
-test("service and operationResolver together throw error", t => {
+test("service and operationResolver together throw error", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.equal(
         err.message,
@@ -522,11 +523,11 @@ test("service and operationResolver together throw error", t => {
   });
 });
 
-test("no service and no operationResolver throw error", t => {
+test("no service and no operationResolver throw error", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, noServiceNoResolver);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.equal(
         err.message,
@@ -539,7 +540,7 @@ test("no service and no operationResolver throw error", t => {
   });
 });
 
-test("operation resolver works", t => {
+test("operation resolver works", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, withOperationResolver);
@@ -547,7 +548,7 @@ test("operation resolver works", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/noParam"
+      url: "/noParam",
     },
     (err, res) => {
       t.error(err);

@@ -2,56 +2,55 @@ import tap from "tap";
 const test = tap.test;
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from 'module';
+import { createRequire } from "module";
 const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => (new URL(fileName, import.meta.url)).pathname
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
-const testSpec = await importJSON('./test-swagger.v2.json');
-const petStoreSpec = await importJSON('./petstore-swagger.v2.json');
-const testSpecYAML = localFile('./test-swagger.v2.yaml');
-import { Service } from './service.js';
-import { notStrictEqual } from "assert";
+const testSpec = await importJSON("./test-swagger.v2.json");
+const petStoreSpec = await importJSON("./petstore-swagger.v2.json");
+const testSpecYAML = localFile("./test-swagger.v2.yaml");
+import { Service } from "./service.js";
 const service = new Service();
 
 const noStrict = {
   ajv: {
     customOptions: {
-      strict: false
-    }
-  }
-}
+      strict: false,
+    },
+  },
+};
 
 const opts = {
   specification: testSpec,
-  service
+  service,
 };
 
 const yamlOpts = {
   specification: testSpecYAML,
-  service
+  service,
 };
 
 const invalidSwaggerOpts = {
   specification: { valid: false },
-  service
+  service,
 };
 
 const invalidServiceOpts = {
   specification: testSpecYAML,
-  service: "wrong"
+  service: "wrong",
 };
 
 const missingServiceOpts = {
   specification: testSpecYAML,
-  service: localFile('./not-a-valid-service.js')
+  service: localFile("./not-a-valid-service.js"),
 };
 
 const petStoreOpts = {
   specification: petStoreSpec,
-  service
+  service,
 };
 
-test("path parameters work", t => {
+test("path parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -59,7 +58,7 @@ test("path parameters work", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/v2/pathParam/2"
+      url: "/v2/pathParam/2",
     },
     (err, res) => {
       t.error(err);
@@ -68,7 +67,7 @@ test("path parameters work", t => {
   );
 });
 
-test("query parameters work", t => {
+test("query parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -76,7 +75,7 @@ test("query parameters work", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/v2/queryParam?int1=1&int2=2"
+      url: "/v2/queryParam?int1=1&int2=2",
     },
     (err, res) => {
       t.error(err);
@@ -85,7 +84,7 @@ test("query parameters work", t => {
   );
 });
 
-test("header parameters work", t => {
+test("header parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -95,8 +94,8 @@ test("header parameters work", t => {
       method: "GET",
       url: "/v2/headerParam",
       headers: {
-        "X-Request-ID": "test data"
-      }
+        "X-Request-ID": "test data",
+      },
     },
     (err, res) => {
       t.error(err);
@@ -105,7 +104,7 @@ test("header parameters work", t => {
   );
 });
 
-test("body parameters work", t => {
+test("body parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -114,7 +113,7 @@ test("body parameters work", t => {
     {
       method: "post",
       url: "/v2/bodyParam",
-      payload: { str1: "test data" }
+      payload: { str1: "test data" },
     },
     (err, res) => {
       t.error(err);
@@ -123,7 +122,7 @@ test("body parameters work", t => {
   );
 });
 
-test("no parameters work", t => {
+test("no parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -131,7 +130,7 @@ test("no parameters work", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/v2/noParam"
+      url: "/v2/noParam",
     },
     (err, res) => {
       t.error(err);
@@ -140,7 +139,7 @@ test("no parameters work", t => {
   );
 });
 
-test("missing operation from service returns error 500", t => {
+test("missing operation from service returns error 500", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -148,7 +147,7 @@ test("missing operation from service returns error 500", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/v2/noOperationId/1"
+      url: "/v2/noOperationId/1",
     },
     (err, res) => {
       t.error(err);
@@ -157,7 +156,7 @@ test("missing operation from service returns error 500", t => {
   );
 });
 
-test("response schema works with valid response", t => {
+test("response schema works with valid response", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -165,7 +164,7 @@ test("response schema works with valid response", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/v2/responses?replyType=valid"
+      url: "/v2/responses?replyType=valid",
     },
     (err, res) => {
       t.error(err);
@@ -174,7 +173,7 @@ test("response schema works with valid response", t => {
   );
 });
 
-test("response schema works with invalid response", t => {
+test("response schema works with invalid response", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, opts);
@@ -182,7 +181,7 @@ test("response schema works with invalid response", t => {
   fastify.inject(
     {
       method: "get",
-      url: "/v2/responses?replyType=invalid"
+      url: "/v2/responses?replyType=invalid",
     },
     (err, res) => {
       t.error(err);
@@ -191,7 +190,7 @@ test("response schema works with invalid response", t => {
   );
 });
 
-test("yaml spec works", t => {
+test("yaml spec works", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, yamlOpts);
@@ -199,7 +198,7 @@ test("yaml spec works", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/v2/pathParam/2"
+      url: "/v2/pathParam/2",
     },
     (err, res) => {
       t.error(err);
@@ -208,11 +207,11 @@ test("yaml spec works", t => {
   );
 });
 
-test("invalid openapi v2 specification throws error ", t => {
+test("invalid openapi v2 specification throws error ", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, invalidSwaggerOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.equal(
         err.message,
@@ -225,11 +224,11 @@ test("invalid openapi v2 specification throws error ", t => {
   });
 });
 
-test("missing service definition throws error ", t => {
+test("missing service definition throws error ", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, invalidServiceOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.equal(
         err.message,
@@ -242,24 +241,28 @@ test("missing service definition throws error ", t => {
   });
 });
 
-test("invalid service definition throws error ", t => {
+test("invalid service definition throws error ", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, missingServiceOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
-      t.match(err.message, "'service' parameter must refer to an object", "got expected error");
+      t.match(
+        err.message,
+        "'service' parameter must refer to an object",
+        "got expected error"
+      );
     } else {
       t.fail("missed expected error");
     }
   });
 });
 
-test("full pet store V2 definition does not throw error ", t => {
+test("full pet store V2 definition does not throw error ", (t) => {
   t.plan(1);
   const fastify = Fastify(noStrict);
   fastify.register(fastifyOpenapiGlue, petStoreOpts);
-  fastify.ready(err => {
+  fastify.ready((err) => {
     if (err) {
       t.fail("got unexpected error");
     } else {
@@ -268,11 +271,11 @@ test("full pet store V2 definition does not throw error ", t => {
   });
 });
 
-test("x- props are copied", t => {
+test("x- props are copied", (t) => {
   t.plan(3);
   const fastify = Fastify();
-  fastify.addHook('preHandler', async (request, reply) => {
-    if (reply.context.schema['x-tap-ok']) {
+  fastify.addHook("preHandler", async (request, reply) => {
+    if (reply.context.schema["x-tap-ok"]) {
       t.pass("found x- prop");
     } else {
       t.fail("missing x- prop");
@@ -283,7 +286,7 @@ test("x- props are copied", t => {
   fastify.inject(
     {
       method: "GET",
-      url: "/v2/queryParam?int1=1&int2=2"
+      url: "/v2/queryParam?int1=1&int2=2",
     },
     (err, res) => {
       t.error(err);
@@ -292,7 +295,7 @@ test("x- props are copied", t => {
   );
 });
 
-test("x-fastify-config is applied", t => {
+test("x-fastify-config is applied", (t) => {
   t.plan(1);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, {
@@ -301,8 +304,8 @@ test("x-fastify-config is applied", t => {
       operationWithFastifyConfigExtension: (req, reply) => {
         t.equal(req.context.config.rawBody, true, "config.rawBody is true");
         return reply;
-      }
-    }
+      },
+    },
   });
 
   fastify.inject(
@@ -310,7 +313,7 @@ test("x-fastify-config is applied", t => {
       method: "GET",
       url: "/v2/operationWithFastifyConfigExtension",
     },
-    (err, res) => {
+    () => {
       t.pass();
     }
   );
