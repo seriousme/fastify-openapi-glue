@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { basename, resolve } from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import { Generator } from "../lib/generator.js";
 import argvParser from "minimist";
 import { exit } from "process";
-const __filename = fileURLToPath(import.meta.url)
+const __filename = fileURLToPath(import.meta.url);
 
 function usage() {
   console.log(`
@@ -40,15 +40,15 @@ const argvOptions = {
     baseDir: "b",
     projectName: "p",
     checksumOnly: "c",
-    localPlugin: "l"
+    localPlugin: "l",
   },
 
   default: {
     projectName: "generatedProject",
     baseDir: process.cwd(),
     checksumOnly: false,
-    localPlugin: false
-  }
+    localPlugin: false,
+  },
 };
 
 const argv = argvParser(process.argv.slice(2), argvOptions);
@@ -61,18 +61,19 @@ if (!argv.specification) {
 const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
 /* c8 ignore next */
-const handler = str => (argv.checksumOnly ? JSON.stringify(str, null, 2) : str);
+const handler = (str) =>
+  argv.checksumOnly ? JSON.stringify(str, null, 2) : str;
 if (generator.localPlugin) {
   console.log(`Using local plugin at: ${generator.localPlugin}
   `);
 }
 
 try {
-  await generator.parse(specPath)
+  await generator.parse(specPath);
   console.log(
     handler(await generator.generateProject(argv.baseDir, argv.projectName))
-  )
+  );
 } catch (e) {
   console.log(e.message);
   exit(1);
-};
+}
