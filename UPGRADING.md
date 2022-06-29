@@ -1,5 +1,28 @@
 # Upgrading Fastify OpenApi Glue
 
+## From 3.x to 4.x
+
+This is a major change with the following breaking change:
+
+### Empty security handlers
+
+If your OpenAPI 3.x specification contains:
+
+```yaml
+...
+security:
+  - ApiKeyAuth: []
+  - OAuth2:
+      - read
+      - write
+paths:
+  /ping:
+    get:
+      security: []   # No security
+```
+The route should be accessible publicly. However in 3.x the route would still (incorrectly) be blocked due to the definitions at top level. As this update changes the security behaviour of the plugin and could accidentally expose routes that were (incorrectly) tested as private in 3.x this update is labeled as semver major.
+If you have such a route with empty handlers and it needs protection either add a security scheme to the array or remove the security property altogether. 
+
 ## From 2.x to 3.x
 
 This is a major change with the following breaking changes:
