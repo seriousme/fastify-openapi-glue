@@ -270,3 +270,33 @@ test("security preHandler throws error with custom StatusCode", (t) => {
     }
   );
 });
+
+test("security preHandler does not throw error when global security handler is overwritten with local empty security", (t) => {
+  const opts = {
+    specification: testSpec,
+    service,
+    securityHandlers: {
+      api_key: securityHandlers.failingAuthCheck,
+    },
+  };
+
+  t.plan(4);
+  const fastify = Fastify();
+  fastify.setErrorHandler((err, _req, reply) => {
+    t.equal(err.errors.length, 3);
+    reply.code(err.statusCode).send(err);
+  });
+  fastify.register(fastifyOpenapiGlue, opts);
+  fastify.inject(
+    {
+      method: "GET",
+      url: "/operationSecurityOverrideWithNoSecurity",
+    },
+    (err, res) => {
+      t.error(err);
+      t.equal(res.statusCode, 200);
+      t.equal(res.statusMessage, "OK");
+      t.equal(res.body, '{"response":"authentication succeeded!"}');
+    }
+  );
+});
