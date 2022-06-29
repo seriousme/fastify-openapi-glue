@@ -2,8 +2,15 @@
 
 ## [Unreleased]
 ### Changed
- - chore/add: Chore/add lint autoformat (GuillaumeDeconinck)
 
+## [4.0.0] - 29-06-2022
+### Changed
+ - fix: skip security if schemes empty (GuillaumeDeconinck)
+ - chore: add lint autoformat (GuillaumeDeconinck)
+ - updated dependencies:
+    fastify                 ^4.0.3  →  ^4.2.0     
+    fastify-cli             ^4.1.1  →  ^4.2.0     
+ 
 ## [3.3.1] - 26-06-2022
 ### Changed
  - fix: make cli working again
