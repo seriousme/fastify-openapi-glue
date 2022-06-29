@@ -11,7 +11,7 @@ function checkObject(obj, name) {
 
 async function getSecurityHandlers(securityHandlers, config) {
   if (securityHandlers) {
-    checkObject(securityHandlers, 'securityHandlers');
+    checkObject(securityHandlers, "securityHandlers");
     const security = new Security(securityHandlers);
     if ("initialize" in securityHandlers) {
       securityHandlers.initialize(config.securitySchemes);
@@ -30,7 +30,7 @@ function checkParserValidators(instance, contentTypes) {
 }
 
 function notImplemented(operationId) {
-  return async (request, reply) => {
+  return async () => {
     throw new Error(`Operation ${operationId} not implemented`);
   };
 }
@@ -65,28 +65,30 @@ async function plugin(instance, opts) {
   const operationResolver = opts.operationResolver;
 
   if (service && operationResolver) {
-    throw new Error("'service' and 'operationResolver' are mutually exclusive")
+    throw new Error("'service' and 'operationResolver' are mutually exclusive");
   }
 
   if (!service && !operationResolver) {
-    throw new Error("either 'service' or 'operationResolver' are required")
+    throw new Error("either 'service' or 'operationResolver' are required");
   }
 
   if (service) {
-    checkObject(service, 'service');
+    checkObject(service, "service");
   }
 
   const { securityHandlers, security } = await getSecurityHandlers(
     opts.securityHandlers,
-    config,
+    config
   );
 
-  async function generateRoutes(routesInstance, routesOpts) {
+  async function generateRoutes(routesInstance) {
     // use the provided operation resolver or default to looking in the service
-    const resolver = operationResolver || defaultOperationResolver(routesInstance, service);
+    const resolver =
+      operationResolver || defaultOperationResolver(routesInstance, service);
 
     config.routes.forEach((item) => {
-      item.handler = resolver(item.operationId) || notImplemented(item.operationId);
+      item.handler =
+        resolver(item.operationId) || notImplemented(item.operationId);
       // Apply security requirements if present and at least one handler is defined
       if (security?.has(item.security)) {
         item.preHandler = security.get(item.security).bind(securityHandlers);
@@ -117,10 +119,7 @@ const fastifyOpenapiGlue = fp(plugin, {
 export default fastifyOpenapiGlue;
 export { fastifyOpenapiGlue };
 
-
 export const options = {
   specification: "examples/petstore/petstore-swagger.v2.json",
   service: "examples/petstore/service.js",
 };
-
-

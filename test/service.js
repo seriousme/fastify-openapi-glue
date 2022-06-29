@@ -18,7 +18,7 @@ export class Service {
   //     description: ok
   //
 
-  async getPathParam(req, reply) {
+  async getPathParam(req) {
     if (typeof req.params.id !== "number") {
       throw new Error("req.params.id is not a number");
     }
@@ -40,7 +40,7 @@ export class Service {
   //     description: ok
   //
 
-  async getQueryParam(req, reply) {
+  async getQueryParam(req) {
     if (
       typeof req.query.int1 !== "number" ||
       typeof req.query.int2 !== "number"
@@ -50,7 +50,7 @@ export class Service {
     return "";
   }
 
-    // Operation: getQueryParam
+  // Operation: getQueryParam
   // summary:  Test query parameters
   // req.query:
   //   type: object
@@ -65,7 +65,7 @@ export class Service {
   //     description: ok
   //
 
-  async getQueryParamObject(req, reply) {
+  async getQueryParamObject(req) {
     if (
       typeof req.query.int1 !== "number" ||
       typeof req.query.int2 !== "number"
@@ -88,7 +88,7 @@ export class Service {
   //     description: ok
   //
 
-  async getHeaderParam(req, reply) {
+  async getHeaderParam(req) {
     if (typeof req.headers["x-request-id"] !== "string") {
       throw new Error("req.header['x-request-id'] is not a string");
     }
@@ -108,7 +108,7 @@ export class Service {
   //     description: ok
   //
 
-  async getAuthHeaderParam(req, reply) {
+  async getAuthHeaderParam(req) {
     if (typeof req.headers["authorization"] !== "string") {
       throw new Error("req.header['authorization'] is not a string");
     }
@@ -123,7 +123,7 @@ export class Service {
   //     description: ok
   //
 
-  async getNoParam(req, reply) {
+  async getNoParam() {
     return "";
   }
 
@@ -137,7 +137,7 @@ export class Service {
   //     description: ok
   //
 
-  async postBodyParam(req, reply) {
+  async postBodyParam(req) {
     if (typeof req.body.str1 !== "string") {
       throw new Error("req.body.str1 is not a string");
     }
@@ -164,7 +164,7 @@ export class Service {
   //         - response
   //
 
-  async getResponse(req, reply) {
+  async getResponse(req) {
     if (req.query.replyType === "valid") {
       return { response: "test data" };
     } else {
@@ -192,9 +192,9 @@ export class Service {
   //         - response
   //
 
-  async testOperationSecurity(req, reply) {
+  async testOperationSecurity(req) {
     return {
-      response: req.scope || "authentication succeeded!"
+      response: req.scope || "authentication succeeded!",
     };
   }
 
@@ -217,11 +217,10 @@ export class Service {
   //       required:
   //         - response
   //
-  
-  async testOperationSecurityWithParameter(req, reply) {
+
+  async testOperationSecurityWithParameter(req) {
     return {
-      response: req.scope || "authentication succeeded!"
+      response: req.scope || "authentication succeeded!",
     };
   }
 }
-
