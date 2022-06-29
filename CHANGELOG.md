@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - chore/add: Chore/add lint autoformat (GuillaumeDeconinck)
 
 ## [3.3.1] - 26-06-2022
 ### Changed
