@@ -48,7 +48,7 @@
             "schema": {
               "type": "integer"
             },
-            "required":true
+            "required": true
           },
           {
             "in": "query",
@@ -56,7 +56,7 @@
             "schema": {
               "type": "integer"
             },
-            "required":true
+            "required": true
           }
         ],
         "responses": {
@@ -78,17 +78,19 @@
             "schema": {
               "type": "object",
               "properties": {
-                "int1":
-                {
+                "int1": {
                   "type": "integer"
                 },
                 "int2": {
                   "type": "integer"
                 }
               },
-              "required":["int1","int2"]
+              "required": [
+                "int1",
+                "int2"
+              ]
             },
-            "required":true
+            "required": true
           }
         ],
         "responses": {
@@ -288,7 +290,9 @@
             "api_key": []
           },
           {
-            "skipped": ["skipped"]
+            "skipped": [
+              "skipped"
+            ]
           },
           {
             "failing": []
@@ -345,6 +349,25 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/errorObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operationSecurityOverrideWithNoSecurity": {
+      "get": {
+        "operationId": "testOperationSecurity",
+        "summary": "Test security handling",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/responseObject"
                 }
               }
             }
