@@ -47,9 +47,7 @@
             "$ref": "#/components/schemas/bodyObject"
           }
         },
-        "required": [
-          "str1"
-        ]
+        "required": ["str1"]
       }
     }
   }

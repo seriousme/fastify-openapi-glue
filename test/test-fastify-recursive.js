@@ -4,6 +4,7 @@ import Fastify from "fastify";
 const opts = {
   schema: {
     body: {
+      $id: "https://example.com/tree",
       type: "object",
       additionalProperties: false,
       properties: {

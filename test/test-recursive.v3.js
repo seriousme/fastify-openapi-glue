@@ -18,7 +18,7 @@ const noStrict = {
   },
 };
 
-test("route registration succeeds", (t) => {
+test("route registration succeeds with recursion", (t) => {
   const opts = {
     specification: testSpec,
     service,
