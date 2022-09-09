@@ -17,7 +17,14 @@
         "summary": "Test recursive parameters",
         "responses": {
           "200": {
-            "description": "ok"
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bodyObject"
+                }
+              }
+            }
           }
         },
         "requestBody": {
