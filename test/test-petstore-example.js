@@ -1,6 +1,5 @@
 // this suite tests the examples shown in README.md
-import tap from "tap";
-const test = tap.test;
+import { test } from "tap";
 import Fastify from "fastify";
 import petstoreExample from "../examples/petstore/index.js";
 

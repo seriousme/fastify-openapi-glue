@@ -16,17 +16,17 @@
       "fileName": "index.js",
       "checksum": "cbbf4adc994fe7a2db5f411a038344c8fa617ee9e212e318df18a8f4ab3ad5fe"
     },
-    "package": {
-      "fileName": "package.json",
-      "checksum": "18b026fab726e0125f25463a26c1cbe1308a6219bd3269f70d5106037e904473"
-    },
     "readme": {
       "fileName": "README.md",
       "checksum": "616bd2979f9054675aa3ba42f635fe0d1c69490749bbfa2064e253c910bd6abb"
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "1f8bae23fab818affac0d08283877bc3455dfa9fb430e2cf0d64e1b2230e1520"
+      "checksum": "31597f7fa7db2fae67e7afcc022fb3dbda92e71215c7001a1d3465aa7bfbfb9e"
+    },
+    "package": {
+      "fileName": "package.json",
+      "checksum": "18b026fab726e0125f25463a26c1cbe1308a6219bd3269f70d5106037e904473"
     }
   }
 }
