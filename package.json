@@ -27,8 +27,8 @@
     "openapi-glue": "./bin/openapi-glue-cli.js"
   },
   "dependencies": {
-    "@seriousme/openapi-schema-validator": "^2.0.2",
-    "fastify-plugin": "^4.0.0",
+    "@seriousme/openapi-schema-validator": "^2.0.3",
+    "fastify-plugin": "^4.2.1",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.6"
   },
@@ -39,12 +39,12 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "c8": "^7.11.3",
-    "eslint": "^8.18.0",
+    "c8": "^7.12.0",
+    "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.1.0",
-    "fastify": "^4.2.0",
-    "fastify-cli": "^5.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "fastify": "^4.5.3",
+    "fastify-cli": "^5.4.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1",

@@ -2,14 +2,22 @@
 
 ## [Unreleased]
 ### Changed
+ - updated dependencies:
+    - @seriousme/openapi-schema-validator   ^2.0.2  →   ^2.0.3
+    - fastify-plugin                        ^4.0.0  →   ^4.2.1
+    - c8                                   ^7.11.3  →  ^7.12.0
+    - eslint                               ^8.18.0  →  ^8.23.0
+    - eslint-plugin-prettier                ^4.1.0  →   ^4.2.1
+    - fastify                               ^4.2.0  →   ^4.5.3
+    - fastify-cli                           ^5.0.0  →   ^5.4.1
 
 ## [4.0.0] - 29-06-2022
 ### Changed
  - fix: skip security if schemes empty (GuillaumeDeconinck)
  - chore: add lint autoformat (GuillaumeDeconinck)
  - updated dependencies:
-    fastify                 ^4.0.3  →  ^4.2.0     
-    fastify-cli             ^4.1.1  →  ^4.2.0     
+    - fastify                 ^4.0.3  →  ^4.2.0     
+    - fastify-cli             ^4.1.1  →  ^4.2.0     
  
 ## [3.3.1] - 26-06-2022
 ### Changed
