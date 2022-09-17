@@ -1,5 +1,4 @@
-import tap from "tap";
-const test = tap.test;
+import { test } from "tap";
 import { Generator } from "../lib/generator.js";
 import { createRequire } from "module";
 const importJSON = createRequire(import.meta.url);

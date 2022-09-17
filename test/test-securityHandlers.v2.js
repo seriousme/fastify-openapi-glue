@@ -1,5 +1,4 @@
-import tap from "tap";
-const test = tap.test;
+import { test } from "tap";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from "module";

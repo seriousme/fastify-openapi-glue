@@ -1,0 +1,76 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost/v2"
+    }
+  ],
+  "info": {
+    "title": "Recursive Test specification",
+    "description": "testing the fastify openapi glue using recursive schema",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/recursive": {
+      "post": {
+        "operationId": "postRecursive",
+        "summary": "Test recursive parameters",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/bodyObject"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/bodyObject"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "bodyObject": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "str1": {
+            "type": "string"
+          },
+          "arr": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "objRef": {
+            "$ref": "#/components/schemas/bodyObject"
+          },
+          "arrRef": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bodyObject"
+            }
+          },
+          "refStr": {
+            "$ref": "#/components/schemas/bodyObject/properties/arrRef/items/properties/arr/items"
+          }
+        },
+        "required": ["str1"]
+      }
+    }
+  }
+}

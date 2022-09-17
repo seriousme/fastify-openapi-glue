@@ -1,6 +1,5 @@
 // just test the basics to aid debugging
-import tap from "tap";
-const test = tap.test;
+import { test } from "tap";
 import Fastify from "fastify";
 
 const opts = {
