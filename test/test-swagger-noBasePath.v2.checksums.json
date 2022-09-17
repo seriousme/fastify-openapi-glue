@@ -22,7 +22,7 @@
     },
     "testPlugin": {
       "fileName": "test-plugin.js",
-      "checksum": "c5eb3c2a6df828626d659351fe77a30a1657ca9554b70159a174bb0c546c3496"
+      "checksum": "1325ef1ab2c0c96f0e9f606927307c0c3093ac1b804bfe6950da95af34f6a9c0"
     },
     "package": {
       "fileName": "package.json",
