@@ -50,8 +50,23 @@
           "str1": {
             "type": "string"
           },
-          "obj1": {
+          "arr": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "objRef": {
             "$ref": "#/components/schemas/bodyObject"
+          },
+          "arrRef": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/bodyObject"
+            }
+          },
+          "refStr": {
+            "$ref": "#/components/schemas/bodyObject/properties/arrRef/items/properties/arr/items"
           }
         },
         "required": ["str1"]
