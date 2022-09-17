@@ -26,7 +26,12 @@ test("fastify validation works", (t) => {
 
   async function routes(fastify) {
     fastify.post("/", opts, async (request) => {
-      return request.body;
+      t.same(
+        request.body,
+        { str1: "test data", obj1: { str1: "test data" } },
+        "expected value"
+      );
+      return;
     });
   }
   fastify.register(routes);
@@ -43,11 +48,6 @@ test("fastify validation works", (t) => {
     },
     (err, res) => {
       t.error(err);
-      t.equal(
-        res.body,
-        '{"str1":"test data","obj1":{"str1":"test data"}}',
-        "expected value"
-      );
       t.equal(res.statusCode, 200, "expected HTTP code");
     }
   );
