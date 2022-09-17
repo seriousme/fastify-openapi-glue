@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.0.1] - 17-09-2022
+### Changed
+ - fix: handle recursive schema correctly
  - updated dependencies:
     - @seriousme/openapi-schema-validator   ^2.0.2  →   ^2.0.3
     - fastify-plugin                        ^4.0.0  →   ^4.2.1
