@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.0.2] - 07-10-2022
+### Changed
+ - fix: add default export to package.json
+
 ## [4.0.1] - 17-09-2022
 ### Changed
  - fix: handle recursive schema correctly
