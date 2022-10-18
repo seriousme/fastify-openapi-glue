@@ -3,6 +3,17 @@
 ## [Unreleased]
 ### Changed
 
+## [4.0.3] - 18-10-2022
+### Changed
+ - fix: remove FSTDEP012 warnings caused by test cases 
+ - updated dependencies:
+    - @seriousme/openapi-schema-validator   ^2.0.3  →   ^2.1.0
+    - eslint                               ^8.23.0  →  ^8.25.0
+    - fastify                               ^4.5.3  →   ^4.9.2
+    - fastify-cli                           ^5.4.1  →   ^5.5.0
+    - fastify-plugin                        ^4.2.1  →   ^4.3.0
+    - minimist                              ^1.2.6  →   ^1.2.7
+
 ## [4.0.2] - 07-10-2022
 ### Changed
  - fix: add default export to package.json

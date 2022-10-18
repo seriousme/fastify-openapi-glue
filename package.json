@@ -27,10 +27,10 @@
     "openapi-glue": "./bin/openapi-glue-cli.js"
   },
   "dependencies": {
-    "@seriousme/openapi-schema-validator": "^2.0.3",
-    "fastify-plugin": "^4.2.1",
+    "@seriousme/openapi-schema-validator": "^2.1.0",
+    "fastify-plugin": "^4.3.0",
     "js-yaml": "^4.1.0",
-    "minimist": "^1.2.6"
+    "minimist": "^1.2.7"
   },
   "directories": {
     "example": "./examples",
@@ -40,11 +40,11 @@
   },
   "devDependencies": {
     "c8": "^7.12.0",
-    "eslint": "^8.23.0",
+    "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "fastify": "^4.5.3",
-    "fastify-cli": "^5.4.1",
+    "fastify": "^4.9.2",
+    "fastify-cli": "^5.5.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1",
