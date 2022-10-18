@@ -488,7 +488,7 @@ test("x-fastify-config is applied", (t) => {
     ...opts,
     service: {
       operationWithFastifyConfigExtension: (req, reply) => {
-        t.equal(req.context.config.rawBody, true, "config.rawBody is true");
+        t.equal(req.routeConfig.rawBody, true, "config.rawBody is true");
         return reply;
       },
     },
