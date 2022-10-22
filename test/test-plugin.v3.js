@@ -80,6 +80,16 @@ const withOperationResolver = {
   },
 };
 
+const withOperationResolverUsingMethodPath = {
+  specification: testSpec,
+  operationResolver(_operationId, method) {
+    const result = method === "GET" ? "ok" : "notOk";
+    return function (req, reply) {
+      reply.send(result);
+    };
+  },
+};
+
 test("path parameters work", (t) => {
   t.plan(2);
   const fastify = Fastify();
@@ -543,6 +553,23 @@ test("operation resolver works", (t) => {
   t.plan(2);
   const fastify = Fastify();
   fastify.register(fastifyOpenapiGlue, withOperationResolver);
+
+  fastify.inject(
+    {
+      method: "get",
+      url: "/noParam",
+    },
+    (err, res) => {
+      t.error(err);
+      t.equal(res.body, "ok");
+    }
+  );
+});
+
+test("operation resolver with method and url works", (t) => {
+  t.plan(2);
+  const fastify = Fastify();
+  fastify.register(fastifyOpenapiGlue, withOperationResolverUsingMethodPath);
 
   fastify.inject(
     {
