@@ -2,7 +2,11 @@
 
 import { FastifyPluginAsync } from "fastify";
 
-type OperationResolver = (operationId: string) => (req: any, res: any) => void;
+type OperationResolver = (
+  operationId: string,
+  method: string,
+  path: string
+) => (req: any, res: any) => void;
 
 export interface FastifyOpenapiGlueOptions {
   specification: object | string;
@@ -10,7 +14,7 @@ export interface FastifyOpenapiGlueOptions {
   securityHandlers?: object;
   operationResolver?: OperationResolver;
   prefix?: string;
-} 
+}
 
 declare const fastifyOpenapiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
 
