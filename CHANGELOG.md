@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.1.0] - 24-10-2022
+### Changed
+- feat: Extend operationResolver option with method and path 
+
 ## [4.0.3] - 18-10-2022
 ### Changed
  - fix: remove FSTDEP012 warnings caused by test cases 
