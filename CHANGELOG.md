@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.1.1] - 24-10-2022
+### Changed
+- fix: Extend Typescript definitions for operationResolver option with method and path 
+
 ## [4.1.0] - 24-10-2022
 ### Changed
 - feat: Extend operationResolver option with method and path 
