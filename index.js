@@ -87,13 +87,22 @@ async function plugin(instance, opts) {
       operationResolver || defaultOperationResolver(routesInstance, service);
 
     config.routes.forEach((item) => {
-      item.handler =
-        resolver(item.operationId) || notImplemented(item.operationId);
+      const routeCfg = {
+        method: item.method,
+        url: item.url,
+        schema: item.schema,
+        config: item.config,
+      };
+      routeCfg.handler =
+        resolver(item.operationId, item.method, item.openapiPath) ||
+        notImplemented(item.operationId);
       // Apply security requirements if present and at least one handler is defined
       if (security?.has(item.security)) {
-        item.preHandler = security.get(item.security).bind(securityHandlers);
+        routeCfg.preHandler = security
+          .get(item.security)
+          .bind(securityHandlers);
       }
-      routesInstance.route(item);
+      routesInstance.route(routeCfg);
     });
 
     if (security) {
