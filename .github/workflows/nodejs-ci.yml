@@ -13,9 +13,6 @@ jobs:
       matrix:
         node-version: [14, 16, 18, 19]
     steps:
-      - uses: rome/setup-rome@v0.4
-        with:
-          version: latest
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -23,6 +20,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm i -g npm
       - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
+      # set exec bit on rome binary (because of --ignore-scripts above)
+      - run: node ./node_modules/rome/scripts/postinstall.js
       - run: rome ci .
       - run: npm run build --if-present
       - run: npm run covtest
