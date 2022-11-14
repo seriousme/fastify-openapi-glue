@@ -19,63 +19,63 @@ const localGenerator = new Generator(checksumOnly, localPlugin);
 const generator = new Generator(checksumOnly, noLocalPlugin);
 
 test("generator generates V3.0.0 project without error", async (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  try {
-    await generator.parse(specPath3);
-    await generator.generateProject(dir, projectName);
-    t.pass("no error occurred");
-  } catch (e) {
-    t.fail(e.message);
-  }
+	try {
+		await generator.parse(specPath3);
+		await generator.generateProject(dir, projectName);
+		t.pass("no error occurred");
+	} catch (e) {
+		t.fail(e.message);
+	}
 });
 
 test("generator generates V3.0.1 project without error", async (t) => {
-  spec301["openapi"] = "3.0.1";
-  t.plan(1);
+	spec301["openapi"] = "3.0.1";
+	t.plan(1);
 
-  try {
-    await generator.parse(spec301);
-    await generator.generateProject(dir, projectName);
-    t.pass("no error occurred");
-  } catch (e) {
-    t.fail(e.message);
-  }
+	try {
+		await generator.parse(spec301);
+		await generator.generateProject(dir, projectName);
+		t.pass("no error occurred");
+	} catch (e) {
+		t.fail(e.message);
+	}
 });
 
 test("generator generates project with local plugin without error", async (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  try {
-    await localGenerator.parse(specPath);
-    await localGenerator.generateProject(dir, projectName);
-    t.pass("no error occurred");
-  } catch (e) {
-    t.fail(e.message);
-  }
+	try {
+		await localGenerator.parse(specPath);
+		await localGenerator.generateProject(dir, projectName);
+		t.pass("no error occurred");
+	} catch (e) {
+		t.fail(e.message);
+	}
 });
 
 test("generator throws error on non-existent basedir", async (t) => {
-  t.plan(1);
+	t.plan(1);
 
-  try {
-    await generator.parse(specPath);
-    await generator.generateProject(nonExistentDir, projectName);
-    t.fail("no error occurred");
-  } catch (e) {
-    t.equal(e.code, "ENOENT", "got expected error");
-  }
+	try {
+		await generator.parse(specPath);
+		await generator.generateProject(nonExistentDir, projectName);
+		t.fail("no error occurred");
+	} catch (e) {
+		t.equal(e.code, "ENOENT", "got expected error");
+	}
 });
 
 // this one needs to be last
 
 test("generator generates project without error", async (t) => {
-  t.plan(1);
-  try {
-    await generator.parse(specPath);
-    await generator.generateProject(dir, projectName);
-    t.pass("no error occurred");
-  } catch (e) {
-    t.fail(e.message);
-  }
+	t.plan(1);
+	try {
+		await generator.parse(specPath);
+		await generator.generateProject(dir, projectName);
+		t.pass("no error occurred");
+	} catch (e) {
+		t.fail(e.message);
+	}
 });

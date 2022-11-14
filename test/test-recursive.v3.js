@@ -10,27 +10,27 @@ import { Service } from "./service.js";
 const service = new Service();
 
 const noStrict = {
-  ajv: {
-    customOptions: {
-      strict: false,
-    },
-  },
+	ajv: {
+		customOptions: {
+			strict: false,
+		},
+	},
 };
 
 test("route registration succeeds with recursion", (t) => {
-  const opts = {
-    specification: testSpec,
-    service,
-  };
+	const opts = {
+		specification: testSpec,
+		service,
+	};
 
-  t.plan(1);
-  const fastify = Fastify(noStrict);
-  fastify.register(fastifyOpenapiGlue, opts);
-  fastify.ready((err) => {
-    if (err) {
-      t.fail("got unexpected error");
-    } else {
-      t.pass("no unexpected error");
-    }
-  });
+	t.plan(1);
+	const fastify = Fastify(noStrict);
+	fastify.register(fastifyOpenapiGlue, opts);
+	fastify.ready((err) => {
+		if (err) {
+			t.fail("got unexpected error");
+		} else {
+			t.pass("no unexpected error");
+		}
+	});
 });

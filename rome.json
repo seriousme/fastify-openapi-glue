@@ -1,0 +1,12 @@
+{
+  "linter": {
+    "enabled": true,
+    "ignore": ["coverage"],
+    "rules": {
+      "recommended": true
+    }
+  },
+  "formatter": {
+    "ignore": ["coverage"]
+  }
+}

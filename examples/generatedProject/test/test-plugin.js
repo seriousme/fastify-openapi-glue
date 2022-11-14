@@ -10,13 +10,13 @@ import service from "../service.js";
 const specification = "../openApi.json";
 
 const opts = {
-  specification,
-  service,
+	specification,
+	service,
 };
-
+//
 // Operation: addPet
 // URL: /pet
-// summary:  Add a new pet to the store
+// summary:	Add a new pet to the store
 // req.body
 //   type: object
 //   required:
@@ -77,27 +77,27 @@ const opts = {
 //
 
 test("testing addPet", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/pet",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/pet",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: updatePet
 // URL: /pet
-// summary:  Update an existing pet
+// summary:	Update an existing pet
 // req.body
 //   type: object
 //   required:
@@ -162,27 +162,27 @@ test("testing addPet", (t) => {
 //
 
 test("testing updatePet", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "PUT",
-      url: "/v2/pet",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "PUT",
+			url: "/v2/pet",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: findPetsByStatus
 // URL: /pet/findByStatus
-// summary:  Finds Pets by status
+// summary:	Finds Pets by status
 // req.query
 //   type: object
 //   properties:
@@ -255,27 +255,27 @@ test("testing updatePet", (t) => {
 //
 
 test("testing findPetsByStatus", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/pet/findByStatus",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/pet/findByStatus",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: findPetsByTags
 // URL: /pet/findByTags
-// summary:  Finds Pets by tags
+// summary:	Finds Pets by tags
 // req.query
 //   type: object
 //   properties:
@@ -348,27 +348,27 @@ test("testing findPetsByStatus", (t) => {
 //
 
 test("testing findPetsByTags", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/pet/findByTags",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/pet/findByTags",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: getPetById
 // URL: /pet/:petId
-// summary:  Find pet by ID
+// summary:	Find pet by ID
 // req.params
 //   type: object
 //   properties:
@@ -441,27 +441,27 @@ test("testing findPetsByTags", (t) => {
 //
 
 test("testing getPetById", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/pet/:petId",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/pet/:petId",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: updatePetWithForm
 // URL: /pet/:petId
-// summary:  Updates a pet in the store with form data
+// summary:	Updates a pet in the store with form data
 // req.params
 //   type: object
 //   properties:
@@ -487,27 +487,27 @@ test("testing getPetById", (t) => {
 //
 
 test("testing updatePetWithForm", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/pet/:petId",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/pet/:petId",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: deletePet
 // URL: /pet/:petId
-// summary:  Deletes a pet
+// summary:	Deletes a pet
 // req.headers
 //   type: object
 //   properties:
@@ -531,27 +531,27 @@ test("testing updatePetWithForm", (t) => {
 //
 
 test("testing deletePet", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "DELETE",
-      url: "/v2/pet/:petId",
-      payload: undefined,
-      headers: undefined, //insert headers here!!
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "DELETE",
+			url: "/v2/pet/:petId",
+			payload: undefined,
+			headers: undefined, //insert headers here!!
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: uploadFile
 // URL: /pet/:petId/uploadImage
-// summary:  uploads an image
+// summary:	uploads an image
 // req.params
 //   type: object
 //   properties:
@@ -587,27 +587,27 @@ test("testing deletePet", (t) => {
 //
 
 test("testing uploadFile", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/pet/:petId/uploadImage",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/pet/:petId/uploadImage",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: getInventory
 // URL: /store/inventory
-// summary:  Returns pet inventories by status
+// summary:	Returns pet inventories by status
 // valid responses
 //   '200':
 //     description: successful operation
@@ -619,27 +619,27 @@ test("testing uploadFile", (t) => {
 //
 
 test("testing getInventory", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/store/inventory",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/store/inventory",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: placeOrder
 // URL: /store/order
-// summary:  Place an order for a pet
+// summary:	Place an order for a pet
 // req.body
 //   type: object
 //   properties:
@@ -703,27 +703,27 @@ test("testing getInventory", (t) => {
 //
 
 test("testing placeOrder", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/store/order",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/store/order",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: getOrderById
 // URL: /store/order/:orderId
-// summary:  Find purchase order by ID
+// summary:	Find purchase order by ID
 // req.params
 //   type: object
 //   properties:
@@ -770,27 +770,27 @@ test("testing placeOrder", (t) => {
 //
 
 test("testing getOrderById", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/store/order/:orderId",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/store/order/:orderId",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: deleteOrder
 // URL: /store/order/:orderId
-// summary:  Delete purchase order by ID
+// summary:	Delete purchase order by ID
 // req.params
 //   type: object
 //   properties:
@@ -808,27 +808,27 @@ test("testing getOrderById", (t) => {
 //
 
 test("testing deleteOrder", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "DELETE",
-      url: "/v2/store/order/:orderId",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "DELETE",
+			url: "/v2/store/order/:orderId",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: createUser
 // URL: /user
-// summary:  Create user
+// summary:	Create user
 // req.body
 //   type: object
 //   properties:
@@ -860,27 +860,27 @@ test("testing deleteOrder", (t) => {
 //
 
 test("testing createUser", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/user",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/user",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: createUsersWithArrayInput
 // URL: /user/createWithArray
-// summary:  Creates list of users with given input array
+// summary:	Creates list of users with given input array
 // req.body
 //   type: array
 //   items:
@@ -914,27 +914,27 @@ test("testing createUser", (t) => {
 //
 
 test("testing createUsersWithArrayInput", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/user/createWithArray",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/user/createWithArray",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: createUsersWithListInput
 // URL: /user/createWithList
-// summary:  Creates list of users with given input array
+// summary:	Creates list of users with given input array
 // req.body
 //   type: array
 //   items:
@@ -968,27 +968,27 @@ test("testing createUsersWithArrayInput", (t) => {
 //
 
 test("testing createUsersWithListInput", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "POST",
-      url: "/v2/user/createWithList",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "POST",
+			url: "/v2/user/createWithList",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: loginUser
 // URL: /user/login
-// summary:  Logs user into the system
+// summary:	Logs user into the system
 // req.query
 //   type: object
 //   properties:
@@ -1021,54 +1021,54 @@ test("testing createUsersWithListInput", (t) => {
 //
 
 test("testing loginUser", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/user/login",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/user/login",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: logoutUser
 // URL: /user/logout
-// summary:  Logs out current logged in user session
+// summary:	Logs out current logged in user session
 // valid responses
 //   default:
 //     description: successful operation
 //
 
 test("testing logoutUser", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/user/logout",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/user/logout",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: getUserByName
 // URL: /user/:username
-// summary:  Get user by user name
+// summary:	Get user by user name
 // req.params
 //   type: object
 //   properties:
@@ -1112,27 +1112,27 @@ test("testing logoutUser", (t) => {
 //
 
 test("testing getUserByName", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "GET",
-      url: "/v2/user/:username",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/v2/user/:username",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: updateUser
 // URL: /user/:username
-// summary:  Updated user
+// summary:	Updated user
 // req.params
 //   type: object
 //   properties:
@@ -1175,27 +1175,27 @@ test("testing getUserByName", (t) => {
 //
 
 test("testing updateUser", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "PUT",
-      url: "/v2/user/:username",
-      payload: undefined, //insert body data here!!
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "PUT",
+			url: "/v2/user/:username",
+			payload: undefined, //insert body data here!!
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
 
 // Operation: deleteUser
 // URL: /user/:username
-// summary:  Delete user
+// summary:	Delete user
 // req.params
 //   type: object
 //   properties:
@@ -1213,20 +1213,20 @@ test("testing updateUser", (t) => {
 //
 
 test("testing deleteUser", (t) => {
-  t.plan(2);
-  const fastify = Fastify();
-  fastify.register(fastifyPlugin, opts);
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyPlugin, opts);
 
-  fastify.inject(
-    {
-      method: "DELETE",
-      url: "/v2/user/:username",
-      payload: undefined,
-      headers: undefined,
-    },
-    (err, res) => {
-      t.error(err);
-      t.equal(res.statusCode, 200);
-    }
-  );
+	fastify.inject(
+		{
+			method: "DELETE",
+			url: "/v2/user/:username",
+			payload: undefined,
+			headers: undefined,
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
 });
