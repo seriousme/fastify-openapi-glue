@@ -2,14 +2,14 @@
 import openapiGlue from "fastify-openapi-glue";
 import { Service } from "./service.js";
 import { Security } from "./security.js";
-const localFile = ( fileName ) => (new URL(fileName,import.meta.url)).pathname
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const options = {
-  specification: localFile('./openApi.json'),
-  service: new Service(),
-  securityHandlers: new Security(),
+	specification: localFile("./openApi.json"),
+	service: new Service(),
+	securityHandlers: new Security(),
 };
 
 export default async function (fastify, opts) {
-  fastify.register(openapiGlue, options);
-};
+	fastify.register(openapiGlue, options);
+}

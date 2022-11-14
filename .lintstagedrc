@@ -1,6 +1,0 @@
-{
-  "*.js": [
-    "prettier --write",
-    "npm run lint"
-  ]
-}
