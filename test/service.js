@@ -50,7 +50,7 @@ export class Service {
 		return "";
 	}
 
-	// Operation: getQueryParam
+	// Operation: getQueryParamObject
 	// summary:  Test query parameters
 	// req.query:
 	//   type: object
@@ -71,6 +71,31 @@ export class Service {
 			typeof req.query.int2 !== "number"
 		) {
 			throw new Error("req.params.int1 or req.params.int2 is not a number");
+		}
+		return "";
+	}
+
+	// Operation: getQueryParamArray
+	// summary:  Test query parameters
+	// req.query:
+	//   type: object
+	//   properties:
+	//		arr:
+	//   		type: array
+	//   		items:
+	//	 			type: integer
+	//
+	// valid responses:
+	//   '200':
+	//     description: ok
+	//
+
+	async getQueryParamArray(req) {
+		if (
+			typeof req.query.arr[0] !== "number" ||
+			typeof req.query.arr[1] !== "number"
+		) {
+			throw new Error("req.params[0] or req.params[1] is not a number");
 		}
 		return "";
 	}
