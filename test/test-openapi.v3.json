@@ -101,6 +101,31 @@
         "x-tap-ok": true
       }
     },
+    "/queryParamArray": {
+      "get": {
+        "operationId": "getQueryParamArray",
+        "summary": "Test query parameters in an array",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "arr",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        },
+        "x-tap-ok": true
+      }
+    },
     "/headerParam": {
       "get": {
         "operationId": "getHeaderParam",

@@ -2,7 +2,18 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.1.2] - 13-01-2023
+### Changed
  - chore: replaced Prettier and ESlint by Rome
+ - fix: fix query string array handling in V3 parsing
+ - updated dependencies:
+    - fastify          ^4.9.2  →  ^4.11.0
+    - fastify-cli      ^5.5.0  →   ^5.7.1
+    - fastify-plugin   ^4.3.0  →   ^4.5.0
+    - husky            ^8.0.1  →   ^8.0.3
+    - tap             ^16.3.0  →  ^16.3.3
+
 ## [4.1.1] - 24-10-2022
 ### Changed
 - fix: Extend Typescript definitions for operationResolver option with method and path 

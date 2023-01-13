@@ -141,6 +141,23 @@ test("query parameters with object schema work", (t) => {
 	);
 });
 
+test("query parameters with array schema work", (t) => {
+	t.plan(2);
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, opts);
+
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/queryParamArray?arr=1&arr=2",
+		},
+		(err, res) => {
+			t.error(err);
+			t.equal(res.statusCode, 200);
+		},
+	);
+});
+
 test("header parameters work", (t) => {
 	t.plan(2);
 	const fastify = Fastify();
