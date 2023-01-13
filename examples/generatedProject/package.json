@@ -12,18 +12,18 @@
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": "^4.3.0",
+    "fastify-plugin": "^4.5.0",
     "@seriousme/openapi-schema-validator": "^2.1.0",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.7",
     "fastify-openapi-glue": "^4.1.1"
   },
   "devDependencies": {
-    "fastify": "^4.9.2",
-    "fastify-cli": "^5.5.0",
-    "tap": "^16.3.0",
+    "fastify": "^4.11.0",
+    "fastify-cli": "^5.7.1",
+    "tap": "^16.3.3",
     "c8": "^7.12.0",
-    "husky": "^8.0.1",
-    "rome": "^10.0.1"
+    "husky": "^8.0.3",
+    "rome": "^11.0.0"
   }
 }
