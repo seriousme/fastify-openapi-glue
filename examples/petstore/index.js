@@ -6,12 +6,20 @@ import { Service } from "./service.js";
 const service = new Service();
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
-const options = {
+const pluginOptions = {
 	specification: localFile("./petstore-openapi.v3.json"),
 	service,
 	prefix: "v2",
 };
 
 export default async function (fastify, opts) {
-	fastify.register(openapiGlue, options);
+	fastify.register(openapiGlue, pluginOptions);
 }
+
+export const options = {
+	ajv: {
+		customOptions: {
+			strict: false,
+		},
+	},
+};
