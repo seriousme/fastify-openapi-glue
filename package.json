@@ -9,7 +9,7 @@
   },
   "types": "index.d.ts",
   "scripts": {
-    "start": "fastify start examples/petstore/index.js",
+    "start": "fastify start --options examples/petstore/index.js",
     "format": "rome format --write .",
     "test": "c8 tap test/test-*.js",
     "posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
@@ -31,7 +31,7 @@
     "@seriousme/openapi-schema-validator": "^2.1.0",
     "fastify-plugin": "^4.5.0",
     "js-yaml": "^4.1.0",
-    "minimist": "^1.2.7"
+    "minimist": "^1.2.8"
   },
   "directories": {
     "example": "./examples",
@@ -40,12 +40,12 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "c8": "^7.12.0",
-    "fastify": "^4.11.0",
+    "c8": "^7.13.0",
+    "fastify": "^4.13.0",
     "fastify-cli": "^5.7.1",
     "husky": "^8.0.3",
     "rome": "^11.0.0",
-    "tap": "^16.3.3"
+    "tap": "^16.3.4"
   },
   "repository": {
     "type": "git",

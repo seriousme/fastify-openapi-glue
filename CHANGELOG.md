@@ -3,6 +3,15 @@
 ## [Unreleased]
 ### Changed
 
+## [4.1.3] - 05-03-2023
+### Changed
+ - fix: fixed "npm start" behaviour
+ - updated dependencies
+    - c8        ^7.12.0  →  ^7.13.0
+    - fastify   ^4.11.0  →  ^4.13.0
+    - minimist   ^1.2.7  →   ^1.2.8
+    - tap       ^16.3.3  →  ^16.3.4
+
 ## [4.1.2] - 13-01-2023
 ### Changed
  - chore: replaced Prettier and ESlint by Rome
