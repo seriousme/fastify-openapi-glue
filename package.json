@@ -9,7 +9,7 @@
   },
   "types": "index.d.ts",
   "scripts": {
-    "start": "fastify start examples/petstore/index.js",
+    "start": "fastify start --options examples/petstore/index.js",
     "format": "rome format --write .",
     "test": "c8 tap test/test-*.js",
     "posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
