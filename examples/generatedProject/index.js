@@ -4,12 +4,20 @@ import { Service } from "./service.js";
 import { Security } from "./security.js";
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
-const options = {
+const pluginOptions = {
 	specification: localFile("./openApi.json"),
 	service: new Service(),
 	securityHandlers: new Security(),
 };
 
 export default async function (fastify, opts) {
-	fastify.register(openapiGlue, options);
+	fastify.register(openapiGlue, pluginOptions);
 }
+
+export const options = {
+	ajv: {
+		customOptions: {
+			strict: false,
+		},
+	},
+};
