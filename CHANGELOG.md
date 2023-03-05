@@ -8,7 +8,7 @@
  - fix: fixed "npm start" behaviour
  - updated dependencies
     - c8        ^7.12.0  →  ^7.13.0
-    - fastify   ^4.11.0  →  ^4.14.0
+    - fastify   ^4.11.0  →  ^4.13.0
     - minimist   ^1.2.7  →   ^1.2.8
     - tap       ^16.3.3  →  ^16.3.4
 
