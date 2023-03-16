@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 ### Changed
+ - updated dependencies
+    - fastify   ^4.11.0  →  ^4.13.0
 
 ## [4.1.3] - 05-03-2023
 ### Changed
