@@ -1,32 +1,32 @@
 {
-  "files": {
-    "spec": {
-      "fileName": "openApi.json",
-      "checksum": "3d6eea0625207d859fed989f45ee6ff43fe968a459e58b07556b8cf4cf58d2c4"
-    },
-    "service": {
-      "fileName": "service.js",
-      "checksum": "a1fbb1de538ab8b4fd21efb73b8fa534bd4def0bfd4d2cae76780d2689673940"
-    },
-    "security": {
-      "fileName": "security.js",
-      "checksum": "9d3897eedd1e4bd394dea8c021b3699cb6314d22e32352e09e1fec5aebdfe1b1"
-    },
-    "plugin": {
-      "fileName": "index.js",
-      "checksum": "6a79e8c8a248c22bf6017231c282659132222e575c00b20ef146ba58a3faf653"
-    },
-    "readme": {
-      "fileName": "README.md",
-      "checksum": "616bd2979f9054675aa3ba42f635fe0d1c69490749bbfa2064e253c910bd6abb"
-    },
-    "testPlugin": {
-      "fileName": "test-plugin.js",
-      "checksum": "4abe118ae5a18de3820b54ee432180e02b11d674440d20e546998c5c27d683a8"
-    },
-    "package": {
-      "fileName": "package.json",
-      "checksum": "eb2fa19ecd2823ecc06a958402ef9a7b30013678b0be2e9f61f46cb2c0073079"
-    }
-  }
+	"files": {
+		"spec": {
+			"fileName": "openApi.json",
+			"checksum": "3d6eea0625207d859fed989f45ee6ff43fe968a459e58b07556b8cf4cf58d2c4"
+		},
+		"service": {
+			"fileName": "service.js",
+			"checksum": "a1fbb1de538ab8b4fd21efb73b8fa534bd4def0bfd4d2cae76780d2689673940"
+		},
+		"security": {
+			"fileName": "security.js",
+			"checksum": "9d3897eedd1e4bd394dea8c021b3699cb6314d22e32352e09e1fec5aebdfe1b1"
+		},
+		"plugin": {
+			"fileName": "index.js",
+			"checksum": "6a79e8c8a248c22bf6017231c282659132222e575c00b20ef146ba58a3faf653"
+		},
+		"readme": {
+			"fileName": "README.md",
+			"checksum": "616bd2979f9054675aa3ba42f635fe0d1c69490749bbfa2064e253c910bd6abb"
+		},
+		"testPlugin": {
+			"fileName": "test-plugin.js",
+			"checksum": "4abe118ae5a18de3820b54ee432180e02b11d674440d20e546998c5c27d683a8"
+		},
+		"package": {
+			"fileName": "package.json",
+			"checksum": "eb2fa19ecd2823ecc06a958402ef9a7b30013678b0be2e9f61f46cb2c0073079"
+		}
+	}
 }
