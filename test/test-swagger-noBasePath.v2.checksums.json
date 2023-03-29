@@ -2,7 +2,7 @@
 	"files": {
 		"spec": {
 			"fileName": "openApi.json",
-			"checksum": "3d6eea0625207d859fed989f45ee6ff43fe968a459e58b07556b8cf4cf58d2c4"
+			"checksum": "9cb912f1f51fbcc9098b3f76320b25c150a807083de4fe9c1faa08dd61de84ea"
 		},
 		"service": {
 			"fileName": "service.js",
