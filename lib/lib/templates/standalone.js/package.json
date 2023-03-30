@@ -1,0 +1,23 @@
+{
+  "name": "mypackage",
+  "description": "no description for this package yet",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "fastify start index.js",
+    "test": "c8 tap test/test-*.js",
+    "dev": "fastify start -l info -P index.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "fastify-plugin": ""
+  },
+  "devDependencies": {
+    "fastify": "",
+    "fastify-cli": "",
+    "tap": "",
+    "c8": ""
+  }
+}

@@ -23,6 +23,10 @@ Options:
   -b <dir> --baseDir=<dir>    Directory to generate the project in.
                               This directory must already exist.
                               [default: "."]
+
+  -t <type> --type=<type>     Type of project to generate, possible options:
+                              javascript (default)
+                              standalone-js
  
  The following options are only usefull for testing the openapi-glue plugin:
   -c --checksumOnly           Don't generate the project on disk but
@@ -34,13 +38,14 @@ Options:
 }
 
 const argvOptions = {
-	string: ["baseDir", "projectName", "_"],
+	string: ["baseDir", "projectName", "type", "_"],
 	boolean: ["checksumOnly", "localPlugin"],
 	alias: {
 		baseDir: "b",
 		projectName: "p",
 		checksumOnly: "c",
 		localPlugin: "l",
+		type: "t",
 	},
 
 	default: {
@@ -48,6 +53,7 @@ const argvOptions = {
 		baseDir: process.cwd(),
 		checksumOnly: false,
 		localPlugin: false,
+		type: "javascript",
 	},
 };
 
@@ -62,7 +68,7 @@ const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
 const handler = (str) =>
 	/* c8 ignore next */
-	argv.checksumOnly ? JSON.stringify(str, null, "\t") : str;
+	argv.checksumOnly ? JSON.stringify(str, null, 2) : str;
 if (generator.localPlugin) {
 	console.log(`Using local plugin at: ${generator.localPlugin}
   `);
@@ -71,7 +77,13 @@ if (generator.localPlugin) {
 try {
 	await generator.parse(specPath);
 	console.log(
-		handler(await generator.generateProject(argv.baseDir, argv.projectName)),
+		handler(
+			await generator.generateProject(
+				argv.baseDir,
+				argv.projectName,
+				argv.type,
+			),
+		),
 	);
 } catch (e) {
 	console.log(e.message);
