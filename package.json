@@ -16,9 +16,8 @@
     "covtest": "c8 --reporter=lcov npm test",
     "lint": "rome ci .",
     "dev": "fastify start -l info -P examples/petstore/index.js",
-    "updateChecksums": "node bin/openapi-glue-cli -c test/test-swagger.v2.json > test/test-swagger.v2.checksums.json",
-    "postupdateChecksums": "node bin/openapi-glue-cli -c test/test-swagger-noBasePath.v2.json > test/test-swagger-noBasePath.v2.checksums.json",
-    "preversion": "npm test && git add examples/generatedProject/package.json",
+    "updateChecksums": "node test/update-checksums.js",
+    "preversion": "npm test && git add examples/generated-*-project/package.json",
     "postversion": "git push && git push --tags",
     "prepare": "husky install"
   },

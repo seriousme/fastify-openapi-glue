@@ -1,0 +1,28 @@
+{
+  "name": "swaggerpetstore",
+  "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "fastify start index.js",
+    "test": "c8 tap test/test-*.js",
+    "dev": "fastify start -l info -P index.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "fastify-plugin": "^4.5.0",
+    "@seriousme/openapi-schema-validator": "^2.1.0",
+    "js-yaml": "^4.1.0",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "fastify": "^4.14.1",
+    "fastify-cli": "^5.7.1",
+    "tap": "^16.3.4",
+    "c8": "^7.13.0",
+    "husky": "^8.0.3",
+    "rome": "^12.0.0"
+  }
+}

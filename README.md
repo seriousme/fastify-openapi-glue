@@ -102,7 +102,7 @@ See the [generator examples](#examples) section for a demo.
 ```
 
   -p <name>                   The name of the project to generate
-  --projectName=<name>        [default: generatedProject]
+  --projectName=<name>        [default: generated-javascript-project]
 
   -b <dir> --baseDir=<dir>    Directory to generate the project in.
                               This directory must already exist.
@@ -161,7 +161,7 @@ as the pet returned by service.js does not match the response schema.
 
 <a name="generatorExamples"></a>
 ### Generator
-The folder [examples/generatedProject](examples/generatedProject) contains the result of running `openapi-glue -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generatedProject` (you will need to run `npm i` in the generated folder first)
+The folder [examples/generated-javascript-project](examples/generated-javascript-project) contains the result of running `openapi-glue -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generated-javascript-project` (you will need to run `npm i` in the generated folder first)
 <a name="Notes"></a>
 ## Notes
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes. See the [servers documentation](docs/servers.md) for more details.

@@ -1,12 +1,13 @@
 import { test } from "tap";
 import { Generator } from "../lib/generator.js";
 import { createRequire } from "module";
+import { templateTypes } from "../lib/templates/templateTypes.js";
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const specPath = localFile("./petstore-swagger.v2.json");
 const specPath3 = localFile("./petstore-openapi.v3.json");
-const projectName = "generatedProject";
+const projectName = `generated-${templateTypes[0]}-project`;
 const dir = localFile("../examples");
 const nonExistentDir = localFile("./non-existent-directory");
 const spec301 = await importJSON(specPath3);
@@ -69,13 +70,18 @@ test("generator throws error on non-existent basedir", async (t) => {
 
 // this one needs to be last
 
-test("generator generates project without error", async (t) => {
-	t.plan(1);
-	try {
-		await generator.parse(specPath);
-		await generator.generateProject(dir, projectName);
-		t.pass("no error occurred");
-	} catch (e) {
-		t.fail(e.message);
-	}
-});
+for (const type of templateTypes) {
+	const project = `generated-${type}-project`;
+	const generator = new Generator(checksumOnly, localPlugin);
+	await test(`generator generates ${type} project without error`, async (t) => {
+		t.plan(1);
+
+		try {
+			await generator.parse(specPath);
+			await generator.generateProject(dir, project, type);
+			t.pass("no error occurred");
+		} catch (e) {
+			t.fail(e.message);
+		}
+	});
+}
