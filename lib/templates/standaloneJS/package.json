@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "start": "fastify start index.js",
+    "start": "fastify start --options index.js",
     "test": "c8 tap test/test-*.js",
-    "dev": "fastify start -l info -P index.js"
+    "dev": "fastify start -l info -P --options index.js"
   },
   "directories": {
     "test": "test"

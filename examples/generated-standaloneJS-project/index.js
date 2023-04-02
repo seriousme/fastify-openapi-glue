@@ -10,15 +10,16 @@ function notImplemented(operationId) {
 	};
 }
 
-module.exports = fastifyPlugin(
+export default fastifyPlugin(
 	async function (fastify, opts) {
+		const service = new Service();
 		fastify.route({
 			method: "POST",
 			url: "/pet",
 			schema: {
 				body: {
 					type: "object",
-					required: [name, photoUrls],
+					required: ["name", "photoUrls"],
 					properties: {
 						id: {
 							type: "integer",
@@ -78,7 +79,7 @@ module.exports = fastifyPlugin(
 						status: {
 							type: "string",
 							description: "pet status in the store",
-							enum: [available, pending, sold],
+							enum: ["available", "pending", "sold"],
 						},
 					},
 					xml: {
@@ -86,8 +87,8 @@ module.exports = fastifyPlugin(
 					},
 				},
 			},
-			config: undefined,
-			handler: Service["addPet"].bind(Service),
+
+			handler: service["addPet"].bind(Service),
 		});
 
 		fastify.route({
@@ -96,7 +97,7 @@ module.exports = fastifyPlugin(
 			schema: {
 				body: {
 					type: "object",
-					required: [name, photoUrls],
+					required: ["name", "photoUrls"],
 					properties: {
 						id: {
 							type: "integer",
@@ -156,7 +157,7 @@ module.exports = fastifyPlugin(
 						status: {
 							type: "string",
 							description: "pet status in the store",
-							enum: [available, pending, sold],
+							enum: ["available", "pending", "sold"],
 						},
 					},
 					xml: {
@@ -164,8 +165,8 @@ module.exports = fastifyPlugin(
 					},
 				},
 			},
-			config: undefined,
-			handler: Service["updatePet"].bind(Service),
+
+			handler: service["updatePet"].bind(Service),
 		});
 
 		fastify.route({
@@ -181,11 +182,11 @@ module.exports = fastifyPlugin(
 							type: "array",
 						},
 					},
-					required: [status],
+					required: ["status"],
 				},
 			},
-			config: undefined,
-			handler: Service["findPetsByStatus"].bind(Service),
+
+			handler: service["findPetsByStatus"].bind(Service),
 		});
 
 		fastify.route({
@@ -200,11 +201,11 @@ module.exports = fastifyPlugin(
 							type: "array",
 						},
 					},
-					required: [tags],
+					required: ["tags"],
 				},
 			},
-			config: undefined,
-			handler: Service["findPetsByTags"].bind(Service),
+
+			handler: service["findPetsByTags"].bind(Service),
 		});
 
 		fastify.route({
@@ -219,11 +220,11 @@ module.exports = fastifyPlugin(
 							type: "integer",
 						},
 					},
-					required: [petId],
+					required: ["petId"],
 				},
 			},
-			config: undefined,
-			handler: Service["getPetById"].bind(Service),
+
+			handler: service["getPetById"].bind(Service),
 		});
 
 		fastify.route({
@@ -251,11 +252,11 @@ module.exports = fastifyPlugin(
 							type: "integer",
 						},
 					},
-					required: [petId],
+					required: ["petId"],
 				},
 			},
-			config: undefined,
-			handler: Service["updatePetWithForm"].bind(Service),
+
+			handler: service["updatePetWithForm"].bind(Service),
 		});
 
 		fastify.route({
@@ -270,11 +271,11 @@ module.exports = fastifyPlugin(
 							type: "integer",
 						},
 					},
-					required: [petId],
+					required: ["petId"],
 				},
 			},
-			config: undefined,
-			handler: Service["deletePet"].bind(Service),
+
+			handler: service["deletePet"].bind(Service),
 		});
 
 		fastify.route({
@@ -302,19 +303,19 @@ module.exports = fastifyPlugin(
 							type: "integer",
 						},
 					},
-					required: [petId],
+					required: ["petId"],
 				},
 			},
-			config: undefined,
-			handler: Service["uploadFile"].bind(Service),
+
+			handler: service["uploadFile"].bind(Service),
 		});
 
 		fastify.route({
 			method: "GET",
 			url: "/store/inventory",
 			schema: {},
-			config: undefined,
-			handler: Service["getInventory"].bind(Service),
+
+			handler: service["getInventory"].bind(Service),
 		});
 
 		fastify.route({
@@ -343,7 +344,7 @@ module.exports = fastifyPlugin(
 						status: {
 							type: "string",
 							description: "Order Status",
-							enum: [placed, approved, delivered],
+							enum: ["placed", "approved", "delivered"],
 						},
 						complete: {
 							type: "boolean",
@@ -355,8 +356,8 @@ module.exports = fastifyPlugin(
 					},
 				},
 			},
-			config: undefined,
-			handler: Service["placeOrder"].bind(Service),
+
+			handler: service["placeOrder"].bind(Service),
 		});
 
 		fastify.route({
@@ -371,11 +372,11 @@ module.exports = fastifyPlugin(
 							type: "integer",
 						},
 					},
-					required: [orderId],
+					required: ["orderId"],
 				},
 			},
-			config: undefined,
-			handler: Service["getOrderById"].bind(Service),
+
+			handler: service["getOrderById"].bind(Service),
 		});
 
 		fastify.route({
@@ -390,11 +391,11 @@ module.exports = fastifyPlugin(
 							type: "integer",
 						},
 					},
-					required: [orderId],
+					required: ["orderId"],
 				},
 			},
-			config: undefined,
-			handler: Service["deleteOrder"].bind(Service),
+
+			handler: service["deleteOrder"].bind(Service),
 		});
 
 		fastify.route({
@@ -437,8 +438,8 @@ module.exports = fastifyPlugin(
 					},
 				},
 			},
-			config: undefined,
-			handler: Service["createUser"].bind(Service),
+
+			handler: service["createUser"].bind(Service),
 		});
 
 		fastify.route({
@@ -484,8 +485,8 @@ module.exports = fastifyPlugin(
 					},
 				},
 			},
-			config: undefined,
-			handler: Service["createUsersWithArrayInput"].bind(Service),
+
+			handler: service["createUsersWithArrayInput"].bind(Service),
 		});
 
 		fastify.route({
@@ -531,8 +532,8 @@ module.exports = fastifyPlugin(
 					},
 				},
 			},
-			config: undefined,
-			handler: Service["createUsersWithListInput"].bind(Service),
+
+			handler: service["createUsersWithListInput"].bind(Service),
 		});
 
 		fastify.route({
@@ -551,19 +552,19 @@ module.exports = fastifyPlugin(
 							type: "string",
 						},
 					},
-					required: [username, password],
+					required: ["username", "password"],
 				},
 			},
-			config: undefined,
-			handler: Service["loginUser"].bind(Service),
+
+			handler: service["loginUser"].bind(Service),
 		});
 
 		fastify.route({
 			method: "GET",
 			url: "/user/logout",
 			schema: {},
-			config: undefined,
-			handler: Service["logoutUser"].bind(Service),
+
+			handler: service["logoutUser"].bind(Service),
 		});
 
 		fastify.route({
@@ -579,11 +580,11 @@ module.exports = fastifyPlugin(
 							type: "string",
 						},
 					},
-					required: [username],
+					required: ["username"],
 				},
 			},
-			config: undefined,
-			handler: Service["getUserByName"].bind(Service),
+
+			handler: service["getUserByName"].bind(Service),
 		});
 
 		fastify.route({
@@ -633,11 +634,11 @@ module.exports = fastifyPlugin(
 							type: "string",
 						},
 					},
-					required: [username],
+					required: ["username"],
 				},
 			},
-			config: undefined,
-			handler: Service["updateUser"].bind(Service),
+
+			handler: service["updateUser"].bind(Service),
 		});
 
 		fastify.route({
@@ -652,12 +653,20 @@ module.exports = fastifyPlugin(
 							type: "string",
 						},
 					},
-					required: [username],
+					required: ["username"],
 				},
 			},
-			config: undefined,
-			handler: Service["deleteUser"].bind(Service),
+
+			handler: service["deleteUser"].bind(Service),
 		});
 	},
 	{ fastify: "^4.x" },
 );
+
+export const options = {
+	ajv: {
+		customOptions: {
+			strict: false,
+		},
+	},
+};
