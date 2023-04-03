@@ -13,6 +13,7 @@ function notImplemented(operationId) {
 export default fastifyPlugin(
 	async function (fastify, opts) {
 		const service = new Service();
+		const security = new Security();
 		fastify.route({
 			method: "POST",
 			url: "/pet",
@@ -87,7 +88,6 @@ export default fastifyPlugin(
 					},
 				},
 			},
-
 			handler: service["addPet"].bind(Service),
 		});
 
@@ -165,7 +165,6 @@ export default fastifyPlugin(
 					},
 				},
 			},
-
 			handler: service["updatePet"].bind(Service),
 		});
 
@@ -185,7 +184,6 @@ export default fastifyPlugin(
 					required: ["status"],
 				},
 			},
-
 			handler: service["findPetsByStatus"].bind(Service),
 		});
 
@@ -204,7 +202,6 @@ export default fastifyPlugin(
 					required: ["tags"],
 				},
 			},
-
 			handler: service["findPetsByTags"].bind(Service),
 		});
 
@@ -223,7 +220,6 @@ export default fastifyPlugin(
 					required: ["petId"],
 				},
 			},
-
 			handler: service["getPetById"].bind(Service),
 		});
 
@@ -255,7 +251,6 @@ export default fastifyPlugin(
 					required: ["petId"],
 				},
 			},
-
 			handler: service["updatePetWithForm"].bind(Service),
 		});
 
@@ -274,7 +269,6 @@ export default fastifyPlugin(
 					required: ["petId"],
 				},
 			},
-
 			handler: service["deletePet"].bind(Service),
 		});
 
@@ -306,7 +300,6 @@ export default fastifyPlugin(
 					required: ["petId"],
 				},
 			},
-
 			handler: service["uploadFile"].bind(Service),
 		});
 
@@ -314,7 +307,6 @@ export default fastifyPlugin(
 			method: "GET",
 			url: "/store/inventory",
 			schema: {},
-
 			handler: service["getInventory"].bind(Service),
 		});
 
@@ -356,7 +348,6 @@ export default fastifyPlugin(
 					},
 				},
 			},
-
 			handler: service["placeOrder"].bind(Service),
 		});
 
@@ -375,7 +366,6 @@ export default fastifyPlugin(
 					required: ["orderId"],
 				},
 			},
-
 			handler: service["getOrderById"].bind(Service),
 		});
 
@@ -394,7 +384,6 @@ export default fastifyPlugin(
 					required: ["orderId"],
 				},
 			},
-
 			handler: service["deleteOrder"].bind(Service),
 		});
 
@@ -438,7 +427,6 @@ export default fastifyPlugin(
 					},
 				},
 			},
-
 			handler: service["createUser"].bind(Service),
 		});
 
@@ -485,7 +473,6 @@ export default fastifyPlugin(
 					},
 				},
 			},
-
 			handler: service["createUsersWithArrayInput"].bind(Service),
 		});
 
@@ -532,7 +519,6 @@ export default fastifyPlugin(
 					},
 				},
 			},
-
 			handler: service["createUsersWithListInput"].bind(Service),
 		});
 
@@ -555,7 +541,6 @@ export default fastifyPlugin(
 					required: ["username", "password"],
 				},
 			},
-
 			handler: service["loginUser"].bind(Service),
 		});
 
@@ -563,7 +548,6 @@ export default fastifyPlugin(
 			method: "GET",
 			url: "/user/logout",
 			schema: {},
-
 			handler: service["logoutUser"].bind(Service),
 		});
 
@@ -583,7 +567,6 @@ export default fastifyPlugin(
 					required: ["username"],
 				},
 			},
-
 			handler: service["getUserByName"].bind(Service),
 		});
 
@@ -637,7 +620,6 @@ export default fastifyPlugin(
 					required: ["username"],
 				},
 			},
-
 			handler: service["updateUser"].bind(Service),
 		});
 
@@ -656,7 +638,6 @@ export default fastifyPlugin(
 					required: ["username"],
 				},
 			},
-
 			handler: service["deleteUser"].bind(Service),
 		});
 	},

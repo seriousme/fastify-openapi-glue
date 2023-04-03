@@ -14,7 +14,7 @@
 		},
 		"plugin": {
 			"fileName": "index.js",
-			"checksum": "788ba9e670a99eb3dba965dd5b9d26316a415e6d2fe9ba65fdb2a98ea7873027"
+			"checksum": "c71e1770c0b08d413c31f03f760bb796c4a9c63640a2f01ce5ec25b9c6524080"
 		},
 		"readme": {
 			"fileName": "README.md",
@@ -26,7 +26,7 @@
 		},
 		"package": {
 			"fileName": "package.json",
-			"checksum": "18b026fab726e0125f25463a26c1cbe1308a6219bd3269f70d5106037e904473"
+			"checksum": "d0c461c9de41b1f25f4863faf04074081f62e5de58b1b8a3c258fd74c58a0ad1"
 		}
 	}
 }
