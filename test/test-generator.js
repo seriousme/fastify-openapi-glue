@@ -1,49 +1,33 @@
 import { test } from "tap";
 import { Generator } from "../lib/generator.js";
 import { createRequire } from "module";
+import { templateTypes } from "../lib/templates/templateTypes.js";
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 const dir = localFile(".");
-
-// if you need new checksums (e.g. because you changed template or spec file)
-// run `npm run updateChecksums`
-const testChecksums = await importJSON("./test-swagger.v2.checksums.json");
-const specPath = localFile("./test-swagger.v2.json");
-
-const noBasePathChecksums = await importJSON(
-	"./test-swagger-noBasePath.v2.checksums.json",
-);
-const noBasePathSpecPath = await importJSON(
-	"./test-swagger-noBasePath.v2.json",
-);
-
-const projectName = "generatedProject";
-
 const checksumOnly = true;
 const localPlugin = false;
 
-const generator = new Generator(checksumOnly, localPlugin);
+// if you need new checksums (e.g. because you changed template or spec file)
+// run `npm run updateChecksums`
+const specs = new Set(["./test-swagger.v2", "./test-swagger-noBasePath.v2"]);
+for (const type of templateTypes) {
+	for (const spec of specs) {
+		const specFile = localFile(`${spec}.json`);
+		const checksumFile = localFile(`${spec}.${type}.checksums.json`);
+		const testChecksums = await importJSON(checksumFile);
+		const project = `generated-${type}-project`;
+		const generator = new Generator(checksumOnly, localPlugin);
+		await test(`generator generates ${type} project data for ${spec}`, async (t) => {
+			t.plan(1);
 
-test("generator generates data matching checksums", async (t) => {
-	t.plan(1);
-
-	try {
-		await generator.parse(specPath);
-		const checksums = await generator.generateProject(dir, projectName);
-		t.same(checksums, testChecksums, "checksums match");
-	} catch (e) {
-		t.fail(e.message);
+			try {
+				await generator.parse(specFile);
+				const checksums = await generator.generateProject(dir, project, type);
+				t.same(checksums, testChecksums, "checksums match");
+			} catch (e) {
+				t.fail(e.message);
+			}
+		});
 	}
-});
-
-test("generator generates data matching checksums for swagger without basePath", async (t) => {
-	t.plan(1);
-
-	try {
-		await generator.parse(noBasePathSpecPath);
-		const checksums = await generator.generateProject(dir, projectName);
-		t.same(checksums, noBasePathChecksums, "checksums match");
-	} catch (e) {
-		t.fail(e.message);
-	}
-});
+}

@@ -44,4 +44,4 @@ will return errors originating from the securityHandlers as well in `err.errors`
 
 You can use `err.errors` also to trigger other behaviour in a registered error handler.
 
-For a more elaborate example see the [examples/generatedProject](/examples/generatedProject) folder.
+For a more elaborate example see the [examples/generated-javascript-project](/examples/generated-javascript-project) folder.

@@ -7,6 +7,8 @@ import argvParser from "minimist";
 import { exit } from "process";
 const __filename = fileURLToPath(import.meta.url);
 
+const validTypes = new Set(["javascript", "standaloneJS"]);
+
 function usage() {
 	console.log(`
 Usage:
@@ -23,6 +25,10 @@ Options:
   -b <dir> --baseDir=<dir>    Directory to generate the project in.
                               This directory must already exist.
                               [default: "."]
+
+  -t <type> --type=<type>     Type of project to generate, possible options:
+                              javascript (default)
+                              standaloneJS
  
  The following options are only usefull for testing the openapi-glue plugin:
   -c --checksumOnly           Don't generate the project on disk but
@@ -34,20 +40,21 @@ Options:
 }
 
 const argvOptions = {
-	string: ["baseDir", "projectName", "_"],
+	string: ["baseDir", "projectName", "type", "_"],
 	boolean: ["checksumOnly", "localPlugin"],
 	alias: {
 		baseDir: "b",
 		projectName: "p",
 		checksumOnly: "c",
 		localPlugin: "l",
+		type: "t",
 	},
 
 	default: {
-		projectName: "generatedProject",
 		baseDir: process.cwd(),
 		checksumOnly: false,
 		localPlugin: false,
+		type: "javascript",
 	},
 };
 
@@ -58,6 +65,12 @@ if (!argv.specification) {
 	usage();
 }
 
+if (!validTypes.has(argv.type)) {
+	console.log(`Unknown type: ${argv.type}`);
+	usage();
+}
+
+const projectName = argv.projectName || `generated-${argv.type}-project`;
 const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
 const handler = (str) =>
@@ -71,7 +84,9 @@ if (generator.localPlugin) {
 try {
 	await generator.parse(specPath);
 	console.log(
-		handler(await generator.generateProject(argv.baseDir, argv.projectName)),
+		handler(
+			await generator.generateProject(argv.baseDir, projectName, argv.type),
+		),
 	);
 } catch (e) {
 	console.log(e.message);
