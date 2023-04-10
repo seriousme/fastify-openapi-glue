@@ -10,6 +10,40 @@ function notImplemented(operationId) {
 	};
 }
 
+function buildHandler(security, schemes) {
+	if (schemes.length === 0) {
+		return async () => {};
+	}
+	return async (req, reply) => {
+		const handlerErrors = [];
+		const schemeList = [];
+		let statusCode = 401;
+		for (const scheme of schemes) {
+			try {
+				await securityHandlers[scheme.name](req, reply, scheme.parameters);
+				return; // If one security check passes, no need to try any others
+			} catch (err) {
+				req.log.debug(`Security handler '${scheme.name}' failed: '${err}'`);
+				handlerErrors.push(err);
+				if (err.statusCode !== undefined) {
+					statusCode = err.statusCode;
+				}
+			}
+			schemeList.push(scheme.name);
+		}
+		// if we get this far no security handlers validated this request
+		const err = new Error(
+			`None of the security schemes (${schemeList.join(
+				", ",
+			)}) successfully authenticated this request.`,
+		);
+		err.statusCode = statusCode;
+		err.name = "Unauthorized";
+		err.errors = handlerErrors;
+		throw err;
+	};
+}
+
 export default fastifyPlugin(
 	async function (fastify, opts) {
 		const service = new Service();
@@ -89,6 +123,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["addPet"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -166,6 +203,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["updatePet"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -185,6 +225,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["findPetsByStatus"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -203,6 +246,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["findPetsByTags"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -221,6 +267,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["getPetById"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "api_key", parameters: [] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -252,6 +301,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["updatePetWithForm"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -270,6 +322,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["deletePet"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -301,6 +356,9 @@ export default fastifyPlugin(
 				},
 			},
 			handler: service["uploadFile"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+			]).bind(Security),
 		});
 
 		fastify.route({
@@ -308,6 +366,9 @@ export default fastifyPlugin(
 			url: "/store/inventory",
 			schema: {},
 			handler: service["getInventory"].bind(Service),
+			prehandler: buildHandler(security, [
+				{ name: "api_key", parameters: [] },
+			]).bind(Security),
 		});
 
 		fastify.route({
