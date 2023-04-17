@@ -10,7 +10,14 @@ function notImplemented(operationId) {
 	};
 }
 
-function buildHandler(security, schemes) {
+function buildHandler(serviceHandlers, operationId) {
+	if (operationId in serviceHandlers) {
+		return serviceHandlers[operationId];
+	}
+	return notImplemented(operationId);
+}
+
+function buildPreHandler(securityHandlers, schemes) {
 	if (schemes.length === 0) {
 		return async () => {};
 	}
@@ -45,665 +52,668 @@ function buildHandler(security, schemes) {
 }
 
 export default fastifyPlugin(
-	async function (fastify, opts) {
-		const service = new Service();
-		const security = new Security();
-		fastify.route({
-			method: "POST",
-			url: "/pet",
-			schema: {
-				body: {
-					type: "object",
-					required: ["name", "photoUrls"],
-					properties: {
-						id: {
-							type: "integer",
-							format: "int64",
-						},
-						category: {
-							type: "object",
-							properties: {
-								id: {
-									type: "integer",
-									format: "int64",
-								},
-								name: {
-									type: "string",
-								},
-							},
-							xml: {
-								name: "Category",
-							},
-						},
-						name: {
-							type: "string",
-							example: "doggie",
-						},
-						photoUrls: {
-							type: "array",
-							xml: {
-								name: "photoUrl",
-								wrapped: true,
-							},
-							items: {
-								type: "string",
-							},
-						},
-						tags: {
-							type: "array",
-							xml: {
-								name: "tag",
-								wrapped: true,
-							},
-							items: {
-								type: "object",
-								properties: {
-									id: {
-										type: "integer",
-										format: "int64",
-									},
-									name: {
-										type: "string",
-									},
-								},
-								xml: {
-									name: "Tag",
-								},
-							},
-						},
-						status: {
-							type: "string",
-							description: "pet status in the store",
-							enum: ["available", "pending", "sold"],
-						},
-					},
-					xml: {
-						name: "Pet",
-					},
-				},
-			},
-			handler: service["addPet"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "PUT",
-			url: "/pet",
-			schema: {
-				body: {
-					type: "object",
-					required: ["name", "photoUrls"],
-					properties: {
-						id: {
-							type: "integer",
-							format: "int64",
-						},
-						category: {
-							type: "object",
-							properties: {
-								id: {
-									type: "integer",
-									format: "int64",
-								},
-								name: {
-									type: "string",
-								},
-							},
-							xml: {
-								name: "Category",
-							},
-						},
-						name: {
-							type: "string",
-							example: "doggie",
-						},
-						photoUrls: {
-							type: "array",
-							xml: {
-								name: "photoUrl",
-								wrapped: true,
-							},
-							items: {
-								type: "string",
-							},
-						},
-						tags: {
-							type: "array",
-							xml: {
-								name: "tag",
-								wrapped: true,
-							},
-							items: {
-								type: "object",
-								properties: {
-									id: {
-										type: "integer",
-										format: "int64",
-									},
-									name: {
-										type: "string",
-									},
-								},
-								xml: {
-									name: "Tag",
-								},
-							},
-						},
-						status: {
-							type: "string",
-							description: "pet status in the store",
-							enum: ["available", "pending", "sold"],
-						},
-					},
-					xml: {
-						name: "Pet",
-					},
-				},
-			},
-			handler: service["updatePet"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/pet/findByStatus",
-			schema: {
-				querystring: {
-					type: "object",
-					properties: {
-						status: {
-							description:
-								"Status values that need to be considered for filter",
-							type: "array",
-						},
-					},
-					required: ["status"],
-				},
-			},
-			handler: service["findPetsByStatus"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/pet/findByTags",
-			schema: {
-				querystring: {
-					type: "object",
-					properties: {
-						tags: {
-							description: "Tags to filter by",
-							type: "array",
-						},
-					},
-					required: ["tags"],
-				},
-			},
-			handler: service["findPetsByTags"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/pet/:petId",
-			schema: {
-				params: {
-					type: "object",
-					properties: {
-						petId: {
-							description: "ID of pet to return",
-							type: "integer",
-						},
-					},
-					required: ["petId"],
-				},
-			},
-			handler: service["getPetById"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "api_key", parameters: [] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "POST",
-			url: "/pet/:petId",
-			schema: {
-				body: {
-					type: "object",
-					properties: {
-						name: {
-							description: "Updated name of the pet",
-							type: "string",
-						},
-						status: {
-							description: "Updated status of the pet",
-							type: "string",
-						},
-					},
-				},
-				params: {
-					type: "object",
-					properties: {
-						petId: {
-							description: "ID of pet that needs to be updated",
-							type: "integer",
-						},
-					},
-					required: ["petId"],
-				},
-			},
-			handler: service["updatePetWithForm"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "DELETE",
-			url: "/pet/:petId",
-			schema: {
-				params: {
-					type: "object",
-					properties: {
-						petId: {
-							description: "Pet id to delete",
-							type: "integer",
-						},
-					},
-					required: ["petId"],
-				},
-			},
-			handler: service["deletePet"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "POST",
-			url: "/pet/:petId/uploadImage",
-			schema: {
-				body: {
-					type: "object",
-					properties: {
-						additionalMetadata: {
-							description: "Additional data to pass to server",
-							type: "string",
-						},
-						file: {
-							description: "file to upload",
-							type: "string",
-						},
-					},
-				},
-				params: {
-					type: "object",
-					properties: {
-						petId: {
-							description: "ID of pet to update",
-							type: "integer",
-						},
-					},
-					required: ["petId"],
-				},
-			},
-			handler: service["uploadFile"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/store/inventory",
-			schema: {},
-			handler: service["getInventory"].bind(Service),
-			prehandler: buildHandler(security, [
-				{ name: "api_key", parameters: [] },
-			]).bind(Security),
-		});
-
-		fastify.route({
-			method: "POST",
-			url: "/store/order",
-			schema: {
-				body: {
-					type: "object",
-					properties: {
-						id: {
-							type: "integer",
-							format: "int64",
-						},
-						petId: {
-							type: "integer",
-							format: "int64",
-						},
-						quantity: {
-							type: "integer",
-							format: "int32",
-						},
-						shipDate: {
-							type: "string",
-							format: "date-time",
-						},
-						status: {
-							type: "string",
-							description: "Order Status",
-							enum: ["placed", "approved", "delivered"],
-						},
-						complete: {
-							type: "boolean",
-							default: false,
-						},
-					},
-					xml: {
-						name: "Order",
-					},
-				},
-			},
-			handler: service["placeOrder"].bind(Service),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/store/order/:orderId",
-			schema: {
-				params: {
-					type: "object",
-					properties: {
-						orderId: {
-							description: "ID of pet that needs to be fetched",
-							type: "integer",
-						},
-					},
-					required: ["orderId"],
-				},
-			},
-			handler: service["getOrderById"].bind(Service),
-		});
-
-		fastify.route({
-			method: "DELETE",
-			url: "/store/order/:orderId",
-			schema: {
-				params: {
-					type: "object",
-					properties: {
-						orderId: {
-							description: "ID of the order that needs to be deleted",
-							type: "integer",
-						},
-					},
-					required: ["orderId"],
-				},
-			},
-			handler: service["deleteOrder"].bind(Service),
-		});
-
-		fastify.route({
-			method: "POST",
-			url: "/user",
-			schema: {
-				body: {
-					type: "object",
-					properties: {
-						id: {
-							type: "integer",
-							format: "int64",
-						},
-						username: {
-							type: "string",
-						},
-						firstName: {
-							type: "string",
-						},
-						lastName: {
-							type: "string",
-						},
-						email: {
-							type: "string",
-						},
-						password: {
-							type: "string",
-						},
-						phone: {
-							type: "string",
-						},
-						userStatus: {
-							type: "integer",
-							format: "int32",
-							description: "User Status",
-						},
-					},
-					xml: {
-						name: "User",
-					},
-				},
-			},
-			handler: service["createUser"].bind(Service),
-		});
-
-		fastify.route({
-			method: "POST",
-			url: "/user/createWithArray",
-			schema: {
-				body: {
-					type: "array",
-					items: {
-						type: "object",
-						properties: {
-							id: {
-								type: "integer",
-								format: "int64",
-							},
-							username: {
-								type: "string",
-							},
-							firstName: {
-								type: "string",
-							},
-							lastName: {
-								type: "string",
-							},
-							email: {
-								type: "string",
-							},
-							password: {
-								type: "string",
-							},
-							phone: {
-								type: "string",
-							},
-							userStatus: {
-								type: "integer",
-								format: "int32",
-								description: "User Status",
-							},
-						},
-						xml: {
-							name: "User",
-						},
-					},
-				},
-			},
-			handler: service["createUsersWithArrayInput"].bind(Service),
-		});
-
-		fastify.route({
-			method: "POST",
-			url: "/user/createWithList",
-			schema: {
-				body: {
-					type: "array",
-					items: {
-						type: "object",
-						properties: {
-							id: {
-								type: "integer",
-								format: "int64",
-							},
-							username: {
-								type: "string",
-							},
-							firstName: {
-								type: "string",
-							},
-							lastName: {
-								type: "string",
-							},
-							email: {
-								type: "string",
-							},
-							password: {
-								type: "string",
-							},
-							phone: {
-								type: "string",
-							},
-							userStatus: {
-								type: "integer",
-								format: "int32",
-								description: "User Status",
-							},
-						},
-						xml: {
-							name: "User",
-						},
-					},
-				},
-			},
-			handler: service["createUsersWithListInput"].bind(Service),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/user/login",
-			schema: {
-				querystring: {
-					type: "object",
-					properties: {
-						username: {
-							description: "The user name for login",
-							type: "string",
-						},
-						password: {
-							description: "The password for login in clear text",
-							type: "string",
-						},
-					},
-					required: ["username", "password"],
-				},
-			},
-			handler: service["loginUser"].bind(Service),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/user/logout",
-			schema: {},
-			handler: service["logoutUser"].bind(Service),
-		});
-
-		fastify.route({
-			method: "GET",
-			url: "/user/:username",
-			schema: {
-				params: {
-					type: "object",
-					properties: {
-						username: {
-							description:
-								"The name that needs to be fetched. Use user1 for testing. ",
-							type: "string",
-						},
-					},
-					required: ["username"],
-				},
-			},
-			handler: service["getUserByName"].bind(Service),
-		});
-
-		fastify.route({
-			method: "PUT",
-			url: "/user/:username",
-			schema: {
-				body: {
-					type: "object",
-					properties: {
-						id: {
-							type: "integer",
-							format: "int64",
-						},
-						username: {
-							type: "string",
-						},
-						firstName: {
-							type: "string",
-						},
-						lastName: {
-							type: "string",
-						},
-						email: {
-							type: "string",
-						},
-						password: {
-							type: "string",
-						},
-						phone: {
-							type: "string",
-						},
-						userStatus: {
-							type: "integer",
-							format: "int32",
-							description: "User Status",
-						},
-					},
-					xml: {
-						name: "User",
-					},
-				},
-				params: {
-					type: "object",
-					properties: {
-						username: {
-							description: "name that need to be updated",
-							type: "string",
-						},
-					},
-					required: ["username"],
-				},
-			},
-			handler: service["updateUser"].bind(Service),
-		});
-
-		fastify.route({
-			method: "DELETE",
-			url: "/user/:username",
-			schema: {
-				params: {
-					type: "object",
-					properties: {
-						username: {
-							description: "The name that needs to be deleted",
-							type: "string",
-						},
-					},
-					required: ["username"],
-				},
-			},
-			handler: service["deleteUser"].bind(Service),
-		});
+	async (instance, opts) => {
+		instance.register(generateRoutes, { prefix: "/v2" });
 	},
 	{ fastify: "^4.x" },
 );
+
+async function generateRoutes(fastify, opts) {
+	const service = new Service();
+	const security = new Security();
+	fastify.route({
+		method: "POST",
+		url: "/pet",
+		schema: {
+			body: {
+				type: "object",
+				required: ["name", "photoUrls"],
+				properties: {
+					id: {
+						type: "integer",
+						format: "int64",
+					},
+					category: {
+						type: "object",
+						properties: {
+							id: {
+								type: "integer",
+								format: "int64",
+							},
+							name: {
+								type: "string",
+							},
+						},
+						xml: {
+							name: "Category",
+						},
+					},
+					name: {
+						type: "string",
+						example: "doggie",
+					},
+					photoUrls: {
+						type: "array",
+						xml: {
+							name: "photoUrl",
+							wrapped: true,
+						},
+						items: {
+							type: "string",
+						},
+					},
+					tags: {
+						type: "array",
+						xml: {
+							name: "tag",
+							wrapped: true,
+						},
+						items: {
+							type: "object",
+							properties: {
+								id: {
+									type: "integer",
+									format: "int64",
+								},
+								name: {
+									type: "string",
+								},
+							},
+							xml: {
+								name: "Tag",
+							},
+						},
+					},
+					status: {
+						type: "string",
+						description: "pet status in the store",
+						enum: ["available", "pending", "sold"],
+					},
+				},
+				xml: {
+					name: "Pet",
+				},
+			},
+		},
+		handler: buildHandler(service, "addPet").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "PUT",
+		url: "/pet",
+		schema: {
+			body: {
+				type: "object",
+				required: ["name", "photoUrls"],
+				properties: {
+					id: {
+						type: "integer",
+						format: "int64",
+					},
+					category: {
+						type: "object",
+						properties: {
+							id: {
+								type: "integer",
+								format: "int64",
+							},
+							name: {
+								type: "string",
+							},
+						},
+						xml: {
+							name: "Category",
+						},
+					},
+					name: {
+						type: "string",
+						example: "doggie",
+					},
+					photoUrls: {
+						type: "array",
+						xml: {
+							name: "photoUrl",
+							wrapped: true,
+						},
+						items: {
+							type: "string",
+						},
+					},
+					tags: {
+						type: "array",
+						xml: {
+							name: "tag",
+							wrapped: true,
+						},
+						items: {
+							type: "object",
+							properties: {
+								id: {
+									type: "integer",
+									format: "int64",
+								},
+								name: {
+									type: "string",
+								},
+							},
+							xml: {
+								name: "Tag",
+							},
+						},
+					},
+					status: {
+						type: "string",
+						description: "pet status in the store",
+						enum: ["available", "pending", "sold"],
+					},
+				},
+				xml: {
+					name: "Pet",
+				},
+			},
+		},
+		handler: buildHandler(service, "updatePet").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/pet/findByStatus",
+		schema: {
+			querystring: {
+				type: "object",
+				properties: {
+					status: {
+						description: "Status values that need to be considered for filter",
+						type: "array",
+					},
+				},
+				required: ["status"],
+			},
+		},
+		handler: buildHandler(service, "findPetsByStatus").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/pet/findByTags",
+		schema: {
+			querystring: {
+				type: "object",
+				properties: {
+					tags: {
+						description: "Tags to filter by",
+						type: "array",
+					},
+				},
+				required: ["tags"],
+			},
+		},
+		handler: buildHandler(service, "findPetsByTags").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/pet/:petId",
+		schema: {
+			params: {
+				type: "object",
+				properties: {
+					petId: {
+						description: "ID of pet to return",
+						type: "integer",
+					},
+				},
+				required: ["petId"],
+			},
+		},
+		handler: buildHandler(service, "getPetById").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "api_key", parameters: [] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "POST",
+		url: "/pet/:petId",
+		schema: {
+			body: {
+				type: "object",
+				properties: {
+					name: {
+						description: "Updated name of the pet",
+						type: "string",
+					},
+					status: {
+						description: "Updated status of the pet",
+						type: "string",
+					},
+				},
+			},
+			params: {
+				type: "object",
+				properties: {
+					petId: {
+						description: "ID of pet that needs to be updated",
+						type: "integer",
+					},
+				},
+				required: ["petId"],
+			},
+		},
+		handler: buildHandler(service, "updatePetWithForm").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "DELETE",
+		url: "/pet/:petId",
+		schema: {
+			params: {
+				type: "object",
+				properties: {
+					petId: {
+						description: "Pet id to delete",
+						type: "integer",
+					},
+				},
+				required: ["petId"],
+			},
+		},
+		handler: buildHandler(service, "deletePet").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "POST",
+		url: "/pet/:petId/uploadImage",
+		schema: {
+			body: {
+				type: "object",
+				properties: {
+					additionalMetadata: {
+						description: "Additional data to pass to server",
+						type: "string",
+					},
+					file: {
+						description: "file to upload",
+						type: "string",
+					},
+				},
+			},
+			params: {
+				type: "object",
+				properties: {
+					petId: {
+						description: "ID of pet to update",
+						type: "integer",
+					},
+				},
+				required: ["petId"],
+			},
+		},
+		handler: buildHandler(service, "uploadFile").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/store/inventory",
+		schema: {},
+		handler: buildHandler(service, "getInventory").bind(Service),
+		prehandler: buildPreHandler(security, [
+			{ name: "api_key", parameters: [] },
+		]).bind(Security),
+	});
+
+	fastify.route({
+		method: "POST",
+		url: "/store/order",
+		schema: {
+			body: {
+				type: "object",
+				properties: {
+					id: {
+						type: "integer",
+						format: "int64",
+					},
+					petId: {
+						type: "integer",
+						format: "int64",
+					},
+					quantity: {
+						type: "integer",
+						format: "int32",
+					},
+					shipDate: {
+						type: "string",
+						format: "date-time",
+					},
+					status: {
+						type: "string",
+						description: "Order Status",
+						enum: ["placed", "approved", "delivered"],
+					},
+					complete: {
+						type: "boolean",
+						default: false,
+					},
+				},
+				xml: {
+					name: "Order",
+				},
+			},
+		},
+		handler: buildHandler(service, "placeOrder").bind(Service),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/store/order/:orderId",
+		schema: {
+			params: {
+				type: "object",
+				properties: {
+					orderId: {
+						description: "ID of pet that needs to be fetched",
+						type: "integer",
+					},
+				},
+				required: ["orderId"],
+			},
+		},
+		handler: buildHandler(service, "getOrderById").bind(Service),
+	});
+
+	fastify.route({
+		method: "DELETE",
+		url: "/store/order/:orderId",
+		schema: {
+			params: {
+				type: "object",
+				properties: {
+					orderId: {
+						description: "ID of the order that needs to be deleted",
+						type: "integer",
+					},
+				},
+				required: ["orderId"],
+			},
+		},
+		handler: buildHandler(service, "deleteOrder").bind(Service),
+	});
+
+	fastify.route({
+		method: "POST",
+		url: "/user",
+		schema: {
+			body: {
+				type: "object",
+				properties: {
+					id: {
+						type: "integer",
+						format: "int64",
+					},
+					username: {
+						type: "string",
+					},
+					firstName: {
+						type: "string",
+					},
+					lastName: {
+						type: "string",
+					},
+					email: {
+						type: "string",
+					},
+					password: {
+						type: "string",
+					},
+					phone: {
+						type: "string",
+					},
+					userStatus: {
+						type: "integer",
+						format: "int32",
+						description: "User Status",
+					},
+				},
+				xml: {
+					name: "User",
+				},
+			},
+		},
+		handler: buildHandler(service, "createUser").bind(Service),
+	});
+
+	fastify.route({
+		method: "POST",
+		url: "/user/createWithArray",
+		schema: {
+			body: {
+				type: "array",
+				items: {
+					type: "object",
+					properties: {
+						id: {
+							type: "integer",
+							format: "int64",
+						},
+						username: {
+							type: "string",
+						},
+						firstName: {
+							type: "string",
+						},
+						lastName: {
+							type: "string",
+						},
+						email: {
+							type: "string",
+						},
+						password: {
+							type: "string",
+						},
+						phone: {
+							type: "string",
+						},
+						userStatus: {
+							type: "integer",
+							format: "int32",
+							description: "User Status",
+						},
+					},
+					xml: {
+						name: "User",
+					},
+				},
+			},
+		},
+		handler: buildHandler(service, "createUsersWithArrayInput").bind(Service),
+	});
+
+	fastify.route({
+		method: "POST",
+		url: "/user/createWithList",
+		schema: {
+			body: {
+				type: "array",
+				items: {
+					type: "object",
+					properties: {
+						id: {
+							type: "integer",
+							format: "int64",
+						},
+						username: {
+							type: "string",
+						},
+						firstName: {
+							type: "string",
+						},
+						lastName: {
+							type: "string",
+						},
+						email: {
+							type: "string",
+						},
+						password: {
+							type: "string",
+						},
+						phone: {
+							type: "string",
+						},
+						userStatus: {
+							type: "integer",
+							format: "int32",
+							description: "User Status",
+						},
+					},
+					xml: {
+						name: "User",
+					},
+				},
+			},
+		},
+		handler: buildHandler(service, "createUsersWithListInput").bind(Service),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/user/login",
+		schema: {
+			querystring: {
+				type: "object",
+				properties: {
+					username: {
+						description: "The user name for login",
+						type: "string",
+					},
+					password: {
+						description: "The password for login in clear text",
+						type: "string",
+					},
+				},
+				required: ["username", "password"],
+			},
+		},
+		handler: buildHandler(service, "loginUser").bind(Service),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/user/logout",
+		schema: {},
+		handler: buildHandler(service, "logoutUser").bind(Service),
+	});
+
+	fastify.route({
+		method: "GET",
+		url: "/user/:username",
+		schema: {
+			params: {
+				type: "object",
+				properties: {
+					username: {
+						description:
+							"The name that needs to be fetched. Use user1 for testing. ",
+						type: "string",
+					},
+				},
+				required: ["username"],
+			},
+		},
+		handler: buildHandler(service, "getUserByName").bind(Service),
+	});
+
+	fastify.route({
+		method: "PUT",
+		url: "/user/:username",
+		schema: {
+			body: {
+				type: "object",
+				properties: {
+					id: {
+						type: "integer",
+						format: "int64",
+					},
+					username: {
+						type: "string",
+					},
+					firstName: {
+						type: "string",
+					},
+					lastName: {
+						type: "string",
+					},
+					email: {
+						type: "string",
+					},
+					password: {
+						type: "string",
+					},
+					phone: {
+						type: "string",
+					},
+					userStatus: {
+						type: "integer",
+						format: "int32",
+						description: "User Status",
+					},
+				},
+				xml: {
+					name: "User",
+				},
+			},
+			params: {
+				type: "object",
+				properties: {
+					username: {
+						description: "name that need to be updated",
+						type: "string",
+					},
+				},
+				required: ["username"],
+			},
+		},
+		handler: buildHandler(service, "updateUser").bind(Service),
+	});
+
+	fastify.route({
+		method: "DELETE",
+		url: "/user/:username",
+		schema: {
+			params: {
+				type: "object",
+				properties: {
+					username: {
+						description: "The name that needs to be deleted",
+						type: "string",
+					},
+				},
+				required: ["username"],
+			},
+		},
+		handler: buildHandler(service, "deleteUser").bind(Service),
+	});
+}
 
 export const options = {
 	ajv: {
