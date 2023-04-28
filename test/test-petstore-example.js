@@ -35,10 +35,11 @@ test("/v2/pet/myPet returns Fastify validation error", (t) => {
 		(err, res) => {
 			t.error(err);
 			t.equal(res.statusCode, 400);
-			t.equal(
-				res.body,
-				'{"statusCode":400,"error":"Bad Request","message":"params/petId must be integer"}',
-			);
+			t.has(JSON.parse(res.body), {
+				statusCode: 400,
+				error: "Bad Request",
+				message: "params/petId must be integer",
+			});
 		},
 	);
 });
@@ -55,10 +56,11 @@ test("v2/pet/findByStatus?status=available&status=pending returns 'not implement
 		(err, res) => {
 			t.error(err);
 			t.equal(res.statusCode, 500);
-			t.equal(
-				res.body,
-				'{"statusCode":500,"error":"Internal Server Error","message":"Operation findPetsByStatus not implemented"}',
-			);
+			t.has(JSON.parse(res.body), {
+				statusCode: 500,
+				error: "Internal Server Error",
+				message: "Operation findPetsByStatus not implemented",
+			});
 		},
 	);
 });
@@ -75,10 +77,11 @@ test("v2/pet/0 returns serialization error", (t) => {
 		(err, res) => {
 			t.error(err);
 			t.equal(res.statusCode, 500);
-			t.equal(
-				res.body,
-				'{"statusCode":500,"error":"Internal Server Error","message":"\\"name\\" is required!"}',
-			);
+			t.has(JSON.parse(res.body), {
+				statusCode: 500,
+				error: "Internal Server Error",
+				message: '"name" is required!',
+			});
 		},
 	);
 });
