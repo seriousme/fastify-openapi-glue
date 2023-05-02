@@ -3,7 +3,7 @@
 ## [Unreleased]
 ### Changed
 
-## [4.1.4]
+## [4.1.4] 02-05-2023
 ### Changed
  - fix: replaced context.schema by routeSchema in docs and tests
  - updated dependencies
