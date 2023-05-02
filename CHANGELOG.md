@@ -2,8 +2,12 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.1.4]
+### Changed
+ - fix: replaced context.schema by routeSchema in docs and tests
  - updated dependencies
-    - fastify   ^4.13.0  →  ^4.14.1
+    - fastify   ^4.13.0  →  ^4.17.0
 
 ## [4.1.3] - 05-03-2023
 ### Changed
