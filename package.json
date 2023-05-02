@@ -11,7 +11,7 @@
   "scripts": {
     "start": "fastify start --options examples/petstore/index.js",
     "format": "rome format --write .",
-    "test": "c8 tap test/test-*.js",
+    "test": "c8 tap test/test-*.js && rome format --write .",
     "posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
     "covtest": "c8 --reporter=lcov npm test",
     "lint": "rome ci .",
