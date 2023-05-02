@@ -61,7 +61,7 @@ Please be aware that `this` will refer to your service object or your securityHa
 The OpenAPI specification supports [extending an API spec](https://spec.openapis.org/oas/latest.html#specification-extensions) to describe extra functionality that isn't covered by the official specification. Extensions start with `x-` (e.g., `x-myapp-logo`) and can contain a primitive, an array, an object, or `null`.
 
 The following extensions are provided by the plugin:
-- `x-fastify-config` (object): any properties will be added to the `routeOptions.config` / `context.config` property of the Fastify route.
+- `x-fastify-config` (object): any properties will be added to the `routeOptions.config` property of the Fastify route.
 
   For example, if you wanted to use the fastify-raw-body plugin to compute a checksum of the request body, you could add the following extension to your OpenAPI spec to signal the plugin to specially handle this route:
 
@@ -77,7 +77,7 @@ The following extensions are provided by the plugin:
             description: Webhook processed successfully
   ```
 
-You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.context`. Extensions specified on a schema are also accessible (e.g., `context.schema.body` or `context.schema.responses[<statusCode>]`).
+You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.routeConfig`. Extensions specified on a schema are also accessible (e.g., `routeSchema.body` or `routeSchema.responses[<statusCode>]`).
 
 <a name="generator"></a>
 ## Generator

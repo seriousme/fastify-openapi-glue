@@ -274,7 +274,7 @@ test("x- props are copied", (t) => {
 	t.plan(3);
 	const fastify = Fastify();
 	fastify.addHook("preHandler", async (request, reply) => {
-		if (reply.context.schema["x-tap-ok"]) {
+		if (request.routeSchema["x-tap-ok"]) {
 			t.pass("found x- prop");
 		} else {
 			t.fail("missing x- prop");
