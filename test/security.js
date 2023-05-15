@@ -1,6 +1,4 @@
 class Security {
-	constructor() {}
-
 	async goodAuthCheck() {
 		// Do nothing--auth check succeeds!
 	}

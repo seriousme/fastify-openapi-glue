@@ -6,11 +6,11 @@
 		},
 		"service": {
 			"fileName": "service.js",
-			"checksum": "a1fbb1de538ab8b4fd21efb73b8fa534bd4def0bfd4d2cae76780d2689673940"
+			"checksum": "07c998d7a86e723be918d38e54230a392f5886ee3fce6d1eb9fe154234f2f8fe"
 		},
 		"security": {
 			"fileName": "security.js",
-			"checksum": "9d3897eedd1e4bd394dea8c021b3699cb6314d22e32352e09e1fec5aebdfe1b1"
+			"checksum": "6830b20e7a63ea9baa95575e901927e29944d6c51a4306e182a2ed3a599c1d80"
 		},
 		"plugin": {
 			"fileName": "index.js",

@@ -1,8 +1,6 @@
 // ES6 Module implementation of the operations in the openapi specification
 
 export class Service {
-	constructor() {}
-
 	// Operation: getPathParam
 	// summary:  Test path parameters
 	// req.params:
