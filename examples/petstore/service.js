@@ -1,8 +1,6 @@
 // an example of implementation of the operations in the openapi specification
 
 export class Service {
-	constructor() {}
-
 	async getPetById(req, resp) {
 		console.log("getPetById", req.params.petId);
 		if (req.params.petId === 0) {

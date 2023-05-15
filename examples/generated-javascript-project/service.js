@@ -1,8 +1,6 @@
 // implementation of the operations in the openapi specification
 
 export class Service {
-	constructor() {}
-
 	// Operation: addPet
 	// URL: /pet
 	// summary:	Add a new pet to the store
