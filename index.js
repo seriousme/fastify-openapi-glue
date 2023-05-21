@@ -22,11 +22,11 @@ async function getSecurityHandlers(securityHandlers, config) {
 }
 
 function checkParserValidators(instance, contentTypes) {
-	contentTypes.forEach((contentType) => {
+	for (const contentType of contentTypes) {
 		if (!instance.hasContentTypeParser(contentType)) {
 			instance.log.warn(`ContentTypeParser for '${contentType}' not found`);
 		}
-	});
+	}
 }
 
 function notImplemented(operationId) {
@@ -86,7 +86,7 @@ async function plugin(instance, opts) {
 		const resolver =
 			operationResolver || defaultOperationResolver(routesInstance, service);
 
-		config.routes.forEach((item) => {
+		for (const item of config.routes) {
 			const routeCfg = {
 				method: item.method,
 				url: item.url,
@@ -103,7 +103,7 @@ async function plugin(instance, opts) {
 					.bind(securityHandlers);
 			}
 			routesInstance.route(routeCfg);
-		});
+		}
 
 		if (security) {
 			reportMissingSecurityHandlers(routesInstance, security);
