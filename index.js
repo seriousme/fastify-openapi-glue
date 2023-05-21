@@ -9,18 +9,6 @@ function checkObject(obj, name) {
 	throw new Error(`'${name}' parameter must refer to an object`);
 }
 
-async function getSecurityHandlers(securityHandlers, config) {
-	if (securityHandlers) {
-		checkObject(securityHandlers, "securityHandlers");
-		const security = new Security(securityHandlers);
-		if ("initialize" in securityHandlers) {
-			securityHandlers.initialize(config.securitySchemes);
-		}
-		return { securityHandlers, security };
-	}
-	return {};
-}
-
 function checkParserValidators(instance, contentTypes) {
 	for (const contentType of contentTypes) {
 		if (!instance.hasContentTypeParser(contentType)) {
@@ -44,10 +32,13 @@ function defaultOperationResolver(routesInstance, service) {
 	};
 }
 
-function reportMissingSecurityHandlers(routesInstance, security) {
+function createSecurityHandlers(instance, security, config) {
+	for (const item of config.routes) {
+		security.add(item.security);
+	}
 	const missingSecurityHandlers = security.getMissingHandlers();
 	if (missingSecurityHandlers.length > 0) {
-		routesInstance.log.warn(
+		instance.log.warn(
 			`Handlers for some security requirements were missing: ${missingSecurityHandlers.join(
 				", ",
 			)}`,
@@ -55,15 +46,20 @@ function reportMissingSecurityHandlers(routesInstance, security) {
 	}
 }
 
-// this is the main function for the plugin
-async function plugin(instance, opts) {
-	const parser = new Parser();
-	const config = await parser.parse(opts.specification);
-	checkParserValidators(instance, config.contentTypes);
+async function getSecurity(instance, securityHandlers, config) {
+	if (securityHandlers) {
+		checkObject(securityHandlers, "securityHandlers");
+		const security = new Security(securityHandlers);
+		if ("initialize" in securityHandlers) {
+			securityHandlers.initialize(config.securitySchemes);
+		}
+		createSecurityHandlers(instance, security, config);
+		return security;
+	}
+	return undefined;
+}
 
-	const service = opts.service;
-	const operationResolver = opts.operationResolver;
-
+function getResolver(instance, service, operationResolver) {
 	if (service && operationResolver) {
 		throw new Error("'service' and 'operationResolver' are mutually exclusive");
 	}
@@ -72,43 +68,55 @@ async function plugin(instance, opts) {
 		throw new Error("either 'service' or 'operationResolver' are required");
 	}
 
-	if (service) {
-		checkObject(service, "service");
+	if (operationResolver) {
+		return operationResolver;
 	}
 
-	const { securityHandlers, security } = await getSecurityHandlers(
-		opts.securityHandlers,
-		config,
+	checkObject(service, "service");
+	return defaultOperationResolver(instance, service);
+}
+
+// Apply service handler if present or else a notImplemented error
+function serviceHandler(resolver, item) {
+	return (
+		resolver(item.operationId, item.method, item.openapiPath) ||
+		notImplemented(item.operationId)
 	);
+}
 
-	async function generateRoutes(routesInstance) {
-		// use the provided operation resolver or default to looking in the service
-		const resolver =
-			operationResolver || defaultOperationResolver(routesInstance, service);
+// Apply security requirements if present and at least one security handler is defined
+function securityHandler(security, item) {
+	if (security?.has(item.security)) {
+		return security.get(item.security).bind(security.handlers);
+	}
+	return undefined;
+}
 
+function makeGenerateRoutes(config, resolver, security) {
+	return async function generateRoutes(routesInstance) {
 		for (const item of config.routes) {
-			const routeCfg = {
+			routesInstance.route({
 				method: item.method,
 				url: item.url,
 				schema: item.schema,
 				config: item.config,
-			};
-			routeCfg.handler =
-				resolver(item.operationId, item.method, item.openapiPath) ||
-				notImplemented(item.operationId);
-			// Apply security requirements if present and at least one handler is defined
-			if (security?.has(item.security)) {
-				routeCfg.preHandler = security
-					.get(item.security)
-					.bind(securityHandlers);
-			}
-			routesInstance.route(routeCfg);
+				handler: serviceHandler(resolver, item),
+				preHandler: securityHandler(security, item),
+			});
 		}
+	};
+}
 
-		if (security) {
-			reportMissingSecurityHandlers(routesInstance, security);
-		}
-	}
+// this is the main function for the plugin
+async function plugin(instance, opts) {
+	const parser = new Parser();
+	const config = await parser.parse(opts.specification);
+	checkParserValidators(instance, config.contentTypes);
+
+	// use the provided operation resolver or default to looking in the service object
+	const resolver = getResolver(instance, opts.service, opts.operationResolver);
+
+	const security = await getSecurity(instance, opts.securityHandlers, config);
 
 	const routeConf = {};
 	if (opts.prefix) {
@@ -117,7 +125,7 @@ async function plugin(instance, opts) {
 		routeConf.prefix = config.prefix;
 	}
 
-	instance.register(generateRoutes, routeConf);
+	instance.register(makeGenerateRoutes(config, resolver, security), routeConf);
 }
 
 const fastifyOpenapiGlue = fp(plugin, {
