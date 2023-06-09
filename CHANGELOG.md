@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [4.2.0] 09-06-2023
+### Changed
+ - feat: return route options for operationResolver
+ - updated dependencies
+    - c8    ^7.13.0  →  ^7.14.0
+    - rome  ^12.0.0  →  ^12.1.3
+    - tap   ^16.3.4  →  ^16.3.6
+
 ## [4.1.4] 02-05-2023
 ### Changed
  - fix: replaced context.schema by routeSchema in docs and tests
