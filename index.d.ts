@@ -1,12 +1,17 @@
 /// <reference types="node" />
 
-import { FastifyPluginAsync, FastifyRequest, FastifyReply } from "fastify";
+import {
+	FastifyPluginAsync,
+	FastifyRequest,
+	FastifyReply,
+	RouteOptions,
+} from "fastify";
 
 type OperationResolver = (
 	operationId: string,
 	method: string,
 	path: string,
-) => (req: FastifyRequest, res: FastifyReply) => void;
+) => ((req: FastifyRequest, res: FastifyReply) => void) | RouteOptions;
 
 export interface FastifyOpenapiGlueOptions {
 	specification: object | string;

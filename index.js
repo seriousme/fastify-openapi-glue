@@ -77,11 +77,16 @@ function getResolver(instance, service, operationResolver) {
 }
 
 // Apply service handler if present or else a notImplemented error
-function serviceHandler(resolver, item) {
-	return (
-		resolver(item.operationId, item.method, item.openapiPath) ||
-		notImplemented(item.operationId)
-	);
+function serviceHandlerOptions(resolver, item) {
+	const handler = resolver(item.operationId, item.method, item.openapiPath);
+
+	const routeOptions =
+		typeof handler === "function" ? { handler } : { ...handler };
+
+	routeOptions.handler =
+		routeOptions.handler || notImplemented(item.operationId);
+
+	return routeOptions;
 }
 
 // Apply security requirements if present and at least one security handler is defined
@@ -100,8 +105,8 @@ function makeGenerateRoutes(config, resolver, security) {
 				url: item.url,
 				schema: item.schema,
 				config: item.config,
-				handler: serviceHandler(resolver, item),
 				preHandler: securityHandler(security, item),
+				...serviceHandlerOptions(resolver, item),
 			});
 		}
 	};
