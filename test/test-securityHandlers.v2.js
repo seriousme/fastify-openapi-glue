@@ -1,4 +1,5 @@
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from "module";
@@ -25,14 +26,13 @@ test("security handler registration succeeds", (t) => {
 		securityHandlers,
 	};
 
-	t.plan(1);
 	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts);
 	fastify.ready((err) => {
 		if (err) {
-			t.fail("got unexpected error");
+			assert.fail("got unexpected error");
 		} else {
-			t.pass("no unexpected error");
+			assert.ok(true, "no unexpected error");
 		}
 	});
 });
@@ -46,10 +46,9 @@ test("security registration succeeds, but preHandler throws error", (t) => {
 		},
 	};
 
-	t.plan(4);
 	const fastify = Fastify();
 	fastify.setErrorHandler((err, req, reply) => {
-		t.equal(err.errors.length, 3);
+		assert.equal(err.errors.length, 3);
 		reply.code(err.statusCode).send(err);
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
@@ -59,9 +58,9 @@ test("security registration succeeds, but preHandler throws error", (t) => {
 			url: "/v2/operationSecurity",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 401);
-			t.equal(res.statusMessage, "Unauthorized");
+			assert.ifError(err);
+			assert.equal(res.statusCode, 401);
+			assert.equal(res.statusMessage, "Unauthorized");
 		},
 	);
 });
@@ -76,7 +75,6 @@ test("security preHandler passes with short-circuit", (t) => {
 		},
 	};
 
-	t.plan(3);
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 	fastify.inject(
@@ -85,9 +83,9 @@ test("security preHandler passes with short-circuit", (t) => {
 			url: "/v2/operationSecurity",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
-			t.equal(res.statusMessage, "OK");
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+			assert.equal(res.statusMessage, "OK");
 		},
 	);
 });
@@ -102,10 +100,9 @@ test("security preHandler handles multiple failures", (t) => {
 		},
 	};
 
-	t.plan(4);
 	const fastify = Fastify();
 	fastify.setErrorHandler((err, req, reply) => {
-		t.equal(err.errors.length, 3);
+		assert.equal(err.errors.length, 3);
 		reply.code(err.statusCode).send(err);
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
@@ -115,16 +112,14 @@ test("security preHandler handles multiple failures", (t) => {
 			url: "/v2/operationSecurity",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 401);
-			t.equal(res.statusMessage, "Unauthorized");
+			assert.ifError(err);
+			assert.equal(res.statusCode, 401);
+			assert.equal(res.statusMessage, "Unauthorized");
 		},
 	);
 });
 
 test("initalization of securityHandlers succeeds", (t) => {
-	t.plan(2);
-
 	const opts = {
 		specification: testSpec,
 		service,
@@ -133,7 +128,7 @@ test("initalization of securityHandlers succeeds", (t) => {
 				const securitySchemeFromSpec = JSON.stringify(
 					testSpec.securityDefinitions,
 				);
-				t.equal(JSON.stringify(securitySchemes), securitySchemeFromSpec);
+				assert.equal(JSON.stringify(securitySchemes), securitySchemeFromSpec);
 			},
 		},
 	};
@@ -142,15 +137,14 @@ test("initalization of securityHandlers succeeds", (t) => {
 	fastify.register(fastifyOpenapiGlue, opts);
 	fastify.ready((err) => {
 		if (err) {
-			t.fail("got unexpected error");
+			assert.fail("got unexpected error");
 		} else {
-			t.pass("no unexpected error");
+			assert.ok(true, "no unexpected error");
 		}
 	});
 });
 
 test("security preHandler gets parameters passed", (t) => {
-	t.plan(8);
 	const opts = {
 		specification: testSpec,
 		service,
@@ -172,10 +166,10 @@ test("security preHandler gets parameters passed", (t) => {
 			url: "/v2/operationSecurity",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
-			t.equal(res.statusMessage, "OK");
-			t.equal(res.body, '{"response":"authentication succeeded!"}');
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+			assert.equal(res.statusMessage, "OK");
+			assert.equal(res.body, '{"response":"authentication succeeded!"}');
 		},
 	);
 
@@ -185,10 +179,10 @@ test("security preHandler gets parameters passed", (t) => {
 			url: "/v2/operationSecurityWithParameter",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
-			t.equal(res.statusMessage, "OK");
-			t.equal(res.body, '{"response":"skipped"}');
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+			assert.equal(res.statusMessage, "OK");
+			assert.equal(res.body, '{"response":"skipped"}');
 		},
 	);
 });

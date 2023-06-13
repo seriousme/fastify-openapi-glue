@@ -2,7 +2,8 @@
 // running the tests directly after generation will probably fail as the parameters
 // need to be manually added.
 
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyPlugin from "../index.js";
 import service from "../service.js";
@@ -77,7 +78,6 @@ const opts = {
 //
 
 test("testing addPet", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -89,8 +89,8 @@ test("testing addPet", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -162,7 +162,6 @@ test("testing addPet", (t) => {
 //
 
 test("testing updatePet", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -174,8 +173,8 @@ test("testing updatePet", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -255,7 +254,6 @@ test("testing updatePet", (t) => {
 //
 
 test("testing findPetsByStatus", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -267,8 +265,8 @@ test("testing findPetsByStatus", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -348,7 +346,6 @@ test("testing findPetsByStatus", (t) => {
 //
 
 test("testing findPetsByTags", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -360,8 +357,8 @@ test("testing findPetsByTags", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -441,7 +438,6 @@ test("testing findPetsByTags", (t) => {
 //
 
 test("testing getPetById", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -453,8 +449,8 @@ test("testing getPetById", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -487,7 +483,6 @@ test("testing getPetById", (t) => {
 //
 
 test("testing updatePetWithForm", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -499,8 +494,8 @@ test("testing updatePetWithForm", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -531,7 +526,6 @@ test("testing updatePetWithForm", (t) => {
 //
 
 test("testing deletePet", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -543,8 +537,8 @@ test("testing deletePet", (t) => {
 			headers: undefined, //insert headers here!!
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -587,7 +581,6 @@ test("testing deletePet", (t) => {
 //
 
 test("testing uploadFile", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -599,8 +592,8 @@ test("testing uploadFile", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -619,7 +612,6 @@ test("testing uploadFile", (t) => {
 //
 
 test("testing getInventory", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -631,8 +623,8 @@ test("testing getInventory", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -703,7 +695,6 @@ test("testing getInventory", (t) => {
 //
 
 test("testing placeOrder", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -715,8 +706,8 @@ test("testing placeOrder", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -770,7 +761,6 @@ test("testing placeOrder", (t) => {
 //
 
 test("testing getOrderById", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -782,8 +772,8 @@ test("testing getOrderById", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -808,7 +798,6 @@ test("testing getOrderById", (t) => {
 //
 
 test("testing deleteOrder", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -820,8 +809,8 @@ test("testing deleteOrder", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -860,7 +849,6 @@ test("testing deleteOrder", (t) => {
 //
 
 test("testing createUser", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -872,8 +860,8 @@ test("testing createUser", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -914,7 +902,6 @@ test("testing createUser", (t) => {
 //
 
 test("testing createUsersWithArrayInput", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -926,8 +913,8 @@ test("testing createUsersWithArrayInput", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -968,7 +955,6 @@ test("testing createUsersWithArrayInput", (t) => {
 //
 
 test("testing createUsersWithListInput", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -980,8 +966,8 @@ test("testing createUsersWithListInput", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -1021,7 +1007,6 @@ test("testing createUsersWithListInput", (t) => {
 //
 
 test("testing loginUser", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -1033,8 +1018,8 @@ test("testing loginUser", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -1048,7 +1033,6 @@ test("testing loginUser", (t) => {
 //
 
 test("testing logoutUser", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -1060,8 +1044,8 @@ test("testing logoutUser", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -1112,7 +1096,6 @@ test("testing logoutUser", (t) => {
 //
 
 test("testing getUserByName", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -1124,8 +1107,8 @@ test("testing getUserByName", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -1175,7 +1158,6 @@ test("testing getUserByName", (t) => {
 //
 
 test("testing updateUser", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -1187,8 +1169,8 @@ test("testing updateUser", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
@@ -1213,7 +1195,6 @@ test("testing updateUser", (t) => {
 //
 
 test("testing deleteUser", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyPlugin, opts);
 
@@ -1225,8 +1206,8 @@ test("testing deleteUser", (t) => {
 			headers: undefined,
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });

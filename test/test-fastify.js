@@ -1,5 +1,6 @@
 // just test the basics to aid debugging
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 
 const opts = {
@@ -15,7 +16,6 @@ const opts = {
 };
 
 test("basic fastify works", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 
 	async function routes(fastify) {
@@ -30,14 +30,13 @@ test("basic fastify works", (t) => {
 			url: "/",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
 
 test("fastify validation works", (t) => {
-	t.plan(5);
 	const fastify = Fastify();
 
 	async function routes(fastify) {
@@ -52,9 +51,9 @@ test("fastify validation works", (t) => {
 			url: "/?hello=world",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.body, '{"hello":"world"}', "expected value");
-			t.equal(res.statusCode, 200, "expected HTTP code");
+			assert.ifError(err);
+			assert.equal(res.body, '{"hello":"world"}', "expected value");
+			assert.equal(res.statusCode, 200, "expected HTTP code");
 		},
 	);
 	fastify.inject(
@@ -63,8 +62,8 @@ test("fastify validation works", (t) => {
 			url: "/?ello=world",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 400, "expected HTTP code");
+			assert.ifError(err);
+			assert.equal(res.statusCode, 400, "expected HTTP code");
 		},
 	);
 });

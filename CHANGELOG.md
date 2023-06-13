@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - chore: replaced Tap by Node test
 
 ## [4.2.0] 09-06-2023
 ### Changed

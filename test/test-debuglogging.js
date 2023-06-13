@@ -1,5 +1,6 @@
 // just test the basics to aid debugging
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from "module";
@@ -41,7 +42,6 @@ test("Service registration is logged at level 'debug'", async (t) => {
 		specification: testSpec,
 		service,
 	};
-	t.plan(2);
 	const fastify = Fastify({
 		logger: {
 			level: "debug",
@@ -53,7 +53,7 @@ test("Service registration is logged at level 'debug'", async (t) => {
 		method: "get",
 		url: "/noParam",
 	});
-	t.equal(res.statusCode, 200, "result is ok");
+	assert.equal(res.statusCode, 200, "result is ok");
 	const operations = new Set();
 	for await (const data of catcher.data) {
 		const match = data.match(/"msg":"service has '(\w+)'"/);
@@ -61,7 +61,7 @@ test("Service registration is logged at level 'debug'", async (t) => {
 			operations.add(match[1]);
 		}
 	}
-	t.equal(
+	assert.equal(
 		missingMethods(service, operations),
 		false,
 		"all operations are present in the debug log",
@@ -79,7 +79,6 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (t)
 			failing: securityHandlers.failingAuthCheck,
 		},
 	};
-	t.plan(2);
 	const fastify = Fastify({
 		logger: {
 			level: "debug",
@@ -91,7 +90,7 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (t)
 		method: "GET",
 		url: "/operationSecurity",
 	});
-	t.equal(res.statusCode, 200, "request succeeded");
+	assert.equal(res.statusCode, 200, "request succeeded");
 	const handlers = new Set();
 	for await (const data of catcher.data) {
 		const match = data.match(
@@ -101,7 +100,7 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (t)
 			handlers.add(match[0]);
 		}
 	}
-	t.equal(
+	assert.equal(
 		handlers.has(
 			"Security handler 'api_key' failed: 'API key was invalid or not found'",
 		),
