@@ -1,13 +1,12 @@
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import { fastifyOpenapiGlue } from "../index.js";
 import openapiGlue from "../index.js";
 
 test("named import in ESM works", async (t) => {
-	t.plan(1);
-	t.equal(fastifyOpenapiGlue.fastifyOpenapiGlue !== undefined, true);
+	assert.equal(fastifyOpenapiGlue.fastifyOpenapiGlue !== undefined, true);
 });
 
 test("default import in ESM works", async (t) => {
-	t.plan(1);
-	t.equal(openapiGlue.fastifyOpenapiGlue !== undefined, true);
+	assert.equal(openapiGlue.fastifyOpenapiGlue !== undefined, true);
 });

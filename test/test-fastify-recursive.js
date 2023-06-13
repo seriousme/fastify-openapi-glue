@@ -1,4 +1,5 @@
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 
 const opts = {
@@ -21,12 +22,11 @@ const opts = {
 };
 
 test("fastify validation works", (t) => {
-	t.plan(5);
 	const fastify = Fastify();
 
 	async function routes(fastify) {
 		fastify.post("/", opts, async (request) => {
-			t.same(
+			assert.deepEqual(
 				request.body,
 				{ str1: "test data", obj1: { str1: "test data" } },
 				"expected value",
@@ -47,8 +47,8 @@ test("fastify validation works", (t) => {
 			},
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200, "expected HTTP code");
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200, "expected HTTP code");
 		},
 	);
 	fastify.inject(
@@ -57,8 +57,8 @@ test("fastify validation works", (t) => {
 			url: "/blah",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 404, "expected HTTP code");
+			assert.ifError(err);
+			assert.equal(res.statusCode, 404, "expected HTTP code");
 		},
 	);
 });

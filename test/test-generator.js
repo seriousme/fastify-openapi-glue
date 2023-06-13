@@ -1,4 +1,5 @@
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import { Generator } from "../lib/generator.js";
 import { createRequire } from "module";
 import { templateTypes } from "../lib/templates/templateTypes.js";
@@ -19,14 +20,12 @@ for (const type of templateTypes) {
 		const project = `generated-${type}-project`;
 		const generator = new Generator(checksumOnly, localPlugin);
 		await test(`generator generates ${type} project data for ${spec}`, async (t) => {
-			t.plan(1);
-
 			try {
 				await generator.parse(specFile);
 				const checksums = await generator.generateProject(dir, project, type);
-				t.same(checksums, testChecksums, "checksums match");
+				assert.deepEqual(checksums, testChecksums, "checksums match");
 			} catch (e) {
-				t.fail(e.message);
+				assert.fail(e.message);
 			}
 		});
 	}

@@ -1,4 +1,5 @@
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from "module";
@@ -23,14 +24,13 @@ test("route registration succeeds with recursion", (t) => {
 		service,
 	};
 
-	t.plan(1);
 	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts);
 	fastify.ready((err) => {
 		if (err) {
-			t.fail("got unexpected error");
+			assert.fail("got unexpected error");
 		} else {
-			t.pass("no unexpected error");
+			assert.ok(true, "no unexpected error");
 		}
 	});
 });

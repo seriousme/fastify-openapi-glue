@@ -1,4 +1,5 @@
-import { test } from "tap";
+import { test } from "node:test";
+import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { createRequire } from "module";
@@ -8,7 +9,6 @@ const importJSON = createRequire(import.meta.url);
 const testSpec = await importJSON("./test-openapi.v3.json");
 
 test("return route params from operationResolver", (t) => {
-	t.plan(2);
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
@@ -31,14 +31,13 @@ test("return route params from operationResolver", (t) => {
 			url: "/queryParamObject?int1=1&int2=2",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 304);
+			assert.ifError(err);
+			assert.equal(res.statusCode, 304);
 		},
 	);
 });
 
 test("operationResolver route params overwrite default params", (t) => {
-	t.plan(3);
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
@@ -58,15 +57,14 @@ test("operationResolver route params overwrite default params", (t) => {
 			url: "/queryParamObject?int1=1&int2=2",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 200);
-			t.has(JSON.parse(res.body), { foo: "bar" });
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+			assert.equal(JSON.parse(res.body)?.foo, "bar");
 		},
 	);
 });
 
 test("throw an error if handler is not specified", (t) => {
-	t.plan(3);
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
@@ -79,13 +77,15 @@ test("throw an error if handler is not specified", (t) => {
 			url: "/queryParamObject?int1=1&int2=2",
 		},
 		(err, res) => {
-			t.error(err);
-			t.equal(res.statusCode, 500);
-			t.has(JSON.parse(res.body), {
-				statusCode: 500,
-				error: "Internal Server Error",
-				message: "Operation getQueryParamObject not implemented",
-			});
+			assert.ifError(err);
+			assert.equal(res.statusCode, 500);
+			const parsedBody = JSON.parse(res.body);
+			assert.equal(parsedBody?.statusCode, 500);
+			assert.equal(parsedBody?.error, "Internal Server Error");
+			assert.equal(
+				parsedBody?.message,
+				"Operation getQueryParamObject not implemented",
+			);
 		},
 	);
 });
