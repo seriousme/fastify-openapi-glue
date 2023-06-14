@@ -39,7 +39,7 @@
     "bin": "./bin"
   },
   "devDependencies": {
-    "c8": "^7.14.0",
+    "c8": "^8.0.0",
     "fastify": "^4.17.0",
     "fastify-cli": "^5.7.1",
     "husky": "^8.0.3",
