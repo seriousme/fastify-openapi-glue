@@ -9,6 +9,8 @@ You provide a function and that function returns the method that will handle the
 
 An example of a simple resolver is:
 ```javascript
+const myObject = { getPetbyId: async () => { pet: "Doggie the dog" }};
+
 function (operationId) {
   if (operationId in myObject) {
     return myObject[operationId];
@@ -17,13 +19,7 @@ function (operationId) {
 ```
 But you can make the logic as complex as you like. 
 
-In this example `myObject[operationId]` can point to a function, e.g.:
-
-```javascript
-const myObject = { getPetbyId: async () => { pet: "Doggie the dog" }}
-```
-
-But you can also point it to a full fastify route definition, e.g.:
+In this example `myObject[operationId]` points to a function, but you can also point it to a full Fastify route definition, e.g.:
 ```javascript
 const myObject = { getPetbyId: {
     onSend: async (req, res) => {
@@ -36,3 +32,4 @@ const myObject = { getPetbyId: {
   };
 }
 ```
+In that case any properties returned are added to the route configuration that the plugin already created itself overriding any already existing properties.
