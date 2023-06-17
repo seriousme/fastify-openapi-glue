@@ -23,11 +23,11 @@ function notImplemented(operationId) {
 	};
 }
 
-function defaultOperationResolver(routesInstance, service) {
+function defaultOperationResolver(routesInstance, serviceHandlers) {
 	return function (operationId) {
-		if (operationId in service) {
-			routesInstance.log.debug(`service has '${operationId}'`);
-			return service[operationId].bind(service);
+		if (operationId in serviceHandlers) {
+			routesInstance.log.debug(`serviceHandlers has '${operationId}'`);
+			return serviceHandlers[operationId].bind(serviceHandlers);
 		}
 	};
 }
@@ -59,21 +59,25 @@ async function getSecurity(instance, securityHandlers, config) {
 	return undefined;
 }
 
-function getResolver(instance, service, operationResolver) {
-	if (service && operationResolver) {
-		throw new Error("'service' and 'operationResolver' are mutually exclusive");
+function getResolver(instance, serviceHandlers, operationResolver) {
+	if (serviceHandlers && operationResolver) {
+		throw new Error(
+			"'serviceHandlers' and 'operationResolver' are mutually exclusive",
+		);
 	}
 
-	if (!(service || operationResolver)) {
-		throw new Error("either 'service' or 'operationResolver' are required");
+	if (!(serviceHandlers || operationResolver)) {
+		throw new Error(
+			"either 'serviceHandlers' or 'operationResolver' are required",
+		);
 	}
 
 	if (operationResolver) {
 		return operationResolver;
 	}
 
-	checkObject(service, "service");
-	return defaultOperationResolver(instance, service);
+	checkObject(serviceHandlers, "serviceHandlers");
+	return defaultOperationResolver(instance, serviceHandlers);
 }
 
 // Apply service handler if present or else a notImplemented error
@@ -117,9 +121,21 @@ async function plugin(instance, opts) {
 	const parser = new Parser();
 	const config = await parser.parse(opts.specification);
 	checkParserValidators(instance, config.contentTypes);
+	if (opts.service) {
+		process.emitWarning(
+			"The 'service' option is deprecated, use 'serviceHandlers' instead.",
+			"DeprecationWarning",
+			"FSTOGDEP001",
+		);
+		opts.serviceHandlers = opts.service;
+	}
 
-	// use the provided operation resolver or default to looking in the service object
-	const resolver = getResolver(instance, opts.service, opts.operationResolver);
+	// use the provided operation resolver or default to looking in the serviceHandlers object
+	const resolver = getResolver(
+		instance,
+		opts.serviceHandlers,
+		opts.operationResolver,
+	);
 
 	const security = await getSecurity(instance, opts.securityHandlers, config);
 
@@ -142,6 +158,6 @@ export default fastifyOpenapiGlue;
 export { fastifyOpenapiGlue };
 
 export const options = {
-	specification: "examples/petstore/petstore-swagger.v2.json",
-	service: "examples/petstore/service.js",
+	specification: "examples/petstore/petstore-openapi.v3.json",
+	serviceHandlers: "examples/petstore/serviceHandlers.js",
 };

@@ -3,12 +3,12 @@
 // or standalone using "fastify start index.js"
 import openapiGlue from "../../index.js";
 import { Service } from "./service.js";
-const service = new Service();
+const serviceHandlers = new Service();
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const pluginOptions = {
 	specification: localFile("./petstore-openapi.v3.json"),
-	service,
+	serviceHandlers,
 	prefix: "v2",
 };
 

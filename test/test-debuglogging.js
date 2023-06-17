@@ -9,7 +9,7 @@ import { Writable } from "stream";
 
 const testSpec = await importJSON("./test-openapi.v3.json");
 import { Service } from "./service.js";
-const service = new Service();
+const serviceHandlers = new Service();
 import securityHandlers from "./security.js";
 
 class DebugCatcher {
@@ -40,7 +40,7 @@ test("Service registration is logged at level 'debug'", async (t) => {
 	const catcher = new DebugCatcher();
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 	};
 	const fastify = Fastify({
 		logger: {
@@ -56,13 +56,13 @@ test("Service registration is logged at level 'debug'", async (t) => {
 	assert.equal(res.statusCode, 200, "result is ok");
 	const operations = new Set();
 	for await (const data of catcher.data) {
-		const match = data.match(/"msg":"service has '(\w+)'"/);
+		const match = data.match(/"msg":"serviceHandlers has '(\w+)'"/);
 		if (match !== null) {
 			operations.add(match[1]);
 		}
 	}
 	assert.equal(
-		missingMethods(service, operations),
+		missingMethods(serviceHandlers, operations),
 		false,
 		"all operations are present in the debug log",
 	);
@@ -72,7 +72,7 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (t)
 	const catcher = new DebugCatcher();
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 			skipped: securityHandlers.goodAuthCheck,

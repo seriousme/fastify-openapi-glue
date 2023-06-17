@@ -8,7 +8,7 @@ const importJSON = createRequire(import.meta.url);
 const testSpec = await importJSON("./test-openapi-v3-recursive.json");
 
 import { Service } from "./service.js";
-const service = new Service();
+const serviceHandlers = new Service();
 
 const noStrict = {
 	ajv: {
@@ -21,7 +21,7 @@ const noStrict = {
 test("route registration succeeds with recursion", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 	};
 
 	const fastify = Fastify(noStrict);

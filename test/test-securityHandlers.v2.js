@@ -9,7 +9,7 @@ const testSpec = await importJSON("./test-swagger.v2.json");
 const petStoreSpec = await importJSON("./petstore-swagger.v2.json");
 import securityHandlers from "./security.js";
 import { Service } from "./service.js";
-const service = new Service();
+const serviceHandlers = new Service();
 
 const noStrict = {
 	ajv: {
@@ -22,7 +22,7 @@ const noStrict = {
 test("security handler registration succeeds", (t) => {
 	const opts = {
 		specification: petStoreSpec,
-		service,
+		serviceHandlers,
 		securityHandlers,
 	};
 
@@ -40,7 +40,7 @@ test("security handler registration succeeds", (t) => {
 test("security registration succeeds, but preHandler throws error", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 		},
@@ -68,7 +68,7 @@ test("security registration succeeds, but preHandler throws error", (t) => {
 test("security preHandler passes with short-circuit", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.goodAuthCheck,
 			failing: securityHandlers.failingAuthCheck,
@@ -93,7 +93,7 @@ test("security preHandler passes with short-circuit", (t) => {
 test("security preHandler handles multiple failures", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 			failing: securityHandlers.failingAuthCheck,
@@ -122,7 +122,7 @@ test("security preHandler handles multiple failures", (t) => {
 test("initalization of securityHandlers succeeds", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			initialize: (securitySchemes) => {
 				const securitySchemeFromSpec = JSON.stringify(
@@ -147,7 +147,7 @@ test("initalization of securityHandlers succeeds", (t) => {
 test("security preHandler gets parameters passed", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 			skipped: (req, repl, param) => {

@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Changed
  - chore: replaced Tap by Node test
+ - update: rename 'service' option to 'serviceHandlers'
 
 ## [4.2.0] 09-06-2023
 ### Changed
