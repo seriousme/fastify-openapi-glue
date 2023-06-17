@@ -8,7 +8,7 @@
 
 A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
-It aims at facilitating ["design first" API development](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/) i.e. you write or obtain an API specification and use that to generate code. Given an OpenApi specification Fastify-openapi-glue handles the fastify configuration of routes and schemas etc. You can also [generate](#generator) your own project from a OpenApi specification.
+It aims at facilitating ["design first" API development](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/) i.e. you write or obtain an API specification and use that to generate code. Given an OpenApi specification Fastify-openapi-glue handles the fastify configuration of routes and validation schemas etc. You can also [generate](#generator) your own project from a OpenApi specification.
 
 <a name="upgrading"></a>
 ## Upgrading

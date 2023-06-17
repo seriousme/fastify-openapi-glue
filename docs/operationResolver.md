@@ -32,4 +32,6 @@ const myObject = { getPetbyId: {
   };
 }
 ```
-In that case any properties returned are added to the route configuration that the plugin already created itself overriding any already existing properties.
+In that case any properties returned by the operationResolver are added to the route configuration that the plugin already created itself, overriding any already existing properties.
+
+The operationResolver will only be called during the creation of the Fastify configuration. 
