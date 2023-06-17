@@ -9,7 +9,7 @@ const testSpec = await importJSON("./test-openapi.v3.json");
 const petStoreSpec = await importJSON("./petstore-openapi.v3.json");
 import securityHandlers from "./security.js";
 import { Service } from "./service.js";
-const service = new Service();
+const serviceHandlers = new Service();
 
 const noStrict = {
 	ajv: {
@@ -21,14 +21,14 @@ const noStrict = {
 
 const invalidSecurityOpts = {
 	specification: testSpec,
-	service,
+	serviceHandlers,
 	securityHandlers: () => {},
 };
 
 test("security handler registration succeeds", (t) => {
 	const opts = {
 		specification: petStoreSpec,
-		service,
+		serviceHandlers,
 		securityHandlers,
 	};
 
@@ -46,7 +46,7 @@ test("security handler registration succeeds", (t) => {
 test("security preHandler throws error", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 		},
@@ -74,7 +74,7 @@ test("security preHandler throws error", (t) => {
 test("security preHandler passes on succes", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 			skipped: securityHandlers.goodAuthCheck,
@@ -101,7 +101,7 @@ test("security preHandler passes on succes", (t) => {
 test("security preHandler passes with empty handler", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers,
 	};
 
@@ -124,7 +124,7 @@ test("security preHandler passes with empty handler", (t) => {
 test("security preHandler handles missing handlers", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			ipa_key: securityHandlers.failingAuthCheck,
 		},
@@ -168,7 +168,7 @@ test("invalid securityHandler definition throws error ", (t) => {
 test("initalization of securityHandlers succeeds", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			initialize: (securitySchemes) => {
 				const securitySchemeFromSpec = JSON.stringify(
@@ -193,7 +193,7 @@ test("initalization of securityHandlers succeeds", (t) => {
 test("security preHandler gets parameters passed", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 			skipped: (req, repl, param) => {
@@ -236,7 +236,7 @@ test("security preHandler gets parameters passed", (t) => {
 test("security preHandler throws error with custom StatusCode", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheckCustomStatusCode,
 		},
@@ -264,7 +264,7 @@ test("security preHandler throws error with custom StatusCode", (t) => {
 test("security preHandler does not throw error when global security handler is overwritten with local empty security", (t) => {
 	const opts = {
 		specification: testSpec,
-		service,
+		serviceHandlers,
 		securityHandlers: {
 			api_key: securityHandlers.failingAuthCheck,
 		},

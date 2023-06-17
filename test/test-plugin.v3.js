@@ -14,7 +14,7 @@ const genericPathItemsSpec = await importJSON(
 	"./test-openapi-v3-generic-path-items.json",
 );
 import { Service } from "./service.js";
-const service = new Service();
+const serviceHandlers = new Service();
 
 const noStrict = {
 	ajv: {
@@ -26,43 +26,43 @@ const noStrict = {
 
 const opts = {
 	specification: testSpec,
-	service,
+	serviceHandlers,
 };
 
 const prefixOpts = {
 	specification: testSpec,
-	service,
+	serviceHandlers,
 	prefix: "prefix",
 };
 
 const yamlOpts = {
 	specification: testSpecYAML,
-	service,
+	serviceHandlers,
 };
 
 const invalidSwaggerOpts = {
 	specification: { valid: false },
-	service,
+	serviceHandlers,
 };
 
 const invalidServiceOpts = {
 	specification: testSpecYAML,
-	service: "wrong",
+	serviceHandlers: "wrong",
 };
 
 const petStoreOpts = {
 	specification: petStoreSpec,
-	service,
+	serviceHandlers,
 };
 
 const genericPathItemsOpts = {
 	specification: genericPathItemsSpec,
-	service,
+	serviceHandlers,
 };
 
 const serviceAndOperationResolver = {
 	specification: testSpec,
-	service: localFile("./not-a-valid-service.js"),
+	serviceHandlers: localFile("./not-a-valid-service.js"),
 	operationResolver() {
 		return;
 	},
@@ -90,6 +90,12 @@ const withOperationResolverUsingMethodPath = {
 		};
 	},
 };
+
+process.on("warning", (warning) => {
+	if (warning.name === "FastifyWarning") {
+		throw new Error(`Fastify generated a warning: ${warning}`);
+	}
+});
 
 test("path parameters work", (t) => {
 	const fastify = Fastify();
@@ -377,7 +383,7 @@ test("missing service definition throws error ", (t) => {
 		if (err) {
 			assert.equal(
 				err.message,
-				"'service' parameter must refer to an object",
+				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
 		} else {
@@ -411,7 +417,7 @@ test("V3.0.1 definition does not throw error", (t) => {
 	spec301["openapi"] = "3.0.1";
 	const opts301 = {
 		specification: spec301,
-		service,
+		serviceHandlers,
 	};
 
 	const fastify = Fastify(noStrict);
@@ -430,7 +436,7 @@ test("V3.0.2 definition does not throw error", (t) => {
 	spec302["openapi"] = "3.0.2";
 	const opts302 = {
 		specification: spec302,
-		service,
+		serviceHandlers,
 	};
 
 	const fastify = Fastify(noStrict);
@@ -449,7 +455,7 @@ test("V3.0.3 definition does not throw error", (t) => {
 	spec303["openapi"] = "3.0.3";
 	const opts303 = {
 		specification: spec303,
-		service,
+		serviceHandlers,
 	};
 
 	const fastify = Fastify(noStrict);
@@ -490,7 +496,7 @@ test("x-fastify-config is applied", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
-		service: {
+		serviceHandlers: {
 			operationWithFastifyConfigExtension: (req, reply) => {
 				assert.equal(req.routeConfig.rawBody, true, "config.rawBody is true");
 				return reply;
@@ -516,7 +522,7 @@ test("service and operationResolver together throw error", (t) => {
 		if (err) {
 			assert.equal(
 				err.message,
-				"'service' and 'operationResolver' are mutually exclusive",
+				"'serviceHandlers' and 'operationResolver' are mutually exclusive",
 				"got expected error",
 			);
 		} else {
@@ -532,7 +538,7 @@ test("no service and no operationResolver throw error", (t) => {
 		if (err) {
 			assert.equal(
 				err.message,
-				"either 'service' or 'operationResolver' are required",
+				"either 'serviceHandlers' or 'operationResolver' are required",
 				"got expected error",
 			);
 		} else {

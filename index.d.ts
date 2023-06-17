@@ -15,6 +15,8 @@ type OperationResolver = (
 
 export interface FastifyOpenapiGlueOptions {
 	specification: object | string;
+	serviceHandlers?: object;
+	/** @deprecated use serviceHandlers field instead */
 	service?: object;
 	securityHandlers?: object;
 	operationResolver?: OperationResolver;

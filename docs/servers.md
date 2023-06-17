@@ -73,7 +73,7 @@ fastify.register(
     openapiGlue,
     {
         specification,
-        service: new DevService(),
+        serviceHandlers: new DevService(),
         prefix: "dev/v1"
     }
 )
@@ -82,7 +82,7 @@ fastify.register(
     openapiGlue,
     {
         specification,
-        service: new StagingService(),
+        serviceHandlers: new StagingService(),
         prefix: "staging/v1"
     }
 )
@@ -91,12 +91,12 @@ fastify.register(
     openapiGlue,
     {
         specification,
-        service: new ProdService(),
+        serviceHandlers: new ProdService(),
         prefix: "v1"
     }
 )
 
-fastify.listen(3000)
+fastify.listen({port:3000})
 ```
 
 You might also want to check out the [fastify autoload plugin](https://github.com/fastify/fastify-autoload).

@@ -33,7 +33,7 @@ import { Security } from "./security.js";
 
 const options = {
   specification: `${currentDir}/petstore-openapi.v3.json`,
-  service: new Service(),
+  serviceHandlers: new Service(),
   securityHandlers: new Security(),
   prefix: "v1",
 };
@@ -46,15 +46,15 @@ All schema and routes will be taken from the OpenApi specification listed in the
 <a name="pluginOptions"></a>
 ### Options
   - `specification`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file 
-  - `service`: this can be a javascript object or class instance
+  - `serviceHandlers`: this can be a javascript object or class instance
   - `securityHandlers`: this can be a javascript object or class instance. See the [securityHandlers documentation](docs/securityHandlers.md) for more details.
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. See the [servers documentation](docs/servers.md) for more details on using prefix with a v3 specification.
- - `operationResolver`: a custom operation resolver function, `(operationId, method, openapiPath) => handler | routeOptions` where method is the uppercase HTTP method (e.g. "GET") and openapiPath is the path taken from the specification without prefix (e.g. "/operation"). Mutually exclusive with `service`.
+ - `operationResolver`: a custom operation resolver function, `(operationId, method, openapiPath) => handler | routeOptions` where method is the uppercase HTTP method (e.g. "GET") and openapiPath is the path taken from the specification without prefix (e.g. "/operation"). Mutually exclusive with `serviceHandlers`.
 
-`specification` and `service` are mandatory, `securityHandlers` and `prefix` are optional.
+`specification` and `serviceHandlers` are mandatory, `securityHandlers` and `prefix` are optional.
 See the [examples](#examples) section for a demo.
 
-Please be aware that `this` will refer to your service object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)
+Please be aware that `this` will refer to your serviceHandlers object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)
 
 <a name="pluginApiExtensions"></a>
 ### OpenAPI extensions
@@ -82,7 +82,7 @@ You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within 
 <a name="generator"></a>
 ## Generator
 
-To make life even more easy there is the `openapi-glue` cli. The `openapi-glue` cli takes a valid OpenApi (v2/v3) file (JSON or YAML) and generates a project including a fastify plugin that you can use on any fastify server, a stub of the service class and a skeleton of a test harness to test the plugin. 
+To make life even more easy there is the `openapi-glue` cli. The `openapi-glue` cli takes a valid OpenApi (v2/v3) file (JSON or YAML) and generates a project including a fastify plugin that you can use on any fastify server, a stub of the serviceHandlers class and a skeleton of a test harness to test the plugin. 
 
 <a name="generatorUsage"></a>
 ### Usage
@@ -122,7 +122,7 @@ Clone this repository and run `npm i`
 <a name="pluginExamples"></a>
 ### Plugin
 Executing `npm start` will start fastify on localhost port 3000 with the
-routes extracted from the [petstore example](examples/petstore/petstore-openapi.v3.json) and the [accompanying service definition](examples/petstore/service.js)
+routes extracted from the [petstore example](examples/petstore/petstore-openapi.v3.json) and the [accompanying serviceHandlers definition](examples/petstore/service.js)
 
 * http://localhost:3000/v2/pet/24 will return a pet as specified in service.js
 * http://localhost:3000/v2/pet/myPet will return a fastify validation error:
