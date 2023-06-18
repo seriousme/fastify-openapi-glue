@@ -6,14 +6,9 @@ import { test } from "node:test";
 import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyPlugin from "../index.js";
-import service from "../service.js";
+import { options } from "../index.js";
 
-const specification = "../openApi.json";
-
-const opts = {
-	specification,
-	service,
-};
+const opts = {};
 //
 // Operation: addPet
 // URL: /pet
@@ -78,7 +73,7 @@ const opts = {
 //
 
 test("testing addPet", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -162,7 +157,7 @@ test("testing addPet", (t) => {
 //
 
 test("testing updatePet", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -254,7 +249,7 @@ test("testing updatePet", (t) => {
 //
 
 test("testing findPetsByStatus", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -346,7 +341,7 @@ test("testing findPetsByStatus", (t) => {
 //
 
 test("testing findPetsByTags", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -438,7 +433,7 @@ test("testing findPetsByTags", (t) => {
 //
 
 test("testing getPetById", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -483,7 +478,7 @@ test("testing getPetById", (t) => {
 //
 
 test("testing updatePetWithForm", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -526,7 +521,7 @@ test("testing updatePetWithForm", (t) => {
 //
 
 test("testing deletePet", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -581,7 +576,7 @@ test("testing deletePet", (t) => {
 //
 
 test("testing uploadFile", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -612,7 +607,7 @@ test("testing uploadFile", (t) => {
 //
 
 test("testing getInventory", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -695,7 +690,7 @@ test("testing getInventory", (t) => {
 //
 
 test("testing placeOrder", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -761,7 +756,7 @@ test("testing placeOrder", (t) => {
 //
 
 test("testing getOrderById", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -798,7 +793,7 @@ test("testing getOrderById", (t) => {
 //
 
 test("testing deleteOrder", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -849,7 +844,7 @@ test("testing deleteOrder", (t) => {
 //
 
 test("testing createUser", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -902,7 +897,7 @@ test("testing createUser", (t) => {
 //
 
 test("testing createUsersWithArrayInput", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -955,7 +950,7 @@ test("testing createUsersWithArrayInput", (t) => {
 //
 
 test("testing createUsersWithListInput", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -1007,7 +1002,7 @@ test("testing createUsersWithListInput", (t) => {
 //
 
 test("testing loginUser", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -1033,7 +1028,7 @@ test("testing loginUser", (t) => {
 //
 
 test("testing logoutUser", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -1096,7 +1091,7 @@ test("testing logoutUser", (t) => {
 //
 
 test("testing getUserByName", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -1158,7 +1153,7 @@ test("testing getUserByName", (t) => {
 //
 
 test("testing updateUser", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
@@ -1195,7 +1190,7 @@ test("testing updateUser", (t) => {
 //
 
 test("testing deleteUser", (t) => {
-	const fastify = Fastify();
+	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
 	fastify.inject(
