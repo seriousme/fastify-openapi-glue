@@ -3,6 +3,7 @@
 import fastifyPlugin from "fastify-plugin";
 import { Service } from "./service.js";
 import { Security } from "./security.js";
+import { SecurityError } from "./securityHandlers.js";
 
 function notImplemented(operationId) {
 	return async () => {
@@ -39,15 +40,14 @@ function buildPreHandler(securityHandlers, schemes) {
 			schemeList.push(scheme.name);
 		}
 		// if we get this far no security handlers validated this request
-		const err = new Error(
+		throw new SecurityError(
 			`None of the security schemes (${schemeList.join(
 				", ",
 			)}) successfully authenticated this request.`,
+			statusCode,
+			"Unauthorized",
+			handlerErrors,
 		);
-		err.statusCode = statusCode;
-		err.name = "Unauthorized";
-		err.errors = handlerErrors;
-		throw err;
 	};
 }
 
