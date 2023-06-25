@@ -14,11 +14,15 @@
 		},
 		"plugin": {
 			"fileName": "index.js",
-			"checksum": "4081108ec1da6011f82e3969f3c6a5e523f53592f5f9c7c63edb08b208a2a1c5"
+			"checksum": "096699e95b328f92b7d2ef6fbd8587e0faa3641d231f8f7531e9c0b146f62603"
 		},
 		"readme": {
 			"fileName": "README.md",
 			"checksum": "525645f6c7f8244fd91a768c331ef08165d62210fcdd4f80e3f7fa77c272acba"
+		},
+		"securityHandlers": {
+			"fileName": "securityHandlers.js",
+			"checksum": "ae8ceb504f353dbd2ce282d476e26551fa7ea67fc3e4ff6be45f827437452156"
 		},
 		"testPlugin": {
 			"fileName": "test-plugin.js",

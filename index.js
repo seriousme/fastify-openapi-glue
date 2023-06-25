@@ -1,6 +1,6 @@
 import fp from "fastify-plugin";
 import { Parser } from "./lib/Parser.js";
-import Security from "./lib/securityHandlers.js";
+import SecurityHandlers from "./lib/securityHandlers.js";
 
 function checkObject(obj, name) {
 	if (typeof obj === "object" && obj !== null) {
@@ -49,7 +49,7 @@ function createSecurityHandlers(instance, security, config) {
 async function getSecurity(instance, securityHandlers, config) {
 	if (securityHandlers) {
 		checkObject(securityHandlers, "securityHandlers");
-		const security = new Security(securityHandlers);
+		const security = new SecurityHandlers(securityHandlers);
 		if ("initialize" in securityHandlers) {
 			securityHandlers.initialize(config.securitySchemes);
 		}
