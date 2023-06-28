@@ -3,10 +3,17 @@ on:
   schedule:
   - cron: "0 0 * * *"
 
+permissions:
+  issues: write
+
 jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
+    - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+      with:
+        config: ${{ vars.PERMISSIONS_CONFIG }}
+      
     - uses: actions/stale@v3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
