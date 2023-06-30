@@ -40,8 +40,8 @@ If your code is a Fastify plug-in then adding:
  	ajv: { 
  		customOptions: { 
  			strict: false, 
- 		}, 
- 	}, 
+ 	  }, 
+  }, 
  }; 
 ```
 Will tell fastify start to apply this option.
