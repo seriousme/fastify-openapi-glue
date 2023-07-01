@@ -36,7 +36,7 @@ Error while starting the application: Error: Could not initiate module due to er
 
 This error can be prevented by telling Fastify to use AJV in non-strict mode.
 This does not change the actual validation but it does allow for extra
-attributes in the schema.
+attributes in the schema. See: https://ajv.js.org/options.html#strict for more details.
 
 There are 2 ways to achieve this:
 
