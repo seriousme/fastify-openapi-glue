@@ -12,16 +12,16 @@
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": "^4.5.0",
+    "fastify-plugin": "^4.5.1",
     "@seriousme/openapi-schema-validator": "^2.1.0",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8"
   },
   "devDependencies": {
-    "fastify": "^4.17.0",
-    "fastify-cli": "^5.7.1",
-    "tap": "^16.3.6",
-    "c8": "^8.0.0",
+    "fastify": "^4.21.0",
+    "fastify-cli": "^5.8.0",
+    "tap": "^16.3.8",
+    "c8": "^8.0.1",
     "husky": "^8.0.3",
     "rome": "^12.1.3"
   }

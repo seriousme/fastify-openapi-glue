@@ -3,6 +3,16 @@
 ## [Unreleased]
 ### Changed
 
+## [4.3.1] 14-08-2023
+### Changed
+ - fix: make generic parameters work on v2 (swagger) spec
+ - updated dependencies
+    - c8               ^8.0.0  →   ^8.0.1
+    - fastify         ^4.17.0  →  ^4.21.0
+    - fastify-cli      ^5.7.1  →   ^5.8.0
+    - fastify-plugin   ^4.5.0  →   ^4.5.1
+    - tap             ^16.3.6  →  ^16.3.8
+
 ## [4.3.0] 17-06-2023
 ### Changed
  - chore: replaced Tap by Node test
