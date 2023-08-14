@@ -9,6 +9,9 @@ const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 const testSpec = await importJSON("./test-swagger.v2.json");
 const petStoreSpec = await importJSON("./petstore-swagger.v2.json");
 const testSpecYAML = localFile("./test-swagger.v2.yaml");
+const genericPathItemsSpec = await importJSON(
+	"./test-swagger-v2-generic-path-items.json",
+);
 import { Service } from "./service.js";
 const serviceHandlers = new Service();
 
@@ -47,6 +50,11 @@ const missingServiceOpts = {
 
 const petStoreOpts = {
 	specification: petStoreSpec,
+	serviceHandlers,
+};
+
+const genericPathItemsOpts = {
+	specification: genericPathItemsSpec,
 	serviceHandlers,
 };
 
@@ -306,6 +314,38 @@ test("x-fastify-config is applied", (t) => {
 		},
 		() => {
 			assert.ok(true);
+		},
+	);
+});
+
+test("generic path parameters work", (t) => {
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
+
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/pathParam/2",
+		},
+		(err, res) => {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+		},
+	);
+});
+
+test("generic path parameters override works", (t) => {
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
+
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/noParam",
+		},
+		(err, res) => {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
 		},
 	);
 });
