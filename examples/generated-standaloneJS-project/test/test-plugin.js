@@ -183,6 +183,14 @@ test("testing updatePet", (t) => {
 //     status:
 //       description: Status values that need to be considered for filter
 //       type: array
+//       items:
+//         type: string
+//         enum:
+//           - available
+//           - pending
+//           - sold
+//         default: available
+//       collectionFormat: multi
 //   required:
 //     - status
 //
@@ -275,6 +283,9 @@ test("testing findPetsByStatus", (t) => {
 //     tags:
 //       description: Tags to filter by
 //       type: array
+//       items:
+//         type: string
+//       collectionFormat: multi
 //   required:
 //     - tags
 //
@@ -367,6 +378,7 @@ test("testing findPetsByTags", (t) => {
 //     petId:
 //       description: ID of pet to return
 //       type: integer
+//       format: int64
 //   required:
 //     - petId
 //
@@ -459,6 +471,7 @@ test("testing getPetById", (t) => {
 //     petId:
 //       description: ID of pet that needs to be updated
 //       type: integer
+//       format: int64
 //   required:
 //     - petId
 //
@@ -510,6 +523,7 @@ test("testing updatePetWithForm", (t) => {
 //     petId:
 //       description: Pet id to delete
 //       type: integer
+//       format: int64
 //   required:
 //     - petId
 //
@@ -547,6 +561,7 @@ test("testing deletePet", (t) => {
 //     petId:
 //       description: ID of pet to update
 //       type: integer
+//       format: int64
 //   required:
 //     - petId
 //
@@ -716,6 +731,9 @@ test("testing placeOrder", (t) => {
 //     orderId:
 //       description: ID of pet that needs to be fetched
 //       type: integer
+//       maximum: 10
+//       minimum: 1
+//       format: int64
 //   required:
 //     - orderId
 //
@@ -782,6 +800,8 @@ test("testing getOrderById", (t) => {
 //     orderId:
 //       description: ID of the order that needs to be deleted
 //       type: integer
+//       minimum: 1
+//       format: int64
 //   required:
 //     - orderId
 //

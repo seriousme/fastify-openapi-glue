@@ -231,6 +231,12 @@ async function generateRoutes(fastify, opts) {
 					status: {
 						description: "Status values that need to be considered for filter",
 						type: "array",
+						items: {
+							type: "string",
+							enum: ["available", "pending", "sold"],
+							default: "available",
+						},
+						collectionFormat: "multi",
 					},
 				},
 				required: ["status"],
@@ -252,6 +258,10 @@ async function generateRoutes(fastify, opts) {
 					tags: {
 						description: "Tags to filter by",
 						type: "array",
+						items: {
+							type: "string",
+						},
+						collectionFormat: "multi",
 					},
 				},
 				required: ["tags"],
@@ -273,6 +283,7 @@ async function generateRoutes(fastify, opts) {
 					petId: {
 						description: "ID of pet to return",
 						type: "integer",
+						format: "int64",
 					},
 				},
 				required: ["petId"],
@@ -307,6 +318,7 @@ async function generateRoutes(fastify, opts) {
 					petId: {
 						description: "ID of pet that needs to be updated",
 						type: "integer",
+						format: "int64",
 					},
 				},
 				required: ["petId"],
@@ -328,6 +340,7 @@ async function generateRoutes(fastify, opts) {
 					petId: {
 						description: "Pet id to delete",
 						type: "integer",
+						format: "int64",
 					},
 				},
 				required: ["petId"],
@@ -362,6 +375,7 @@ async function generateRoutes(fastify, opts) {
 					petId: {
 						description: "ID of pet to update",
 						type: "integer",
+						format: "int64",
 					},
 				},
 				required: ["petId"],
@@ -434,6 +448,9 @@ async function generateRoutes(fastify, opts) {
 					orderId: {
 						description: "ID of pet that needs to be fetched",
 						type: "integer",
+						maximum: 10,
+						minimum: 1,
+						format: "int64",
 					},
 				},
 				required: ["orderId"],
@@ -452,6 +469,8 @@ async function generateRoutes(fastify, opts) {
 					orderId: {
 						description: "ID of the order that needs to be deleted",
 						type: "integer",
+						minimum: 1,
+						format: "int64",
 					},
 				},
 				required: ["orderId"],
