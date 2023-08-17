@@ -148,6 +148,14 @@ export class Service {
 	//     status:
 	//       description: Status values that need to be considered for filter
 	//       type: array
+	//       items:
+	//         type: string
+	//         enum:
+	//           - available
+	//           - pending
+	//           - sold
+	//         default: available
+	//       collectionFormat: multi
 	//   required:
 	//     - status
 	//
@@ -227,6 +235,9 @@ export class Service {
 	//     tags:
 	//       description: Tags to filter by
 	//       type: array
+	//       items:
+	//         type: string
+	//       collectionFormat: multi
 	//   required:
 	//     - tags
 	//
@@ -306,6 +317,7 @@ export class Service {
 	//     petId:
 	//       description: ID of pet to return
 	//       type: integer
+	//       format: int64
 	//   required:
 	//     - petId
 	//
@@ -385,6 +397,7 @@ export class Service {
 	//     petId:
 	//       description: ID of pet that needs to be updated
 	//       type: integer
+	//       format: int64
 	//   required:
 	//     - petId
 	//
@@ -423,6 +436,7 @@ export class Service {
 	//     petId:
 	//       description: Pet id to delete
 	//       type: integer
+	//       format: int64
 	//   required:
 	//     - petId
 	//
@@ -447,6 +461,7 @@ export class Service {
 	//     petId:
 	//       description: ID of pet to update
 	//       type: integer
+	//       format: int64
 	//   required:
 	//     - petId
 	//
@@ -577,6 +592,9 @@ export class Service {
 	//     orderId:
 	//       description: ID of pet that needs to be fetched
 	//       type: integer
+	//       maximum: 10
+	//       minimum: 1
+	//       format: int64
 	//   required:
 	//     - orderId
 	//
@@ -630,6 +648,8 @@ export class Service {
 	//     orderId:
 	//       description: ID of the order that needs to be deleted
 	//       type: integer
+	//       minimum: 1
+	//       format: int64
 	//   required:
 	//     - orderId
 	//

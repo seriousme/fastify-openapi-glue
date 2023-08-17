@@ -349,3 +349,22 @@ test("generic path parameters override works", (t) => {
 		},
 	);
 });
+
+test("schema attributes for non-body parameters work", (t) => {
+	const fastify = Fastify(noStrict);
+	fastify.register(fastifyOpenapiGlue, petStoreOpts);
+	fastify.inject(
+		{
+			method: "GET",
+			url: "v2/store/order/11",
+		},
+		(err, res) => {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 400);
+			const parsedBody = JSON.parse(res.body);
+			assert.equal(parsedBody.statusCode, 400);
+			assert.equal(parsedBody.error, "Bad Request");
+			assert.equal(parsedBody.message, "params/orderId must be <= 10");
+		},
+	);
+});

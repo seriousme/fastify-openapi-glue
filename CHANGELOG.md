@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.3.2] 17-08-2023
+### Changed
+ - fix: make additional validation for v2 non-body parameters work
+
 ## [4.3.1] 14-08-2023
 ### Changed
  - fix: make generic parameters work on v2 (swagger) spec
