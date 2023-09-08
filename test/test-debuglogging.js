@@ -1,9 +1,9 @@
+import { createRequire } from "module";
+import { strict as assert } from "node:assert/strict";
 // just test the basics to aid debugging
 import { test } from "node:test";
-import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from "module";
 const importJSON = createRequire(import.meta.url);
 import { Writable } from "stream";
 

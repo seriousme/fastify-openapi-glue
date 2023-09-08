@@ -2,9 +2,9 @@
 
 import { basename, resolve } from "path";
 import { fileURLToPath } from "url";
-import { Generator } from "../lib/generator.js";
 import argvParser from "minimist";
 import { exit } from "process";
+import { Generator } from "../lib/generator.js";
 const __filename = fileURLToPath(import.meta.url);
 
 const validTypes = new Set(["javascript", "standaloneJS"]);

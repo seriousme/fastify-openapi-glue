@@ -2,8 +2,8 @@
 // running the tests directly after generation will probably fail as the parameters
 // need to be manually added.
 
-import { test } from "node:test";
 import { strict as assert } from "node:assert/strict";
+import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyPlugin from "../index.js";
 import service from "../service.js";

@@ -1,6 +1,6 @@
+import { strict as assert } from "node:assert/strict";
 // this suite tests the examples shown in README.md
 import { test } from "node:test";
-import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 import petstoreExample, { options } from "../examples/petstore/index.js";
 

@@ -1,6 +1,6 @@
+import { strict as assert } from "node:assert/strict";
 // just test the basics to aid debugging
 import { test } from "node:test";
-import { strict as assert } from "node:assert/strict";
 import Fastify from "fastify";
 
 const opts = {

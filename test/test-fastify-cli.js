@@ -1,8 +1,8 @@
-// test fastify-cli as used by the npm start script
-import { fileURLToPath, URL } from "url";
-import { build } from "fastify-cli/helper.js";
-import { test, after } from "node:test";
 import { strict as assert } from "node:assert/strict";
+import { after, test } from "node:test";
+// test fastify-cli as used by the npm start script
+import { URL, fileURLToPath } from "url";
+import { build } from "fastify-cli/helper.js";
 
 function localFile(fileName) {
 	return fileURLToPath(new URL(fileName, import.meta.url));
