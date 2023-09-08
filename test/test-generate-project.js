@@ -1,7 +1,7 @@
-import { test } from "node:test";
-import { strict as assert } from "node:assert/strict";
-import { Generator } from "../lib/generator.js";
 import { createRequire } from "module";
+import { strict as assert } from "node:assert/strict";
+import { test } from "node:test";
+import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;

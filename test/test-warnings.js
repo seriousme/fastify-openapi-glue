@@ -1,8 +1,8 @@
-import { test } from "node:test";
+import { createRequire } from "module";
 import { strict as assert } from "node:assert/strict";
+import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-import { createRequire } from "module";
 import { Service } from "./service.js";
 
 const service = new Service();

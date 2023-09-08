@@ -3,7 +3,8 @@
 		"enabled": true,
 		"ignore": ["coverage"],
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": { "useLiteralKeys": "off" }
 		}
 	},
 	"formatter": {

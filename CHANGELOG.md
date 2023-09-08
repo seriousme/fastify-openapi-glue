@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - chore: replace Rome by Biome
 
 ## [4.3.2] 17-08-2023
 ### Changed

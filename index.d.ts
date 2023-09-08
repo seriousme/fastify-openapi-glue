@@ -2,8 +2,8 @@
 
 import {
 	FastifyPluginAsync,
-	FastifyRequest,
 	FastifyReply,
+	FastifyRequest,
 	RouteOptions,
 } from "fastify";
 
