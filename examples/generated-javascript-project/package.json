@@ -13,17 +13,17 @@
   },
   "dependencies": {
     "fastify-plugin": "^4.5.1",
-    "@seriousme/openapi-schema-validator": "^2.1.0",
+    "@seriousme/openapi-schema-validator": "^2.1.1",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
     "fastify-openapi-glue": "^4.3.2"
   },
   "devDependencies": {
-    "fastify": "^4.21.0",
+    "fastify": "^4.23.1",
     "fastify-cli": "^5.8.0",
     "tap": "",
     "c8": "^8.0.1",
-    "@biomejs/biome": "^1.0.0",
+    "@biomejs/biome": "^1.1.2",
     "husky": "^8.0.3"
   }
 }

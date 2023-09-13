@@ -2,9 +2,15 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.3.3] 13-09-2023
+### Changed
  - chore: replace Rome by Biome
  - fix: removed tap as a dependency
  - fix: replaced deprecated routeOption and routeSchema in documentation and tests
+ - updated dependencies
+    - @seriousme/openapi-schema-validator   ^2.1.0  →   ^2.1.1
+    - fastify                              ^4.21.0  →  ^4.23.1
 
 ## [4.3.2] 17-08-2023
 ### Changed
