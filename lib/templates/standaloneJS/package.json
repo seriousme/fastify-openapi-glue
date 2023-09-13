@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "fastify start --options index.js",
-    "test": "c8 tap test/test-*.js",
+    "test": "c8 node --test test/test-*.js",
     "dev": "fastify start -l info -P --options index.js"
   },
   "directories": {

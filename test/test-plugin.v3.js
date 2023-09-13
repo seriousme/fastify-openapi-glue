@@ -471,8 +471,8 @@ test("V3.0.3 definition does not throw error", (t) => {
 
 test("x- props are copied", (t) => {
 	const fastify = Fastify();
-	fastify.addHook("preHandler", async (request, reply) => {
-		if (request.routeSchema["x-tap-ok"]) {
+	fastify.addHook("preHandler", (request, reply) => {
+		if (request.routeOptions.schema["x-tap-ok"]) {
 			assert.ok(true, "found x- prop");
 		} else {
 			assert.fail("missing x- prop");
@@ -498,7 +498,11 @@ test("x-fastify-config is applied", (t) => {
 		...opts,
 		serviceHandlers: {
 			operationWithFastifyConfigExtension: (req, reply) => {
-				assert.equal(req.routeConfig.rawBody, true, "config.rawBody is true");
+				assert.equal(
+					req.routeOptions.config.rawBody,
+					true,
+					"config.rawBody is true",
+				);
 				return reply;
 			},
 		},

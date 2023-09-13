@@ -45,7 +45,7 @@ test("operationResolver route params overwrite default params", (t) => {
 			return {
 				config: { foo: "bar" },
 				handler: async (req) => {
-					return req.routeConfig;
+					return req.routeOptions.config;
 				},
 			};
 		},
