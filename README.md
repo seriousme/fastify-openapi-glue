@@ -77,7 +77,7 @@ The following extensions are provided by the plugin:
             description: Webhook processed successfully
   ```
 
-You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.routeConfig`. Extensions specified on a schema are also accessible (e.g., `routeSchema.body` or `routeSchema.responses[<statusCode>]`).
+You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.routeOptions.config`. Extensions specified on a schema are also accessible (e.g., `routeOptions.schema.body` or `routeOptions.schema.responses[<statusCode>]`).
 
 <a name="generator"></a>
 ## Generator
