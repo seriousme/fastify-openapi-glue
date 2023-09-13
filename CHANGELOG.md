@@ -3,6 +3,8 @@
 ## [Unreleased]
 ### Changed
  - chore: replace Rome by Biome
+ - fix: removed tap as a dependency
+ - fix: replaced deprecated routeOption and routeSchema in documentation and tests
 
 ## [4.3.2] 17-08-2023
 ### Changed
