@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "fastify start --options index.js",
-    "test": "c8 tap test/test-*.js",
+    "test": "c8 node --test test/test-*.js",
     "dev": "fastify start -l info -P --options index.js"
   },
   "directories": {
@@ -20,9 +20,9 @@
   "devDependencies": {
     "fastify": "^4.21.0",
     "fastify-cli": "^5.8.0",
-    "tap": "^16.3.8",
+    "tap": "",
     "c8": "^8.0.1",
-    "husky": "^8.0.3",
-    "@biomejs/biome": "^1.0.0"
+    "@biomejs/biome": "^1.0.0",
+    "husky": "^8.0.3"
   }
 }
