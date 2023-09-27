@@ -57,6 +57,10 @@ export const options = {
 Will tell fastify start to apply this option. See:
 [examples/petstore/index.js](../examples/petstore/index.js)
 
+Make sure that you start your plugin using `--options`, e.g.: `fastify start --options <your plugin>`, or else the options won't be loaded.
+
+See also: also https://github.com/fastify/fastify-cli/#options.
+
 ### Fastify factory
 
 If you are setting up fastify in your own code then you can pass the non-strict
