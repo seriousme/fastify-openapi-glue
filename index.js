@@ -51,7 +51,7 @@ async function getSecurity(instance, securityHandlers, config) {
 		checkObject(securityHandlers, "securityHandlers");
 		const security = new SecurityHandlers(securityHandlers);
 		if ("initialize" in securityHandlers) {
-			securityHandlers.initialize(config.securitySchemes);
+			await securityHandlers.initialize(config.securitySchemes);
 		}
 		createSecurityHandlers(instance, security, config);
 		return security;

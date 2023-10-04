@@ -4,7 +4,7 @@
 The [OpenApi](https://www.openapis.org/) `Operation` object allows for security requirements that specify which security scheme(s) should be applied to this operation. OpenApi also allows for global security requirements via the `/components/security` property (v3) or the `/security` property (v2).
 
 You can specify your own securityHandlers with the `securityHandlers` option.
-If the provided object has an `initialize` function then fastify-openapi-glue will call this function with the `/components/securitySchemes` property (v3) or the `/securityDefinitions` property (v2) of the specification provided.
+If the provided object has an async `initialize` function then fastify-openapi-glue will call this function with the `/components/securitySchemes` property (v3) or the `/securityDefinitions` property (v2) of the specification provided.
 
 ### Example
 

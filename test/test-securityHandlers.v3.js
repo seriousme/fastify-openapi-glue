@@ -170,7 +170,7 @@ test("initalization of securityHandlers succeeds", (t) => {
 		specification: testSpec,
 		serviceHandlers,
 		securityHandlers: {
-			initialize: (securitySchemes) => {
+			initialize: async (securitySchemes) => {
 				const securitySchemeFromSpec = JSON.stringify(
 					testSpec.components.securitySchemes,
 				);
