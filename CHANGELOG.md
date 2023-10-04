@@ -3,6 +3,15 @@
 ## [Unreleased]
 ### Changed
 
+## [4.4.0] 04-10-2023
+### Changed
+ - feat: Make initialize on Security Handlers async (AlexBroadbent)
+ - updated dependencies
+    - @biomejs/biome                        ^1.1.2  →   ^1.2.2
+    - @seriousme/openapi-schema-validator   ^2.1.1  →   ^2.1.2
+    - fastify                              ^4.23.1  →  ^4.23.2
+
+
 ## [4.3.3] 13-09-2023
 ### Changed
  - chore: replace Rome by Biome
