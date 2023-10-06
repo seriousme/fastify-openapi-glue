@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.4.1] 06-10-2023
+### Changed
+ - no change, fixing latest tag on npmjs
+
 ## [4.4.0] 04-10-2023
 ### Changed
  - feat: Make initialize on Security Handlers async (AlexBroadbent)
@@ -154,6 +158,8 @@
  - Service and Securityhandlers options can now only be an object or a class instance and no longer a filename or a function.
 
 See [UPGRADING.md](UPGRADING.md) for more details on how to upgrade.
+## [2.8.0] - 06-10-2023
+ - Feat: backport async security initializer from 4.4.0
 
 ## [2.7.2] - 07-06-2022
 ### Changed
