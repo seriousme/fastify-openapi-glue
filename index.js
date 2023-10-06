@@ -36,7 +36,7 @@ async function getSecurityHandlers(opts, config) {
     securityHandlers = await getObject(opts.securityHandlers, 'securityHandlers');
     security = new Security(securityHandlers);
     if ("initialize" in securityHandlers) {
-      securityHandlers.initialize(config.securitySchemes);
+      await securityHandlers.initialize(config.securitySchemes);
     }
   }
   return { securityHandlers, security };

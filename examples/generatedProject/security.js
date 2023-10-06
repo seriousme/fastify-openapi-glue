@@ -3,7 +3,7 @@
 class Security {
   constructor() {}
 
-  initialize(schemes){
+  async initialize(schemes){
     // schemes will contain securitySchemes as found in the openapi specification
     console.log("Initialize:", JSON.stringify(schemes));
   }

@@ -4,6 +4,9 @@
 ### Changed
  - Migrated to ES Modules format
 
+## [2.8.0] - 06-10-2023
+ - Feat: backport async security initializer from 4.4.0
+ 
 ## [2.7.2] - 07-06-2022
  - Fix Typescript definition
 
