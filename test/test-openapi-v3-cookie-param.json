@@ -1,0 +1,35 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"url": "http://localhost/v2"
+		}
+	],
+	"info": {
+		"title": "Test specification",
+		"description": "testing the fastify openapi glue",
+		"version": "0.1.0"
+	},
+	"paths": {
+		"/cookieParam": {
+			"get": {
+				"operationId": "getCookieParam",
+				"summary": "Test cookie parameters",
+				"parameters": [
+					{
+						"in": "cookie",
+						"name": "cookieValue",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ok"
+					}
+				}
+			}
+		}
+	}
+}
