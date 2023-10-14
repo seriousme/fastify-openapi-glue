@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.4.2] 14-10-2023
+### Changed
+ - fix: add warning for OpenAPI v3 cookie parameters
+
 ## [4.4.1] 06-10-2023
 ### Changed
  - no change, fixing latest tag on npmjs
