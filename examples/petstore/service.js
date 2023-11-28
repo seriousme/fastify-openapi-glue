@@ -7,15 +7,14 @@ export class Service {
 			// missing required data on purpose !
 			// this will trigger a server error on serialization
 			return { pet: "Doggie the dog" };
-		} else {
-			return {
-				id: req.params.petId,
-				name: "Kitty the cat",
-				photoUrls: [
-					"https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg",
-				],
-				status: "available",
-			};
 		}
+		return {
+			id: req.params.petId,
+			name: "Kitty the cat",
+			photoUrls: [
+				"https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg",
+			],
+			status: "available",
+		};
 	}
 }
