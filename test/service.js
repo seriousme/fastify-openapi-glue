@@ -190,9 +190,8 @@ export class Service {
 	async getResponse(req) {
 		if (req.query.replyType === "valid") {
 			return { response: "test data" };
-		} else {
-			return { invalid: 1 };
 		}
+		return { invalid: 1 };
 	}
 
 	// Operation: testOperationSecurity

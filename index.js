@@ -24,7 +24,7 @@ function notImplemented(operationId) {
 }
 
 function defaultOperationResolver(routesInstance, serviceHandlers) {
-	return function (operationId) {
+	return (operationId) => {
 		if (operationId in serviceHandlers) {
 			routesInstance.log.debug(`serviceHandlers has '${operationId}'`);
 			return serviceHandlers[operationId].bind(serviceHandlers);

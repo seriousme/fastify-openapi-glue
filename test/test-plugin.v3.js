@@ -75,7 +75,7 @@ const noServiceNoResolver = {
 const withOperationResolver = {
 	specification: testSpec,
 	operationResolver() {
-		return function (req, reply) {
+		return (req, reply) => {
 			reply.send("ok");
 		};
 	},
@@ -85,7 +85,7 @@ const withOperationResolverUsingMethodPath = {
 	specification: testSpec,
 	operationResolver(_operationId, method) {
 		const result = method === "GET" ? "ok" : "notOk";
-		return function (req, reply) {
+		return (req, reply) => {
 			reply.send(result);
 		};
 	},
@@ -398,9 +398,7 @@ test("full pet store V3 definition does not throw error ", (t) => {
 	fastify.addContentTypeParser(
 		"application/xml",
 		{ parseAs: "string" },
-		function (req, body) {
-			return body;
-		},
+		(req, body) => body,
 	);
 	fastify.register(fastifyOpenapiGlue, petStoreOpts);
 	fastify.ready((err) => {
