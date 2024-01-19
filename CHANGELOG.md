@@ -3,6 +3,16 @@
 ## [Unreleased]
 ### Changed
 
+## [4.4.3] 19-01-2024
+### Changed
+ - fix: add warning for OpenAPI v3 cookie parameters
+ - updated dependencies
+    - @biomejs/biome                        ^1.2.2  →   ^1.5.2
+    - @seriousme/openapi-schema-validator   ^2.1.2  →   ^2.1.5
+    - c8                                    ^9.0.0  →   ^9.1.0
+    - fastify                              ^4.23.2  →  ^4.25.2
+    - fastify-cli                           ^6.0.0  →   ^6.0.1
+
 ## [4.4.2] 14-10-2023
 ### Changed
  - fix: add warning for OpenAPI v3 cookie parameters
