@@ -44,4 +44,24 @@ will return errors originating from the securityHandlers as well in `err.errors`
 
 You can use `err.errors` also to trigger other behaviour in a registered error handler.
 
+Using multiple securityHandlers it is possible to use AND and OR logic:
+E.g.: 
+```json
+...
+          {
+            "petstore_auth1": [
+              "read:pets"
+            ],
+            "petstore_auth2": [
+              "read:pets"
+            ],
+          },
+          {
+            "petstore_auth3": [
+              "read:pets"
+            ],
+          },
+```
+means that authorization is granted if `((petstore_auth1("read:pets") AND petstore_auth2("read:pets")) OR (petstore_auth3("read:pets")))` returns without error.
+
 For a more elaborate example see the [examples/generated-javascript-project](/examples/generated-javascript-project) folder.
