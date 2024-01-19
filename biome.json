@@ -1,13 +1,12 @@
 {
+	"files": {
+		"ignore": ["coverage"]
+	},
 	"linter": {
 		"enabled": true,
-		"ignore": ["coverage"],
 		"rules": {
 			"recommended": true,
 			"complexity": { "useLiteralKeys": "off" }
 		}
-	},
-	"formatter": {
-		"ignore": ["coverage"]
 	}
 }
