@@ -137,7 +137,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "addPet").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -217,7 +217,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "updatePet").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -244,7 +244,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "findPetsByStatus").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -269,7 +269,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "findPetsByTags").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -290,9 +290,7 @@ async function generateRoutes(fastify, opts) {
 			},
 		},
 		handler: buildHandler(service, "getPetById").bind(Service),
-		prehandler: buildPreHandler(security, [
-			[{ name: "api_key", parameters: [] }],
-		]).bind(Security),
+		prehandler: buildPreHandler(security, [{ api_key: [] }]).bind(Security),
 	});
 
 	fastify.route({
@@ -326,7 +324,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "updatePetWithForm").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -348,7 +346,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "deletePet").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -383,7 +381,7 @@ async function generateRoutes(fastify, opts) {
 		},
 		handler: buildHandler(service, "uploadFile").bind(Service),
 		prehandler: buildPreHandler(security, [
-			[{ name: "petstore_auth", parameters: ["write:pets", "read:pets"] }],
+			{ petstore_auth: ["write:pets", "read:pets"] },
 		]).bind(Security),
 	});
 
@@ -392,9 +390,7 @@ async function generateRoutes(fastify, opts) {
 		url: "/store/inventory",
 		schema: {},
 		handler: buildHandler(service, "getInventory").bind(Service),
-		prehandler: buildPreHandler(security, [
-			[{ name: "api_key", parameters: [] }],
-		]).bind(Security),
+		prehandler: buildPreHandler(security, [{ api_key: [] }]).bind(Security),
 	});
 
 	fastify.route({

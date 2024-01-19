@@ -23,23 +23,17 @@ export default class SecurityHandlers {
 		}
 		const mapKey = JSON.stringify(schemes);
 		if (!this.handlerMap.has(mapKey)) {
-			const processedSchemesList = [];
 			for (const schemeList of schemes) {
-				const processedSchemes = [];
-				if (schemeList?.length > 0) {
-					for (const scheme of schemeList) {
-						if (!(scheme.name in this.handlers)) {
-							this.handlers[scheme.name] = () => {
-								throw `Missing handler for "${scheme.name}" validation`;
-							};
-							this.missingHandlers.push(scheme.name);
-						}
-						processedSchemes.push(scheme);
+				for (const name in schemeList) {
+					if (!(name in this.handlers)) {
+						this.handlers[name] = () => {
+							throw `Missing handler for "${name}" validation`;
+						};
+						this.missingHandlers.push(name);
 					}
 				}
-				processedSchemesList.push(processedSchemes);
 			}
-			this.handlerMap.set(mapKey, this._buildHandler(processedSchemesList));
+			this.handlerMap.set(mapKey, this._buildHandler(schemes));
 		}
 		return this.handlerMap.has(mapKey);
 	}
@@ -65,17 +59,18 @@ export default class SecurityHandlers {
 			const schemeListDone = [];
 			let statusCode = 401;
 			for (const schemeList of schemes) {
-				let scheme;
+				let name;
 				const andList = [];
 				try {
-					for (scheme of schemeList) {
-						andList.push(scheme.name);
+					for (name in schemeList) {
+						const parameters = schemeList[name];
+						andList.push(name);
 						// all the handlers in a scheme list must succeed
-						await securityHandlers[scheme.name](req, reply, scheme.parameters);
+						await securityHandlers[name](req, reply, parameters);
 					}
 					return; // If one list of schemes passes, no need to try any others
 				} catch (err) {
-					req.log.debug(`Security handler '${scheme.name}' failed: '${err}'`);
+					req.log.debug(`Security handler '${name}' failed: '${err}'`);
 					handlerErrors.push(err);
 					if (err.statusCode !== undefined) {
 						statusCode = err.statusCode;
