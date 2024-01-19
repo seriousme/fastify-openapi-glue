@@ -267,7 +267,7 @@
 		"/operationSecurity": {
 			"get": {
 				"operationId": "testOperationSecurity",
-				"summary": "Test security handling",
+				"summary": "Test security handling OR functionality",
 				"security": [
 					{
 						"api_key": []
@@ -277,6 +277,40 @@
 					},
 					{
 						"failing": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/responseObject"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "unauthorized",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/errorObject"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/operationSecurityUsingAnd": {
+			"get": {
+				"operationId": "testOperationSecurityUsingAnd",
+				"summary": "Test security handling AND functionality",
+				"security": [
+					{
+						"api_key": ["and"],
+						"skipped": ["works"]
 					}
 				],
 				"responses": {

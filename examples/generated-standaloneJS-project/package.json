@@ -19,9 +19,9 @@
   },
   "devDependencies": {
     "fastify": "^4.23.2",
-    "fastify-cli": "^5.8.0",
+    "fastify-cli": "^6.0.0",
     "tap": "",
-    "c8": "^8.0.1",
+    "c8": "^9.0.0",
     "@biomejs/biome": "^1.2.2",
     "husky": "^8.0.3"
   }

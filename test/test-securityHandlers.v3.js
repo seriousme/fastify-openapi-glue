@@ -71,7 +71,7 @@ test("security preHandler throws error", (t) => {
 	);
 });
 
-test("security preHandler passes on succes", (t) => {
+test("security preHandler passes on succes using OR", (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -94,6 +94,62 @@ test("security preHandler passes on succes", (t) => {
 			assert.ifError(err);
 			assert.equal(res.statusCode, 200);
 			assert.equal(res.statusMessage, "OK");
+		},
+	);
+});
+
+test("security preHandler passes on succes using AND", (t) => {
+	const result = {};
+	const opts = {
+		specification: testSpec,
+		serviceHandlers,
+		securityHandlers: {
+			api_key: securityHandlers.goodAuthCheck,
+			skipped: securityHandlers.goodAuthCheck,
+			failing: securityHandlers.failingAuthCheck,
+		},
+	};
+
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, opts);
+
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/operationSecurityUsingAnd",
+		},
+		(err, res) => {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 200);
+			assert.equal(res.statusMessage, "OK");
+			assert.equal(res.body, '{"response":"Authentication succeeded!"}');
+		},
+	);
+});
+
+test("security preHandler fails correctly on failure using AND", (t) => {
+	const opts = {
+		specification: testSpec,
+		serviceHandlers,
+		securityHandlers: {
+			api_key: securityHandlers.failingAuthCheck,
+			skipped: securityHandlers.goodAuthCheck,
+			failing: securityHandlers.failingAuthCheck,
+		},
+	};
+
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, opts);
+
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/operationSecurityUsingAnd",
+		},
+		(err, res) => {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 401);
+			assert.equal(res.statusMessage, "Unauthorized");
 		},
 	);
 });

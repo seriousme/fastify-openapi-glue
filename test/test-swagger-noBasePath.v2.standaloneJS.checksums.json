@@ -22,7 +22,7 @@
 		},
 		"securityHandlers": {
 			"fileName": "securityHandlers.js",
-			"checksum": "ae8ceb504f353dbd2ce282d476e26551fa7ea67fc3e4ff6be45f827437452156"
+			"checksum": "285e187c9dec60a54cbc651faef6a13aa82e0f2919cc14be5b2edacd42c0db6c"
 		},
 		"testPlugin": {
 			"fileName": "test-plugin.js",
