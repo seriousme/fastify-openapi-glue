@@ -6,6 +6,7 @@
 ## [4.4.3] 19-01-2024
 ### Changed
  - fix: add warning for OpenAPI v3 cookie parameters
+ - fix: remove last traces of TAP from generator templates
  - updated dependencies
     - @biomejs/biome                        ^1.2.2  →   ^1.5.2
     - @seriousme/openapi-schema-validator   ^2.1.2  →   ^2.1.5
