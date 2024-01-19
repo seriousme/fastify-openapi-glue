@@ -13,17 +13,16 @@
   },
   "dependencies": {
     "fastify-plugin": "^4.5.1",
-    "@seriousme/openapi-schema-validator": "^2.1.2",
+    "@seriousme/openapi-schema-validator": "^2.1.5",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
     "fastify-openapi-glue": "^4.4.2"
   },
   "devDependencies": {
-    "fastify": "^4.23.2",
-    "fastify-cli": "^5.8.0",
-    "tap": "",
-    "c8": "^8.0.1",
-    "@biomejs/biome": "^1.2.2",
+    "fastify": "^4.25.2",
+    "fastify-cli": "^6.0.1",
+    "c8": "^9.1.0",
+    "@biomejs/biome": "^1.5.2",
     "husky": "^8.0.3"
   }
 }
