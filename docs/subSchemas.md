@@ -3,9 +3,15 @@
 ## Using subschemas
 
 Sometimes a specification is composed of multiple files that each contain parts
-of the specification. The specification refers to these sub specifications using
+of the specification. The specification refers to these subspecifications using
 `external references`. Since references are based on URI's (so `Identifier` and not
-`Location` as in URL's!) there needs to be a way to resolve those as they are not automatically resolved. 
+`Location` as in URL's!) there needs to be a way to resolve those as they are not automatically resolved. A `$ref` does not automatically include the file it is pointing at, it merely points at another schema.
+
+So when you write:
+`$ref: './schemas/aws/SomeSchema.json'`
+It will try to find a piece of schema with `$id: './schemas/aws/SomeSchema.json'` (e.g. in the same file) where $id contains the URI instead of trying to load a schema from `./schemas/aws/SomeSchema.json`.
+
+The JSON schema specification has a page on [schema structuring](https://json-schema.org/understanding-json-schema/structuring) that explains it in more detail.
 
 One way to integrate these subschemas into one single schema is by using [@seriousme/openapi-schema-validator](https://github.com/seriousme/openapi-schema-validator).
 
