@@ -13,7 +13,7 @@ It aims at facilitating ["design first" API development](https://swagger.io/blog
 <a name="upgrading"></a>
 ## Upgrading
 
-If you are upgrading from a previous major version of `fastify-openapi-glue` then please checkout [UPGRADING.md](UPGRADING.md).
+If you are upgrading from a previous major version of `fastify-openapi-glue` then please check out [UPGRADING.md](UPGRADING.md).
 
 <a name="install"></a>
 ## Install 
@@ -170,7 +170,8 @@ The folder [examples/generated-javascript-project](examples/generated-javascript
 - the plugin aims to follow fastify and does not compensate for features that are possible according to the OpenApi specification but not possible in standard fastify (without plugins). This will keep the plugin lightweigth and maintainable. E.g. Fastify does not support cookie validation, while OpenApi v3 does.
 - if you have special needs on querystring handling (e.g. arrays, objects etc) then fastify supports a [custom querystring parser](https://www.fastify.io/docs/latest/Server/#querystringparser). You might need to pass the AJV option `coerceTypes: 'array'` as an option to Fastify.
 - the plugin is an ECMAscript Module (aka ESM). If you are using Typescript then make sure that you have read: https://www.typescriptlang.org/docs/handbook/esm-node.html to avoid any confusion.
-- Fastify uses AJV strict mode in validating schemas. If you get an error like `....due to error strict mode: unknown keyword: "..."` then please checkout the page on [AJV strict mode](docs/AJVstrictMode.md) 
+- If you want to use a specification that consists of multiple file then please check out the page on [sub schemas](docs/subSchemas.md) 
+- Fastify uses AJV strict mode in validating schemas. If you get an error like `....due to error strict mode: unknown keyword: "..."` then please check out the page on [AJV strict mode](docs/AJVstrictMode.md) 
 <a name="Contributing"></a>
 ## Contributing
 - contributions are always welcome. 

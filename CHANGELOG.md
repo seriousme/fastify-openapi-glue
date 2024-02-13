@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - update: added a note on using sub schemas to the documentation
 
 ## [4.4.3] 19-01-2024
 ### Changed
