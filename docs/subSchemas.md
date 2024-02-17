@@ -38,6 +38,7 @@ And the reference is in `sub-spec.yaml`, containing:
 
 ```yaml
 $id: 'http://www.example.com/subspec'
+
 components:
   requestBodies:
     Pet:
@@ -62,8 +63,7 @@ or using code:
 ```javascript
 import { Validator } from "@seriousme/openapi-schema-validator";
 const validator = new Validator();
-await validator.addSpecRef("./sub-spec.yaml", "http://www.example.com/subspec");
-const res = await validator.validate("./main-spec.yaml");
+const res = await validatorBundle.validate("./main-spec.yaml", "./sub-spec.yaml"]);
 // res now contains the results of the validation across main-spec and sub-spec
 const specification = validator.specification;
 // specification now contains a Javascript object containing the specification
