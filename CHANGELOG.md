@@ -2,7 +2,13 @@
 
 ## [Unreleased]
 ### Changed
- - update: added a note on using sub schemas to the documentation
+ - update: added a note on using subschemas to the documentation
+ - chore: removed husky as a dependency
+ - updated dependencies
+    - @biomejs/biome                        ^1.5.2  →   ^1.5.3
+    - @seriousme/openapi-schema-validator   ^2.1.5  →   ^2.2.1
+    - fastify                              ^4.25.2  →  ^4.26.1
+    - fastify-cli                           ^6.0.1  →   ^6.1.1
 
 ## [4.4.3] 19-01-2024
 ### Changed

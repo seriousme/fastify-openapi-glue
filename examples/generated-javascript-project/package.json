@@ -16,13 +16,12 @@
     "@seriousme/openapi-schema-validator": "^2.1.5",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
-    "fastify-openapi-glue": "^4.4.2"
+    "fastify-openapi-glue": "^4.4.3"
   },
   "devDependencies": {
     "fastify": "^4.25.2",
     "fastify-cli": "^6.0.1",
     "c8": "^9.1.0",
-    "@biomejs/biome": "^1.5.2",
-    "husky": "^8.0.3"
+    "@biomejs/biome": "^1.5.2"
   }
 }
