@@ -18,8 +18,7 @@
     "dev": "fastify start -l info -P examples/petstore/index.js",
     "updateChecksums": "node test/update-checksums.js",
     "preversion": "npm test && git add examples/generated-*-project/package.json",
-    "postversion": "git push && git push --tags",
-    "prepare": "husky install"
+    "postversion": "git push && git push --tags"
   },
   "author": "Hans Klunder",
   "license": "MIT",
@@ -42,8 +41,7 @@
     "@biomejs/biome": "^1.5.2",
     "c8": "^9.1.0",
     "fastify": "^4.25.2",
-    "fastify-cli": "^6.0.1",
-    "husky": "^9.0.1"
+    "fastify-cli": "^6.0.1"
   },
   "repository": {
     "type": "git",
