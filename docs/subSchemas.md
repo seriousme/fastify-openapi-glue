@@ -37,6 +37,7 @@ paths:
 And the reference is in `sub-spec.yaml`, containing:
 
 ```yaml
+$id: 'http://www.example.com/subspec'
 components:
   requestBodies:
     Pet:
@@ -52,7 +53,11 @@ components:
   ...
 ```
 
-Then the schemas can be integrated as follows:
+Then the schemas can be integrated using the following command:
+
+`npx -p @seriousme/openapi-schema-validator bundle-api main-spec.yaml sub-spec.yaml` 
+
+or using code:
 
 ```javascript
 import { Validator } from "@seriousme/openapi-schema-validator";
