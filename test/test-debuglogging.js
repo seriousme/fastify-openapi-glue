@@ -1,5 +1,5 @@
-import { createRequire } from "node:module";
 import { strict as assert } from "node:assert/strict";
+import { createRequire } from "node:module";
 // just test the basics to aid debugging
 import { test } from "node:test";
 import Fastify from "fastify";
