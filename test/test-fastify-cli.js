@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert/strict";
 import { after, test } from "node:test";
 // test fastify-cli as used by the npm start script
-import { URL, fileURLToPath } from "url";
+import { URL, fileURLToPath } from "node:url";
 import { build } from "fastify-cli/helper.js";
 
 function localFile(fileName) {

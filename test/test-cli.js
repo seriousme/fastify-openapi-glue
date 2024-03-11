@@ -1,8 +1,8 @@
-import { execSync } from "child_process";
-import { createRequire } from "module";
+import { execSync } from "node:child_process";
+import { createRequire } from "node:module";
 import { strict as assert } from "node:assert/strict";
 import { test } from "node:test";
-import { URL, fileURLToPath } from "url";
+import { URL, fileURLToPath } from "node:url";
 import { templateTypes } from "../lib/templates/templateTypes.js";
 const importJSON = createRequire(import.meta.url);
 const spec = "./test-swagger.v2";

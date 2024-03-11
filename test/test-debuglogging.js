@@ -1,11 +1,11 @@
-import { createRequire } from "module";
+import { createRequire } from "node:module";
 import { strict as assert } from "node:assert/strict";
 // just test the basics to aid debugging
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 const importJSON = createRequire(import.meta.url);
-import { Writable } from "stream";
+import { Writable } from "node:stream";
 
 const testSpec = await importJSON("./test-openapi.v3.json");
 import { Service } from "./service.js";

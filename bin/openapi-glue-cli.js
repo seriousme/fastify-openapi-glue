@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { basename, resolve } from "path";
-import { fileURLToPath } from "url";
+import { basename, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import argvParser from "minimist";
-import { exit } from "process";
+import { exit } from "node:process";
 import { Generator } from "../lib/generator.js";
 const __filename = fileURLToPath(import.meta.url);
 
