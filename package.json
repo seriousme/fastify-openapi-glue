@@ -1,64 +1,59 @@
 {
-  "name": "fastify-openapi-glue",
-  "version": "4.4.3",
-  "description": "generate a fastify configuration from an openapi specification",
-  "main": "index.js",
-  "type": "module",
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "types": "index.d.ts",
-  "scripts": {
-    "start": "fastify start --options examples/petstore/index.js",
-    "format": "biome format --write .",
-    "test": "c8 node --test test/test-*.js && biome format --write .",
-    "posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
-    "covtest": "c8 --reporter=lcov npm test",
-    "lint": "biome ci .",
-    "dev": "fastify start -l info -P examples/petstore/index.js",
-    "updateChecksums": "node test/update-checksums.js",
-    "preversion": "npm test && git add examples/generated-*-project/package.json",
-    "postversion": "git push && git push --tags"
-  },
-  "author": "Hans Klunder",
-  "license": "MIT",
-  "bin": {
-    "openapi-glue": "./bin/openapi-glue-cli.js"
-  },
-  "dependencies": {
-    "@seriousme/openapi-schema-validator": "^2.1.5",
-    "fastify-plugin": "^4.5.1",
-    "js-yaml": "^4.1.0",
-    "minimist": "^1.2.8"
-  },
-  "directories": {
-    "example": "./examples",
-    "test": "./test",
-    "lib": "./examples",
-    "bin": "./bin"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.5.2",
-    "c8": "^9.1.0",
-    "fastify": "^4.25.2",
-    "fastify-cli": "^6.0.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/seriousme/fastify-openapi-glue.git"
-  },
-  "keywords": [
-    "fastify",
-    "swagger",
-    "openapi",
-    "generator"
-  ],
-  "bugs": {
-    "url": "https://github.com/seriousme/fastify-openapi-glue/issues"
-  },
-  "homepage": "https://github.com/seriousme/fastify-openapi-glue#readme",
-  "exports": {
-    "import": "./index.js",
-    "default": "./index.js"
-  }
+	"name": "fastify-openapi-glue",
+	"version": "4.4.3",
+	"description": "generate a fastify configuration from an openapi specification",
+	"main": "index.js",
+	"type": "module",
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"types": "index.d.ts",
+	"scripts": {
+		"start": "fastify start --options examples/petstore/index.js",
+		"format": "biome format --write .",
+		"test": "c8 node --test test/test-*.js && biome format --write .",
+		"posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
+		"covtest": "c8 --reporter=lcov npm test",
+		"lint": "biome ci .",
+		"dev": "fastify start -l info -P examples/petstore/index.js",
+		"updateChecksums": "node test/update-checksums.js",
+		"preversion": "npm test && git add examples/generated-*-project/package.json",
+		"postversion": "git push && git push --tags"
+	},
+	"author": "Hans Klunder",
+	"license": "MIT",
+	"bin": {
+		"openapi-glue": "./bin/openapi-glue-cli.js"
+	},
+	"dependencies": {
+		"@seriousme/openapi-schema-validator": "^2.1.5",
+		"fastify-plugin": "^4.5.1",
+		"js-yaml": "^4.1.0",
+		"minimist": "^1.2.8"
+	},
+	"directories": {
+		"example": "./examples",
+		"test": "./test",
+		"lib": "./examples",
+		"bin": "./bin"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.5.2",
+		"c8": "^9.1.0",
+		"fastify": "^4.25.2",
+		"fastify-cli": "^6.0.1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/seriousme/fastify-openapi-glue.git"
+	},
+	"keywords": ["fastify", "swagger", "openapi", "generator"],
+	"bugs": {
+		"url": "https://github.com/seriousme/fastify-openapi-glue/issues"
+	},
+	"homepage": "https://github.com/seriousme/fastify-openapi-glue#readme",
+	"exports": {
+		"import": "./index.js",
+		"default": "./index.js"
+	}
 }

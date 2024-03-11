@@ -1,26 +1,26 @@
 {
-  "name": "swaggerpetstore",
-  "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
-  "version": "0.1.0",
-  "type": "module",
-  "scripts": {
-    "start": "fastify start --options index.js",
-    "test": "c8 node --test test/test-*.js",
-    "dev": "fastify start -l info -P --options index.js"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "fastify-plugin": "^4.5.1",
-    "@seriousme/openapi-schema-validator": "^2.1.5",
-    "js-yaml": "^4.1.0",
-    "minimist": "^1.2.8"
-  },
-  "devDependencies": {
-    "fastify": "^4.25.2",
-    "fastify-cli": "^6.0.1",
-    "c8": "^9.1.0",
-    "@biomejs/biome": "^1.5.2"
-  }
+	"name": "swaggerpetstore",
+	"description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"start": "fastify start --options index.js",
+		"test": "c8 node --test test/test-*.js",
+		"dev": "fastify start -l info -P --options index.js"
+	},
+	"directories": {
+		"test": "test"
+	},
+	"dependencies": {
+		"fastify-plugin": "^4.5.1",
+		"@seriousme/openapi-schema-validator": "^2.1.5",
+		"js-yaml": "^4.1.0",
+		"minimist": "^1.2.8"
+	},
+	"devDependencies": {
+		"fastify": "^4.25.2",
+		"fastify-cli": "^6.0.1",
+		"c8": "^9.1.0",
+		"@biomejs/biome": "^1.5.2"
+	}
 }

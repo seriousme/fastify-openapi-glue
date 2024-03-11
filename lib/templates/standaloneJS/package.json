@@ -1,22 +1,22 @@
 {
-  "name": "mypackage",
-  "description": "no description for this package yet",
-  "version": "0.1.0",
-  "type": "module",
-  "scripts": {
-    "start": "fastify start --options index.js",
-    "test": "c8 node --test test/test-*.js",
-    "dev": "fastify start -l info -P --options index.js"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-    "fastify-plugin": ""
-  },
-  "devDependencies": {
-    "fastify": "",
-    "fastify-cli": "",
-    "c8": ""
-  }
+	"name": "mypackage",
+	"description": "no description for this package yet",
+	"version": "0.1.0",
+	"type": "module",
+	"scripts": {
+		"start": "fastify start --options index.js",
+		"test": "c8 node --test test/test-*.js",
+		"dev": "fastify start -l info -P --options index.js"
+	},
+	"directories": {
+		"test": "test"
+	},
+	"dependencies": {
+		"fastify-plugin": ""
+	},
+	"devDependencies": {
+		"fastify": "",
+		"fastify-cli": "",
+		"c8": ""
+	}
 }

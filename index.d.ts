@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import {
+import type {
 	FastifyPluginAsync,
 	FastifyReply,
 	FastifyRequest,

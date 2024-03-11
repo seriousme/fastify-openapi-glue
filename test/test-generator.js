@@ -1,5 +1,5 @@
-import { createRequire } from "module";
 import { strict as assert } from "node:assert/strict";
+import { createRequire } from "node:module";
 import { test } from "node:test";
 import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
