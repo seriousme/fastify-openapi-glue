@@ -77,6 +77,19 @@ The following extensions are provided by the plugin:
             description: Webhook processed successfully
   ```
 
+- `x-no-fastify-config` (true): this will ignore this specific route as if it was not present in your OpenAPI specification:
+
+```yaml
+  paths:
+    /webhooks:
+      post:
+        operationId: processWebhook
+        x-no-fastify-config: true
+        responses:
+          204:
+            description: Webhook processed successfully
+  ```
+
 You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.routeOptions.config`. Extensions specified on a schema are also accessible (e.g., `routeOptions.schema.body` or `routeOptions.schema.responses[<statusCode>]`).
 
 <a name="generator"></a>
