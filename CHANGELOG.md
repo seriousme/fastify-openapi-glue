@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.5.0] 28-03-2024
+### Changed
+ - feat: add x-no-fastify-config option
  - update: added a note on using subschemas to the documentation
  - chore: removed husky as a dependency
  - updated dependencies

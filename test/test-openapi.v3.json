@@ -449,6 +449,18 @@
 					}
 				}
 			}
+		},
+		"/ignoreRoute": {
+			"get": {
+				"operationId": "ignoreRoute",
+				"summary": "Test route correclty being ignored",
+				"x-no-fastify-config": true,
+				"responses": {
+					"200": {
+						"description": "ok"
+					}
+				}
+			}
 		}
 	},
 	"components": {
