@@ -517,6 +517,29 @@ test("x-fastify-config is applied", (t) => {
 	);
 });
 
+test("x-no-fastify-config is applied", (t) => {
+	const fastify = Fastify();
+	fastify.register(fastifyOpenapiGlue, {
+		...opts,
+		serviceHandlers: {
+			ignoreRoute: (req, reply) => {
+				return reply;
+			},
+		},
+	});
+
+	fastify.inject(
+		{
+			method: "GET",
+			url: "/ignoreRoute",
+		},
+		(err, res) => {
+			assert.ifError(err);
+			assert.equal(res.statusCode, 404);
+		},
+	);
+});
+
 test("service and operationResolver together throw error", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
