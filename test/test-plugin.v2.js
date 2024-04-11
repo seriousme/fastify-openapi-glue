@@ -372,3 +372,23 @@ test("schema attributes for non-body parameters work", (t) => {
 		},
 	);
 });
+
+test("create an empty body with allowEmptyBody option", async (t) => {
+	const fastify = Fastify();
+
+	let emptyBodySchemaFound = false;
+	fastify.addHook("onRoute", (routeOptions) => {
+		if (routeOptions.url === "/v2/emptyBodySchema") {
+			assert.deepStrictEqual(routeOptions.schema.response?.["204"], {});
+			assert.deepStrictEqual(routeOptions.schema.response?.["302"], {});
+			emptyBodySchemaFound = true;
+		}
+	});
+
+	await fastify.register(fastifyOpenapiGlue, {
+		specification: testSpec,
+		serviceHandlers: new Set(),
+		allowEmptyBody: true,
+	});
+	assert.ok(emptyBodySchemaFound);
+});

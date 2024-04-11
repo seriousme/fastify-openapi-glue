@@ -119,7 +119,9 @@ function makeGenerateRoutes(config, resolver, security) {
 // this is the main function for the plugin
 async function plugin(instance, opts) {
 	const parser = new Parser();
-	const config = await parser.parse(opts.specification);
+	const config = await parser.parse(opts.specification, {
+		allowEmptyBody: opts.allowEmptyBody ?? false,
+	});
 	checkParserValidators(instance, config.contentTypes);
 	if (opts.service) {
 		process.emitWarning(
