@@ -449,7 +449,7 @@ test("x-no-fastify-config is applied", async (t) => {
 	assert.equal(res.statusCode, 404);
 });
 
-test("service and operationResolver together throw error", (t) => {
+test("service and operationResolver together throw error", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
 	fastify.ready((err) => {
