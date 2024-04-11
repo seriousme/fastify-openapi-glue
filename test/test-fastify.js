@@ -15,7 +15,7 @@ const opts = {
 	},
 };
 
-test("basic fastify works", (t) => {
+test("basic fastify works", async (t) => {
 	const fastify = Fastify();
 
 	async function routes(fastify) {
@@ -24,19 +24,14 @@ test("basic fastify works", (t) => {
 		});
 	}
 	fastify.register(routes);
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("fastify validation works", (t) => {
+test("fastify validation works", async (t) => {
 	const fastify = Fastify();
 
 	async function routes(fastify) {
@@ -45,25 +40,19 @@ test("fastify validation works", (t) => {
 		});
 	}
 	fastify.register(routes);
-	fastify.inject(
-		{
+	{
+		const res = await fastify.inject({
 			method: "GET",
 			url: "/?hello=world",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.body, '{"hello":"world"}', "expected value");
-			assert.equal(res.statusCode, 200, "expected HTTP code");
-		},
-	);
-	fastify.inject(
-		{
+		});
+		assert.equal(res.body, '{"hello":"world"}', "expected value");
+		assert.equal(res.statusCode, 200, "expected HTTP code");
+	}
+	{
+		const res = await fastify.inject({
 			method: "GET",
 			url: "/?ello=world",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 400, "expected HTTP code");
-		},
-	);
+		});
+		assert.equal(res.statusCode, 400, "expected HTTP code");
+	}
 });

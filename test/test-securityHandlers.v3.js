@@ -25,7 +25,7 @@ const invalidSecurityOpts = {
 	securityHandlers: () => {},
 };
 
-test("security handler registration succeeds", (t) => {
+test("security handler registration succeeds", (t, done) => {
 	const opts = {
 		specification: petStoreSpec,
 		serviceHandlers,
@@ -39,11 +39,12 @@ test("security handler registration succeeds", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("security preHandler throws error", (t) => {
+test("security preHandler throws error", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -58,20 +59,16 @@ test("security preHandler throws error", (t) => {
 		reply.code(err.statusCode).send(err);
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurity",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 401);
-			assert.equal(res.statusMessage, "Unauthorized");
-		},
-	);
+
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurity",
+	});
+	assert.equal(res.statusCode, 401);
+	assert.equal(res.statusMessage, "Unauthorized");
 });
 
-test("security preHandler passes on succes using OR", (t) => {
+test("security preHandler passes on succes using OR", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -85,20 +82,15 @@ test("security preHandler passes on succes using OR", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurity",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurity",
+	});
+	assert.equal(res.statusCode, 200);
+	assert.equal(res.statusMessage, "OK");
 });
 
-test("security preHandler passes on succes using AND", (t) => {
+test("security preHandler passes on succes using AND", async (t) => {
 	const result = {};
 	const opts = {
 		specification: testSpec,
@@ -113,21 +105,16 @@ test("security preHandler passes on succes using AND", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurityUsingAnd",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-			assert.equal(res.body, '{"response":"Authentication succeeded!"}');
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurityUsingAnd",
+	});
+	assert.equal(res.statusCode, 200);
+	assert.equal(res.statusMessage, "OK");
+	assert.equal(res.body, '{"response":"Authentication succeeded!"}');
 });
 
-test("security preHandler fails correctly on failure using AND", (t) => {
+test("security preHandler fails correctly on failure using AND", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -141,20 +128,15 @@ test("security preHandler fails correctly on failure using AND", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurityUsingAnd",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 401);
-			assert.equal(res.statusMessage, "Unauthorized");
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurityUsingAnd",
+	});
+	assert.equal(res.statusCode, 401);
+	assert.equal(res.statusMessage, "Unauthorized");
 });
 
-test("security preHandler passes with empty handler", (t) => {
+test("security preHandler passes with empty handler", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -164,20 +146,15 @@ test("security preHandler passes with empty handler", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurityEmptyHandler",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurityEmptyHandler",
+	});
+	assert.equal(res.statusCode, 200);
+	assert.equal(res.statusMessage, "OK");
 });
 
-test("security preHandler handles missing handlers", (t) => {
+test("security preHandler handles missing handlers", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -192,20 +169,16 @@ test("security preHandler handles missing handlers", (t) => {
 		reply.code(err.statusCode).send(err);
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurity",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 401);
-			assert.equal(res.statusMessage, "Unauthorized");
-		},
-	);
+
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurity",
+	});
+	assert.equal(res.statusCode, 401);
+	assert.equal(res.statusMessage, "Unauthorized");
 });
 
-test("invalid securityHandler definition throws error ", (t) => {
+test("invalid securityHandler definition throws error ", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, invalidSecurityOpts);
 	fastify.ready((err) => {
@@ -215,13 +188,14 @@ test("invalid securityHandler definition throws error ", (t) => {
 				"'securityHandlers' parameter must refer to an object",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("initalization of securityHandlers succeeds", (t) => {
+test("initalization of securityHandlers succeeds", (t, done) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -242,11 +216,12 @@ test("initalization of securityHandlers succeeds", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("security preHandler gets parameters passed", (t) => {
+test("security preHandler gets parameters passed", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -262,34 +237,28 @@ test("security preHandler gets parameters passed", (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
+	{
+		const res = await fastify.inject({
 			method: "GET",
 			url: "/operationSecurity",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-			assert.equal(res.body, '{"response":"authentication succeeded!"}');
-		},
-	);
+		});
+		assert.equal(res.statusCode, 200);
+		assert.equal(res.statusMessage, "OK");
+		assert.equal(res.body, '{"response":"authentication succeeded!"}');
+	}
 
-	fastify.inject(
-		{
+	{
+		const res = await fastify.inject({
 			method: "GET",
 			url: "/operationSecurityWithParameter",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-			assert.equal(res.body, '{"response":"skipped"}');
-		},
-	);
+		});
+		assert.equal(res.statusCode, 200);
+		assert.equal(res.statusMessage, "OK");
+		assert.equal(res.body, '{"response":"skipped"}');
+	}
 });
 
-test("security preHandler throws error with custom StatusCode", (t) => {
+test("security preHandler throws error with custom StatusCode", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -304,20 +273,16 @@ test("security preHandler throws error with custom StatusCode", (t) => {
 		reply.code(err.statusCode).send(err);
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurity",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 451);
-			assert.equal(res.statusMessage, "Unavailable For Legal Reasons");
-		},
-	);
+
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurity",
+	});
+	assert.equal(res.statusCode, 451);
+	assert.equal(res.statusMessage, "Unavailable For Legal Reasons");
 });
 
-test("security preHandler does not throw error when global security handler is overwritten with local empty security", (t) => {
+test("security preHandler does not throw error when global security handler is overwritten with local empty security", async (t) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -332,16 +297,12 @@ test("security preHandler does not throw error when global security handler is o
 		reply.code(err.statusCode).send(err);
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationSecurityOverrideWithNoSecurity",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-			assert.equal(res.body, '{"response":"authentication succeeded!"}');
-		},
-	);
+
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/operationSecurityOverrideWithNoSecurity",
+	});
+	assert.equal(res.statusCode, 200);
+	assert.equal(res.statusMessage, "OK");
+	assert.equal(res.body, '{"response":"authentication succeeded!"}');
 });
