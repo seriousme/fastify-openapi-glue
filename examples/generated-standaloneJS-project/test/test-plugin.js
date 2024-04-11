@@ -72,22 +72,17 @@ const opts = {};
 //     description: Invalid input
 //
 
-test("testing addPet", (t) => {
+test("testing addPet", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/pet",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/pet",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: updatePet
@@ -156,22 +151,17 @@ test("testing addPet", (t) => {
 //     description: Validation exception
 //
 
-test("testing updatePet", (t) => {
+test("testing updatePet", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "PUT",
-			url: "/v2/pet",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "PUT",
+		url: "/v2/pet",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: findPetsByStatus
@@ -256,22 +246,17 @@ test("testing updatePet", (t) => {
 //     description: Invalid status value
 //
 
-test("testing findPetsByStatus", (t) => {
+test("testing findPetsByStatus", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/pet/findByStatus",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/pet/findByStatus",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: findPetsByTags
@@ -351,22 +336,17 @@ test("testing findPetsByStatus", (t) => {
 //     description: Invalid tag value
 //
 
-test("testing findPetsByTags", (t) => {
+test("testing findPetsByTags", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/pet/findByTags",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/pet/findByTags",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: getPetById
@@ -444,22 +424,17 @@ test("testing findPetsByTags", (t) => {
 //     description: Pet not found
 //
 
-test("testing getPetById", (t) => {
+test("testing getPetById", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/pet/:petId",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/pet/:petId",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: updatePetWithForm
@@ -490,22 +465,17 @@ test("testing getPetById", (t) => {
 //     description: Invalid input
 //
 
-test("testing updatePetWithForm", (t) => {
+test("testing updatePetWithForm", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/pet/:petId",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/pet/:petId",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: deletePet
@@ -534,22 +504,17 @@ test("testing updatePetWithForm", (t) => {
 //     description: Pet not found
 //
 
-test("testing deletePet", (t) => {
+test("testing deletePet", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "DELETE",
-			url: "/v2/pet/:petId",
-			payload: undefined,
-			headers: undefined, //insert headers here!!
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "DELETE",
+		url: "/v2/pet/:petId",
+		payload: undefined,
+		headers: undefined, //insert headers here!!
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: uploadFile
@@ -590,22 +555,17 @@ test("testing deletePet", (t) => {
 //           type: string
 //
 
-test("testing uploadFile", (t) => {
+test("testing uploadFile", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/pet/:petId/uploadImage",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/pet/:petId/uploadImage",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: getInventory
@@ -621,22 +581,17 @@ test("testing uploadFile", (t) => {
 //         format: int32
 //
 
-test("testing getInventory", (t) => {
+test("testing getInventory", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/store/inventory",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/store/inventory",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: placeOrder
@@ -704,22 +659,17 @@ test("testing getInventory", (t) => {
 //     description: Invalid Order
 //
 
-test("testing placeOrder", (t) => {
+test("testing placeOrder", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/store/order",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/store/order",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: getOrderById
@@ -773,22 +723,17 @@ test("testing placeOrder", (t) => {
 //     description: Order not found
 //
 
-test("testing getOrderById", (t) => {
+test("testing getOrderById", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/store/order/:orderId",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/store/order/:orderId",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: deleteOrder
@@ -812,22 +757,17 @@ test("testing getOrderById", (t) => {
 //     description: Order not found
 //
 
-test("testing deleteOrder", (t) => {
+test("testing deleteOrder", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "DELETE",
-			url: "/v2/store/order/:orderId",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "DELETE",
+		url: "/v2/store/order/:orderId",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: createUser
@@ -863,22 +803,17 @@ test("testing deleteOrder", (t) => {
 //     description: successful operation
 //
 
-test("testing createUser", (t) => {
+test("testing createUser", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/user",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/user",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: createUsersWithArrayInput
@@ -916,22 +851,17 @@ test("testing createUser", (t) => {
 //     description: successful operation
 //
 
-test("testing createUsersWithArrayInput", (t) => {
+test("testing createUsersWithArrayInput", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/user/createWithArray",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/user/createWithArray",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: createUsersWithListInput
@@ -969,22 +899,17 @@ test("testing createUsersWithArrayInput", (t) => {
 //     description: successful operation
 //
 
-test("testing createUsersWithListInput", (t) => {
+test("testing createUsersWithListInput", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "POST",
-			url: "/v2/user/createWithList",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "POST",
+		url: "/v2/user/createWithList",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: loginUser
@@ -1021,22 +946,17 @@ test("testing createUsersWithListInput", (t) => {
 //     description: Invalid username/password supplied
 //
 
-test("testing loginUser", (t) => {
+test("testing loginUser", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/user/login",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/user/login",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: logoutUser
@@ -1047,22 +967,17 @@ test("testing loginUser", (t) => {
 //     description: successful operation
 //
 
-test("testing logoutUser", (t) => {
+test("testing logoutUser", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/user/logout",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/user/logout",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: getUserByName
@@ -1110,22 +1025,17 @@ test("testing logoutUser", (t) => {
 //     description: User not found
 //
 
-test("testing getUserByName", (t) => {
+test("testing getUserByName", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/user/:username",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/user/:username",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: updateUser
@@ -1172,22 +1082,17 @@ test("testing getUserByName", (t) => {
 //     description: User not found
 //
 
-test("testing updateUser", (t) => {
+test("testing updateUser", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "PUT",
-			url: "/v2/user/:username",
-			payload: undefined, //insert body data here!!
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "PUT",
+		url: "/v2/user/:username",
+		payload: undefined, //insert body data here!!
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });
 
 // Operation: deleteUser
@@ -1209,20 +1114,15 @@ test("testing updateUser", (t) => {
 //     description: User not found
 //
 
-test("testing deleteUser", (t) => {
+test("testing deleteUser", async (t) => {
 	const fastify = Fastify(options);
 	fastify.register(fastifyPlugin, opts);
 
-	fastify.inject(
-		{
-			method: "DELETE",
-			url: "/v2/user/:username",
-			payload: undefined,
-			headers: undefined,
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "DELETE",
+		url: "/v2/user/:username",
+		payload: undefined,
+		headers: undefined,
+	});
+	assert.equal(res.statusCode, 200);
 });

@@ -38,16 +38,11 @@ test("test if 'service' parameter still works", async (t) => {
 			service,
 		});
 
-		fastify.inject(
-			{
-				method: "GET",
-				url: "/queryParamObject?int1=1&int2=2",
-			},
-			(err, res) => {
-				assert.ifError(err);
-				assert.equal(res.statusCode, 200, "status code ok");
-			},
-		);
+		const res = await fastify.inject({
+			method: "GET",
+			url: "/queryParamObject?int1=1&int2=2",
+		});
+		assert.equal(res.statusCode, 200, "status code ok");
 	});
 	await delay();
 	setImmediate(() => {

@@ -18,7 +18,7 @@ const noStrict = {
 	},
 };
 
-test("route registration succeeds with recursion", (t) => {
+test("route registration succeeds with recursion", (t, done) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -31,6 +31,7 @@ test("route registration succeeds with recursion", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });

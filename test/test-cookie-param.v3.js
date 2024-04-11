@@ -18,7 +18,7 @@ const noStrict = {
 	},
 };
 
-test("route registration succeeds with cookie param", (t) => {
+test("route registration succeeds with cookie param", (t, done) => {
 	const opts = {
 		specification: testSpec,
 		serviceHandlers,
@@ -31,6 +31,7 @@ test("route registration succeeds with cookie param", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });

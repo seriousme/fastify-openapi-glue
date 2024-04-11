@@ -75,7 +75,7 @@ const noServiceNoResolver = {
 const withOperationResolver = {
 	specification: testSpec,
 	operationResolver() {
-		return (req, reply) => {
+		return async (req, reply) => {
 			reply.send("ok");
 		};
 	},
@@ -85,7 +85,7 @@ const withOperationResolverUsingMethodPath = {
 	specification: testSpec,
 	operationResolver(_operationId, method) {
 		const result = method === "GET" ? "ok" : "notOk";
-		return (req, reply) => {
+		return async (req, reply) => {
 			reply.send(result);
 		};
 	},
@@ -97,270 +97,190 @@ process.on("warning", (warning) => {
 	}
 });
 
-test("path parameters work", (t) => {
+test("path parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/pathParam/2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/pathParam/2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("query parameters work", (t) => {
+test("query parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParam?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParam?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("query parameters with object schema work", (t) => {
+test("query parameters with object schema work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParamObject?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParamObject?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("query parameters with array schema work", (t) => {
+test("query parameters with array schema work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParamArray?arr=1&arr=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParamArray?arr=1&arr=2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("header parameters work", (t) => {
+test("header parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/headerParam",
-			headers: {
-				"X-Request-ID": "test data",
-			},
+	const res = await fastify.inject({
+		url: "/headerParam",
+		method: "GET",
+		headers: {
+			"X-Request-ID": "test data",
 		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("missing header parameters returns error 500", (t) => {
+test("missing header parameters returns error 500", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/headerParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/headerParam",
+	});
+	assert.equal(res.statusCode, 500);
 });
 
-test("missing authorization header returns error 500", (t) => {
+test("missing authorization header returns error 500", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/authHeaderParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/authHeaderParam",
+	});
+	assert.equal(res.statusCode, 500);
 });
 
-test("body parameters work", (t) => {
+test("body parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "post",
-			url: "/bodyParam",
-			payload: {
-				str1: "test data",
-				str2: "test data",
-			},
+	const res = await fastify.inject({
+		method: "post",
+		url: "/bodyParam",
+		payload: {
+			str1: "test data",
+			str2: "test data",
 		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("no parameters work", (t) => {
+test("no parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/noParam",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("prefix in opts works", (t) => {
+test("prefix in opts works", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, prefixOpts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/prefix/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/prefix/noParam",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("missing operation from service returns error 500", (t) => {
+test("missing operation from service returns error 500", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/noOperationId/1",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/noOperationId/1",
+	});
+	assert.equal(res.statusCode, 500);
 });
 
-test("response schema works with valid response", (t) => {
+test("response schema works with valid response", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/responses?replyType=valid",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/responses?replyType=valid",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("response schema works with invalid response", (t) => {
+test("response schema works with invalid response", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/responses?replyType=invalid",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/responses?replyType=invalid",
+	});
+	assert.equal(res.statusCode, 500);
 });
 
-test("yaml spec works", (t) => {
+test("yaml spec works", async (t) => {
 	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, yamlOpts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/pathParam/2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/pathParam/2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("generic path parameters work", (t) => {
+test("generic path parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/pathParam/2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/pathParam/2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("generic path parameters override works", (t) => {
+test("generic path parameters override works", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/noParam",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("invalid openapi v3 specification throws error ", (t) => {
+test("invalid openapi v3 specification throws error ", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, invalidSwaggerOpts);
 	fastify.ready((err) => {
@@ -370,13 +290,14 @@ test("invalid openapi v3 specification throws error ", (t) => {
 				"'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("missing service definition throws error ", (t) => {
+test("missing service definition throws error ", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, invalidServiceOpts);
 	fastify.ready((err) => {
@@ -386,13 +307,14 @@ test("missing service definition throws error ", (t) => {
 				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("full pet store V3 definition does not throw error ", (t) => {
+test("full pet store V3 definition does not throw error ", (t, done) => {
 	const fastify = Fastify(noStrict);
 	// dummy parser to fix coverage testing
 	fastify.addContentTypeParser(
@@ -406,11 +328,12 @@ test("full pet store V3 definition does not throw error ", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("V3.0.1 definition does not throw error", (t) => {
+test("V3.0.1 definition does not throw error", (t, done) => {
 	const spec301 = JSON.parse(JSON.stringify(petStoreSpec));
 	spec301["openapi"] = "3.0.1";
 	const opts301 = {
@@ -425,11 +348,12 @@ test("V3.0.1 definition does not throw error", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("V3.0.2 definition does not throw error", (t) => {
+test("V3.0.2 definition does not throw error", (t, done) => {
 	const spec302 = JSON.parse(JSON.stringify(petStoreSpec));
 	spec302["openapi"] = "3.0.2";
 	const opts302 = {
@@ -444,11 +368,12 @@ test("V3.0.2 definition does not throw error", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("V3.0.3 definition does not throw error", (t) => {
+test("V3.0.3 definition does not throw error", (t, done) => {
 	const spec303 = JSON.parse(JSON.stringify(petStoreSpec));
 	spec303["openapi"] = "3.0.3";
 	const opts303 = {
@@ -463,13 +388,14 @@ test("V3.0.3 definition does not throw error", (t) => {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("x- props are copied", (t) => {
+test("x- props are copied", async (t) => {
 	const fastify = Fastify();
-	fastify.addHook("preHandler", (request, reply) => {
+	fastify.addHook("preHandler", async (request, reply) => {
 		if (request.routeOptions.schema["x-tap-ok"]) {
 			assert.ok(true, "found x- prop");
 		} else {
@@ -478,66 +404,49 @@ test("x- props are copied", (t) => {
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParam?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParam?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("x-fastify-config is applied", (t) => {
+test("x-fastify-config is applied", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
 		serviceHandlers: {
-			operationWithFastifyConfigExtension: (req, reply) => {
+			operationWithFastifyConfigExtension: async (req, reply) => {
 				assert.equal(
 					req.routeOptions.config.rawBody,
 					true,
 					"config.rawBody is true",
 				);
-				return reply;
+				return;
 			},
 		},
 	});
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/operationWithFastifyConfigExtension",
-		},
-		() => {
-			assert.ok(true);
-		},
-	);
+	await fastify.inject({
+		method: "GET",
+		url: "/operationWithFastifyConfigExtension",
+	});
 });
 
-test("x-no-fastify-config is applied", (t) => {
+test("x-no-fastify-config is applied", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
 		serviceHandlers: {
-			ignoreRoute: (req, reply) => {
-				return reply;
-			},
+			ignoreRoute: async (req, reply) => {},
 		},
 	});
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/ignoreRoute",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 404);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/ignoreRoute",
+	});
+	assert.equal(res.statusCode, 404);
 });
 
 test("service and operationResolver together throw error", (t) => {
@@ -550,13 +459,14 @@ test("service and operationResolver together throw error", (t) => {
 				"'serviceHandlers' and 'operationResolver' are mutually exclusive",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("no service and no operationResolver throw error", (t) => {
+test("no service and no operationResolver throw error", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, noServiceNoResolver);
 	fastify.ready((err) => {
@@ -566,40 +476,31 @@ test("no service and no operationResolver throw error", (t) => {
 				"either 'serviceHandlers' or 'operationResolver' are required",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("operation resolver works", (t) => {
+test("operation resolver works", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, withOperationResolver);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.body, "ok");
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/noParam",
+	});
+	assert.equal(res.body, "ok");
 });
 
-test("operation resolver with method and url works", (t) => {
+test("operation resolver with method and url works", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, withOperationResolverUsingMethodPath);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.body, "ok");
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/noParam",
+	});
+	assert.equal(res.body, "ok");
 });
