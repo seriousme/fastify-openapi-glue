@@ -8,7 +8,7 @@ const importJSON = createRequire(import.meta.url);
 
 const testSpec = await importJSON("./test-openapi.v3.json");
 
-test("return route params from operationResolver", (t) => {
+test("return route params from operationResolver", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
@@ -25,19 +25,14 @@ test("return route params from operationResolver", (t) => {
 		},
 	});
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParamObject?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 304);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParamObject?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 304);
 });
 
-test("operationResolver route params overwrite default params", (t) => {
+test("operationResolver route params overwrite default params", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
@@ -51,41 +46,31 @@ test("operationResolver route params overwrite default params", (t) => {
 		},
 	});
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParamObject?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-			assert.equal(JSON.parse(res.body)?.foo, "bar");
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParamObject?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 200);
+	assert.equal(JSON.parse(res.body)?.foo, "bar");
 });
 
-test("throw an error if handler is not specified", (t) => {
+test("throw an error if handler is not specified", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
 		operationResolver: () => ({}),
 	});
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/queryParamObject?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-			const parsedBody = JSON.parse(res.body);
-			assert.equal(parsedBody?.statusCode, 500);
-			assert.equal(parsedBody?.error, "Internal Server Error");
-			assert.equal(
-				parsedBody?.message,
-				"Operation getQueryParamObject not implemented",
-			);
-		},
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/queryParamObject?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 500);
+	const parsedBody = JSON.parse(res.body);
+	assert.equal(parsedBody?.statusCode, 500);
+	assert.equal(parsedBody?.error, "Internal Server Error");
+	assert.equal(
+		parsedBody?.message,
+		"Operation getQueryParamObject not implemented",
 	);
 });

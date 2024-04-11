@@ -48,11 +48,6 @@ const missingServiceOpts = {
 	serviceHandlers: localFile("./not-a-valid-service.js"),
 };
 
-const petStoreOpts = {
-	specification: petStoreSpec,
-	serviceHandlers,
-};
-
 const genericPathItemsOpts = {
 	specification: genericPathItemsSpec,
 	serviceHandlers,
@@ -64,155 +59,110 @@ process.on("warning", (warning) => {
 	}
 });
 
-test("path parameters work", (t) => {
+test("path parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/pathParam/2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/pathParam/2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("query parameters work", (t) => {
+test("query parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/queryParam?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/queryParam?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("header parameters work", (t) => {
+test("header parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/headerParam",
-			headers: {
-				"X-Request-ID": "test data",
-			},
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/headerParam",
+		headers: {
+			"X-Request-ID": "test data",
 		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("body parameters work", (t) => {
+test("body parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "post",
-			url: "/v2/bodyParam",
-			payload: { str1: "test data" },
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "post",
+		url: "/v2/bodyParam",
+		payload: { str1: "test data" },
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("no parameters work", (t) => {
+test("no parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/v2/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/v2/noParam",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("missing operation from service returns error 500", (t) => {
+test("missing operation from service returns error 500", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/v2/noOperationId/1",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/v2/noOperationId/1",
+	});
+	assert.equal(res.statusCode, 500);
 });
 
-test("response schema works with valid response", (t) => {
+test("response schema works with valid response", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/v2/responses?replyType=valid",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/v2/responses?replyType=valid",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("response schema works with invalid response", (t) => {
+test("response schema works with invalid response", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "get",
-			url: "/v2/responses?replyType=invalid",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 500);
-		},
-	);
+	const res = await fastify.inject({
+		method: "get",
+		url: "/v2/responses?replyType=invalid",
+	});
+	assert.equal(res.statusCode, 500);
 });
 
-test("yaml spec works", (t) => {
+test("yaml spec works", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, yamlOpts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/pathParam/2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/pathParam/2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("invalid openapi v2 specification throws error ", (t) => {
+test("invalid openapi v2 specification throws error ", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, invalidSwaggerOpts);
 	fastify.ready((err) => {
@@ -222,13 +172,14 @@ test("invalid openapi v2 specification throws error ", (t) => {
 				"'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("missing service definition throws error ", (t) => {
+test("missing service definition throws error ", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, invalidServiceOpts);
 	fastify.ready((err) => {
@@ -238,13 +189,14 @@ test("missing service definition throws error ", (t) => {
 				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("invalid service definition throws error ", (t) => {
+test("invalid service definition throws error ", (t, done) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, missingServiceOpts);
 	fastify.ready((err) => {
@@ -254,27 +206,32 @@ test("invalid service definition throws error ", (t) => {
 				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
+			done();
 		} else {
 			assert.fail("missed expected error");
 		}
 	});
 });
 
-test("full pet store V2 definition does not throw error ", (t) => {
+test("full pet store V2 definition does not throw error ", (t, done) => {
 	const fastify = Fastify(noStrict);
-	fastify.register(fastifyOpenapiGlue, petStoreOpts);
+	fastify.register(fastifyOpenapiGlue, {
+		specification: JSON.parse(JSON.stringify(petStoreSpec)),
+		serviceHandlers,
+	});
 	fastify.ready((err) => {
 		if (err) {
 			assert.fail("got unexpected error");
 		} else {
 			assert.ok(true, "no unexpected error");
+			done();
 		}
 	});
 });
 
-test("x- props are copied", (t) => {
+test("x- props are copied", async (t) => {
 	const fastify = Fastify();
-	fastify.addHook("preHandler", (request, reply) => {
+	fastify.addHook("preHandler", async (request, reply) => {
 		if (request.routeOptions.schema["x-tap-ok"]) {
 			assert.ok(true, "found x- prop");
 		} else {
@@ -283,94 +240,72 @@ test("x- props are copied", (t) => {
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/queryParam?int1=1&int2=2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/v2/queryParam?int1=1&int2=2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("x-fastify-config is applied", (t) => {
+test("x-fastify-config is applied", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
 		serviceHandlers: {
-			operationWithFastifyConfigExtension: (req, reply) => {
+			operationWithFastifyConfigExtension: async (req, reply) => {
 				assert.equal(
 					req.routeOptions.config.rawBody,
 					true,
 					"config.rawBody is true",
 				);
-				return reply;
+				return;
 			},
 		},
 	});
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/v2/operationWithFastifyConfigExtension",
-		},
-		() => {
-			assert.ok(true);
-		},
-	);
+	await fastify.inject({
+		method: "GET",
+		url: "/v2/operationWithFastifyConfigExtension",
+	});
 });
 
-test("generic path parameters work", (t) => {
+test("generic path parameters work", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/pathParam/2",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/pathParam/2",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("generic path parameters override works", (t) => {
+test("generic path parameters override works", async (t) => {
 	const fastify = Fastify();
 	fastify.register(fastifyOpenapiGlue, genericPathItemsOpts);
 
-	fastify.inject(
-		{
-			method: "GET",
-			url: "/noParam",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200);
-		},
-	);
+	const res = await fastify.inject({
+		method: "GET",
+		url: "/noParam",
+	});
+	assert.equal(res.statusCode, 200);
 });
 
-test("schema attributes for non-body parameters work", (t) => {
+test("schema attributes for non-body parameters work", async (t) => {
 	const fastify = Fastify(noStrict);
-	fastify.register(fastifyOpenapiGlue, petStoreOpts);
-	fastify.inject(
-		{
-			method: "GET",
-			url: "v2/store/order/11",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 400);
-			const parsedBody = JSON.parse(res.body);
-			assert.equal(parsedBody.statusCode, 400);
-			assert.equal(parsedBody.error, "Bad Request");
-			assert.equal(parsedBody.message, "params/orderId must be <= 10");
-		},
-	);
+	fastify.register(fastifyOpenapiGlue, {
+		specification: JSON.parse(JSON.stringify(petStoreSpec)),
+		serviceHandlers,
+	});
+	const res = await fastify.inject({
+		method: "GET",
+		url: "v2/store/order/11",
+	});
+	assert.equal(res.statusCode, 400);
+	const parsedBody = JSON.parse(res.body);
+	assert.equal(parsedBody.statusCode, 400);
+	assert.equal(parsedBody.error, "Bad Request");
+	assert.equal(parsedBody.message, "params/orderId must be <= 10");
 });
 
 test("create an empty body with allowEmptyBody option", async (t) => {

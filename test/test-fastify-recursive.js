@@ -21,7 +21,7 @@ const opts = {
 	},
 };
 
-test("fastify validation works", (t) => {
+test("fastify validation works", async (t) => {
 	const fastify = Fastify();
 
 	async function routes(fastify) {
@@ -35,8 +35,8 @@ test("fastify validation works", (t) => {
 		});
 	}
 	fastify.register(routes);
-	fastify.inject(
-		{
+	{
+		const res = await fastify.inject({
 			method: "POST",
 			url: "/",
 			payload: {
@@ -45,20 +45,14 @@ test("fastify validation works", (t) => {
 					str1: "test data",
 				},
 			},
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 200, "expected HTTP code");
-		},
-	);
-	fastify.inject(
-		{
+		});
+		assert.equal(res.statusCode, 200, "expected HTTP code");
+	}
+	{
+		const res = await fastify.inject({
 			method: "GET",
 			url: "/blah",
-		},
-		(err, res) => {
-			assert.ifError(err);
-			assert.equal(res.statusCode, 404, "expected HTTP code");
-		},
-	);
+		});
+		assert.equal(res.statusCode, 404, "expected HTTP code");
+	}
 });
