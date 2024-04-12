@@ -21,7 +21,7 @@ export interface FastifyOpenapiGlueOptions {
 	securityHandlers?: object;
 	operationResolver?: OperationResolver;
 	prefix?: string;
-	allowEmptyBody?: boolean;
+	addEmptySchema?: boolean;
 }
 
 declare const fastifyOpenapiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;

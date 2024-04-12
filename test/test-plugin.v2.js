@@ -308,7 +308,7 @@ test("schema attributes for non-body parameters work", async (t) => {
 	assert.equal(parsedBody.message, "params/orderId must be <= 10");
 });
 
-test("create an empty body with allowEmptyBody option", async (t) => {
+test("create an empty body with addEmptySchema option", async (t) => {
 	const fastify = Fastify();
 
 	let emptyBodySchemaFound = false;
@@ -323,7 +323,7 @@ test("create an empty body with allowEmptyBody option", async (t) => {
 	await fastify.register(fastifyOpenapiGlue, {
 		specification: testSpec,
 		serviceHandlers: new Set(),
-		allowEmptyBody: true,
+		addEmptySchema: true,
 	});
 	assert.ok(emptyBodySchemaFound);
 });
