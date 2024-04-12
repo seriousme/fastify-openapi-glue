@@ -504,3 +504,23 @@ test("operation resolver with method and url works", async (t) => {
 	});
 	assert.equal(res.body, "ok");
 });
+
+test("create an empty body with addEmptySchema option", async (t) => {
+	const fastify = Fastify();
+
+	let emptyBodySchemaFound = false;
+	fastify.addHook("onRoute", (routeOptions) => {
+		if (routeOptions.url === "/emptyBodySchema") {
+			assert.deepStrictEqual(routeOptions.schema.response?.["204"], {});
+			assert.deepStrictEqual(routeOptions.schema.response?.["302"], {});
+			emptyBodySchemaFound = true;
+		}
+	});
+
+	await fastify.register(fastifyOpenapiGlue, {
+		specification: testSpec,
+		serviceHandlers: new Set(),
+		addEmptySchema: true,
+	});
+	assert.ok(emptyBodySchemaFound);
+});

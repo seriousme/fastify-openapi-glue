@@ -461,6 +461,20 @@
 					}
 				}
 			}
+		},
+		"/emptyBodySchema": {
+			"get": {
+				"operationId": "emptyBodySchema",
+				"summary": "Empty body schema",
+				"responses": {
+					"204": {
+						"description": "Empty"
+					},
+					"302": {
+						"description": "Empty"
+					}
+				}
+			}
 		}
 	},
 	"components": {
