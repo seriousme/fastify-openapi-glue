@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.6.0] 12-04-2024
+### Changed
+ - feat: added addEmptySchema option, see README.md (ivan-tymoshenko)
+
 ## [4.5.0] 28-03-2024
 ### Changed
  - feat: add x-no-fastify-config option
