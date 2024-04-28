@@ -334,7 +334,7 @@ test("full pet store V3 definition does not throw error ", (t, done) => {
 });
 
 test("V3.0.1 definition does not throw error", (t, done) => {
-	const spec301 = JSON.parse(JSON.stringify(petStoreSpec));
+	const spec301 = structuredClone(petStoreSpec);
 	spec301["openapi"] = "3.0.1";
 	const opts301 = {
 		specification: spec301,
@@ -354,7 +354,7 @@ test("V3.0.1 definition does not throw error", (t, done) => {
 });
 
 test("V3.0.2 definition does not throw error", (t, done) => {
-	const spec302 = JSON.parse(JSON.stringify(petStoreSpec));
+	const spec302 = structuredClone(petStoreSpec);
 	spec302["openapi"] = "3.0.2";
 	const opts302 = {
 		specification: spec302,
@@ -374,7 +374,7 @@ test("V3.0.2 definition does not throw error", (t, done) => {
 });
 
 test("V3.0.3 definition does not throw error", (t, done) => {
-	const spec303 = JSON.parse(JSON.stringify(petStoreSpec));
+	const spec303 = structuredClone(petStoreSpec);
 	spec303["openapi"] = "3.0.3";
 	const opts303 = {
 		specification: spec303,

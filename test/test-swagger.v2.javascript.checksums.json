@@ -2,11 +2,11 @@
 	"files": {
 		"spec": {
 			"fileName": "openApi.json",
-			"checksum": "c8be1525eba839034a09643a64d6fdd596628c44ea816b9fc03084f4a0a19f4f"
+			"checksum": "2be97ce753a77f1dec89de5a36012498368de21abdb10b7b273c3b1caaffbfe9"
 		},
 		"service": {
 			"fileName": "service.js",
-			"checksum": "9de0b8340ae55b7dad47798d0013586bcd327c8fb64ac31af860abc4a9b18b90"
+			"checksum": "5aa5591dda61861b97b8f3231038eed69cd2d0c47b2cfaa727dea89708a91161"
 		},
 		"security": {
 			"fileName": "security.js",
@@ -22,7 +22,7 @@
 		},
 		"testPlugin": {
 			"fileName": "test-plugin.js",
-			"checksum": "cc8321547b947fcaed5ee8de85817ef10a41810b5a3b9aa724da7be594eb1ece"
+			"checksum": "b352050ec4c2e35dce64218257ea653388f8a50aa7a45d9cf8c20e818deac0e1"
 		},
 		"package": {
 			"fileName": "package.json",
