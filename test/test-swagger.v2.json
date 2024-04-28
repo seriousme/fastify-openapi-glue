@@ -182,6 +182,32 @@
 				}
 			}
 		},
+		"/operationSecurityUsingAnd": {
+			"get": {
+				"operationId": "testOperationSecurityUsingAnd",
+				"summary": "Test security handling AND functionality",
+				"security": [
+					{
+						"api_key": ["and"],
+						"skipped": ["works"]
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ok",
+						"schema": {
+							"$ref": "#/definitions/responseObject"
+						}
+					},
+					"401": {
+						"description": "unauthorized",
+						"schema": {
+							"$ref": "#/definitions/errorObject"
+						}
+					}
+				}
+			}
+		},
 		"/operationSecurityWithParameter": {
 			"get": {
 				"operationId": "testOperationSecurityWithParameter",
@@ -197,6 +223,53 @@
 						"failing": []
 					}
 				],
+				"responses": {
+					"200": {
+						"description": "ok",
+						"schema": {
+							"$ref": "#/definitions/responseObject"
+						}
+					},
+					"401": {
+						"description": "unauthorized",
+						"schema": {
+							"$ref": "#/definitions/errorObject"
+						}
+					}
+				}
+			}
+		},
+		"/operationSecurityEmptyHandler": {
+			"get": {
+				"operationId": "testOperationSecurity",
+				"summary": "Test security handling",
+				"security": [
+					{},
+					{
+						"failing": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ok",
+						"schema": {
+							"$ref": "#/definitions/responseObject"
+						}
+					},
+					"401": {
+						"description": "unauthorized",
+						"schema": {
+							"$ref": "#/definitions/errorObject"
+						}
+					}
+				}
+			}
+		},
+		"/operationSecurityOverrideWithNoSecurity": {
+			"get": {
+				"operationId": "testOperationSecurity",
+				"summary": "Test security handling",
+				"security": [],
 				"responses": {
 					"200": {
 						"description": "ok",
