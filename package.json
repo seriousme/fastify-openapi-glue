@@ -11,7 +11,7 @@
 	"scripts": {
 		"start": "fastify start --options examples/petstore/index.js",
 		"format": "biome format --write .",
-		"test": "c8 node --test test/test-*.js && biome format --write .",
+		"test": "c8 node --test test/test-*.js && biome format --write . && biome ci .",
 		"posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
 		"covtest": "c8 --reporter=lcov npm test",
 		"lint": "biome ci .",
@@ -47,12 +47,7 @@
 		"type": "git",
 		"url": "git+https://github.com/seriousme/fastify-openapi-glue.git"
 	},
-	"keywords": [
-		"fastify",
-		"swagger",
-		"openapi",
-		"generator"
-	],
+	"keywords": ["fastify", "swagger", "openapi", "generator"],
 	"bugs": {
 		"url": "https://github.com/seriousme/fastify-openapi-glue/issues"
 	},
