@@ -41,9 +41,7 @@ function buildPreHandler(securityHandlers, schemes) {
 		}
 		// if we get this far no security handlers validated this request
 		throw new SecurityError(
-			`None of the security schemes (${schemeList.join(
-				", ",
-			)}) successfully authenticated this request.`,
+			`None of the security schemes (${schemeList.join(", ")}) successfully authenticated this request.`,
 			statusCode,
 			"Unauthorized",
 			handlerErrors,
