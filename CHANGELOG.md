@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.6.1] 14-06-2024
+### Changed
  - fix: fix passing opts in js generator template
  - chore: updated dependencies
     - @biomejs/biome   ^1.6.3  →   ^1.8.1
