@@ -19,9 +19,9 @@
 		"fastify-openapi-glue": "^4.6.0"
 	},
 	"devDependencies": {
-		"fastify": "^4.26.2",
-		"fastify-cli": "^6.1.1",
-		"c8": "^9.1.0",
-		"@biomejs/biome": "^1.6.3"
+		"fastify": "^4.28.0",
+		"fastify-cli": "^6.2.1",
+		"c8": "^10.1.2",
+		"@biomejs/biome": "^1.8.1"
 	}
 }
