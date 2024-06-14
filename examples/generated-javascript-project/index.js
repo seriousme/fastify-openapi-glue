@@ -11,7 +11,7 @@ const pluginOptions = {
 };
 
 export default async function (fastify, opts) {
-	fastify.register(openapiGlue, pluginOptions);
+	fastify.register(openapiGlue, { ...pluginOptions, ...opts });
 }
 
 export const options = {
