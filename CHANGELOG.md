@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 ### Changed
+ - fix: fix passing opts in js generator template
+ - chore: updated dependencies
+    - @biomejs/biome   ^1.6.3  →   ^1.8.1
+    - c8              ^10.1.1  →  ^10.1.2
+    - fastify         ^4.26.2  →  ^4.28.0
+    - fastify-cli      ^6.1.1  →   ^6.2.1
 
 ## [4.6.0] 12-04-2024
 ### Changed
