@@ -35,3 +35,35 @@ test("route registration succeeds with cookie param", (t, done) => {
 		}
 	});
 });
+
+test("route registration inserts cookie schema", (t, done) => {
+	const opts = {
+		specification: testSpec,
+		serviceHandlers,
+		addCookieSchema: true,
+	};
+
+	const fastify = Fastify(noStrict);
+	// Register onRoute handler which will be called when the plugin registers routes in the specification.
+	let hadCookieSchema = false;
+	fastify.addHook("onRoute", (routeOptions) => {
+		const schema = routeOptions.schema;
+		if (schema.operationId === "getCookieParam") {
+			hadCookieSchema =
+				schema?.cookies &&
+				typeof schema?.cookies?.properties?.cookieValue === "object";
+		}
+	});
+	fastify.register(fastifyOpenapiGlue, opts);
+	fastify.ready((err) => {
+		// Our onRoute handler above should have been invoked already and should have found the cookie schema we asked for (with 'addCookieSchema' option).
+		if (err) {
+			assert.fail("got unexpected error");
+		} else if (hadCookieSchema) {
+			assert.ok(true, "no unexpected error");
+			done();
+		} else {
+			assert.fail("cookie schema not found");
+		}
+	});
+});
