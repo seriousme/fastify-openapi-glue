@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+- feat: added addCookieSchema option, see docs/cookieValidationHowTo.md
 
 ## [4.6.1] 14-06-2024
 ### Changed
