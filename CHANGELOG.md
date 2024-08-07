@@ -3,14 +3,13 @@
 ## [Unreleased]
 ### Changed
 
-## [4.7.0] 07/08/2024
+## [4.7.0] 07-08-2024
 ### Changed
 - feat: added addCookieSchema option, see docs/cookieValidationHowTo.md (@pcafstockf)
 - chore: updated dependencies
    - @biomejs/biome   ^1.8.1  →   ^1.8.3
    - fastify         ^4.28.0  →  ^4.28.1
    - fastify-cli      ^6.2.1  →   ^6.3.0
-
 
 ## [4.6.1] 14-06-2024
 ### Changed
