@@ -121,6 +121,7 @@ async function plugin(instance, opts) {
 	const parser = new Parser();
 	const config = await parser.parse(opts.specification, {
 		addEmptySchema: opts.addEmptySchema ?? false,
+		addCookieSchema: opts.addCookieSchema ?? false,
 	});
 	checkParserValidators(instance, config.contentTypes);
 	if (opts.service) {
