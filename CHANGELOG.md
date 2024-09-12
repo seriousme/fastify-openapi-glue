@@ -3,6 +3,13 @@
 ## [Unreleased]
 ### Changed
 
+## [4.7.1] 12-09-2024
+### Changed
+- fix: support "content" field for query string
+- chore: updated dependencies
+   - @biomejs/biome                       ^1.8.3  →  ^1.9.0
+   - @seriousme/openapi-schema-validator  ^2.2.1  →  ^2.2.3
+
 ## [4.7.0] 07-08-2024
 ### Changed
 - feat: added addCookieSchema option, see docs/cookieValidationHowTo.md (@pcafstockf)
