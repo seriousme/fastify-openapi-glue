@@ -1,6 +1,6 @@
 {
 	"files": {
-		"ignore": ["coverage"]
+		"ignore": ["coverage", "package.json"]
 	},
 	"linter": {
 		"enabled": true,
