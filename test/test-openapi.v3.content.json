@@ -1,0 +1,54 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"url": "http://localhost/v2"
+		}
+	],
+	"info": {
+		"title": "Test specification",
+		"description": "testing the fastify openapi glue",
+		"version": "0.1.0"
+	},
+	"security": [
+		{
+			"skipped": []
+		}
+	],
+	"paths": {
+		"/queryParamObjectInContent": {
+			"get": {
+				"operationId": "getQueryParamObject",
+				"summary": "Test query parameters in an object",
+				"parameters": [
+					{
+						"in": "query",
+						"name": "obj",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"int1": {
+											"type": "integer"
+										},
+										"int2": {
+											"type": "integer"
+										}
+									},
+									"required": ["int1", "int2"]
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ok"
+					}
+				},
+				"x-tap-ok": true
+			}
+		}
+	}
+}
