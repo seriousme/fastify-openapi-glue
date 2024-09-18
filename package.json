@@ -41,7 +41,7 @@
 		"@biomejs/biome": "^1.9.0",
 		"c8": "^10.1.2",
 		"fastify": "^4.28.1",
-		"fastify-cli": "^6.3.0"
+		"fastify-cli": "^7.0.0"
 	},
 	"repository": {
 		"type": "git",
