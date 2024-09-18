@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@seriousme/openapi-schema-validator": "^2.2.3",
-		"fastify-plugin": "^4.5.1",
+		"fastify-plugin": "^5.0.0",
 		"js-yaml": "^4.1.0",
 		"minimist": "^1.2.8"
 	},
