@@ -5,21 +5,25 @@ import Fastify from "fastify";
 import petstoreExample, { options } from "../examples/petstore/index.js";
 
 test("/v2/pet/24 works", async (t) => {
-	const fastify = Fastify(options);
+	const fastify = Fastify(structuredClone(options));
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
 		url: "v2/pet/24",
 	});
 	assert.equal(res.statusCode, 200);
-	assert.equal(
-		res.body,
-		'{"id":24,"name":"Kitty the cat","photoUrls":["https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg"],"status":"available"}',
-	);
+	assert.deepEqual(JSON.parse(res.body), {
+		id: 24,
+		name: "Kitty the cat",
+		photoUrls: [
+			"https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg",
+		],
+		status: "available",
+	});
 });
 
 test("/v2/pet/myPet returns Fastify validation error", async (t) => {
-	const fastify = Fastify(options);
+	const fastify = Fastify(structuredClone(options));
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
@@ -33,7 +37,7 @@ test("/v2/pet/myPet returns Fastify validation error", async (t) => {
 });
 
 test("v2/pet/findByStatus?status=available&status=pending returns 'not implemented'", async (t) => {
-	const fastify = Fastify(options);
+	const fastify = Fastify(structuredClone(options));
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
@@ -50,7 +54,7 @@ test("v2/pet/findByStatus?status=available&status=pending returns 'not implement
 });
 
 test("v2/pet/0 returns serialization error", async (t) => {
-	const fastify = Fastify(options);
+	const fastify = Fastify(structuredClone(options));
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
