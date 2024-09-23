@@ -42,7 +42,7 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			securityHandlers,
 		};
 
-		const fastify = Fastify(noStrict);
+		const fastify = Fastify(structuredClone(noStrict));
 		fastify.register(fastifyOpenapiGlue, opts);
 		fastify.ready((err) => {
 			if (err) {

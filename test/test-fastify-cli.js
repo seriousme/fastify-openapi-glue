@@ -19,8 +19,12 @@ test("test fastify-cli with petstore example", async (t) => {
 		url: "v2/pet/24",
 	});
 	assert.equal(res.statusCode, 200);
-	assert.equal(
-		res.body,
-		'{"id":24,"name":"Kitty the cat","photoUrls":["https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg"],"status":"available"}',
-	);
+	assert.deepEqual(JSON.parse(res.body), {
+		id: 24,
+		name: "Kitty the cat",
+		photoUrls: [
+			"https://en.wikipedia.org/wiki/Cat#/media/File:Kittyply_edit1.jpg",
+		],
+		status: "available",
+	});
 });
