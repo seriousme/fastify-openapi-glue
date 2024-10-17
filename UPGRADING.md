@@ -69,7 +69,7 @@ fastify.register(openapiGlue, options);
 
 ```
 
-You now need to pass the AJV options to Fastify at startup. (see: https://www.fastify.io/docs/latest/Reference/Server/#ajv) or add them to your own AJV instance (see: https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/#schema-validator).  The `noAdditional:true` flag should be mapped to AJV's `removeAdditional:false` option (see: https://ajv.js.org/options.html#removeadditional)
+You now need to pass the AJV options to Fastify at startup. (see: https://fastify.dev/docs/latest/Reference/Server/#ajv) or add them to your own AJV instance (see: https://fastify.dev/docs/latest/Reference/Validation-and-Serialization/#schema-validator).  The `noAdditional:true` flag should be mapped to AJV's `removeAdditional:false` option (see: https://ajv.js.org/options.html#removeadditional)
 
 ### service and securityhandlers options
 

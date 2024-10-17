@@ -6,7 +6,7 @@
 
 
 
-A plugin for [fastify](https://www.fastify.io) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
+A plugin for [fastify](https://fastify.dev) to autogenerate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
 It aims at facilitating ["design first" API development](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/) i.e. you write or obtain an API specification and use that to generate code. Given an OpenApi specification Fastify-openapi-glue handles the fastify configuration of routes and validation schemas etc. You can also [generate](#generator) your own project from a OpenApi specification.
 
@@ -179,11 +179,11 @@ The folder [examples/generated-javascript-project](examples/generated-javascript
 ## Notes
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes. See the [servers documentation](docs/servers.md) for more details.
 - fastify only supports `application/json` and `text/plain` out of the box. The default charset is `utf-8`.  If you need to support different content types, you can use the fastify `addContentTypeParser` API.
-- fastify will by default coerce types, e.g when you expect a number a string like `"1"` will also pass validation, this can be reconfigured, see [Validation and Serialization](https://www.fastify.io/docs/latest/Reference/Validation-and-Serialization/).
+- fastify will by default coerce types, e.g when you expect a number a string like `"1"` will also pass validation, this can be reconfigured, see [Validation and Serialization](https://fastify.dev/docs/latest/Reference/Validation-and-Serialization/).
 - fastify only supports one schema per route. So while the v3 standard allows for multiple content types per route, each with their own schema this is currently not going to work with fastify. Potential workarounds include a custom content type parser and merging schemas upfront using JSON schema `oneOf`.
 - the plugin aims to follow fastify and does not compensate for features that are possible according to the OpenApi specification but not possible in standard fastify (without plugins). This will keep the plugin lightweigth and maintainable. E.g. Fastify does not support cookie validation, while OpenApi v3 does.
 - in some cases however, the plugin may be able to provide you with data which could be used to enhance OpenApi support within your own Fastify application. Here is one possible way to perform [cookie validation](docs/cookieValidationHowTo.md)  yourself.
-- if you have special needs on querystring handling (e.g. arrays, objects etc) then fastify supports a [custom querystring parser](https://www.fastify.io/docs/latest/Server/#querystringparser). You might need to pass the AJV option `coerceTypes: 'array'` as an option to Fastify.
+- if you have special needs on querystring handling (e.g. arrays, objects etc) then fastify supports a [custom querystring parser](https://fastify.dev/docs/latest/Reference/Server/#querystringparser). You might need to pass the AJV option `coerceTypes: 'array'` as an option to Fastify.
 - the plugin is an ECMAscript Module (aka ESM). If you are using Typescript then make sure that you have read: https://www.typescriptlang.org/docs/handbook/esm-node.html to avoid any confusion.
 - If you want to use a specification that consists of multiple files then please check out the page on [subschemas](docs/subSchemas.md) 
 - Fastify uses AJV strict mode in validating schemas. If you get an error like `....due to error strict mode: unknown keyword: "..."` then please check out the page on [AJV strict mode](docs/AJVstrictMode.md) 
