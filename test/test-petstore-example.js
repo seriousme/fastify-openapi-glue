@@ -5,7 +5,7 @@ import Fastify from "fastify";
 import petstoreExample, { options } from "../examples/petstore/index.js";
 
 test("/v2/pet/24 works", async (t) => {
-	const fastify = Fastify(structuredClone(options));
+	const fastify = Fastify(options);
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
@@ -23,7 +23,7 @@ test("/v2/pet/24 works", async (t) => {
 });
 
 test("/v2/pet/myPet returns Fastify validation error", async (t) => {
-	const fastify = Fastify(structuredClone(options));
+	const fastify = Fastify(options);
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
@@ -37,7 +37,7 @@ test("/v2/pet/myPet returns Fastify validation error", async (t) => {
 });
 
 test("v2/pet/findByStatus?status=available&status=pending returns 'not implemented'", async (t) => {
-	const fastify = Fastify(structuredClone(options));
+	const fastify = Fastify(options);
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",
@@ -54,7 +54,7 @@ test("v2/pet/findByStatus?status=available&status=pending returns 'not implement
 });
 
 test("v2/pet/0 returns serialization error", async (t) => {
-	const fastify = Fastify(structuredClone(options));
+	const fastify = Fastify(options);
 	fastify.register(petstoreExample, {});
 	const res = await fastify.inject({
 		method: "GET",

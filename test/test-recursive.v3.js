@@ -24,7 +24,7 @@ test("route registration succeeds with recursion", (t, done) => {
 		serviceHandlers,
 	};
 
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts);
 	fastify.ready((err) => {
 		if (err) {
