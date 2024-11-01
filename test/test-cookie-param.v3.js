@@ -24,7 +24,7 @@ test("route registration succeeds with cookie param", (t, done) => {
 		serviceHandlers,
 	};
 
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts);
 	fastify.ready((err) => {
 		if (err) {
@@ -43,7 +43,7 @@ test("route registration inserts cookie schema", (t, done) => {
 		addCookieSchema: true,
 	};
 
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	// Register onRoute handler which will be called when the plugin registers routes in the specification.
 	let hadCookieSchema = false;
 	fastify.addHook("onRoute", (routeOptions) => {

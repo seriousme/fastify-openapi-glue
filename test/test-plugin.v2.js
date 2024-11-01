@@ -214,7 +214,7 @@ test("invalid service definition throws error ", (t, done) => {
 });
 
 test("full pet store V2 definition does not throw error ", (t, done) => {
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, {
 		specification: structuredClone(petStoreSpec),
 		serviceHandlers,
@@ -292,7 +292,7 @@ test("generic path parameters override works", async (t) => {
 });
 
 test("schema attributes for non-body parameters work", async (t) => {
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, {
 		specification: structuredClone(petStoreSpec),
 		serviceHandlers,

@@ -248,7 +248,7 @@ test("response schema works with invalid response", async (t) => {
 });
 
 test("yaml spec works", async (t) => {
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, yamlOpts);
 
 	const res = await fastify.inject({
@@ -315,7 +315,7 @@ test("missing service definition throws error ", (t, done) => {
 });
 
 test("full pet store V3 definition does not throw error ", (t, done) => {
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	// dummy parser to fix coverage testing
 	fastify.addContentTypeParser(
 		"application/xml",
@@ -341,7 +341,7 @@ test("V3.0.1 definition does not throw error", (t, done) => {
 		serviceHandlers,
 	};
 
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts301);
 	fastify.ready((err) => {
 		if (err) {
@@ -361,7 +361,7 @@ test("V3.0.2 definition does not throw error", (t, done) => {
 		serviceHandlers,
 	};
 
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts302);
 	fastify.ready((err) => {
 		if (err) {
@@ -381,7 +381,7 @@ test("V3.0.3 definition does not throw error", (t, done) => {
 		serviceHandlers,
 	};
 
-	const fastify = Fastify(structuredClone(noStrict));
+	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts303);
 	fastify.ready((err) => {
 		if (err) {
