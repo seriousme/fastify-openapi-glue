@@ -12,16 +12,16 @@
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": "^5.0.0",
-    "@seriousme/openapi-schema-validator": "^2.2.3",
+    "fastify-plugin": "^5.0.1",
+    "@seriousme/openapi-schema-validator": "^2.2.4",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
     "fastify-openapi-glue": "^4.7.1"
   },
   "devDependencies": {
-    "fastify": "^5.0.0",
-    "fastify-cli": "^7.0.0",
+    "fastify": "^5.1.0",
+    "fastify-cli": "^7.0.1",
     "c8": "^10.1.2",
-    "@biomejs/biome": "^1.9.0"
+    "@biomejs/biome": "^1.9.4"
   }
 }

@@ -3,6 +3,15 @@
 ## [Unreleased]
 ### Changed
 
+## [4.7.2] 12-11-2024
+### Changed
+- chore: updated dependencies
+   - @biomejs/biome                       ^1.9.0  →  ^1.9.4
+   - @seriousme/openapi-schema-validator  ^2.2.3  →  ^2.2.4
+   - fastify                              ^5.0.0  →  ^5.1.0
+   - fastify-cli                          ^7.0.0  →  ^7.0.1
+   - fastify-plugin                       ^5.0.0  →  ^5.0.1
+
 ## [4.7.1] 12-09-2024
 ### Changed
 - fix: support "content" field for query string
