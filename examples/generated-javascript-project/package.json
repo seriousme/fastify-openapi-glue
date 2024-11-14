@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "fastify-plugin": "^5.0.1",
-    "@seriousme/openapi-schema-validator": "^2.2.4",
+    "@seriousme/openapi-schema-validator": "^2.2.5",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
-    "fastify-openapi-glue": "^4.7.1"
+    "fastify-openapi-glue": "^4.7.2"
   },
   "devDependencies": {
     "fastify": "^5.1.0",
