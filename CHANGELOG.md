@@ -3,6 +3,11 @@
 ## [Unreleased]
 ### Changed
 
+## [4.7.3] 14-11-2024
+### Changed
+- chore: updated dependencies
+   - @seriousme/openapi-schema-validator  ^2.2.4  →  ^2.2.5
+
 ## [4.7.2] 12-11-2024
 ### Changed
 - chore: updated dependencies
