@@ -149,7 +149,10 @@ async function plugin(instance, opts) {
 		routeConf.prefix = config.prefix;
 	}
 
-	instance.register(makeGenerateRoutes(config, resolver, security), routeConf);
+	await instance.register(
+		makeGenerateRoutes(config, resolver, security),
+		routeConf,
+	);
 }
 
 const fastifyOpenapiGlue = fp(plugin, {
