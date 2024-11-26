@@ -3,6 +3,12 @@
 ## [Unreleased]
 ### Changed
 
+## [4.7.4] 26-11-2024
+### Changed
+- fix: Add await to deterministically finish registering with fastify (dsschneidermann)
+- chore: updated dependencies
+   - @seriousme/openapi-schema-validator  ^2.2.5  →  ^2.3.0
+
 ## [4.7.3] 14-11-2024
 ### Changed
 - chore: updated dependencies
