@@ -3,7 +3,7 @@
 ## [Unreleased]
 ### Changed
 
-## [4.8.0] 26-11-2024
+## [4.8.0] 04-12-2024
 ### Changed
 - feat: export SecurityError 
 
