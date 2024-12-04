@@ -3,6 +3,10 @@
 ## [Unreleased]
 ### Changed
 
+## [4.8.0] 26-11-2024
+### Changed
+- feat: export SecurityError 
+
 ## [4.7.4] 26-11-2024
 ### Changed
 - fix: Add await to deterministically finish registering with fastify (dsschneidermann)
