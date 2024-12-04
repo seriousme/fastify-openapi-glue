@@ -32,6 +32,12 @@ export interface FastifyOpenapiGlueOptions {
 }
 
 declare const fastifyOpenapiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
+declare interface SecurityError extends Error {
+	statusCode: number;
+	name: string;
+	errors: Error[];
+}
 
 export default fastifyOpenapiGlue;
 export { fastifyOpenapiGlue };
+export type { SecurityError };
