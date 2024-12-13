@@ -1,6 +1,6 @@
 // a fastify plugin to demo fastify-openapi-glue
 // it can be run as plugin on any fastify server
-// or standalone using "fastify start index.js"
+// or standalone using "fastify start index.js --options"
 import openapiGlue from "../../index.js";
 import { Service } from "./service.js";
 const serviceHandlers = new Service();
