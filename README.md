@@ -187,6 +187,7 @@ The folder [examples/generated-javascript-project](examples/generated-javascript
 - the plugin is an ECMAscript Module (aka ESM). If you are using Typescript then make sure that you have read: https://www.typescriptlang.org/docs/handbook/esm-node.html to avoid any confusion.
 - If you want to use a specification that consists of multiple files then please check out the page on [subschemas](docs/subSchemas.md) 
 - Fastify uses AJV strict mode in validating schemas. If you get an error like `....due to error strict mode: unknown keyword: "..."` then please check out the page on [AJV strict mode](docs/AJVstrictMode.md) 
+- Fastify does not support `multipart/form-data` out of the box. If you want to use it then have a look at: [@fastify/multipart](https://github.com/fastify/fastify-multipart).
 <a name="Contributing"></a>
 ## Contributing
 - contributions are always welcome. 
