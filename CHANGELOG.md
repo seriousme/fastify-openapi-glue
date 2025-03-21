@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [4.8.1] 21-03-2025
+### Changed
+- chore: updated dependencies
+   -  @seriousme/openapi-schema-validator   ^2.3.0  →   ^2.4.0
+   -  c8                                   ^10.1.2  →  ^10.1.3
+   -  fastify                               ^5.1.0  →   ^5.2.1
+   -  fastify-cli                           ^7.0.1  →   ^7.3.0
+
 ## [4.8.0] 04-12-2024
 ### Changed
 - feat: export SecurityError 
