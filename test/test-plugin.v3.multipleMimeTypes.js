@@ -7,7 +7,7 @@ import fastifyOpenapiGlue from "../index.js";
 const importJSON = createRequire(import.meta.url);
 
 const testSpec = await importJSON("./test-openapi.v3.multipleMimeTypes.json");
-import { Service } from "./service.js";
+import { Service } from "./service.multipleMimeTypes.js";
 const serviceHandlers = new Service();
 
 const noStrict = {
@@ -82,7 +82,6 @@ test("multiple MIME types in response work", async (t) => {
 			responseType: "application/json",
 		},
 	});
-	console.log(res1);
 	assert.equal(res1.statusCode, 200);
 	const res1Body = JSON.parse(res1.body);
 	assert.equal(res1Body.str1, "test data");
@@ -99,4 +98,3 @@ test("multiple MIME types in response work", async (t) => {
 	assert.equal(res2Body.int1, 2);
 	assert.ok(res2.headers["content-type"].includes("text/json"));
 });
-
