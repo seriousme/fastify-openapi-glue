@@ -16,7 +16,7 @@
     "@seriousme/openapi-schema-validator": "^2.4.0",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.8",
-    "fastify-openapi-glue": "^4.8.0"
+    "fastify-openapi-glue": "^4.8.1"
   },
   "devDependencies": {
     "fastify": "^5.2.1",

@@ -1,0 +1,96 @@
+{
+	"openapi": "3.1.1",
+	"servers": [
+		{
+			"url": "http://localhost/v2"
+		}
+	],
+	"info": {
+		"title": "Test specification",
+		"description": "testing the fastify openapi glue",
+		"version": "0.1.0"
+	},
+	"security": [
+		{
+			"skipped": []
+		}
+	],
+	"paths": {
+		"/postMultipleBodyMimeTypes": {
+			"post": {
+				"operationId": "postMultipleBodyMimeTypes",
+				"summary": "Test multiple Mime types in requestBody",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/bodyObjectString" }
+						},
+						"text/json": {
+							"schema": { "$ref": "#/components/schemas/bodyObjectInt" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "ok"
+					}
+				},
+				"x-tap-ok": true
+			}
+		},
+		"/getMultipleResponseMimeTypes": {
+			"get": {
+				"operationId": "getMultipleResponseMimeTypes",
+				"summary": "Test multiple Mime types in responses",
+				"parameters": [
+					{
+						"in": "query",
+						"name": "responseType",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "ok",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/bodyObjectString" }
+							},
+							"text/json": {
+								"schema": { "$ref": "#/components/schemas/bodyObjectInt" }
+							}
+						}
+					}
+				},
+				"x-tap-ok": true
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"bodyObjectString": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"str1": {
+						"type": "string"
+					}
+				},
+				"required": ["str1"]
+			},
+			"bodyObjectInt": {
+				"type": "object",
+				"additionalProperties": false,
+				"properties": {
+					"int1": {
+						"type": "integer"
+					}
+				},
+				"required": ["int1"]
+			}
+		}
+	}
+}
