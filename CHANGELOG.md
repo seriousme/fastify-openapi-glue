@@ -3,6 +3,12 @@
 ## [Unreleased]
 ### Changed
 
+## [4.9.0] 28-03-2025
+### Changed
+- feature: support multiple MIME types in requestBody and response
+- chore: updated dependencies
+   -  fastify  ^5.2.1  →  ^5.2.2
+
 ## [4.8.1] 21-03-2025
 ### Changed
 - chore: updated dependencies
