@@ -187,6 +187,8 @@ The folder [examples/generated-javascript-project](examples/generated-javascript
 - If you want to use a specification that consists of multiple files then please check out the page on [subschemas](docs/subSchemas.md) 
 - Fastify uses AJV strict mode in validating schemas. If you get an error like `....due to error strict mode: unknown keyword: "..."` then please check out the page on [AJV strict mode](docs/AJVstrictMode.md) 
 - Fastify does not support `multipart/form-data` out of the box. If you want to use it then have a look at: [@fastify/multipart](https://github.com/fastify/fastify-multipart).
+- Fastify uses AJV with JSON schema draft-07 out of the box. If you want to use JSON schema draft-2020-12 features in your OpenApi 3.1+ schema then have a look at [using JSONschema 2020](docs/schema2020.md) 
+
 <a name="Contributing"></a>
 ## Contributing
 - contributions are always welcome. 
