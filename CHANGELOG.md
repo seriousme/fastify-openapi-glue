@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+- doc: added note on using schema 2020
 
 ## [4.9.0] 28-03-2025
 ### Changed
