@@ -2,7 +2,15 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.9.1] 27-04-2025
+### Changed
 - doc: added note on using schema 2020
+- chore: updated dependencies
+   -  @seriousme/openapi-schema-validator  ^2.4.0  →  ^2.4.1
+   -  fastify                              ^5.2.2  →  ^5.3.2
+   -  fastify-cli                          ^7.3.0  →  ^7.4.0
+   -  minimist replaced by node:util.parseArgs
 
 ## [4.9.0] 28-03-2025
 ### Changed
