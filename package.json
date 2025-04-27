@@ -26,10 +26,9 @@
 		"openapi-glue": "./bin/openapi-glue-cli.js"
 	},
 	"dependencies": {
-		"@seriousme/openapi-schema-validator": "^2.4.0",
+		"@seriousme/openapi-schema-validator": "^2.4.1",
 		"fastify-plugin": "^5.0.1",
-		"js-yaml": "^4.1.0",
-		"minimist": "^1.2.8"
+		"js-yaml": "^4.1.0"
 	},
 	"directories": {
 		"example": "./examples",
@@ -40,8 +39,8 @@
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"c8": "^10.1.3",
-		"fastify": "^5.2.2",
-		"fastify-cli": "^7.3.0"
+		"fastify": "^5.3.2",
+		"fastify-cli": "^7.4.0"
 	},
 	"repository": {
 		"type": "git",

@@ -3,7 +3,7 @@
 import { basename, resolve } from "node:path";
 import { exit } from "node:process";
 import { fileURLToPath } from "node:url";
-import argvParser from "minimist";
+import { parseArgs } from "node:util";
 import { Generator } from "../lib/generator.js";
 const __filename = fileURLToPath(import.meta.url);
 
@@ -20,7 +20,7 @@ Any existing files in the project folder will be overwritten!
 Options:
 
   -p <name>                   The name of the project to generate
-  --projectName=<name>        [default: ${argvOptions.default.projectName}]
+  --projectName=<name>        [default: ${process.cwd()}]
                               
   -b <dir> --baseDir=<dir>    Directory to generate the project in.
                               This directory must already exist.
@@ -33,33 +33,45 @@ Options:
  The following options are only usefull for testing the openapi-glue plugin:
   -c --checksumOnly           Don't generate the project on disk but
                               return checksums only. 
-  -l --localPlugin            Use a local path to the plugin. 
+  -l --localPlugin           Use a local path to the plugin. 
                         
 `);
 	exit(1);
 }
 
-const argvOptions = {
-	string: ["baseDir", "projectName", "type", "_"],
-	boolean: ["checksumOnly", "localPlugin"],
-	alias: {
-		baseDir: "b",
-		projectName: "p",
-		checksumOnly: "c",
-		localPlugin: "l",
-		type: "t",
+const options = {
+	baseDir: {
+		type: "string",
+		short: "b",
+		default: process.cwd(),
 	},
-
-	default: {
-		baseDir: process.cwd(),
-		checksumOnly: false,
-		localPlugin: false,
-		type: "javascript",
+	projectName: {
+		type: "string",
+		short: "p",
+	},
+	type: {
+		type: "string",
+		short: "t",
+		default: "javascript",
+	},
+	checksumOnly: {
+		type: "boolean",
+		short: "c",
+		default: false,
+	},
+	localPlugin: {
+		type: "boolean",
+		short: "l",
+		default: false,
 	},
 };
 
-const argv = argvParser(process.argv.slice(2), argvOptions);
-argv.specification = argv._.shift();
+const { values: argv, positionals } = parseArgs({
+	options,
+	allowPositionals: true,
+});
+
+argv.specification = positionals[0];
 
 if (!argv.specification) {
 	usage();
