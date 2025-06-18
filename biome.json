@@ -1,12 +1,24 @@
 {
 	"files": {
-		"ignore": ["coverage", "package.json"]
+		"includes": ["**", "!**/coverage", "!**/package.json"]
 	},
 	"linter": {
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-			"complexity": { "useLiteralKeys": "off" }
+			"complexity": { "useLiteralKeys": "off" },
+			"style": {
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
+			}
 		}
 	}
 }
