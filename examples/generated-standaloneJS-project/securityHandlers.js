@@ -1,5 +1,3 @@
-const emptyScheme = Symbol("emptyScheme");
-
 export class SecurityError extends Error {
 	constructor(message, statusCode, name, errors) {
 		super(message);

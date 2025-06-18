@@ -1,8 +1,8 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
+
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
@@ -24,9 +24,9 @@ test("generator generates V3.0.0 project without error", async (t) => {
 	try {
 		await generator.parse(specPath3);
 		await generator.generateProject(dir, projectName);
-		assert.ok(true, "no error occurred");
+		t.assert.ok(true, "no error occurred");
 	} catch (e) {
-		assert.fail(e.message);
+		t.assert.fail(e.message);
 	}
 });
 
@@ -36,9 +36,9 @@ test("generator generates V3.0.1 project without error", async (t) => {
 	try {
 		await generator.parse(spec301);
 		await generator.generateProject(dir, projectName);
-		assert.ok(true, "no error occurred");
+		t.assert.ok(true, "no error occurred");
 	} catch (e) {
-		assert.fail(e.message);
+		t.assert.fail(e.message);
 	}
 });
 
@@ -46,9 +46,9 @@ test("generator generates project with local plugin without error", async (t) =>
 	try {
 		await localGenerator.parse(specPath);
 		await localGenerator.generateProject(dir, projectName);
-		assert.ok(true, "no error occurred");
+		t.assert.ok(true, "no error occurred");
 	} catch (e) {
-		assert.fail(e.message);
+		t.assert.fail(e.message);
 	}
 });
 
@@ -56,9 +56,9 @@ test("generator throws error on non-existent basedir", async (t) => {
 	try {
 		await generator.parse(specPath);
 		await generator.generateProject(nonExistentDir, projectName);
-		assert.fail("no error occurred");
+		t.assert.fail("no error occurred");
 	} catch (e) {
-		assert.equal(e.code, "ENOENT", "got expected error");
+		t.assert.equal(e.code, "ENOENT", "got expected error");
 	}
 });
 
@@ -71,9 +71,9 @@ for (const type of templateTypes) {
 		try {
 			await generator.parse(specPath);
 			await generator.generateProject(dir, project, type);
-			assert.ok(true, "no error occurred");
+			t.assert.ok(true, "no error occurred");
 		} catch (e) {
-			assert.fail(e.message);
+			t.assert.fail(e.message);
 		}
 	});
 }

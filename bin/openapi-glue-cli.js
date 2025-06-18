@@ -5,6 +5,7 @@ import { exit } from "node:process";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
 import { Generator } from "../lib/generator.js";
+
 const __filename = fileURLToPath(import.meta.url);
 
 const validTypes = new Set(["javascript", "standaloneJS"]);

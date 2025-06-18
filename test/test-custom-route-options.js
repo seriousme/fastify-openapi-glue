@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
@@ -14,7 +13,7 @@ test("return route params from operationResolver", async (t) => {
 		specification: testSpec,
 		operationResolver: () => {
 			return {
-				onSend: async (req, res) => {
+				onSend: async (_req, res) => {
 					res.code(304);
 					return null;
 				},
@@ -29,7 +28,7 @@ test("return route params from operationResolver", async (t) => {
 		method: "GET",
 		url: "/queryParamObject?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 304);
+	t.assert.equal(res.statusCode, 304);
 });
 
 test("operationResolver route params overwrite default params", async (t) => {
@@ -50,8 +49,8 @@ test("operationResolver route params overwrite default params", async (t) => {
 		method: "GET",
 		url: "/queryParamObject?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
-	assert.equal(JSON.parse(res.body)?.foo, "bar");
+	t.assert.equal(res.statusCode, 200);
+	t.assert.equal(JSON.parse(res.body)?.foo, "bar");
 });
 
 test("throw an error if handler is not specified", async (t) => {
@@ -65,11 +64,11 @@ test("throw an error if handler is not specified", async (t) => {
 		method: "GET",
 		url: "/queryParamObject?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 	const parsedBody = JSON.parse(res.body);
-	assert.equal(parsedBody?.statusCode, 500);
-	assert.equal(parsedBody?.error, "Internal Server Error");
-	assert.equal(
+	t.assert.equal(parsedBody?.statusCode, 500);
+	t.assert.equal(parsedBody?.error, "Internal Server Error");
+	t.assert.equal(
 		parsedBody?.message,
 		"Operation getQueryParamObject not implemented",
 	);

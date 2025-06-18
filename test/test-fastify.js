@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert/strict";
 // just test the basics to aid debugging
 import { test } from "node:test";
 import Fastify from "fastify";
@@ -28,7 +27,7 @@ test("basic fastify works", async (t) => {
 		method: "GET",
 		url: "/",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("fastify validation works", async (t) => {
@@ -45,14 +44,14 @@ test("fastify validation works", async (t) => {
 			method: "GET",
 			url: "/?hello=world",
 		});
-		assert.equal(res.body, '{"hello":"world"}', "expected value");
-		assert.equal(res.statusCode, 200, "expected HTTP code");
+		t.assert.equal(res.body, '{"hello":"world"}', "expected value");
+		t.assert.equal(res.statusCode, 200, "expected HTTP code");
 	}
 	{
 		const res = await fastify.inject({
 			method: "GET",
 			url: "/?ello=world",
 		});
-		assert.equal(res.statusCode, 400, "expected HTTP code");
+		t.assert.equal(res.statusCode, 400, "expected HTTP code");
 	}
 });

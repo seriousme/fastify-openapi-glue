@@ -50,13 +50,13 @@ function buildPreHandler(securityHandlers, schemes) {
 }
 
 export default fastifyPlugin(
-	async (instance, opts) => {
+	async (instance, _opts) => {
 		instance.register(generateRoutes, { prefix: "/v2" });
 	},
 	{ fastify: "^4.x" },
 );
 
-async function generateRoutes(fastify, opts) {
+async function generateRoutes(fastify, _opts) {
 	const service = new Service();
 	const security = new Security();
 	fastify.route({

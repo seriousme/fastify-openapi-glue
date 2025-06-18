@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert/strict";
 // this suite tests the examples shown in README.md
 import { test } from "node:test";
 import Fastify from "fastify";
@@ -11,8 +10,8 @@ test("/v2/pet/24 works", async (t) => {
 		method: "GET",
 		url: "v2/pet/24",
 	});
-	assert.equal(res.statusCode, 200);
-	assert.deepEqual(JSON.parse(res.body), {
+	t.assert.equal(res.statusCode, 200);
+	t.assert.deepEqual(JSON.parse(res.body), {
 		id: 24,
 		name: "Kitty the cat",
 		photoUrls: [
@@ -29,11 +28,11 @@ test("/v2/pet/myPet returns Fastify validation error", async (t) => {
 		method: "GET",
 		url: "v2/pet/myPet",
 	});
-	assert.equal(res.statusCode, 400);
+	t.assert.equal(res.statusCode, 400);
 	const parsedBody = JSON.parse(res.body);
-	assert.equal(parsedBody.statusCode, 400);
-	assert.equal(parsedBody.error, "Bad Request");
-	assert.equal(parsedBody.message, "params/petId must be integer");
+	t.assert.equal(parsedBody.statusCode, 400);
+	t.assert.equal(parsedBody.error, "Bad Request");
+	t.assert.equal(parsedBody.message, "params/petId must be integer");
 });
 
 test("v2/pet/findByStatus?status=available&status=pending returns 'not implemented'", async (t) => {
@@ -43,11 +42,11 @@ test("v2/pet/findByStatus?status=available&status=pending returns 'not implement
 		method: "GET",
 		url: "v2/pet/findByStatus?status=available&status=pending",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 	const parsedBody = JSON.parse(res.body);
-	assert.equal(parsedBody.statusCode, 500);
-	assert.equal(parsedBody.error, "Internal Server Error");
-	assert.equal(
+	t.assert.equal(parsedBody.statusCode, 500);
+	t.assert.equal(parsedBody.error, "Internal Server Error");
+	t.assert.equal(
 		parsedBody.message,
 		"Operation findPetsByStatus not implemented",
 	);
@@ -60,9 +59,9 @@ test("v2/pet/0 returns serialization error", async (t) => {
 		method: "GET",
 		url: "v2/pet/0",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 	const parsedBody = JSON.parse(res.body);
-	assert.equal(parsedBody.statusCode, 500);
-	assert.equal(parsedBody.error, "Internal Server Error");
-	assert.equal(parsedBody.message, '"name" is required!');
+	t.assert.equal(parsedBody.statusCode, 500);
+	t.assert.equal(parsedBody.error, "Internal Server Error");
+	t.assert.equal(parsedBody.message, '"name" is required!');
 });

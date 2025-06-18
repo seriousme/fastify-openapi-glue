@@ -1,7 +1,6 @@
-import { strict as assert } from "node:assert/strict";
 import { after, test } from "node:test";
 // test fastify-cli as used by the npm start script
-import { URL, fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { build } from "fastify-cli/helper.js";
 
 function localFile(fileName) {
@@ -18,8 +17,8 @@ test("test fastify-cli with petstore example", async (t) => {
 		method: "GET",
 		url: "v2/pet/24",
 	});
-	assert.equal(res.statusCode, 200);
-	assert.deepEqual(JSON.parse(res.body), {
+	t.assert.equal(res.statusCode, 200);
+	t.assert.deepEqual(JSON.parse(res.body), {
 		id: 24,
 		name: "Kitty the cat",
 		photoUrls: [

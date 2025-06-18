@@ -1,8 +1,8 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
+
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
@@ -12,7 +12,9 @@ const testSpecYAML = localFile("./test-swagger.v2.yaml");
 const genericPathItemsSpec = await importJSON(
 	"./test-swagger-v2-generic-path-items.json",
 );
+
 import { Service } from "./service.js";
+
 const serviceHandlers = new Service();
 
 const noStrict = {
@@ -67,7 +69,7 @@ test("path parameters work", async (t) => {
 		method: "GET",
 		url: "/v2/pathParam/2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("query parameters work", async (t) => {
@@ -78,7 +80,7 @@ test("query parameters work", async (t) => {
 		method: "GET",
 		url: "/v2/queryParam?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("header parameters work", async (t) => {
@@ -92,7 +94,7 @@ test("header parameters work", async (t) => {
 			"X-Request-ID": "test data",
 		},
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("body parameters work", async (t) => {
@@ -104,7 +106,7 @@ test("body parameters work", async (t) => {
 		url: "/v2/bodyParam",
 		payload: { str1: "test data" },
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("no parameters work", async (t) => {
@@ -115,7 +117,7 @@ test("no parameters work", async (t) => {
 		method: "get",
 		url: "/v2/noParam",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("missing operation from service returns error 500", async (t) => {
@@ -126,7 +128,7 @@ test("missing operation from service returns error 500", async (t) => {
 		method: "get",
 		url: "/v2/noOperationId/1",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 });
 
 test("response schema works with valid response", async (t) => {
@@ -137,7 +139,7 @@ test("response schema works with valid response", async (t) => {
 		method: "get",
 		url: "/v2/responses?replyType=valid",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("response schema works with invalid response", async (t) => {
@@ -148,7 +150,7 @@ test("response schema works with invalid response", async (t) => {
 		method: "get",
 		url: "/v2/responses?replyType=invalid",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 });
 
 test("yaml spec works", async (t) => {
@@ -159,7 +161,7 @@ test("yaml spec works", async (t) => {
 		method: "GET",
 		url: "/v2/pathParam/2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("invalid openapi v2 specification throws error ", (t, done) => {
@@ -167,14 +169,14 @@ test("invalid openapi v2 specification throws error ", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, invalidSwaggerOpts);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -184,14 +186,14 @@ test("missing service definition throws error ", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, invalidServiceOpts);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -201,14 +203,14 @@ test("invalid service definition throws error ", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, missingServiceOpts);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -221,9 +223,9 @@ test("full pet store V2 definition does not throw error ", (t, done) => {
 	});
 	fastify.ready((err) => {
 		if (err) {
-			assert.fail("got unexpected error");
+			t.assert.fail("got unexpected error");
 		} else {
-			assert.ok(true, "no unexpected error");
+			t.assert.ok(true, "no unexpected error");
 			done();
 		}
 	});
@@ -231,11 +233,11 @@ test("full pet store V2 definition does not throw error ", (t, done) => {
 
 test("x- props are copied", async (t) => {
 	const fastify = Fastify();
-	fastify.addHook("preHandler", async (request, reply) => {
+	fastify.addHook("preHandler", async (request, _reply) => {
 		if (request.routeOptions.schema["x-tap-ok"]) {
-			assert.ok(true, "found x- prop");
+			t.assert.ok(true, "found x- prop");
 		} else {
-			assert.fail("missing x- prop");
+			t.assert.fail("missing x- prop");
 		}
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
@@ -244,7 +246,7 @@ test("x- props are copied", async (t) => {
 		method: "GET",
 		url: "/v2/queryParam?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("x-fastify-config is applied", async (t) => {
@@ -252,8 +254,8 @@ test("x-fastify-config is applied", async (t) => {
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
 		serviceHandlers: {
-			operationWithFastifyConfigExtension: async (req, reply) => {
-				assert.equal(
+			operationWithFastifyConfigExtension: async (req, _reply) => {
+				t.assert.equal(
 					req.routeOptions.config.rawBody,
 					true,
 					"config.rawBody is true",
@@ -277,7 +279,7 @@ test("generic path parameters work", async (t) => {
 		method: "GET",
 		url: "/pathParam/2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("generic path parameters override works", async (t) => {
@@ -288,7 +290,7 @@ test("generic path parameters override works", async (t) => {
 		method: "GET",
 		url: "/noParam",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("schema attributes for non-body parameters work", async (t) => {
@@ -301,11 +303,11 @@ test("schema attributes for non-body parameters work", async (t) => {
 		method: "GET",
 		url: "v2/store/order/11",
 	});
-	assert.equal(res.statusCode, 400);
+	t.assert.equal(res.statusCode, 400);
 	const parsedBody = JSON.parse(res.body);
-	assert.equal(parsedBody.statusCode, 400);
-	assert.equal(parsedBody.error, "Bad Request");
-	assert.equal(parsedBody.message, "params/orderId must be <= 10");
+	t.assert.equal(parsedBody.statusCode, 400);
+	t.assert.equal(parsedBody.error, "Bad Request");
+	t.assert.equal(parsedBody.message, "params/orderId must be <= 10");
 });
 
 test("create an empty body with addEmptySchema option", async (t) => {
@@ -314,8 +316,8 @@ test("create an empty body with addEmptySchema option", async (t) => {
 	let emptyBodySchemaFound = false;
 	fastify.addHook("onRoute", (routeOptions) => {
 		if (routeOptions.url === "/v2/emptyBodySchema") {
-			assert.deepStrictEqual(routeOptions.schema.response?.["204"], {});
-			assert.deepStrictEqual(routeOptions.schema.response?.["302"], {});
+			t.assert.deepStrictEqual(routeOptions.schema.response?.["204"], {});
+			t.assert.deepStrictEqual(routeOptions.schema.response?.["302"], {});
 			emptyBodySchemaFound = true;
 		}
 	});
@@ -325,5 +327,5 @@ test("create an empty body with addEmptySchema option", async (t) => {
 		serviceHandlers: new Set(),
 		addEmptySchema: true,
 	});
-	assert.ok(emptyBodySchemaFound);
+	t.assert.ok(emptyBodySchemaFound);
 });

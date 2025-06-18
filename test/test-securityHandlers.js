@@ -1,12 +1,13 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
+
 const importJSON = createRequire(import.meta.url);
 
 import securityHandlers from "./security.js";
 import { Service } from "./service.js";
+
 const serviceHandlers = new Service();
 
 const noStrict = {
@@ -46,9 +47,9 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 		fastify.register(fastifyOpenapiGlue, opts);
 		fastify.ready((err) => {
 			if (err) {
-				assert.fail("got unexpected error");
+				t.assert.fail("got unexpected error");
 			} else {
-				assert.ok(true, "no unexpected error");
+				t.assert.ok(true, "no unexpected error");
 				done();
 			}
 		});
@@ -64,8 +65,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 		};
 
 		const fastify = Fastify();
-		fastify.setErrorHandler((err, req, reply) => {
-			assert.equal(err.errors.length, 3);
+		fastify.setErrorHandler((err, _req, reply) => {
+			t.assert.equal(err.errors.length, 3);
 			reply.code(err.statusCode).send(err);
 		});
 		fastify.register(fastifyOpenapiGlue, opts);
@@ -74,8 +75,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurity`,
 		});
-		assert.equal(res.statusCode, 401);
-		assert.equal(res.statusMessage, "Unauthorized");
+		t.assert.equal(res.statusCode, 401);
+		t.assert.equal(res.statusMessage, "Unauthorized");
 	});
 
 	test(`${version} security preHandler passes on succes using OR`, async (t) => {
@@ -96,12 +97,11 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurity`,
 		});
-		assert.equal(res.statusCode, 200);
-		assert.equal(res.statusMessage, "OK");
+		t.assert.equal(res.statusCode, 200);
+		t.assert.equal(res.statusMessage, "OK");
 	});
 
 	test(`${version} security preHandler passes on succes using AND`, async (t) => {
-		const result = {};
 		const opts = {
 			specification: testSpec,
 			serviceHandlers,
@@ -119,9 +119,9 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurityUsingAnd`,
 		});
-		assert.equal(res.statusCode, 200);
-		assert.equal(res.statusMessage, "OK");
-		assert.equal(res.body, '{"response":"Authentication succeeded!"}');
+		t.assert.equal(res.statusCode, 200);
+		t.assert.equal(res.statusMessage, "OK");
+		t.assert.equal(res.body, '{"response":"Authentication succeeded!"}');
 	});
 
 	test(`${version} security preHandler fails correctly on failure using AND`, async (t) => {
@@ -142,8 +142,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurityUsingAnd`,
 		});
-		assert.equal(res.statusCode, 401);
-		assert.equal(res.statusMessage, "Unauthorized");
+		t.assert.equal(res.statusCode, 401);
+		t.assert.equal(res.statusMessage, "Unauthorized");
 	});
 
 	test(`${version} security preHandler passes with empty handler`, async (t) => {
@@ -160,8 +160,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurityEmptyHandler`,
 		});
-		assert.equal(res.statusCode, 200);
-		assert.equal(res.statusMessage, "OK");
+		t.assert.equal(res.statusCode, 200);
+		t.assert.equal(res.statusMessage, "OK");
 	});
 
 	test(`${version} security preHandler handles missing handlers`, async (t) => {
@@ -174,8 +174,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 		};
 
 		const fastify = Fastify();
-		fastify.setErrorHandler((err, req, reply) => {
-			assert.equal(err.errors.length, 3);
+		fastify.setErrorHandler((err, _req, reply) => {
+			t.assert.equal(err.errors.length, 3);
 			reply.code(err.statusCode).send(err);
 		});
 		fastify.register(fastifyOpenapiGlue, opts);
@@ -184,8 +184,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurity`,
 		});
-		assert.equal(res.statusCode, 401);
-		assert.equal(res.statusMessage, "Unauthorized");
+		t.assert.equal(res.statusCode, 401);
+		t.assert.equal(res.statusMessage, "Unauthorized");
 	});
 
 	test(`${version} invalid securityHandler definition throws error `, (t, done) => {
@@ -193,14 +193,14 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 		fastify.register(fastifyOpenapiGlue, invalidSecurityOpts);
 		fastify.ready((err) => {
 			if (err) {
-				assert.equal(
+				t.assert.equal(
 					err.message,
 					"'securityHandlers' parameter must refer to an object",
 					"got expected error",
 				);
 				done();
 			} else {
-				assert.fail("missed expected error");
+				t.assert.fail("missed expected error");
 			}
 		});
 	});
@@ -215,7 +215,7 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 						const securitySchemeFromSpec = JSON.stringify(
 							testSpec.components.securitySchemes,
 						);
-						assert.equal(
+						t.assert.equal(
 							JSON.stringify(securitySchemes),
 							securitySchemeFromSpec,
 						);
@@ -227,9 +227,9 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			fastify.register(fastifyOpenapiGlue, opts);
 			fastify.ready((err) => {
 				if (err) {
-					assert.fail("got unexpected error");
+					t.assert.fail("got unexpected error");
 				} else {
-					assert.ok(true, "no unexpected error");
+					t.assert.ok(true, "no unexpected error");
 					done();
 				}
 			});
@@ -242,7 +242,7 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			serviceHandlers,
 			securityHandlers: {
 				api_key: securityHandlers.failingAuthCheck,
-				skipped: (req, repl, param) => {
+				skipped: (req, _repl, param) => {
 					req.scope = param[0];
 				},
 				failing: securityHandlers.failingAuthCheck,
@@ -257,9 +257,9 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 				method: "GET",
 				url: `${prefix}/operationSecurity`,
 			});
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-			assert.equal(res.body, '{"response":"authentication succeeded!"}');
+			t.assert.equal(res.statusCode, 200);
+			t.assert.equal(res.statusMessage, "OK");
+			t.assert.equal(res.body, '{"response":"authentication succeeded!"}');
 		}
 
 		{
@@ -267,9 +267,9 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 				method: "GET",
 				url: `${prefix}/operationSecurityWithParameter`,
 			});
-			assert.equal(res.statusCode, 200);
-			assert.equal(res.statusMessage, "OK");
-			assert.equal(res.body, '{"response":"skipped"}');
+			t.assert.equal(res.statusCode, 200);
+			t.assert.equal(res.statusMessage, "OK");
+			t.assert.equal(res.body, '{"response":"skipped"}');
 		}
 	});
 
@@ -283,8 +283,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 		};
 
 		const fastify = Fastify();
-		fastify.setErrorHandler((err, req, reply) => {
-			assert.equal(err.errors.length, 3);
+		fastify.setErrorHandler((err, _req, reply) => {
+			t.assert.equal(err.errors.length, 3);
 			reply.code(err.statusCode).send(err);
 		});
 		fastify.register(fastifyOpenapiGlue, opts);
@@ -293,8 +293,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurity`,
 		});
-		assert.equal(res.statusCode, 451);
-		assert.equal(res.statusMessage, "Unavailable For Legal Reasons");
+		t.assert.equal(res.statusCode, 451);
+		t.assert.equal(res.statusMessage, "Unavailable For Legal Reasons");
 	});
 
 	test(`${version} security preHandler does not throw error when global security handler is overwritten with local empty security`, async (t) => {
@@ -308,7 +308,7 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 
 		const fastify = Fastify();
 		fastify.setErrorHandler((err, _req, reply) => {
-			assert.equal(err.errors.length, 3);
+			t.assert.equal(err.errors.length, 3);
 			reply.code(err.statusCode).send(err);
 		});
 		fastify.register(fastifyOpenapiGlue, opts);
@@ -317,8 +317,8 @@ async function doTest(version, testSpecName, petStoreSpecName, prefix) {
 			method: "GET",
 			url: `${prefix}/operationSecurityOverrideWithNoSecurity`,
 		});
-		assert.equal(res.statusCode, 200);
-		assert.equal(res.statusMessage, "OK");
-		assert.equal(res.body, '{"response":"authentication succeeded!"}');
+		t.assert.equal(res.statusCode, 200);
+		t.assert.equal(res.statusMessage, "OK");
+		t.assert.equal(res.body, '{"response":"authentication succeeded!"}');
 	});
 }

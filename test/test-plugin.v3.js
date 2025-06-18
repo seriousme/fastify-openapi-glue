@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
@@ -13,7 +12,9 @@ const testSpecYAML = localFile("./test-openapi.v3.yaml");
 const genericPathItemsSpec = await importJSON(
 	"./test-openapi-v3-generic-path-items.json",
 );
+
 import { Service } from "./service.js";
+
 const serviceHandlers = new Service();
 
 const noStrict = {
@@ -75,7 +76,7 @@ const noServiceNoResolver = {
 const withOperationResolver = {
 	specification: testSpec,
 	operationResolver() {
-		return async (req, reply) => {
+		return async (_req, reply) => {
 			reply.send("ok");
 		};
 	},
@@ -85,7 +86,7 @@ const withOperationResolverUsingMethodPath = {
 	specification: testSpec,
 	operationResolver(_operationId, method) {
 		const result = method === "GET" ? "ok" : "notOk";
-		return async (req, reply) => {
+		return async (_req, reply) => {
 			reply.send(result);
 		};
 	},
@@ -105,7 +106,7 @@ test("path parameters work", async (t) => {
 		method: "GET",
 		url: "/pathParam/2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("query parameters work", async (t) => {
@@ -116,7 +117,7 @@ test("query parameters work", async (t) => {
 		method: "GET",
 		url: "/queryParam?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("query parameters with object schema work", async (t) => {
@@ -127,7 +128,7 @@ test("query parameters with object schema work", async (t) => {
 		method: "GET",
 		url: "/queryParamObject?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("query parameters with array schema work", async (t) => {
@@ -138,7 +139,7 @@ test("query parameters with array schema work", async (t) => {
 		method: "GET",
 		url: "/queryParamArray?arr=1&arr=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("header parameters work", async (t) => {
@@ -152,7 +153,7 @@ test("header parameters work", async (t) => {
 			"X-Request-ID": "test data",
 		},
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("missing header parameters returns error 500", async (t) => {
@@ -163,7 +164,7 @@ test("missing header parameters returns error 500", async (t) => {
 		method: "GET",
 		url: "/headerParam",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 });
 
 test("missing authorization header returns error 500", async (t) => {
@@ -174,7 +175,7 @@ test("missing authorization header returns error 500", async (t) => {
 		method: "GET",
 		url: "/authHeaderParam",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 });
 
 test("body parameters work", async (t) => {
@@ -189,7 +190,7 @@ test("body parameters work", async (t) => {
 			str2: "test data",
 		},
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("no parameters work", async (t) => {
@@ -200,7 +201,7 @@ test("no parameters work", async (t) => {
 		method: "get",
 		url: "/noParam",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("prefix in opts works", async (t) => {
@@ -211,7 +212,7 @@ test("prefix in opts works", async (t) => {
 		method: "get",
 		url: "/prefix/noParam",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("missing operation from service returns error 500", async (t) => {
@@ -222,7 +223,7 @@ test("missing operation from service returns error 500", async (t) => {
 		method: "get",
 		url: "/noOperationId/1",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 });
 
 test("response schema works with valid response", async (t) => {
@@ -233,7 +234,7 @@ test("response schema works with valid response", async (t) => {
 		method: "get",
 		url: "/responses?replyType=valid",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("response schema works with invalid response", async (t) => {
@@ -244,7 +245,7 @@ test("response schema works with invalid response", async (t) => {
 		method: "get",
 		url: "/responses?replyType=invalid",
 	});
-	assert.equal(res.statusCode, 500);
+	t.assert.equal(res.statusCode, 500);
 });
 
 test("yaml spec works", async (t) => {
@@ -255,7 +256,7 @@ test("yaml spec works", async (t) => {
 		method: "GET",
 		url: "/pathParam/2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("generic path parameters work", async (t) => {
@@ -266,7 +267,7 @@ test("generic path parameters work", async (t) => {
 		method: "GET",
 		url: "/pathParam/2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("generic path parameters override works", async (t) => {
@@ -277,7 +278,7 @@ test("generic path parameters override works", async (t) => {
 		method: "GET",
 		url: "/noParam",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("invalid openapi v3 specification throws error ", (t, done) => {
@@ -285,14 +286,14 @@ test("invalid openapi v3 specification throws error ", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, invalidSwaggerOpts);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -302,14 +303,14 @@ test("missing service definition throws error ", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, invalidServiceOpts);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"'serviceHandlers' parameter must refer to an object",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -320,14 +321,14 @@ test("full pet store V3 definition does not throw error ", (t, done) => {
 	fastify.addContentTypeParser(
 		"application/xml",
 		{ parseAs: "string" },
-		(req, body) => body,
+		(_req, body) => body,
 	);
 	fastify.register(fastifyOpenapiGlue, petStoreOpts);
 	fastify.ready((err) => {
 		if (err) {
-			assert.fail("got unexpected error");
+			t.assert.fail("got unexpected error");
 		} else {
-			assert.ok(true, "no unexpected error");
+			t.assert.ok(true, "no unexpected error");
 			done();
 		}
 	});
@@ -345,9 +346,9 @@ test("V3.0.1 definition does not throw error", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, opts301);
 	fastify.ready((err) => {
 		if (err) {
-			assert.fail("got unexpected error");
+			t.assert.fail("got unexpected error");
 		} else {
-			assert.ok(true, "no unexpected error");
+			t.assert.ok(true, "no unexpected error");
 			done();
 		}
 	});
@@ -365,9 +366,9 @@ test("V3.0.2 definition does not throw error", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, opts302);
 	fastify.ready((err) => {
 		if (err) {
-			assert.fail("got unexpected error");
+			t.assert.fail("got unexpected error");
 		} else {
-			assert.ok(true, "no unexpected error");
+			t.assert.ok(true, "no unexpected error");
 			done();
 		}
 	});
@@ -385,9 +386,9 @@ test("V3.0.3 definition does not throw error", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, opts303);
 	fastify.ready((err) => {
 		if (err) {
-			assert.fail("got unexpected error");
+			t.assert.fail("got unexpected error");
 		} else {
-			assert.ok(true, "no unexpected error");
+			t.assert.ok(true, "no unexpected error");
 			done();
 		}
 	});
@@ -395,11 +396,11 @@ test("V3.0.3 definition does not throw error", (t, done) => {
 
 test("x- props are copied", async (t) => {
 	const fastify = Fastify();
-	fastify.addHook("preHandler", async (request, reply) => {
+	fastify.addHook("preHandler", async (request, _reply) => {
 		if (request.routeOptions.schema["x-tap-ok"]) {
-			assert.ok(true, "found x- prop");
+			t.assert.ok(true, "found x- prop");
 		} else {
-			assert.fail("missing x- prop");
+			t.assert.fail("missing x- prop");
 		}
 	});
 	fastify.register(fastifyOpenapiGlue, opts);
@@ -408,7 +409,7 @@ test("x- props are copied", async (t) => {
 		method: "GET",
 		url: "/queryParam?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 test("x-fastify-config is applied", async (t) => {
@@ -416,8 +417,8 @@ test("x-fastify-config is applied", async (t) => {
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
 		serviceHandlers: {
-			operationWithFastifyConfigExtension: async (req, reply) => {
-				assert.equal(
+			operationWithFastifyConfigExtension: async (req, _reply) => {
+				t.assert.equal(
 					req.routeOptions.config.rawBody,
 					true,
 					"config.rawBody is true",
@@ -438,7 +439,7 @@ test("x-no-fastify-config is applied", async (t) => {
 	fastify.register(fastifyOpenapiGlue, {
 		...opts,
 		serviceHandlers: {
-			ignoreRoute: async (req, reply) => {},
+			ignoreRoute: async (_req, _reply) => {},
 		},
 	});
 
@@ -446,7 +447,7 @@ test("x-no-fastify-config is applied", async (t) => {
 		method: "GET",
 		url: "/ignoreRoute",
 	});
-	assert.equal(res.statusCode, 404);
+	t.assert.equal(res.statusCode, 404);
 });
 
 test("service and operationResolver together throw error", (t, done) => {
@@ -454,14 +455,14 @@ test("service and operationResolver together throw error", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, serviceAndOperationResolver);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"'serviceHandlers' and 'operationResolver' are mutually exclusive",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -471,14 +472,14 @@ test("no service and no operationResolver throw error", (t, done) => {
 	fastify.register(fastifyOpenapiGlue, noServiceNoResolver);
 	fastify.ready((err) => {
 		if (err) {
-			assert.equal(
+			t.assert.equal(
 				err.message,
 				"either 'serviceHandlers' or 'operationResolver' are required",
 				"got expected error",
 			);
 			done();
 		} else {
-			assert.fail("missed expected error");
+			t.assert.fail("missed expected error");
 		}
 	});
 });
@@ -491,7 +492,7 @@ test("operation resolver works", async (t) => {
 		method: "get",
 		url: "/noParam",
 	});
-	assert.equal(res.body, "ok");
+	t.assert.equal(res.body, "ok");
 });
 
 test("operation resolver with method and url works", async (t) => {
@@ -502,7 +503,7 @@ test("operation resolver with method and url works", async (t) => {
 		method: "get",
 		url: "/noParam",
 	});
-	assert.equal(res.body, "ok");
+	t.assert.equal(res.body, "ok");
 });
 
 test("create an empty body with addEmptySchema option", async (t) => {
@@ -511,8 +512,8 @@ test("create an empty body with addEmptySchema option", async (t) => {
 	let emptyBodySchemaFound = false;
 	fastify.addHook("onRoute", (routeOptions) => {
 		if (routeOptions.url === "/emptyBodySchema") {
-			assert.deepStrictEqual(routeOptions.schema.response?.["204"], {});
-			assert.deepStrictEqual(routeOptions.schema.response?.["302"], {});
+			t.assert.deepStrictEqual(routeOptions.schema.response?.["204"], {});
+			t.assert.deepStrictEqual(routeOptions.schema.response?.["302"], {});
 			emptyBodySchemaFound = true;
 		}
 	});
@@ -522,5 +523,5 @@ test("create an empty body with addEmptySchema option", async (t) => {
 		serviceHandlers: new Set(),
 		addEmptySchema: true,
 	});
-	assert.ok(emptyBodySchemaFound);
+	t.assert.ok(emptyBodySchemaFound);
 });

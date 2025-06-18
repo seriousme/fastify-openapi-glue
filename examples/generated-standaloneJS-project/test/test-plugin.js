@@ -2,11 +2,9 @@
 // running the tests directly after generation will probably fail as the parameters
 // need to be manually added.
 
-import { strict as assert } from "node:assert/strict";
 import { test } from "node:test";
 import Fastify from "fastify";
-import fastifyPlugin from "../index.js";
-import { options } from "../index.js";
+import fastifyPlugin, { options } from "../index.js";
 
 const opts = {};
 //
@@ -82,7 +80,7 @@ test("testing addPet", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: updatePet
@@ -161,7 +159,7 @@ test("testing updatePet", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: findPetsByStatus
@@ -256,7 +254,7 @@ test("testing findPetsByStatus", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: findPetsByTags
@@ -346,7 +344,7 @@ test("testing findPetsByTags", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: getPetById
@@ -434,7 +432,7 @@ test("testing getPetById", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: updatePetWithForm
@@ -475,7 +473,7 @@ test("testing updatePetWithForm", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: deletePet
@@ -514,7 +512,7 @@ test("testing deletePet", async (t) => {
 		payload: undefined,
 		headers: undefined, //insert headers here!!
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: uploadFile
@@ -565,7 +563,7 @@ test("testing uploadFile", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: getInventory
@@ -591,7 +589,7 @@ test("testing getInventory", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: placeOrder
@@ -669,7 +667,7 @@ test("testing placeOrder", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: getOrderById
@@ -733,7 +731,7 @@ test("testing getOrderById", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: deleteOrder
@@ -767,7 +765,7 @@ test("testing deleteOrder", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: createUser
@@ -813,7 +811,7 @@ test("testing createUser", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: createUsersWithArrayInput
@@ -861,7 +859,7 @@ test("testing createUsersWithArrayInput", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: createUsersWithListInput
@@ -909,7 +907,7 @@ test("testing createUsersWithListInput", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: loginUser
@@ -956,7 +954,7 @@ test("testing loginUser", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: logoutUser
@@ -977,7 +975,7 @@ test("testing logoutUser", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: getUserByName
@@ -1035,7 +1033,7 @@ test("testing getUserByName", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: updateUser
@@ -1092,7 +1090,7 @@ test("testing updateUser", async (t) => {
 		payload: undefined, //insert body data here!!
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
 
 // Operation: deleteUser
@@ -1124,5 +1122,5 @@ test("testing deleteUser", async (t) => {
 		payload: undefined,
 		headers: undefined,
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });
