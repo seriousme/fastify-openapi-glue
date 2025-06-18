@@ -1,8 +1,8 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
+
 const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 const dir = localFile(".");
@@ -23,9 +23,9 @@ for (const type of templateTypes) {
 			try {
 				await generator.parse(specFile);
 				const checksums = await generator.generateProject(dir, project, type);
-				assert.deepEqual(checksums, testChecksums, "checksums match");
+				t.assert.deepEqual(checksums, testChecksums, "checksums match");
 			} catch (e) {
-				assert.fail(e.message);
+				t.assert.fail(e.message);
 			}
 		});
 	}

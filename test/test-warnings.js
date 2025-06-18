@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
@@ -12,16 +11,19 @@ const importJSON = createRequire(import.meta.url);
 const testSpec = await importJSON("./test-openapi.v3.json");
 const calls = [];
 
-function onWarning(w) {
-	console.log("received warning");
-	assert.equal(
-		w.message,
-		"The 'service' option is deprecated, use 'serviceHandlers' instead.",
-	);
-	assert.equal(w.name, "DeprecationWarning");
-	assert.equal(w.code, "FSTOGDEP001");
-	assert.ok(true, "Got warning");
-	calls.push(w.code);
+function makeWarningHandler(t) {
+	function onWarning(w) {
+		console.log("received warning");
+		t.assert.equal(
+			w.message,
+			"The 'service' option is deprecated, use 'serviceHandlers' instead.",
+		);
+		t.assert.equal(w.name, "DeprecationWarning");
+		t.assert.equal(w.code, "FSTOGDEP001");
+		t.assert.ok(true, "Got warning");
+		calls.push(w.code);
+	}
+	return onWarning;
 }
 
 async function delay() {
@@ -29,7 +31,8 @@ async function delay() {
 }
 
 test("test if 'service' parameter still works", async (t) => {
-	process.on("warning", onWarning);
+	const handler = makeWarningHandler(t);
+	process.on("warning", handler);
 
 	await t.test("test if warning", async (t) => {
 		const fastify = Fastify();
@@ -42,11 +45,11 @@ test("test if 'service' parameter still works", async (t) => {
 			method: "GET",
 			url: "/queryParamObject?int1=1&int2=2",
 		});
-		assert.equal(res.statusCode, 200, "status code ok");
+		t.assert.equal(res.statusCode, 200, "status code ok");
 	});
 	await delay();
 	setImmediate(() => {
-		process.removeListener("warning", onWarning);
+		process.removeListener("warning", handler);
 	});
-	assert.deepEqual(calls, ["FSTOGDEP001"]);
+	t.assert.deepEqual(calls, ["FSTOGDEP001"]);
 });

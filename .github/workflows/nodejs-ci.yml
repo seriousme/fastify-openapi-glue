@@ -21,8 +21,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
-      # set exec bit on biome binary (because of --ignore-scripts above)
-      - run: node ./node_modules/@biomejs/biome/scripts/postinstall.js
       - run: npm run lint
       - run: npm run build --if-present
       - run: npm run covtest

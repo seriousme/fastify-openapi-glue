@@ -240,7 +240,7 @@ export class Service {
 	//         - response
 	//
 
-	async testOperationSecurityUsingAnd(req) {
+	async testOperationSecurityUsingAnd(_req) {
 		return {
 			response: "Authentication succeeded!",
 		};

@@ -1,6 +1,7 @@
 import { execSync } from "node:child_process";
-import { URL, fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { templateTypes } from "../lib/templates/templateTypes.js";
+
 const specs = new Set(["./test-swagger.v2", "./test-swagger-noBasePath.v2"]);
 const cli = localFile("../bin/openapi-glue-cli.js");
 

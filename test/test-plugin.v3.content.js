@@ -1,23 +1,15 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 
 const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const testSpec = await importJSON("./test-openapi.v3.content.json");
-import { Service } from "./service.js";
-const serviceHandlers = new Service();
 
-const noStrict = {
-	ajv: {
-		customOptions: {
-			strict: false,
-		},
-	},
-};
+import { Service } from "./service.js";
+
+const serviceHandlers = new Service();
 
 const opts = {
 	specification: testSpec,
@@ -38,5 +30,5 @@ test("query parameters with object schema in content work", async (t) => {
 		method: "GET",
 		url: "/queryParamObjectInContent?int1=1&int2=2",
 	});
-	assert.equal(res.statusCode, 200);
+	t.assert.equal(res.statusCode, 200);
 });

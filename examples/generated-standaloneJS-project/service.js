@@ -63,7 +63,7 @@ export class Service {
 	//     description: Invalid input
 	//
 
-	async addPet(req, reply) {
+	async addPet(req, _reply) {
 		console.log("addPet", req.params);
 		return { key: "value" };
 	}
@@ -134,7 +134,7 @@ export class Service {
 	//     description: Validation exception
 	//
 
-	async updatePet(req, reply) {
+	async updatePet(req, _reply) {
 		console.log("updatePet", req.params);
 		return { key: "value" };
 	}
@@ -221,7 +221,7 @@ export class Service {
 	//     description: Invalid status value
 	//
 
-	async findPetsByStatus(req, reply) {
+	async findPetsByStatus(req, _reply) {
 		console.log("findPetsByStatus", req.params);
 		return { key: "value" };
 	}
@@ -303,7 +303,7 @@ export class Service {
 	//     description: Invalid tag value
 	//
 
-	async findPetsByTags(req, reply) {
+	async findPetsByTags(req, _reply) {
 		console.log("findPetsByTags", req.params);
 		return { key: "value" };
 	}
@@ -383,7 +383,7 @@ export class Service {
 	//     description: Pet not found
 	//
 
-	async getPetById(req, reply) {
+	async getPetById(req, _reply) {
 		console.log("getPetById", req.params);
 		return { key: "value" };
 	}
@@ -416,7 +416,7 @@ export class Service {
 	//     description: Invalid input
 	//
 
-	async updatePetWithForm(req, reply) {
+	async updatePetWithForm(req, _reply) {
 		console.log("updatePetWithForm", req.params);
 		return { key: "value" };
 	}
@@ -447,7 +447,7 @@ export class Service {
 	//     description: Pet not found
 	//
 
-	async deletePet(req, reply) {
+	async deletePet(req, _reply) {
 		console.log("deletePet", req.params);
 		return { key: "value" };
 	}
@@ -490,7 +490,7 @@ export class Service {
 	//           type: string
 	//
 
-	async uploadFile(req, reply) {
+	async uploadFile(req, _reply) {
 		console.log("uploadFile", req.params);
 		return { key: "value" };
 	}
@@ -508,7 +508,7 @@ export class Service {
 	//         format: int32
 	//
 
-	async getInventory(req, reply) {
+	async getInventory(req, _reply) {
 		console.log("getInventory", req.params);
 		return { key: "value" };
 	}
@@ -578,7 +578,7 @@ export class Service {
 	//     description: Invalid Order
 	//
 
-	async placeOrder(req, reply) {
+	async placeOrder(req, _reply) {
 		console.log("placeOrder", req.params);
 		return { key: "value" };
 	}
@@ -634,7 +634,7 @@ export class Service {
 	//     description: Order not found
 	//
 
-	async getOrderById(req, reply) {
+	async getOrderById(req, _reply) {
 		console.log("getOrderById", req.params);
 		return { key: "value" };
 	}
@@ -660,7 +660,7 @@ export class Service {
 	//     description: Order not found
 	//
 
-	async deleteOrder(req, reply) {
+	async deleteOrder(req, _reply) {
 		console.log("deleteOrder", req.params);
 		return { key: "value" };
 	}
@@ -698,7 +698,7 @@ export class Service {
 	//     description: successful operation
 	//
 
-	async createUser(req, reply) {
+	async createUser(req, _reply) {
 		console.log("createUser", req.params);
 		return { key: "value" };
 	}
@@ -738,7 +738,7 @@ export class Service {
 	//     description: successful operation
 	//
 
-	async createUsersWithArrayInput(req, reply) {
+	async createUsersWithArrayInput(req, _reply) {
 		console.log("createUsersWithArrayInput", req.params);
 		return { key: "value" };
 	}
@@ -778,7 +778,7 @@ export class Service {
 	//     description: successful operation
 	//
 
-	async createUsersWithListInput(req, reply) {
+	async createUsersWithListInput(req, _reply) {
 		console.log("createUsersWithListInput", req.params);
 		return { key: "value" };
 	}
@@ -817,7 +817,7 @@ export class Service {
 	//     description: Invalid username/password supplied
 	//
 
-	async loginUser(req, reply) {
+	async loginUser(req, _reply) {
 		console.log("loginUser", req.params);
 		return { key: "value" };
 	}
@@ -830,7 +830,7 @@ export class Service {
 	//     description: successful operation
 	//
 
-	async logoutUser(req, reply) {
+	async logoutUser(req, _reply) {
 		console.log("logoutUser", req.params);
 		return { key: "value" };
 	}
@@ -880,7 +880,7 @@ export class Service {
 	//     description: User not found
 	//
 
-	async getUserByName(req, reply) {
+	async getUserByName(req, _reply) {
 		console.log("getUserByName", req.params);
 		return { key: "value" };
 	}
@@ -929,7 +929,7 @@ export class Service {
 	//     description: User not found
 	//
 
-	async updateUser(req, reply) {
+	async updateUser(req, _reply) {
 		console.log("updateUser", req.params);
 		return { key: "value" };
 	}
@@ -953,7 +953,7 @@ export class Service {
 	//     description: User not found
 	//
 
-	async deleteUser(req, reply) {
+	async deleteUser(req, _reply) {
 		console.log("deleteUser", req.params);
 		return { key: "value" };
 	}

@@ -1,4 +1,3 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
@@ -7,16 +6,10 @@ import fastifyOpenapiGlue from "../index.js";
 const importJSON = createRequire(import.meta.url);
 
 const testSpec = await importJSON("./test-openapi.v3.multipleMimeTypes.json");
-import { Service } from "./service.multipleMimeTypes.js";
-const serviceHandlers = new Service();
 
-const noStrict = {
-	ajv: {
-		customOptions: {
-			strict: false,
-		},
-	},
-};
+import { Service } from "./service.multipleMimeTypes.js";
+
+const serviceHandlers = new Service();
 
 const opts = {
 	specification: testSpec,
@@ -41,7 +34,7 @@ test("multiple MIME types in request body work", async (t) => {
 			str1: "string",
 		},
 	});
-	assert.equal(res1.statusCode, 200);
+	t.assert.equal(res1.statusCode, 200);
 	const res2 = await fastify.inject({
 		headers: {
 			"content-type": "text/json",
@@ -52,7 +45,7 @@ test("multiple MIME types in request body work", async (t) => {
 			int1: 2,
 		},
 	});
-	assert.equal(res2.statusCode, 200);
+	t.assert.equal(res2.statusCode, 200);
 
 	// just to be sure
 	const res3 = await fastify.inject({
@@ -66,7 +59,7 @@ test("multiple MIME types in request body work", async (t) => {
 			int1: 2,
 		},
 	});
-	assert.equal(res3.statusCode, 415); // 415 = unsupported media type
+	t.assert.equal(res3.statusCode, 415); // 415 = unsupported media type
 });
 
 test("multiple MIME types in response work", async (t) => {
@@ -82,10 +75,10 @@ test("multiple MIME types in response work", async (t) => {
 			responseType: "application/json",
 		},
 	});
-	assert.equal(res1.statusCode, 200);
+	t.assert.equal(res1.statusCode, 200);
 	const res1Body = JSON.parse(res1.body);
-	assert.equal(res1Body.str1, "test data");
-	assert.ok(res1.headers["content-type"].includes("application/json"));
+	t.assert.equal(res1Body.str1, "test data");
+	t.assert.ok(res1.headers["content-type"].includes("application/json"));
 	const res2 = await fastify.inject({
 		method,
 		url,
@@ -93,8 +86,8 @@ test("multiple MIME types in response work", async (t) => {
 			responseType: "text/json",
 		},
 	});
-	assert.equal(res2.statusCode, 200);
+	t.assert.equal(res2.statusCode, 200);
 	const res2Body = JSON.parse(res2.body);
-	assert.equal(res2Body.int1, 2);
-	assert.ok(res2.headers["content-type"].includes("text/json"));
+	t.assert.equal(res2Body.int1, 2);
+	t.assert.ok(res2.headers["content-type"].includes("text/json"));
 });

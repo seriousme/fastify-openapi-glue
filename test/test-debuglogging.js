@@ -1,15 +1,19 @@
-import { strict as assert } from "node:assert/strict";
 import { createRequire } from "node:module";
 // just test the basics to aid debugging
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
+
 const importJSON = createRequire(import.meta.url);
+
 import { Writable } from "node:stream";
 
 const testSpec = await importJSON("./test-openapi.v3.json");
+
 import { Service } from "./service.js";
+
 const serviceHandlers = new Service();
+
 import securityHandlers from "./security.js";
 
 class DebugCatcher {
@@ -19,7 +23,7 @@ class DebugCatcher {
 	stream() {
 		const that = this;
 		return new Writable({
-			write(chunk, encoding, callback) {
+			write(chunk, _encoding, callback) {
 				that.data.push(chunk.toString("utf8"));
 				callback();
 			},
@@ -53,7 +57,7 @@ test("Service registration is logged at level 'debug'", async (t) => {
 		method: "get",
 		url: "/noParam",
 	});
-	assert.equal(res.statusCode, 200, "result is ok");
+	t.assert.equal(res.statusCode, 200, "result is ok");
 	const operations = new Set();
 	for await (const data of catcher.data) {
 		const match = data.match(/"msg":"serviceHandlers has '(\w+)'"/);
@@ -61,7 +65,7 @@ test("Service registration is logged at level 'debug'", async (t) => {
 			operations.add(match[1]);
 		}
 	}
-	assert.equal(
+	t.assert.equal(
 		missingMethods(serviceHandlers, operations),
 		false,
 		"all operations are present in the debug log",
@@ -90,7 +94,7 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (t)
 		method: "GET",
 		url: "/operationSecurity",
 	});
-	assert.equal(res.statusCode, 200, "request succeeded");
+	t.assert.equal(res.statusCode, 200, "request succeeded");
 	const handlers = new Set();
 	for await (const data of catcher.data) {
 		const match = data.match(
@@ -100,7 +104,7 @@ test("Error from invalid securityHandler is logged at level 'debug' ", async (t)
 			handlers.add(match[0]);
 		}
 	}
-	assert.equal(
+	t.assert.equal(
 		handlers.has(
 			"Security handler 'api_key' failed: 'API key was invalid or not found'",
 		),

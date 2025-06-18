@@ -8,7 +8,7 @@ export class Security {
 
 	// Security scheme: petstore_auth
 	// Type: oauth2
-	async petstore_auth(req, reply, params) {
+	async petstore_auth(_req, _reply, _params) {
 		console.log("petstore_auth: Authenticating request");
 		// If validation fails: throw new Error('Could not authenticate request')
 		// Else, simply return.
@@ -18,7 +18,7 @@ export class Security {
 
 	// Security scheme: api_key
 	// Type: apiKey
-	async api_key(req, reply, params) {
+	async api_key(_req, _reply, _params) {
 		console.log("api_key: Authenticating request");
 		// If validation fails: throw new Error('Could not authenticate request')
 		// Else, simply return.

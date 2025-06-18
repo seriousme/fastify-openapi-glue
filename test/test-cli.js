@@ -1,9 +1,9 @@
-import { strict as assert } from "node:assert/strict";
 import { execSync } from "node:child_process";
 import { createRequire } from "node:module";
 import { test } from "node:test";
-import { URL, fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { templateTypes } from "../lib/templates/templateTypes.js";
+
 const importJSON = createRequire(import.meta.url);
 const spec = "./test-swagger.v2";
 const cli = localFile("../bin/openapi-glue-cli.js");
@@ -24,27 +24,27 @@ for (const type of templateTypes) {
 		const checksums = JSON.parse(
 			execSync(`node ${cli} -c -p ${project} -t ${type} ${specPath}`),
 		);
-		assert.deepEqual(checksums, testChecksums, "checksums match");
+		t.assert.deepEqual(checksums, testChecksums, "checksums match");
 	});
 
 	await test("cli with local plugin", (t) => {
 		const result = execSync(
 			`node ${cli} -c -l -p ${project} -t ${type} ${specPath}`,
 		);
-		assert.ok(result);
+		t.assert.ok(result);
 	});
 }
 
 test("cli fails on no spec", (t) => {
-	assert.throws(() => execSync(`node ${cli}`));
+	t.assert.throws(() => execSync(`node ${cli}`));
 });
 
 test("cli fails on invalid projectType", (t) => {
-	assert.throws(() =>
+	t.assert.throws(() =>
 		execSync(`node ${cli} -c -l ${spec}.json -t nonExistent`),
 	);
 });
 
 test("cli fails on invalid spec", (t) => {
-	assert.throws(() => execSync(`node ${cli} -c nonExistingSpec.json`));
+	t.assert.throws(() => execSync(`node ${cli} -c nonExistingSpec.json`));
 });

@@ -3,6 +3,7 @@
 // or standalone using "fastify start index.js --options"
 import openapiGlue from "../../index.js";
 import { Service } from "./service.js";
+
 const serviceHandlers = new Service();
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
@@ -12,7 +13,7 @@ const pluginOptions = {
 	prefix: "v2",
 };
 
-export default async function (fastify, opts) {
+export default async function (fastify, _opts) {
 	fastify.register(openapiGlue, pluginOptions);
 }
 
