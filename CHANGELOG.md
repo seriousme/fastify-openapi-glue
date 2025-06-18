@@ -2,7 +2,9 @@
 
 ## [Unreleased]
 ### Changed
-
+- chore: updated dependencies
+   - @biomejs/biome                       ^1.9.4  →  ^2.0.0
+   
 ## [4.9.1] 27-04-2025
 ### Changed
 - doc: added note on using schema 2020
