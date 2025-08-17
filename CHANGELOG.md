@@ -2,9 +2,14 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.9.2] 17-08-2025
+### Changed
 - feat(dev): add index.d.ts tests
 - chore: updated dependencies
-   - @biomejs/biome                       ^1.9.4  →  ^2.0.0
+   - @biomejs/biome                       ^1.9.4  →  ^2.2.0
+   - @seriousme/openapi-schema-validator  ^2.4.1  →  ^2.4.4
+   - fastify                              ^5.3.2  →  ^5.5.0
    
 ## [4.9.1] 27-04-2025
 ### Changed
