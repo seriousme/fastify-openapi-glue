@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+- feat(dev): add index.d.ts tests
 - chore: updated dependencies
    - @biomejs/biome                       ^1.9.4  →  ^2.0.0
    
