@@ -1,6 +1,18 @@
 {
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
 	"files": {
-		"includes": ["**", "!**/coverage", "!**/package.json"]
+		"includes": [
+			"**",
+			/**
+			 * `npm version` updates `package.json` in such a way that `biome format` sometimes breaks CI.
+			 * @see https://github.com/seriousme/openapi-schema-validator/pull/195#issuecomment-3193470031
+			 */
+			"!**/package.json"
+		]
 	},
 	"linter": {
 		"enabled": true,
@@ -17,7 +29,13 @@
 				"noUnusedTemplateLiteral": "error",
 				"useNumberNamespace": "error",
 				"noInferrableTypes": "error",
-				"noUselessElse": "error"
+				"noUselessElse": "error",
+				"useConsistentArrayType": {
+					"level": "error",
+					"options": {
+						"syntax": "generic"
+					}
+				}
 			}
 		}
 	}
