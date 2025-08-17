@@ -1,10 +1,17 @@
 import { expectTypeOf } from "expect-type";
-import type { FastifyPluginAsync, FastifyReply, FastifyRequest, RouteOptions } from "fastify";
+import type {
+	FastifyPluginAsync,
+	FastifyReply,
+	FastifyRequest,
+	RouteOptions,
+} from "fastify";
 import type { FastifyOpenapiGlueOptions, SecurityError } from "./index.js";
 import fastifyOpenapiGlue from "./index.js";
 
 // Test plugin type
-expectTypeOf(fastifyOpenapiGlue).toEqualTypeOf<FastifyPluginAsync<FastifyOpenapiGlueOptions>>();
+expectTypeOf(fastifyOpenapiGlue).toEqualTypeOf<
+	FastifyPluginAsync<FastifyOpenapiGlueOptions>
+>();
 
 // Test minimal options
 expectTypeOf<FastifyOpenapiGlueOptions>({
@@ -73,13 +80,27 @@ expectTypeOf(securityError.name).toEqualTypeOf<string>();
 expectTypeOf(securityError.errors).toEqualTypeOf<Array<Error>>();
 
 // Test option types
-expectTypeOf<FastifyOpenapiGlueOptions["specification"]>().toEqualTypeOf<object | string>();
-expectTypeOf<FastifyOpenapiGlueOptions["serviceHandlers"]>().toEqualTypeOf<object | undefined>();
-expectTypeOf<FastifyOpenapiGlueOptions["service"]>().toEqualTypeOf<object | undefined>();
-expectTypeOf<FastifyOpenapiGlueOptions["securityHandlers"]>().toEqualTypeOf<object | undefined>();
-expectTypeOf<FastifyOpenapiGlueOptions["prefix"]>().toEqualTypeOf<string | undefined>();
-expectTypeOf<FastifyOpenapiGlueOptions["addEmptySchema"]>().toEqualTypeOf<boolean | undefined>();
-expectTypeOf<FastifyOpenapiGlueOptions["addCookieSchema"]>().toEqualTypeOf<boolean | undefined>();
+expectTypeOf<FastifyOpenapiGlueOptions["specification"]>().toEqualTypeOf<
+	object | string
+>();
+expectTypeOf<FastifyOpenapiGlueOptions["serviceHandlers"]>().toEqualTypeOf<
+	object | undefined
+>();
+expectTypeOf<FastifyOpenapiGlueOptions["service"]>().toEqualTypeOf<
+	object | undefined
+>();
+expectTypeOf<FastifyOpenapiGlueOptions["securityHandlers"]>().toEqualTypeOf<
+	object | undefined
+>();
+expectTypeOf<FastifyOpenapiGlueOptions["prefix"]>().toEqualTypeOf<
+	string | undefined
+>();
+expectTypeOf<FastifyOpenapiGlueOptions["addEmptySchema"]>().toEqualTypeOf<
+	boolean | undefined
+>();
+expectTypeOf<FastifyOpenapiGlueOptions["addCookieSchema"]>().toEqualTypeOf<
+	boolean | undefined
+>();
 
 // Test that serviceHandlers and operationResolver are mutually exclusive
 expectTypeOf<FastifyOpenapiGlueOptions>({
