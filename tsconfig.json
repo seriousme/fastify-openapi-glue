@@ -1,0 +1,32 @@
+{
+	"compilerOptions": {
+		// Type Checking
+		"strict": true,
+		"noImplicitReturns": true,
+		"noImplicitOverride": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+
+		// Module
+		"module": "nodenext",
+		"noUncheckedSideEffectImports": true,
+
+		// Language and Environment
+		"target": "esnext",
+		"moduleDetection": "force",
+
+		// Emit
+		"noEmit": true,
+
+		// Interop Constraints
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+
+		// Completeness
+		"skipLibCheck": true
+	}
+}
