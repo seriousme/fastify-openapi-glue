@@ -8,6 +8,6 @@ jobs:
   update_license:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Update license year
         run: ./update_license.sh
