@@ -6,7 +6,7 @@ Fastify uses [AJV](https://ajv.js.org/) to check JSONschemas that are used for
 [validation and serialization](https://fastify.dev/docs/latest/Reference/Validation-and-Serialization/).
 
 The [OpenApi](https://www.openapis.org/) specification allows for additions to
-the schema specification that do not match JSONschema , e.g:
+the schema specification that do not match JSON schema , e.g:
 
 ```json
 "responses": {
@@ -27,7 +27,7 @@ the schema specification that do not match JSONschema , e.g:
   }
 ```
 
-In this case the `example` attribute is not part of JSONschema and Fastify
+In this case the `example` attribute is not part of JSON schema and Fastify
 (actually AJV) will throw an error along the lines of:
 
 ```

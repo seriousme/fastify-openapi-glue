@@ -3,7 +3,7 @@
 ## Using subschemas
 
 Sometimes a specification is composed of multiple files that each contain parts
-of the specification. The specification refers to these subspecifications using
+of the specification. The specification refers to these sub-specifications using
 `external references`. Since references are based on URI's (so `Identifier` and not
 `Location` as in URL's!) there needs to be a way to resolve those as they are not automatically resolved. A `$ref` does not automatically include the file it is pointing at, it merely points at another schema.
 
