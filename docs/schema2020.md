@@ -9,7 +9,7 @@ At the time of writing (April 2025) AJV uses [JSON schema draft-07 as default ve
 
 The OpenApi specifications until 3.1 (e.g. [3.0.4](https://spec.openapis.org/oas/v3.0.4.html#schema-object)) specify JSON schema draft-05, this works fine with AJV's draft-07.
 
-The OpenApi specifications from 3.1 (e.g. [3.1.0](https://spec.openapis.org/oas/v3.1.0.html#schema-object)) specify JSON schema draft-2020-12 which works fine with AJV's draft-07 most of the time but has some new additions like `unevaluatedProperties` and even some breaking changes, see https://ajv.js.org/json-schema.html#json-schema-versions.
+The OpenApi specifications from 3.1 (e.g. [3.2.0](https://spec.openapis.org/oas/v3.2.0.html#schema-object)) specify JSON schema draft-2020-12 which works fine with AJV's draft-07 most of the time but has some new additions like `unevaluatedProperties` and even some breaking changes, see https://ajv.js.org/json-schema.html#json-schema-versions.
 
 If you have/need these new additions in your OpenApi specification you need to tell `Fastify` to use `AJV` with `2020` schema.
 

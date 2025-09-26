@@ -28,7 +28,7 @@
 		"openapi-glue": "./bin/openapi-glue-cli.js"
 	},
 	"dependencies": {
-		"@seriousme/openapi-schema-validator": "^2.4.4",
+		"@seriousme/openapi-schema-validator": "^2.7.0",
 		"fastify-plugin": "^5.0.1",
 		"js-yaml": "^4.1.0"
 	},
