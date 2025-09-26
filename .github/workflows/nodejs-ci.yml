@@ -22,19 +22,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
       - run: npm run test:ci
-      - name: Coveralls Parallel
-        uses: coverallsapp/github-action@master
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v5
         with:
-          github-token: ${{ secrets.github_token }}
-          flag-name: run-${{ matrix.test_number }}
-          parallel: true
+          token: ${{ secrets.CODECOV_TOKEN }}
 
-  finish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Coveralls Finished
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.github_token }}
-          parallel-finished: true

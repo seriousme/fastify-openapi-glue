@@ -1,6 +1,6 @@
 # Fastify OpenApi Glue
 [![CI status](https://github.com/seriousme/fastify-openapi-glue/workflows/Node.js%20CI/badge.svg)](https://github.com/seriousme/fastify-openapi-glue/actions?query=workflow%3A%22Node.js+CI%22)
-[![Coverage Status](https://coveralls.io/repos/github/seriousme/fastify-openapi-glue/badge.svg?branch=master)](https://coveralls.io/github/seriousme/fastify-openapi-glue?branch=master)
+[![Coverage Status](https://codecov.io/gh/seriousme/fastify-openapi-glue/graph/badge.svg?token=ACSanhkzo5)](https://codecov.io/gh/seriousme/fastify-openapi-glue)
 [![NPM version](https://img.shields.io/npm/v/fastify-openapi-glue.svg)](https://www.npmjs.com/package/fastify-openapi-glue)
 ![npm](https://img.shields.io/npm/dm/fastify-openapi-glue)
 
