@@ -171,7 +171,7 @@ test("invalid openapi v2 specification throws error ", (t, done) => {
 		if (err) {
 			t.assert.equal(
 				err.message,
-				"'specification' parameter must contain a valid version 2.0 or 3.0.x or 3.1.x specification",
+				"'specification' parameter must contain a valid specification of a supported OpenApi version",
 				"got expected error",
 			);
 			done();

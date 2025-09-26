@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [4.10.0] 26-09-2025
+### Changed
+- feat: add support for OpenApi 3.2
+- chore: updated dependencies
+   - @seriousme/openapi-schema-validator  ^2.4.4  →  ^2.7.0
+   - @biomejs/biome  ^2.2.0  →  ^2.2.4
+   - fastify         ^5.5.0  →  ^5.6.1
+
 ## [4.9.2] 17-08-2025
 ### Changed
 - feat(dev): add index.d.ts tests
