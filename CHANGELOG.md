@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 ### Changed
+ - chore: updated dependencies
+   - @biomejs/biome  ^2.2.4  →  ^2.3.10
+   - expect-type     ^1.2.2  →   ^1.3.0
+   - fastify         ^5.6.1  →   ^5.6.2
+   - fastify-cli     ^7.4.0  →   ^7.4.1
+   - fastify-plugin  ^5.0.1  →   ^5.1.0
+   - js-yaml         ^4.1.0  →   ^4.1.1
+   - typescript      ^5.9.2  →   ^5.9.3
 
 ## [4.10.0] 26-09-2025
 ### Changed
