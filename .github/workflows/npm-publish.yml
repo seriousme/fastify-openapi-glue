@@ -14,7 +14,5 @@ jobs:
        with:
          node-version: 'lts/*'
          registry-url: 'https://registry.npmjs.org'
-     - name: Update npm@latest   # Ensure npm 11.5.1 or later is installed
-       run: npm install -g npm@latest
-     - run: npm ci
+     - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
      - run: npm publish --access public
