@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: Update license year
-        run: ./update_license.sh
+        run: .github/workflows/update_license.sh
