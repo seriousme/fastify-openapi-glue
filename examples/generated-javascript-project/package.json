@@ -12,17 +12,17 @@
     "test": "test"
   },
   "dependencies": {
-    "fastify-plugin": "^5.0.1",
+    "fastify-plugin": "^5.1.0",
     "@seriousme/openapi-schema-validator": "^2.7.0",
-    "js-yaml": "^4.1.0",
-    "fastify-openapi-glue": "^4.9.2"
+    "js-yaml": "^4.1.1",
+    "fastify-openapi-glue": "^4.10.0"
   },
   "devDependencies": {
-    "fastify": "^5.6.1",
-    "fastify-cli": "^7.4.0",
+    "fastify": "^5.7.4",
+    "fastify-cli": "^7.4.1",
     "c8": "^10.1.3",
-    "@biomejs/biome": "^2.2.4",
-    "expect-type": "^1.2.2",
-    "typescript": "^5.9.2"
+    "@biomejs/biome": "^2.3.15",
+    "expect-type": "^1.3.0",
+    "typescript": "^5.9.3"
   }
 }
