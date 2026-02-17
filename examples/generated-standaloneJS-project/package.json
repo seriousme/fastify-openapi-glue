@@ -13,14 +13,14 @@
   },
   "dependencies": {
     "fastify-plugin": "^5.1.0",
-    "@seriousme/openapi-schema-validator": "^2.7.0",
+    "@seriousme/openapi-schema-validator": "^2.7.1",
     "js-yaml": "^4.1.1"
   },
   "devDependencies": {
     "fastify": "^5.7.4",
     "fastify-cli": "^7.4.1",
     "c8": "^10.1.3",
-    "@biomejs/biome": "^2.3.15",
+    "@biomejs/biome": "^2.4.2",
     "expect-type": "^1.3.0",
     "typescript": "^5.9.3"
   }

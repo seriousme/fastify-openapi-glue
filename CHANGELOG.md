@@ -3,6 +3,12 @@
 ## [Unreleased]
 ### Changed
 
+## [4.10.2] 17-02-2026
+### Changed
+ - chore: updated dependencies
+   - @biomejs/biome                       ^2.3.15  →  ^2.4.2
+   - @seriousme/openapi-schema-validator   ^2.7.0  →  ^2.7.1
+
 ## [4.10.1] 13-02-2026
 ### Changed
  - chore: updated dependencies
