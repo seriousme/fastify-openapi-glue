@@ -11,7 +11,7 @@
 	"scripts": {
 		"start": "fastify start --options examples/petstore/index.js",
 		"format": "biome format --write .",
-		"test": "node --test  --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage.lcov --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=100 test/test-*.js && biome format --write . && biome ci .",
+		"test": "node --test  --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage.lcov --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=100 --test-coverage-exclude='test/**' test/test-*.js && biome format --write . && biome ci .",
 		"test:typescript": "tsc --noEmit",
 		"test:ci": "npm run lint && npm run test && npm run test:typescript",
 		"lint": "biome ci .",
