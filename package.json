@@ -11,11 +11,9 @@
 	"scripts": {
 		"start": "fastify start --options examples/petstore/index.js",
 		"format": "biome format --write .",
-		"test": "c8 node --test test/test-*.js && biome format --write . && biome ci .",
+		"test": "node --test  --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage.lcov --test-coverage-lines=100 --test-coverage-functions=100 --test-coverage-branches=100 test/test-*.js && biome format --write . && biome ci .",
 		"test:typescript": "tsc --noEmit",
-		"test:ci": "npm run lint && npm run covtest && npm run test:typescript",
-		"posttest": "c8 check-coverage --lines 100 --functions 100 --branches 100",
-		"covtest": "c8 --reporter=lcov npm test",
+		"test:ci": "npm run lint && npm run test && npm run test:typescript",
 		"lint": "biome ci .",
 		"dev": "fastify start -l info -P examples/petstore/index.js",
 		"updateChecksums": "node test/update-checksums.js",
@@ -40,7 +38,6 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.2",
-		"c8": "^10.1.3",
 		"expect-type": "^1.3.0",
 		"fastify": "^5.7.4",
 		"fastify-cli": "^7.4.1",
