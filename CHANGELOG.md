@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 ### Changed
+ - chore: replaced C8 by native coverage testing
+ - chore: updated dependencies
+   - @biomejs/biome                       ^2.4.2  →  ^2.4.3
+   - @seriousme/openapi-schema-validator  ^2.7.1  →  ^2.8.0
 
 ## [4.10.2] 17-02-2026
 ### Changed

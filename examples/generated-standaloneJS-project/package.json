@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "fastify start --options index.js",
-    "test": "c8 node --test test/test-*.js",
+    "test": "node --test test/test-*.js",
     "dev": "fastify start -l info -P --options index.js"
   },
   "directories": {
@@ -13,14 +13,13 @@
   },
   "dependencies": {
     "fastify-plugin": "^5.1.0",
-    "@seriousme/openapi-schema-validator": "^2.7.1",
+    "@seriousme/openapi-schema-validator": "^2.8.0",
     "js-yaml": "^4.1.1"
   },
   "devDependencies": {
     "fastify": "^5.7.4",
     "fastify-cli": "^7.4.1",
-    "c8": "^10.1.3",
-    "@biomejs/biome": "^2.4.2",
+    "@biomejs/biome": "^2.4.3",
     "expect-type": "^1.3.0",
     "typescript": "^5.9.3"
   }

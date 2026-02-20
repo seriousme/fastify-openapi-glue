@@ -87,7 +87,7 @@ const projectName = argv.projectName || `generated-${argv.type}-project`;
 const specPath = resolve(process.cwd(), argv.specification);
 const generator = new Generator(argv.checksumOnly, argv.localPlugin);
 const handler = (str) =>
-	/* c8 ignore next */
+	/* node:coverage ignore next */
 	argv.checksumOnly ? JSON.stringify(str, null, "\t") : str;
 if (generator.localPlugin) {
 	console.log(`Using local plugin at: ${generator.localPlugin}
