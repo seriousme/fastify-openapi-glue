@@ -4,9 +4,9 @@
 ### Changed
  - chore: replaced C8 by native coverage testing
  - chore: updated dependencies
-   - @biomejs/biome                       ^2.4.2  →  ^2.4.10
+   - @biomejs/biome                       ^2.4.2  →  ^2.4.11
    - @seriousme/openapi-schema-validator  ^2.7.1  →  ^2.8.0
-   - fastify                              ^5.7.4  →   ^5.8.4
+   - fastify                              ^5.7.4  →   ^5.8.5
 
 ## [4.10.2] 17-02-2026
 ### Changed
