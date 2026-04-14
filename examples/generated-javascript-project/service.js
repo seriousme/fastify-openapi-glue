@@ -59,7 +59,7 @@ export class Service {
 	//     name: Pet
 	//
 	// valid responses
-	//   '405':
+	//   "405":
 	//     description: Invalid input
 	//
 
@@ -126,11 +126,11 @@ export class Service {
 	//     name: Pet
 	//
 	// valid responses
-	//   '400':
+	//   "400":
 	//     description: Invalid ID supplied
-	//   '404':
+	//   "404":
 	//     description: Pet not found
-	//   '405':
+	//   "405":
 	//     description: Validation exception
 	//
 
@@ -160,7 +160,7 @@ export class Service {
 	//     - status
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: array
@@ -217,7 +217,7 @@ export class Service {
 	//               - sold
 	//         xml:
 	//           name: Pet
-	//   '400':
+	//   "400":
 	//     description: Invalid status value
 	//
 
@@ -242,7 +242,7 @@ export class Service {
 	//     - tags
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: array
@@ -299,7 +299,7 @@ export class Service {
 	//               - sold
 	//         xml:
 	//           name: Pet
-	//   '400':
+	//   "400":
 	//     description: Invalid tag value
 	//
 
@@ -322,7 +322,7 @@ export class Service {
 	//     - petId
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: object
@@ -377,9 +377,9 @@ export class Service {
 	//             - sold
 	//       xml:
 	//         name: Pet
-	//   '400':
+	//   "400":
 	//     description: Invalid ID supplied
-	//   '404':
+	//   "404":
 	//     description: Pet not found
 	//
 
@@ -412,7 +412,7 @@ export class Service {
 	//       type: string
 	//
 	// valid responses
-	//   '405':
+	//   "405":
 	//     description: Invalid input
 	//
 
@@ -441,9 +441,9 @@ export class Service {
 	//     - petId
 	//
 	// valid responses
-	//   '400':
+	//   "400":
 	//     description: Invalid ID supplied
-	//   '404':
+	//   "404":
 	//     description: Pet not found
 	//
 
@@ -476,7 +476,7 @@ export class Service {
 	//       type: string
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: object
@@ -499,7 +499,7 @@ export class Service {
 	// URL: /store/inventory
 	// summary:	Returns pet inventories by status
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: object
@@ -545,7 +545,7 @@ export class Service {
 	//     name: Order
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: object
@@ -574,7 +574,7 @@ export class Service {
 	//           default: false
 	//       xml:
 	//         name: Order
-	//   '400':
+	//   "400":
 	//     description: Invalid Order
 	//
 
@@ -599,7 +599,7 @@ export class Service {
 	//     - orderId
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: object
@@ -628,9 +628,9 @@ export class Service {
 	//           default: false
 	//       xml:
 	//         name: Order
-	//   '400':
+	//   "400":
 	//     description: Invalid ID supplied
-	//   '404':
+	//   "404":
 	//     description: Order not found
 	//
 
@@ -654,9 +654,9 @@ export class Service {
 	//     - orderId
 	//
 	// valid responses
-	//   '400':
+	//   "400":
 	//     description: Invalid ID supplied
-	//   '404':
+	//   "404":
 	//     description: Order not found
 	//
 
@@ -800,7 +800,7 @@ export class Service {
 	//     - password
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: string
@@ -813,7 +813,7 @@ export class Service {
 	//         type: string
 	//         format: date-time
 	//         description: date in UTC when token expires
-	//   '400':
+	//   "400":
 	//     description: Invalid username/password supplied
 	//
 
@@ -842,13 +842,13 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     username:
-	//       description: 'The name that needs to be fetched. Use user1 for testing. '
+	//       description: "The name that needs to be fetched. Use user1 for testing. "
 	//       type: string
 	//   required:
 	//     - username
 	//
 	// valid responses
-	//   '200':
+	//   "200":
 	//     description: successful operation
 	//     schema:
 	//       type: object
@@ -874,9 +874,9 @@ export class Service {
 	//           description: User Status
 	//       xml:
 	//         name: User
-	//   '400':
+	//   "400":
 	//     description: Invalid username supplied
-	//   '404':
+	//   "404":
 	//     description: User not found
 	//
 
@@ -923,9 +923,9 @@ export class Service {
 	//     name: User
 	//
 	// valid responses
-	//   '400':
+	//   "400":
 	//     description: Invalid user supplied
-	//   '404':
+	//   "404":
 	//     description: User not found
 	//
 
@@ -947,9 +947,9 @@ export class Service {
 	//     - username
 	//
 	// valid responses
-	//   '400':
+	//   "400":
 	//     description: Invalid username supplied
-	//   '404':
+	//   "404":
 	//     description: User not found
 	//
 
