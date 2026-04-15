@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - feat: replaced js-yaml by yaml 
  - chore: replaced C8 by native coverage testing
  - chore: updated dependencies
    - @biomejs/biome                       ^2.4.2  →  ^2.4.11
