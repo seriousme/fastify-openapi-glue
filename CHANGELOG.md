@@ -2,11 +2,14 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.11.0] 15-04-2026
+### Changed
  - feat: replaced js-yaml by yaml 
- - chore: replaced C8 by native coverage testing
+ - feat: replaced C8 by native coverage testing
  - chore: updated dependencies
-   - @biomejs/biome                       ^2.4.2  →  ^2.4.11
-   - @seriousme/openapi-schema-validator  ^2.7.1  →  ^2.8.0
+   - @biomejs/biome                       ^2.4.2  →  ^2.4.12
+   - @seriousme/openapi-schema-validator  ^2.7.1  →  ^2.9.0
    - fastify                              ^5.7.4  →   ^5.8.5
 
 ## [4.10.2] 17-02-2026
