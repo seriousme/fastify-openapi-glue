@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@seriousme/openapi-schema-validator": "^2.8.0",
 		"fastify-plugin": "^5.1.0",
-		"js-yaml": "^4.1.1"
+		"yaml": "^2.8.3"
 	},
 	"directories": {
 		"example": "./examples",

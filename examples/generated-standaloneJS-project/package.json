@@ -14,7 +14,7 @@
   "dependencies": {
     "fastify-plugin": "^5.1.0",
     "@seriousme/openapi-schema-validator": "^2.8.0",
-    "js-yaml": "^4.1.1"
+    "yaml": "^2.8.3"
   },
   "devDependencies": {
     "fastify": "^5.8.5",

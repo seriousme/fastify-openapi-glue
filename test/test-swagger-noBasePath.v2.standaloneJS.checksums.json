@@ -6,7 +6,7 @@
 		},
 		"service": {
 			"fileName": "service.js",
-			"checksum": "e05e94bbf504caf0357a5149ff1d8c4e780ac557951cd587cf48eed86f0d63a8"
+			"checksum": "ffc27b5cd3cf2dab86c4e0e44e76af8eaa2c310950108cafa488fc694cca515e"
 		},
 		"security": {
 			"fileName": "security.js",
@@ -26,7 +26,7 @@
 		},
 		"testPlugin": {
 			"fileName": "test-plugin.js",
-			"checksum": "045bca95ca75d12aeb0af34165434f5aae02d1f475cb77350dd6514f9a555950"
+			"checksum": "f49965d9ba9285bc0c65649d74e3b593923e9073d7d9a0624571fddb7fbab080"
 		},
 		"package": {
 			"fileName": "package.json",

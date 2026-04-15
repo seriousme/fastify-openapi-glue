@@ -72,7 +72,7 @@ const opts = {
 //     name: Pet
 //
 // valid responses
-//   '405':
+//   "405":
 //     description: Invalid input
 //
 
@@ -147,11 +147,11 @@ test("testing addPet", async (t) => {
 //     name: Pet
 //
 // valid responses
-//   '400':
+//   "400":
 //     description: Invalid ID supplied
-//   '404':
+//   "404":
 //     description: Pet not found
-//   '405':
+//   "405":
 //     description: Validation exception
 //
 
@@ -189,7 +189,7 @@ test("testing updatePet", async (t) => {
 //     - status
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: array
@@ -246,7 +246,7 @@ test("testing updatePet", async (t) => {
 //               - sold
 //         xml:
 //           name: Pet
-//   '400':
+//   "400":
 //     description: Invalid status value
 //
 
@@ -279,7 +279,7 @@ test("testing findPetsByStatus", async (t) => {
 //     - tags
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: array
@@ -336,7 +336,7 @@ test("testing findPetsByStatus", async (t) => {
 //               - sold
 //         xml:
 //           name: Pet
-//   '400':
+//   "400":
 //     description: Invalid tag value
 //
 
@@ -367,7 +367,7 @@ test("testing findPetsByTags", async (t) => {
 //     - petId
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: object
@@ -422,9 +422,9 @@ test("testing findPetsByTags", async (t) => {
 //             - sold
 //       xml:
 //         name: Pet
-//   '400':
+//   "400":
 //     description: Invalid ID supplied
-//   '404':
+//   "404":
 //     description: Pet not found
 //
 
@@ -465,7 +465,7 @@ test("testing getPetById", async (t) => {
 //       type: string
 //
 // valid responses
-//   '405':
+//   "405":
 //     description: Invalid input
 //
 
@@ -502,9 +502,9 @@ test("testing updatePetWithForm", async (t) => {
 //     - petId
 //
 // valid responses
-//   '400':
+//   "400":
 //     description: Invalid ID supplied
-//   '404':
+//   "404":
 //     description: Pet not found
 //
 
@@ -545,7 +545,7 @@ test("testing deletePet", async (t) => {
 //       type: string
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: object
@@ -576,7 +576,7 @@ test("testing uploadFile", async (t) => {
 // URL: /store/inventory
 // summary:	Returns pet inventories by status
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: object
@@ -630,7 +630,7 @@ test("testing getInventory", async (t) => {
 //     name: Order
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: object
@@ -659,7 +659,7 @@ test("testing getInventory", async (t) => {
 //           default: false
 //       xml:
 //         name: Order
-//   '400':
+//   "400":
 //     description: Invalid Order
 //
 
@@ -692,7 +692,7 @@ test("testing placeOrder", async (t) => {
 //     - orderId
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: object
@@ -721,9 +721,9 @@ test("testing placeOrder", async (t) => {
 //           default: false
 //       xml:
 //         name: Order
-//   '400':
+//   "400":
 //     description: Invalid ID supplied
-//   '404':
+//   "404":
 //     description: Order not found
 //
 
@@ -755,9 +755,9 @@ test("testing getOrderById", async (t) => {
 //     - orderId
 //
 // valid responses
-//   '400':
+//   "400":
 //     description: Invalid ID supplied
-//   '404':
+//   "404":
 //     description: Order not found
 //
 
@@ -933,7 +933,7 @@ test("testing createUsersWithListInput", async (t) => {
 //     - password
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: string
@@ -946,7 +946,7 @@ test("testing createUsersWithListInput", async (t) => {
 //         type: string
 //         format: date-time
 //         description: date in UTC when token expires
-//   '400':
+//   "400":
 //     description: Invalid username/password supplied
 //
 
@@ -991,13 +991,13 @@ test("testing logoutUser", async (t) => {
 //   type: object
 //   properties:
 //     username:
-//       description: 'The name that needs to be fetched. Use user1 for testing. '
+//       description: "The name that needs to be fetched. Use user1 for testing. "
 //       type: string
 //   required:
 //     - username
 //
 // valid responses
-//   '200':
+//   "200":
 //     description: successful operation
 //     schema:
 //       type: object
@@ -1023,9 +1023,9 @@ test("testing logoutUser", async (t) => {
 //           description: User Status
 //       xml:
 //         name: User
-//   '400':
+//   "400":
 //     description: Invalid username supplied
-//   '404':
+//   "404":
 //     description: User not found
 //
 
@@ -1080,9 +1080,9 @@ test("testing getUserByName", async (t) => {
 //     name: User
 //
 // valid responses
-//   '400':
+//   "400":
 //     description: Invalid user supplied
-//   '404':
+//   "404":
 //     description: User not found
 //
 
@@ -1112,9 +1112,9 @@ test("testing updateUser", async (t) => {
 //     - username
 //
 // valid responses
-//   '400':
+//   "400":
 //     description: Invalid username supplied
-//   '404':
+//   "404":
 //     description: User not found
 //
 
