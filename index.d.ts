@@ -39,5 +39,5 @@ declare interface SecurityError extends Error {
 }
 
 export default fastifyOpenapiGlue;
-export { fastifyOpenapiGlue };
 export type { SecurityError };
+export { fastifyOpenapiGlue };
