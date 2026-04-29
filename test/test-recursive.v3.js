@@ -53,3 +53,27 @@ test("route registration succeeds with recursion", (t, done) => {
 		}
 	});
 });
+
+test("route works with recursion", async (t) => {
+	const opts = {
+		specification: testSpec,
+		serviceHandlers,
+	};
+
+	const data = {
+		objRef: { str1: "test data" },
+	};
+	const fastify = Fastify(noStrict);
+	fastify.register(fastifyOpenapiGlue, opts);
+	const res = await fastify.inject({
+		method: "post",
+		url: "/recursive",
+		payload: data,
+	});
+	t.assert.equal(res.statusCode, 200, "request ok");
+	t.assert.deepStrictEqual(
+		JSON.parse(res.body),
+		data,
+		"recursive result is correct",
+	);
+});

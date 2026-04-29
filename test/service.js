@@ -167,6 +167,62 @@ export class Service {
 		return "";
 	}
 
+	// Operation: postRecursive
+	// URL: /recursive
+	// summary:	Test recursive parameters
+	// req.body
+	//   content:
+	//     application/json:
+	//       schema:
+	//         type: object
+	//         additionalProperties: false
+	//         properties:
+	//           str1:
+	//             type: string
+	//           arr:
+	//             type: array
+	//             items: &a1
+	//               type: string
+	//           objRef:
+	//             $ref: "#"
+	//           arrRef:
+	//             type: array
+	//             items:
+	//               $ref: "#"
+	//           refStr: *a1
+	//         $id: http://example.com/fastifySchema
+	//
+	// valid responses
+	//   "200":
+	//     description: ok
+	//     content:
+	//       application/json:
+	//         schema:
+	//           type: object
+	//           additionalProperties: false
+	//           properties:
+	//             str1:
+	//               type: string
+	//             arr:
+	//               type: array
+	//               items: &a1
+	//                 type: string
+	//             objRef:
+	//               $ref: "#"
+	//             arrRef:
+	//               type: array
+	//               items:
+	//                 $ref: "#"
+	//             refStr: *a1
+	//           required:
+	//             - str1
+	//           $id: http://example.com/fastifySchema
+	//
+
+	async postRecursive(req) {
+		return req.body;
+	}
+
 	// Operation: getResponse
 	// summary:  Test response serialization
 	// req.query:
