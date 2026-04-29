@@ -68,8 +68,7 @@
 					"refStr": {
 						"$ref": "#/components/schemas/bodyObject/properties/arrRef/items/properties/arr/items"
 					}
-				},
-				"required": ["str1"]
+				}
 			}
 		}
 	}

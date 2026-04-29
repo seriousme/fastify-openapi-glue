@@ -199,6 +199,17 @@
 				}
 			}
 		},
+		"/recursive": {
+			"post": {
+				"operationId": "postRecursive",
+				"summary": "placeholder",
+				"responses": {
+					"200": {
+						"description": "ok"
+					}
+				}
+			}
+		},
 		"/noParam": {
 			"get": {
 				"operationId": "getNoParam",
