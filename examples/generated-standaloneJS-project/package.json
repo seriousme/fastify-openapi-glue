@@ -19,8 +19,8 @@
   "devDependencies": {
     "fastify": "^5.8.5",
     "fastify-cli": "^8.0.0",
-    "@biomejs/biome": "^2.4.12",
+    "@biomejs/biome": "^2.4.13",
     "expect-type": "^1.3.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }

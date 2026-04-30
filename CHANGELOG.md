@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [4.11.1] 30-04-2026
+### Changed
+ - fix: recursive response schema with unresolved refs
+ - fix: do not mutate specification parameter
+ - chore: updated dependencies
+   - @biomejs/biome  ^2.4.12  →  ^2.4.13
+   - typescript       ^6.0.2  →   ^6.0.3
+
 ## [4.11.0] 15-04-2026
 ### Changed
  - feat: replaced js-yaml by yaml 
