@@ -4,10 +4,26 @@ import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 
 const importJSON = createRequire(import.meta.url);
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const testSpec = await importJSON("./test-openapi-v3-recursive.json");
+const treeSpec = localFile("./test-openapi-v3-recursive2.yaml");
 
-import { Service } from "./service.js";
+const treeData = { id: "root", children: [] };
+const forestData = [];
+
+class Service {
+	async postRecursive(req) {
+		return req.body;
+	}
+
+	async getTree() {
+		return treeData;
+	}
+	async getForest() {
+		return forestData;
+	}
+}
 
 const serviceHandlers = new Service();
 
@@ -63,8 +79,10 @@ test("route works with recursion", async (t) => {
 	const data = {
 		objRef: { str1: "test data" },
 	};
+
 	const fastify = Fastify(noStrict);
 	fastify.register(fastifyOpenapiGlue, opts);
+	await fastify.ready();
 	const res = await fastify.inject({
 		method: "post",
 		url: "/recursive",
@@ -75,5 +93,30 @@ test("route works with recursion", async (t) => {
 		JSON.parse(res.body),
 		data,
 		"recursive result is correct",
+	);
+});
+
+test("route works with recursion from tree spec", async (t) => {
+	const opts = {
+		specification: treeSpec,
+		serviceHandlers,
+	};
+
+	const fastify = Fastify(noStrict);
+	fastify.register(fastifyOpenapiGlue, opts);
+	await fastify.ready();
+	const treeRes = await fastify.inject({ method: "GET", url: "/tree" });
+	t.assert.equal(treeRes.statusCode, 200, "request ok");
+	t.assert.deepStrictEqual(
+		JSON.parse(treeRes.body),
+		treeData,
+		"treeData result is correct",
+	);
+	const forestRes = await fastify.inject({ method: "GET", url: "/forest" });
+	t.assert.equal(forestRes.statusCode, 200, "request ok");
+	t.assert.deepStrictEqual(
+		JSON.parse(forestRes.body),
+		forestData,
+		"forestData result is correct",
 	);
 });
