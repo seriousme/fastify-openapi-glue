@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [4.11.2] 05-05-2026
+### Changed
+ - fix: overlapping recursion in JSON schema 
+ - chore: replace JSON.parse(JSON.stringify()) by structuredClone
+ - chore: updated dependencies
+   - @biomejs/biome  ^2.4.13  →  ^2.4.14
+   - yaml             ^2.8.3  →   ^2.8.4
+
 ## [4.11.1] 30-04-2026
 ### Changed
  - fix: recursive response schema with unresolved refs
