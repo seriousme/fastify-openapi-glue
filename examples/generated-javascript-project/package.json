@@ -14,13 +14,13 @@
   "dependencies": {
     "fastify-plugin": "^5.1.0",
     "@seriousme/openapi-schema-validator": "^2.9.0",
-    "yaml": "^2.8.3",
-    "fastify-openapi-glue": "^4.11.0"
+    "yaml": "^2.8.4",
+    "fastify-openapi-glue": "^4.11.1"
   },
   "devDependencies": {
     "fastify": "^5.8.5",
     "fastify-cli": "^8.0.0",
-    "@biomejs/biome": "^2.4.13",
+    "@biomejs/biome": "^2.4.14",
     "expect-type": "^1.3.0",
     "typescript": "^6.0.3"
   }
