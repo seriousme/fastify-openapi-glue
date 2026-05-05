@@ -1,0 +1,63 @@
+openapi: 3.1.0
+info:
+  title: Recursive $ref reproduction
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /tree:
+    get:
+      summary: Get a tree (response wraps TreeNode in allOf)
+      operationId: getTree
+      responses:
+        "200":
+          description: A tree node with metadata
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnnotatedTree"
+
+  /forest:
+    get:
+      summary: Get a forest (response uses TreeNode directly)
+      operationId: getForest
+      responses:
+        "200":
+          description: Multiple trees (shares TreeNode schema with /tree)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TreeNode"
+
+components:
+  schemas:
+    TreeNode:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/TreeNode"
+      required: [id]
+
+    AnnotatedTree:
+      allOf:
+        - type: object
+          properties:
+            metadata:
+              type: object
+              properties:
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+          required: [metadata]
+        - $ref: "#/components/schemas/TreeNode"
