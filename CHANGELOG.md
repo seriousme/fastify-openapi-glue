@@ -2,7 +2,8 @@
 
 ## [Unreleased]
 ### Changed
-
+ - refactor JSON schema processing
+ 
 ## [4.11.2] 05-05-2026
 ### Changed
  - fix: overlapping recursion in JSON schema 
