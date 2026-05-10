@@ -227,8 +227,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					status: {
-						description: "Status values that need to be considered for filter",
 						type: "array",
+						description: "Status values that need to be considered for filter",
 						items: {
 							type: "string",
 							enum: ["available", "pending", "sold"],
@@ -254,8 +254,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					tags: {
-						description: "Tags to filter by",
 						type: "array",
+						description: "Tags to filter by",
 						items: {
 							type: "string",
 						},
@@ -279,8 +279,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					petId: {
-						description: "ID of pet to return",
 						type: "integer",
+						description: "ID of pet to return",
 						format: "int64",
 					},
 				},
@@ -299,12 +299,12 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					name: {
-						description: "Updated name of the pet",
 						type: "string",
+						description: "Updated name of the pet",
 					},
 					status: {
-						description: "Updated status of the pet",
 						type: "string",
+						description: "Updated status of the pet",
 					},
 				},
 			},
@@ -312,8 +312,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					petId: {
-						description: "ID of pet that needs to be updated",
 						type: "integer",
+						description: "ID of pet that needs to be updated",
 						format: "int64",
 					},
 				},
@@ -334,8 +334,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					petId: {
-						description: "Pet id to delete",
 						type: "integer",
+						description: "Pet id to delete",
 						format: "int64",
 					},
 				},
@@ -356,12 +356,12 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					additionalMetadata: {
-						description: "Additional data to pass to server",
 						type: "string",
+						description: "Additional data to pass to server",
 					},
 					file: {
-						description: "file to upload",
 						type: "string",
+						description: "file to upload",
 					},
 				},
 			},
@@ -369,8 +369,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					petId: {
-						description: "ID of pet to update",
 						type: "integer",
+						description: "ID of pet to update",
 						format: "int64",
 					},
 				},
@@ -440,11 +440,11 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					orderId: {
-						description: "ID of pet that needs to be fetched",
 						type: "integer",
+						description: "ID of pet that needs to be fetched",
+						format: "int64",
 						maximum: 10,
 						minimum: 1,
-						format: "int64",
 					},
 				},
 				required: ["orderId"],
@@ -461,10 +461,10 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					orderId: {
-						description: "ID of the order that needs to be deleted",
 						type: "integer",
-						minimum: 1,
+						description: "ID of the order that needs to be deleted",
 						format: "int64",
+						minimum: 1,
 					},
 				},
 				required: ["orderId"],
@@ -616,12 +616,12 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					username: {
-						description: "The user name for login",
 						type: "string",
+						description: "The user name for login",
 					},
 					password: {
-						description: "The password for login in clear text",
 						type: "string",
+						description: "The password for login in clear text",
 					},
 				},
 				required: ["username", "password"],
@@ -645,9 +645,9 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					username: {
+						type: "string",
 						description:
 							"The name that needs to be fetched. Use user1 for testing. ",
-						type: "string",
 					},
 				},
 				required: ["username"],
@@ -699,8 +699,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					username: {
-						description: "name that need to be updated",
 						type: "string",
+						description: "name that need to be updated",
 					},
 				},
 				required: ["username"],
@@ -717,8 +717,8 @@ async function generateRoutes(fastify, _opts) {
 				type: "object",
 				properties: {
 					username: {
-						description: "The name that needs to be deleted",
 						type: "string",
+						description: "The name that needs to be deleted",
 					},
 				},
 				required: ["username"],

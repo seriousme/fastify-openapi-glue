@@ -12,7 +12,8 @@
 		"test": "test"
 	},
 	"dependencies": {
-		"fastify-plugin": ""
+		"fastify-plugin": "",
+		"fastify-openapi-glue":""
 	},
 	"devDependencies": {
 		"fastify": "",
