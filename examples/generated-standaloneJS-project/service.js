@@ -146,8 +146,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     status:
-	//       description: Status values that need to be considered for filter
 	//       type: array
+	//       description: Status values that need to be considered for filter
 	//       items:
 	//         type: string
 	//         enum:
@@ -233,8 +233,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     tags:
-	//       description: Tags to filter by
 	//       type: array
+	//       description: Tags to filter by
 	//       items:
 	//         type: string
 	//       collectionFormat: multi
@@ -315,8 +315,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     petId:
-	//       description: ID of pet to return
 	//       type: integer
+	//       description: ID of pet to return
 	//       format: int64
 	//   required:
 	//     - petId
@@ -395,8 +395,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     petId:
-	//       description: ID of pet that needs to be updated
 	//       type: integer
+	//       description: ID of pet that needs to be updated
 	//       format: int64
 	//   required:
 	//     - petId
@@ -405,11 +405,11 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     name:
+	//       type: string
 	//       description: Updated name of the pet
-	//       type: string
 	//     status:
-	//       description: Updated status of the pet
 	//       type: string
+	//       description: Updated status of the pet
 	//
 	// valid responses
 	//   "405":
@@ -434,8 +434,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     petId:
-	//       description: Pet id to delete
 	//       type: integer
+	//       description: Pet id to delete
 	//       format: int64
 	//   required:
 	//     - petId
@@ -459,8 +459,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     petId:
-	//       description: ID of pet to update
 	//       type: integer
+	//       description: ID of pet to update
 	//       format: int64
 	//   required:
 	//     - petId
@@ -469,11 +469,11 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     additionalMetadata:
+	//       type: string
 	//       description: Additional data to pass to server
-	//       type: string
 	//     file:
-	//       description: file to upload
 	//       type: string
+	//       description: file to upload
 	//
 	// valid responses
 	//   "200":
@@ -590,11 +590,11 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     orderId:
-	//       description: ID of pet that needs to be fetched
 	//       type: integer
+	//       description: ID of pet that needs to be fetched
+	//       format: int64
 	//       maximum: 10
 	//       minimum: 1
-	//       format: int64
 	//   required:
 	//     - orderId
 	//
@@ -646,10 +646,10 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     orderId:
-	//       description: ID of the order that needs to be deleted
 	//       type: integer
-	//       minimum: 1
+	//       description: ID of the order that needs to be deleted
 	//       format: int64
+	//       minimum: 1
 	//   required:
 	//     - orderId
 	//
@@ -790,11 +790,11 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     username:
+	//       type: string
 	//       description: The user name for login
-	//       type: string
 	//     password:
-	//       description: The password for login in clear text
 	//       type: string
+	//       description: The password for login in clear text
 	//   required:
 	//     - username
 	//     - password
@@ -842,8 +842,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     username:
-	//       description: "The name that needs to be fetched. Use user1 for testing. "
 	//       type: string
+	//       description: "The name that needs to be fetched. Use user1 for testing. "
 	//   required:
 	//     - username
 	//
@@ -892,8 +892,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     username:
-	//       description: name that need to be updated
 	//       type: string
+	//       description: name that need to be updated
 	//   required:
 	//     - username
 	//
@@ -941,8 +941,8 @@ export class Service {
 	//   type: object
 	//   properties:
 	//     username:
-	//       description: The name that needs to be deleted
 	//       type: string
+	//       description: The name that needs to be deleted
 	//   required:
 	//     - username
 	//
