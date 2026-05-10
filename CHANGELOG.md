@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 ### Changed
- - refactor JSON schema processing
+ - chore: refactor parsing and generator
  
 ## [4.11.2] 05-05-2026
 ### Changed
