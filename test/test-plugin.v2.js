@@ -1,20 +1,15 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-
-const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
-
-const testSpec = await importJSON("./test-swagger.v2.json");
-const petStoreSpec = await importJSON("./petstore-swagger.v2.json");
-const testSpecYAML = localFile("./test-swagger.v2.yaml");
-const genericPathItemsSpec = await importJSON(
-	"./test-swagger-v2-generic-path-items.json",
-);
-
+import petStoreSpec from "./petstore-swagger.v2.json" with { type: "json" };
 import { Service } from "./service.js";
+import testSpec from "./test-swagger.v2.json" with { type: "json" };
+import genericPathItemsSpec from "./test-swagger-v2-generic-path-items.json" with {
+	type: "json",
+};
 
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
+const testSpecYAML = localFile("./test-swagger.v2.yaml");
 const serviceHandlers = new Service();
 
 const noStrict = {

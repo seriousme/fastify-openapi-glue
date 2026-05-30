@@ -1,11 +1,7 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-
-const importJSON = createRequire(import.meta.url);
-
-const testSpec = await importJSON("./test-openapi.v3.json");
+import testSpec from "./test-openapi.v3.json" with { type: "json" };
 
 test("return route params from operationResolver", async (t) => {
 	const fastify = Fastify();

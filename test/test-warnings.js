@@ -1,14 +1,10 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import { Service } from "./service.js";
+import testSpec from "./test-openapi.v3.json" with { type: "json" };
 
 const service = new Service();
-
-const importJSON = createRequire(import.meta.url);
-
-const testSpec = await importJSON("./test-openapi.v3.json");
 const calls = [];
 
 function makeWarningHandler(t) {

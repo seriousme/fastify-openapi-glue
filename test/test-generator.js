@@ -1,9 +1,7 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
 
-const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 const dir = localFile(".");
 const checksumOnly = true;
@@ -16,7 +14,11 @@ for (const type of templateTypes) {
 	for (const spec of specs) {
 		const specFile = localFile(`${spec}.json`);
 		const checksumFile = localFile(`${spec}.${type}.checksums.json`);
-		const testChecksums = await importJSON(checksumFile);
+		const testChecksums = (
+			await import(checksumFile, {
+				with: { type: "json" },
+			})
+		).default;
 		const project = `generated-${type}-project`;
 		const generator = new Generator(checksumOnly, localPlugin);
 		await test(`generator generates ${type} project data for ${spec}`, async (t) => {

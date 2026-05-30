@@ -1,19 +1,15 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-
-const importJSON = createRequire(import.meta.url);
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
-
-const testSpec = await importJSON("./test-openapi.v3.json");
-const petStoreSpec = await importJSON("./petstore-openapi.v3.json");
-const testSpecYAML = localFile("./test-openapi.v3.yaml");
-const genericPathItemsSpec = await importJSON(
-	"./test-openapi-v3-generic-path-items.json",
-);
-
+import petStoreSpec from "./petstore-openapi.v3.json" with { type: "json" };
 import { Service } from "./service.js";
+import testSpec from "./test-openapi.v3.json" with { type: "json" };
+import genericPathItemsSpec from "./test-openapi-v3-generic-path-items.json" with {
+	type: "json",
+};
+
+const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
+const testSpecYAML = localFile("./test-openapi.v3.yaml");
 
 const serviceHandlers = new Service();
 
