@@ -15,4 +15,4 @@ jobs:
          node-version: 'lts/*'
          registry-url: 'https://registry.npmjs.org'
      - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
-     - run: npm publish --access public
+     - run: npm stage publish --access public
