@@ -1,9 +1,7 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
 
-const importJSON = createRequire(import.meta.url);
 const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
 
 const specPath = localFile("./petstore-swagger.v2.json");
@@ -11,7 +9,11 @@ const specPath3 = localFile("./petstore-openapi.v3.json");
 const projectName = `generated-${templateTypes[0]}-project`;
 const dir = localFile("../examples");
 const nonExistentDir = localFile("./non-existent-directory");
-const spec301 = await importJSON(specPath3);
+const spec301 = (
+	await import(specPath3, {
+		with: { type: "json" },
+	})
+).default;
 
 const checksumOnly = false;
 const localPlugin = true;

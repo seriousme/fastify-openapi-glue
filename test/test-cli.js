@@ -1,10 +1,8 @@
 import { execSync } from "node:child_process";
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import { fileURLToPath, URL } from "node:url";
 import { templateTypes } from "../lib/templates/templateTypes.js";
 
-const importJSON = createRequire(import.meta.url);
 const spec = "./test-swagger.v2";
 const cli = localFile("../bin/openapi-glue-cli.js");
 
@@ -19,7 +17,11 @@ for (const type of templateTypes) {
 	const specPath = localFile(`${spec}.json`);
 	const checksumFile = localFile(`${spec}.${type}.checksums.json`);
 	const project = `generated-${type}-project`;
-	const testChecksums = await importJSON(checksumFile);
+	const testChecksums = (
+		await import(checksumFile, {
+			with: { type: "json" },
+		})
+	).default;
 	await test(`cli ${type} does not error`, (t) => {
 		const checksums = JSON.parse(
 			execSync(`node ${cli} -c -p ${project} -t ${type} ${specPath}`),

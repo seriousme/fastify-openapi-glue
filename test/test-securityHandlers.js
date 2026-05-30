@@ -1,10 +1,6 @@
-import { createRequire } from "node:module";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
-
-const importJSON = createRequire(import.meta.url);
-
 import securityHandlers from "./security.js";
 import { Service } from "./service.js";
 
@@ -27,8 +23,16 @@ await doTest(
 await doTest("v3", "./test-openapi.v3.json", "./petstore-openapi.v3.json", "");
 
 async function doTest(version, testSpecName, petStoreSpecName, prefix) {
-	const testSpec = await importJSON(testSpecName);
-	const petStoreSpec = await importJSON(petStoreSpecName);
+	const testSpec = (
+		await import(testSpecName, {
+			with: { type: "json" },
+		})
+	).default;
+	const petStoreSpec = (
+		await import(petStoreSpecName, {
+			with: { type: "json" },
+		})
+	).default;
 
 	const invalidSecurityOpts = {
 		specification: testSpec,
