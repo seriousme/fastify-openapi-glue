@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.11.3] 30-05-2026
+### Changed
  - chore: refactor parsing and generator
  - chore: replace createRequire by import { type:"json" }
  - chore: replace localFile() by a better variant
