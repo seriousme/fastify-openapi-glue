@@ -2,6 +2,12 @@ name: Publish Package to npmjs
 on:
  release:
    types: [created]
+ workflow_dispatch:
+  inputs:
+    nodeVersion:
+      description: Node version to use
+      required: false
+      default: "lts/*"
 jobs:
  build:
    runs-on: ubuntu-latest
