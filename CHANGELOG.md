@@ -4,6 +4,9 @@
 ### Changed
  - chore: refactor parsing and generator
  - chore: replace createRequire by import { type:"json" }
+ - chore: updated dependencies
+   - @biomejs/biome  ^2.4.14  →  ^2.4.16
+   - yaml             ^2.8.4  →   ^2.9.0
  
 ## [4.11.2] 05-05-2026
 ### Changed
