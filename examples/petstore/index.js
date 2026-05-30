@@ -5,7 +5,10 @@ import openapiGlue from "../../index.js";
 import { Service } from "./service.js";
 
 const serviceHandlers = new Service();
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
+
+import path from "node:path";
+
+const localFile = (fileName) => path.join(import.meta.dirname, fileName);
 
 const pluginOptions = {
 	specification: localFile("./petstore-openapi.v3.json"),

@@ -1,8 +1,9 @@
+import path from "node:path";
 import { test } from "node:test";
 import { Generator } from "../lib/generator.js";
 import { templateTypes } from "../lib/templates/templateTypes.js";
 
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
+const localFile = (fileName) => path.join(import.meta.dirname, fileName);
 
 const specPath = localFile("./petstore-swagger.v2.json");
 const specPath3 = localFile("./petstore-openapi.v3.json");
