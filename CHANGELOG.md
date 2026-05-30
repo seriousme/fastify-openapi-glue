@@ -3,6 +3,7 @@
 ## [Unreleased]
 ### Changed
  - chore: refactor parsing and generator
+ - chore: replace createRequire by import { type:"json" }
  
 ## [4.11.2] 05-05-2026
 ### Changed
