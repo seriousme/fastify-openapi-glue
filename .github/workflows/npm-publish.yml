@@ -21,4 +21,5 @@ jobs:
          node-version: ${{ github.event.inputs.nodeVersion }}
          registry-url: 'https://registry.npmjs.org'
      - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
+     - run: npm install -g npm@11.16
      - run: npm stage publish --access public
