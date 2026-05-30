@@ -1,9 +1,10 @@
+import path from "node:path";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
 import testSpec from "./test-openapi-v3-recursive.json" with { type: "json" };
 
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
+const localFile = (fileName) => path.join(import.meta.dirname, fileName);
 
 class Service {
 	async postRecursive(req) {

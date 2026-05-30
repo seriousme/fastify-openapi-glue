@@ -1,3 +1,4 @@
+import path from "node:path";
 import { test } from "node:test";
 import Fastify from "fastify";
 import fastifyOpenapiGlue from "../index.js";
@@ -8,7 +9,7 @@ import genericPathItemsSpec from "./test-swagger-v2-generic-path-items.json" wit
 	type: "json",
 };
 
-const localFile = (fileName) => new URL(fileName, import.meta.url).pathname;
+const localFile = (fileName) => path.join(import.meta.dirname, fileName);
 const testSpecYAML = localFile("./test-swagger.v2.yaml");
 const serviceHandlers = new Service();
 
