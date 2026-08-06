@@ -3,6 +3,14 @@
 ## [Unreleased]
 ### Changed
 
+## [4.11.4] 06-08-2026
+### Changed
+ - chore: updated dependencies
+   - @biomejs/biome                       ^2.4.16  →   ^2.5.7
+   - @seriousme/openapi-schema-validator   ^2.9.0  →   ^2.9.1
+   - expect-type                           ^1.3.0  →   ^1.4.0
+   - fastify                               ^5.8.5  →  ^5.11.2
+
 ## [4.11.3] 30-05-2026
 ### Changed
  - chore: refactor parsing and generator
