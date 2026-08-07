@@ -3,7 +3,7 @@
 ## [Unreleased]
 ### Changed
 
-## [4.11.4] 06-08-2026
+## [4.11.4] 07-08-2026
 ### Changed
  - chore: updated dependencies
    - @biomejs/biome                       ^2.4.16  →   ^2.5.7
