@@ -25,16 +25,16 @@
 	"bin": {
 		"openapi-glue": "./bin/openapi-glue-cli.js"
 	},
+	"files": [
+		"index.js",
+		"index.d.ts",
+		"bin/",
+		"lib/"
+	],
 	"dependencies": {
 		"@seriousme/openapi-schema-validator": "^2.9.1",
 		"fastify-plugin": "^6.0.0",
 		"yaml": "^2.9.0"
-	},
-	"directories": {
-		"example": "./examples",
-		"test": "./test",
-		"lib": "./examples",
-		"bin": "./bin"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.7",

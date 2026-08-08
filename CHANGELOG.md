@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - chore: reduce package size by specifying the files in package.json
 
 ## [4.11.4] 07-08-2026
 ### Changed
