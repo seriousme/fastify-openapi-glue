@@ -2,7 +2,16 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.11.5] 18-09-2026
+### Changed
  - chore: reduce package size by specifying the files in package.json
+ - chore: updated dependencies
+   - @biomejs/biome                       ^2.5.7  →  ^2.5.14
+   - fastify-cli                          ^8.0.0  →   ^8.0.2
+   - yaml                                 ^2.9.0  →   ^2.9.1
+   - @seriousme/openapi-schema-validator   ^2.9.1  →  ^2.10.0
+   - fastify                              ^5.11.2  →  ^5.12.5
 
 ## [4.11.4] 07-08-2026
 ### Changed
