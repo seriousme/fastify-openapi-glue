@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 ### Changed
+ - feat: parse a specification object once, however often the plugin is registered with it
 
 ## [4.11.5] 18-09-2026
 ### Changed
