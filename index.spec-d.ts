@@ -31,7 +31,7 @@ expectTypeOf<FastifyOpenapiGlueOptions>({
 	prefix: "v1",
 	addEmptySchema: true,
 	addCookieSchema: false,
-	noValidation: false
+	noValidation: false,
 });
 
 // Test operation resolver returning handler function
