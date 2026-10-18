@@ -10,19 +10,19 @@ const serviceHandlers = new Service();
 const opts = {
 	specification: testSpec,
 	serviceHandlers,
-	noValidate: true,
+	noValidation: true,
 };
 
 const nonObjectOpts = {
 	specification: "I am a spec",
 	serviceHandlers,
-	noValidate: true,
+	noValidation: true,
 };
 
 const noVersionOpts = {
 	specification: {},
 	serviceHandlers,
-	noValidate: true,
+	noValidation: true,
 };
 
 process.on("warning", (warning) => {
