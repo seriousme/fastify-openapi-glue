@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 ### Changed
+
+## [4.12.0] 18-10-2026
+### Changed
  - feat: add noValidate option, see README.md
+ - fix: add generator option type=standaloneJS to README.md
  - chore: updated dependencies
    - @biomejs/biome  ^2.5.14  →  ^2.5.15
    - fastify         ^5.12.5  →  ^5.12.7
