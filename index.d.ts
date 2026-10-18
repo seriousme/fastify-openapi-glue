@@ -29,6 +29,7 @@ export interface FastifyOpenapiGlueOptions {
 	 *  You can then hook Fastify's 'onRoute' event to make use of the schema as you wish.
 	 */
 	addCookieSchema?: boolean;
+	noValidation?: boolean;
 }
 
 declare const fastifyOpenapiGlue: FastifyPluginAsync<FastifyOpenapiGlueOptions>;
