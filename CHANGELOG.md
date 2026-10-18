@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 ### Changed
+ - feat: add noValidate option, see README.md
+ - chore: updated dependencies
+   - @biomejs/biome  ^2.5.14  →  ^2.5.15
+   - fastify         ^5.12.5  →  ^5.12.7
+   - fastify-cli      ^8.0.2  →   ^8.0.3
+   - fastify-plugin   ^6.0.0  →   ^6.0.1
+   - @seriousme/openapi-schema-validator  ^2.10.0  →  ^2.11.0
 
 ## [4.11.5] 18-09-2026
 ### Changed
