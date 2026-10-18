@@ -51,8 +51,9 @@ All schema and routes will be taken from the OpenApi specification listed in the
   - `prefix`: this is a string that can be used to prefix the routes, it is passed verbatim to fastify. E.g. if the path to your operation is specified as "/operation" then a prefix of "v1" will make it available at "/v1/operation". This setting overrules any "basePath" setting in a v2 specification. See the [servers documentation](docs/servers.md) for more details on using prefix with a v3 specification.
  - `operationResolver`: a custom operation resolver function, `(operationId, method, openapiPath) => handler | routeOptions` where method is the uppercase HTTP method (e.g. "GET") and openapiPath is the path taken from the specification without prefix (e.g. "/operation"). Mutually exclusive with `serviceHandlers`. See the [operationResolver documentation](docs/operationResolver.md) for more details.
  - `addEmptySchema`: a boolean that allows empty bodies schemas to be passed through. This might be useful for status codes like 204 or 304. Default is `false`.
+ - `noValidation`: a boolean that allows skipping the schema validation and resolving of references. This reduces startup time and memory overhead. It only works if `specification` is a javascript object and all $ref's have been resolved. (e.g. by using @seriousme/openapi-schema-validator [resolveRefs](https://github.com/seriousme/openapi-schema-validator#resolveRefs) function). Since the schema is not validated upfront, the parser or Fastify might throw strange errors. If you do get errors, first try your specification with `noValidation:false` and make sure it does not contain any $ref anymore.
 
-`specification` and either `serviceHandlers` or `operationResolver` are mandatory, `securityHandlers` and `prefix` are optional.
+`specification` and either `serviceHandlers` or `operationResolver` are mandatory, `securityHandlers`, `prefix` and `noValidation` are optional.
 See the [examples](#examples) section for a demo.
 
 Please be aware that `this` will refer to your serviceHandlers object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)
