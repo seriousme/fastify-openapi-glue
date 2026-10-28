@@ -21,23 +21,23 @@ import { Security } from "./security.js";
 import { Ajv2020 } from "ajv/dist/2020.js";
 
 const ajv = new Ajv2020({
-	removeAdditional: 'all',
+	removeAdditional: "all",
 	useDefaults: true,
-	coerceTypes: 'array',
-  strict: true
+	coerceTypes: "array",
+	strict: true,
 });
 
 const opts = {
-  specification: `${currentDir}/petstore-openapi.v3.json`,
-  serviceHandlers: new Service(),
-  securityHandlers: new Security(),
-  prefix: "v1",
+	specification: `${currentDir}/petstore-openapi.v3.json`,
+	serviceHandlers: new Service(),
+	securityHandlers: new Security(),
+	prefix: "v1",
 };
 
 const fastify = Fastify();
 fastify.setValidatorCompiler(({ schema, method, url, httpPart }) => {
-	return ajv.compile(schema)
-})
+	return ajv.compile(schema);
+});
 
 fastify.register(fastifyOpenapiGlue, opts);
 ```

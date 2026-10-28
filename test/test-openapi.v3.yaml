@@ -1,12 +1,12 @@
 openapi: 3.0.0
 servers:
-  - url: 'http://localhost/v2'
+  - url: "http://localhost/v2"
 info:
   title: Test specification
   description: testing the fastify openapi glue
   version: 0.1.0
 paths:
-  '/pathParam/{id}':
+  "/pathParam/{id}":
     get:
       operationId: getPathParam
       summary: Test path parameters
@@ -17,7 +17,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: ok
   /queryParam:
     get:
@@ -33,7 +33,7 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: ok
   /headerParam:
     get:
@@ -45,22 +45,22 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: ok
   /bodyParam:
     post:
       operationId: postBodyParam
       summary: Test body parameters
       responses:
-        '200':
+        "200":
           description: ok
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/bodyObject'
+              $ref: "#/components/schemas/bodyObject"
         required: true
-  '/noOperationId/{id}':
+  "/noOperationId/{id}":
     get:
       summary: Test missing operationid
       parameters:
@@ -70,12 +70,12 @@ paths:
           schema:
             type: integer
       responses:
-        '200':
+        "200":
           description: ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseObject'
+                $ref: "#/components/schemas/responseObject"
   /responses:
     get:
       operationId: getResponse
@@ -86,12 +86,12 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseObject'
+                $ref: "#/components/schemas/responseObject"
 components:
   schemas:
     bodyObject:

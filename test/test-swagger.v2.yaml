@@ -1,4 +1,4 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Test swagger
   description: testing the fastify swagger api
@@ -12,7 +12,7 @@ consumes:
 produces:
   - application/json
 paths:
-  '/pathParam/{id}':
+  "/pathParam/{id}":
     get:
       operationId: getPathParam
       summary: Test path parameters
@@ -22,7 +22,7 @@ paths:
           required: true
           type: integer
       responses:
-        '200':
+        "200":
           description: ok
   /queryParam:
     get:
@@ -36,7 +36,7 @@ paths:
           name: int2
           type: integer
       responses:
-        '200':
+        "200":
           description: ok
   /headerParam:
     get:
@@ -47,7 +47,7 @@ paths:
           name: X-Request-ID
           type: string
       responses:
-        '200':
+        "200":
           description: ok
   /bodyParam:
     post:
@@ -58,11 +58,11 @@ paths:
           in: body
           required: true
           schema:
-            $ref: '#/definitions/bodyObject'
+            $ref: "#/definitions/bodyObject"
       responses:
-        '200':
+        "200":
           description: ok
-  '/noOperationId/{id}':
+  "/noOperationId/{id}":
     get:
       summary: Test missing operationid
       parameters:
@@ -71,10 +71,10 @@ paths:
           required: true
           type: integer
       responses:
-        '200':
+        "200":
           description: ok
           schema:
-            $ref: '#/definitions/responseObject'
+            $ref: "#/definitions/responseObject"
   /responses:
     get:
       operationId: getResponse
@@ -84,10 +84,10 @@ paths:
           name: replyType
           type: string
       responses:
-        '200':
+        "200":
           description: ok
           schema:
-            $ref: '#/definitions/responseObject'
+            $ref: "#/definitions/responseObject"
 definitions:
   bodyObject:
     type: object
@@ -103,4 +103,3 @@ definitions:
         type: string
     required:
       - response
-

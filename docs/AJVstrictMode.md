@@ -46,11 +46,11 @@ If your code is a Fastify plug-in then adding:
 
 ```javascript
 export const options = {
-  ajv: {
-    customOptions: {
-      strict: false,
-    },
-  },
+	ajv: {
+		customOptions: {
+			strict: false,
+		},
+	},
 };
 ```
 
@@ -68,15 +68,13 @@ option to AJV:
 
 ```javascript
 import Fastify from "fastify";
-const fastify = Fastify(
-  {
-    ajv: {
-      customOptions: {
-        strict: false,
-      },
-    },
-  },
-);
+const fastify = Fastify({
+	ajv: {
+		customOptions: {
+			strict: false,
+		},
+	},
+});
 ```
 
 See also: https://fastify.dev/docs/latest/Reference/Server#factory-ajv

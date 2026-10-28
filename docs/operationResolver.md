@@ -1,6 +1,7 @@
 <h1 align="center">fastify-openapi-glue</h1>
 
 ## operationResolver
+
 The easiest way to use `fastify-openapi-glue` is to use the [serviceHandlers](serviceHandlers.md) option.
 
 However if you need more flexibility in mapping operationId's to methods then the `operationResolver` can be convenient.
@@ -17,7 +18,7 @@ function (operationId) {
   }
 };
 ```
-But you can make the logic as complex as you like. 
+But you can make the logic as complex as you like.
 
 In this example `myObject[operationId]` points to a function, but you can also point it to a full Fastify route definition, e.g.:
 ```javascript
@@ -34,4 +35,4 @@ const myObject = { getPetbyId: {
 ```
 In that case any properties returned by the operationResolver are added to the route configuration that the plugin already created itself, overriding any already existing properties.
 
-The operationResolver will only be called during the creation of the Fastify configuration. 
+The operationResolver will only be called during the creation of the Fastify configuration.

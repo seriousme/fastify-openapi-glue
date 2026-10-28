@@ -25,13 +25,13 @@ paths:
       tags:
         - pet
       summary: Add a new pet to the store
-      description: ''
+      description: ""
       operationId: addPet
       responses:
-        '405':
+        "405":
           description: Invalid input
       requestBody:
-        $ref: 'http://www.example.com/subspec#/components/requestBodies/Pet'
+        $ref: "http://www.example.com/subspec#/components/requestBodies/Pet"
 ```
 
 And the reference is in `sub-spec.yaml`, containing:
@@ -56,7 +56,7 @@ components:
 
 Then the schemas can be integrated using the following command:
 
-`npx -p @seriousme/openapi-schema-validator bundle-api main-spec.yaml sub-spec.yaml` 
+`npx -p @seriousme/openapi-schema-validator bundle-api main-spec.yaml sub-spec.yaml`
 
 or using code:
 

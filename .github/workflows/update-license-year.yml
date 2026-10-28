@@ -2,7 +2,7 @@ name: Update License Year
 
 on:
   schedule:
-    - cron: '5 12 1 1 *'
+    - cron: "5 12 1 1 *"
 
 jobs:
   update_license:
