@@ -1,658 +1,835 @@
 # Changelog
 
 ## [Unreleased]
+
 ### Changed
+
+- chore: updated dependencies
+  - @biomejs/biome ^2.5.15 → ^2.6.3
 
 ## [4.12.0] 18-10-2026
+
 ### Changed
- - feat: add noValidate option, see README.md
- - fix: add generator option type=standaloneJS to README.md
- - chore: updated dependencies
-   - @biomejs/biome  ^2.5.14  →  ^2.5.15
-   - fastify         ^5.12.5  →  ^5.12.7
-   - fastify-cli      ^8.0.2  →   ^8.0.3
-   - fastify-plugin   ^6.0.0  →   ^6.0.1
-   - @seriousme/openapi-schema-validator  ^2.10.0  →  ^2.11.0
+
+- feat: add noValidate option, see README.md
+- fix: add generator option type=standaloneJS to README.md
+- chore: updated dependencies
+  - @biomejs/biome ^2.5.14 → ^2.5.15
+  - fastify ^5.12.5 → ^5.12.7
+  - fastify-cli ^8.0.2 → ^8.0.3
+  - fastify-plugin ^6.0.0 → ^6.0.1
+  - @seriousme/openapi-schema-validator ^2.10.0 → ^2.11.0
 
 ## [4.11.5] 18-09-2026
+
 ### Changed
- - chore: reduce package size by specifying the files in package.json
- - chore: updated dependencies
-   - @biomejs/biome                       ^2.5.7  →  ^2.5.14
-   - fastify-cli                          ^8.0.0  →   ^8.0.2
-   - yaml                                 ^2.9.0  →   ^2.9.1
-   - @seriousme/openapi-schema-validator   ^2.9.1  →  ^2.10.0
-   - fastify                              ^5.11.2  →  ^5.12.5
+
+- chore: reduce package size by specifying the files in package.json
+- chore: updated dependencies
+  - @biomejs/biome ^2.5.7 → ^2.5.14
+  - fastify-cli ^8.0.0 → ^8.0.2
+  - yaml ^2.9.0 → ^2.9.1
+  - @seriousme/openapi-schema-validator ^2.9.1 → ^2.10.0
+  - fastify ^5.11.2 → ^5.12.5
 
 ## [4.11.4] 07-08-2026
+
 ### Changed
- - chore: updated dependencies
-   - @biomejs/biome                       ^2.4.16  →   ^2.5.7
-   - @seriousme/openapi-schema-validator   ^2.9.0  →   ^2.9.1
-   - expect-type                           ^1.3.0  →   ^1.4.0
-   - fastify                               ^5.8.5  →  ^5.11.2
+
+- chore: updated dependencies
+  - @biomejs/biome ^2.4.16 → ^2.5.7
+  - @seriousme/openapi-schema-validator ^2.9.0 → ^2.9.1
+  - expect-type ^1.3.0 → ^1.4.0
+  - fastify ^5.8.5 → ^5.11.2
 
 ## [4.11.3] 30-05-2026
+
 ### Changed
- - chore: refactor parsing and generator
- - chore: replace createRequire by import { type:"json" }
- - chore: replace localFile() by a better variant
- - chore: updated dependencies
-   - @biomejs/biome  ^2.4.14  →  ^2.4.16
-   - yaml             ^2.8.4  →   ^2.9.0
- 
+
+- chore: refactor parsing and generator
+- chore: replace createRequire by import { type:"json" }
+- chore: replace localFile() by a better variant
+- chore: updated dependencies
+  - @biomejs/biome ^2.4.14 → ^2.4.16
+  - yaml ^2.8.4 → ^2.9.0
+
 ## [4.11.2] 05-05-2026
+
 ### Changed
- - fix: overlapping recursion in JSON schema 
- - chore: replace JSON.parse(JSON.stringify()) by structuredClone
- - chore: updated dependencies
-   - @biomejs/biome  ^2.4.13  →  ^2.4.14
-   - yaml             ^2.8.3  →   ^2.8.4
+
+- fix: overlapping recursion in JSON schema
+- chore: replace JSON.parse(JSON.stringify()) by structuredClone
+- chore: updated dependencies
+  - @biomejs/biome ^2.4.13 → ^2.4.14
+  - yaml ^2.8.3 → ^2.8.4
 
 ## [4.11.1] 30-04-2026
+
 ### Changed
- - fix: recursive response schema with unresolved refs
- - fix: do not mutate specification parameter
- - chore: updated dependencies
-   - @biomejs/biome  ^2.4.12  →  ^2.4.13
-   - typescript       ^6.0.2  →   ^6.0.3
+
+- fix: recursive response schema with unresolved refs
+- fix: do not mutate specification parameter
+- chore: updated dependencies
+  - @biomejs/biome ^2.4.12 → ^2.4.13
+  - typescript ^6.0.2 → ^6.0.3
 
 ## [4.11.0] 15-04-2026
+
 ### Changed
- - feat: replaced js-yaml by yaml 
- - feat: replaced C8 by native coverage testing
- - chore: updated dependencies
-   - @biomejs/biome                       ^2.4.2  →  ^2.4.12
-   - @seriousme/openapi-schema-validator  ^2.7.1  →  ^2.9.0
-   - fastify                              ^5.7.4  →   ^5.8.5
+
+- feat: replaced js-yaml by yaml
+- feat: replaced C8 by native coverage testing
+- chore: updated dependencies
+  - @biomejs/biome ^2.4.2 → ^2.4.12
+  - @seriousme/openapi-schema-validator ^2.7.1 → ^2.9.0
+  - fastify ^5.7.4 → ^5.8.5
 
 ## [4.10.2] 17-02-2026
+
 ### Changed
- - chore: updated dependencies
-   - @biomejs/biome                       ^2.3.15  →  ^2.4.2
-   - @seriousme/openapi-schema-validator   ^2.7.0  →  ^2.7.1
+
+- chore: updated dependencies
+  - @biomejs/biome ^2.3.15 → ^2.4.2
+  - @seriousme/openapi-schema-validator ^2.7.0 → ^2.7.1
 
 ## [4.10.1] 13-02-2026
+
 ### Changed
- - chore: updated dependencies
-   - @biomejs/biome  ^2.2.4  →  ^2.3.15
-   - expect-type     ^1.2.2  →   ^1.3.0
-   - fastify         ^5.6.1  →   ^5.7.4
-   - fastify-cli     ^7.4.0  →   ^7.4.1
-   - fastify-plugin  ^5.0.1  →   ^5.1.0
-   - js-yaml         ^4.1.0  →   ^4.1.1
-   - typescript      ^5.9.2  →   ^5.9.3
+
+- chore: updated dependencies
+  - @biomejs/biome ^2.2.4 → ^2.3.15
+  - expect-type ^1.2.2 → ^1.3.0
+  - fastify ^5.6.1 → ^5.7.4
+  - fastify-cli ^7.4.0 → ^7.4.1
+  - fastify-plugin ^5.0.1 → ^5.1.0
+  - js-yaml ^4.1.0 → ^4.1.1
+  - typescript ^5.9.2 → ^5.9.3
 
 ## [4.10.0] 26-09-2025
+
 ### Changed
+
 - feat: add support for OpenApi 3.2
 - chore: updated dependencies
-   - @seriousme/openapi-schema-validator  ^2.4.4  →  ^2.7.0
-   - @biomejs/biome  ^2.2.0  →  ^2.2.4
-   - fastify         ^5.5.0  →  ^5.6.1
+  - @seriousme/openapi-schema-validator ^2.4.4 → ^2.7.0
+  - @biomejs/biome ^2.2.0 → ^2.2.4
+  - fastify ^5.5.0 → ^5.6.1
 
 ## [4.9.2] 17-08-2025
+
 ### Changed
+
 - feat(dev): add index.d.ts tests
 - chore: updated dependencies
-   - @biomejs/biome                       ^1.9.4  →  ^2.2.0
-   - @seriousme/openapi-schema-validator  ^2.4.1  →  ^2.4.4
-   - fastify                              ^5.3.2  →  ^5.5.0
-   
+  - @biomejs/biome ^1.9.4 → ^2.2.0
+  - @seriousme/openapi-schema-validator ^2.4.1 → ^2.4.4
+  - fastify ^5.3.2 → ^5.5.0
+
 ## [4.9.1] 27-04-2025
+
 ### Changed
+
 - doc: added note on using schema 2020
 - chore: updated dependencies
-   -  @seriousme/openapi-schema-validator  ^2.4.0  →  ^2.4.1
-   -  fastify                              ^5.2.2  →  ^5.3.2
-   -  fastify-cli                          ^7.3.0  →  ^7.4.0
-   -  minimist replaced by node:util.parseArgs
+  -  @seriousme/openapi-schema-validator ^2.4.0 → ^2.4.1
+  -  fastify ^5.2.2 → ^5.3.2
+  -  fastify-cli ^7.3.0 → ^7.4.0
+  -  minimist replaced by node:util.parseArgs
 
 ## [4.9.0] 28-03-2025
+
 ### Changed
+
 - feature: support multiple MIME types in requestBody and response
 - chore: updated dependencies
-   -  fastify  ^5.2.1  →  ^5.2.2
+  -  fastify ^5.2.1 → ^5.2.2
 
 ## [4.8.1] 21-03-2025
+
 ### Changed
+
 - chore: updated dependencies
-   -  @seriousme/openapi-schema-validator   ^2.3.0  →   ^2.4.0
-   -  c8                                   ^10.1.2  →  ^10.1.3
-   -  fastify                               ^5.1.0  →   ^5.2.1
-   -  fastify-cli                           ^7.0.1  →   ^7.3.0
+  -  @seriousme/openapi-schema-validator ^2.3.0 → ^2.4.0
+  -  c8 ^10.1.2 → ^10.1.3
+  -  fastify ^5.1.0 → ^5.2.1
+  -  fastify-cli ^7.0.1 → ^7.3.0
 
 ## [4.8.0] 04-12-2024
+
 ### Changed
-- feat: export SecurityError 
+
+- feat: export SecurityError
 
 ## [4.7.4] 26-11-2024
+
 ### Changed
+
 - fix: Add await to deterministically finish registering with fastify (dsschneidermann)
 - chore: updated dependencies
-   - @seriousme/openapi-schema-validator  ^2.2.5  →  ^2.3.0
+  - @seriousme/openapi-schema-validator ^2.2.5 → ^2.3.0
 
 ## [4.7.3] 14-11-2024
+
 ### Changed
+
 - chore: updated dependencies
-   - @seriousme/openapi-schema-validator  ^2.2.4  →  ^2.2.5
+  - @seriousme/openapi-schema-validator ^2.2.4 → ^2.2.5
 
 ## [4.7.2] 12-11-2024
+
 ### Changed
+
 - chore: updated dependencies
-   - @biomejs/biome                       ^1.9.0  →  ^1.9.4
-   - @seriousme/openapi-schema-validator  ^2.2.3  →  ^2.2.4
-   - fastify                              ^5.0.0  →  ^5.1.0
-   - fastify-cli                          ^7.0.0  →  ^7.0.1
-   - fastify-plugin                       ^5.0.0  →  ^5.0.1
+  - @biomejs/biome ^1.9.0 → ^1.9.4
+  - @seriousme/openapi-schema-validator ^2.2.3 → ^2.2.4
+  - fastify ^5.0.0 → ^5.1.0
+  - fastify-cli ^7.0.0 → ^7.0.1
+  - fastify-plugin ^5.0.0 → ^5.0.1
 
 ## [4.7.1] 12-09-2024
+
 ### Changed
+
 - fix: support "content" field for query string
 - chore: updated dependencies
-   - @biomejs/biome                       ^1.8.3  →  ^1.9.0
-   - @seriousme/openapi-schema-validator  ^2.2.1  →  ^2.2.3
+  - @biomejs/biome ^1.8.3 → ^1.9.0
+  - @seriousme/openapi-schema-validator ^2.2.1 → ^2.2.3
 
 ## [4.7.0] 07-08-2024
+
 ### Changed
+
 - feat: added addCookieSchema option, see docs/cookieValidationHowTo.md (@pcafstockf)
 - chore: updated dependencies
-   - @biomejs/biome   ^1.8.1  →   ^1.8.3
-   - fastify         ^4.28.0  →  ^4.28.1
-   - fastify-cli      ^6.2.1  →   ^6.3.0
+  - @biomejs/biome ^1.8.1 → ^1.8.3
+  - fastify ^4.28.0 → ^4.28.1
+  - fastify-cli ^6.2.1 → ^6.3.0
 
 ## [4.6.1] 14-06-2024
+
 ### Changed
- - fix: fix passing opts in js generator template
- - chore: updated dependencies
-    - @biomejs/biome   ^1.6.3  →   ^1.8.1
-    - c8              ^10.1.1  →  ^10.1.2
-    - fastify         ^4.26.2  →  ^4.28.0
-    - fastify-cli      ^6.1.1  →   ^6.2.1
+
+- fix: fix passing opts in js generator template
+- chore: updated dependencies
+  - @biomejs/biome ^1.6.3 → ^1.8.1
+    - c8 ^10.1.1 → ^10.1.2
+      - fastify ^4.26.2 → ^4.28.0
+        - fastify-cli ^6.1.1 → ^6.2.1
 
 ## [4.6.0] 12-04-2024
+
 ### Changed
- - feat: added addEmptySchema option, see README.md (ivan-tymoshenko)
+
+- feat: added addEmptySchema option, see README.md (ivan-tymoshenko)
 
 ## [4.5.0] 28-03-2024
+
 ### Changed
- - feat: add x-no-fastify-config option
- - update: added a note on using subschemas to the documentation
- - chore: removed husky as a dependency
- - updated dependencies
-    - @biomejs/biome                        ^1.5.2  →   ^1.6.3
-    - @seriousme/openapi-schema-validator   ^2.1.5  →   ^2.2.1
-    - fastify                              ^4.25.2  →  ^4.26.2
-    - fastify-cli                           ^6.0.1  →   ^6.1.1
+
+- feat: add x-no-fastify-config option
+- update: added a note on using subschemas to the documentation
+- chore: removed husky as a dependency
+- updated dependencies
+  - @biomejs/biome ^1.5.2 → ^1.6.3
+    - @seriousme/openapi-schema-validator ^2.1.5 → ^2.2.1
+      - fastify ^4.25.2 → ^4.26.2
+        - fastify-cli ^6.0.1 → ^6.1.1
 
 ## [4.4.3] 19-01-2024
+
 ### Changed
- - fix: securityHandlers fix for "AND" case
- - fix: remove last traces of TAP from generator templates
- - updated dependencies
-    - @biomejs/biome                        ^1.2.2  →   ^1.5.2
-    - @seriousme/openapi-schema-validator   ^2.1.2  →   ^2.1.5
-    - c8                                    ^9.0.0  →   ^9.1.0
-    - fastify                              ^4.23.2  →  ^4.25.2
-    - fastify-cli                           ^6.0.0  →   ^6.0.1
+
+- fix: securityHandlers fix for "AND" case
+- fix: remove last traces of TAP from generator templates
+- updated dependencies
+  - @biomejs/biome ^1.2.2 → ^1.5.2
+    - @seriousme/openapi-schema-validator ^2.1.2 → ^2.1.5
+      - c8 ^9.0.0 → ^9.1.0
+        - fastify ^4.23.2 → ^4.25.2
+          - fastify-cli ^6.0.0 → ^6.0.1
 
 ## [4.4.2] 14-10-2023
+
 ### Changed
- - fix: add warning for OpenAPI v3 cookie parameters
+
+- fix: add warning for OpenAPI v3 cookie parameters
 
 ## [4.4.1] 06-10-2023
+
 ### Changed
- - no change, fixing latest tag on npmjs
+
+- no change, fixing latest tag on npmjs
 
 ## [4.4.0] 04-10-2023
+
 ### Changed
- - feat: Make initialize on Security Handlers async (AlexBroadbent)
- - updated dependencies
-    - @biomejs/biome                        ^1.1.2  →   ^1.2.2
-    - @seriousme/openapi-schema-validator   ^2.1.1  →   ^2.1.2
-    - fastify                              ^4.23.1  →  ^4.23.2
+
+- feat: Make initialize on Security Handlers async (AlexBroadbent)
+- updated dependencies
+  - @biomejs/biome ^1.1.2 → ^1.2.2
+    - @seriousme/openapi-schema-validator ^2.1.1 → ^2.1.2
+      - fastify ^4.23.1 → ^4.23.2
 
 
 ## [4.3.3] 13-09-2023
+
 ### Changed
- - chore: replace Rome by Biome
- - fix: removed tap as a dependency
- - fix: replaced deprecated routeOption and routeSchema in documentation and tests
- - updated dependencies
-    - @seriousme/openapi-schema-validator   ^2.1.0  →   ^2.1.1
-    - fastify                              ^4.21.0  →  ^4.23.1
+
+- chore: replace Rome by Biome
+- fix: removed tap as a dependency
+- fix: replaced deprecated routeOption and routeSchema in documentation and tests
+- updated dependencies
+  - @seriousme/openapi-schema-validator ^2.1.0 → ^2.1.1
+    - fastify ^4.21.0 → ^4.23.1
 
 ## [4.3.2] 17-08-2023
+
 ### Changed
- - fix: make additional validation for v2 non-body parameters work
+
+- fix: make additional validation for v2 non-body parameters work
 
 ## [4.3.1] 14-08-2023
+
 ### Changed
- - fix: make generic parameters work on v2 (swagger) spec
- - updated dependencies
-    - c8               ^8.0.0  →   ^8.0.1
-    - fastify         ^4.17.0  →  ^4.21.0
-    - fastify-cli      ^5.7.1  →   ^5.8.0
-    - fastify-plugin   ^4.5.0  →   ^4.5.1
-    - tap             ^16.3.6  →  ^16.3.8
+
+- fix: make generic parameters work on v2 (swagger) spec
+- updated dependencies
+  - c8 ^8.0.0 → ^8.0.1
+    - fastify ^4.17.0 → ^4.21.0
+      - fastify-cli ^5.7.1 → ^5.8.0
+        - fastify-plugin ^4.5.0 → ^4.5.1
+          - tap ^16.3.6 → ^16.3.8
 
 ## [4.3.0] 17-06-2023
+
 ### Changed
- - chore: replaced Tap by Node test
- - update: rename 'service' option to 'serviceHandlers', 'service' still works but gives a deprecation warning.
- - update: expanded documentation
+
+- chore: replaced Tap by Node test
+- update: rename 'service' option to 'serviceHandlers', 'service' still works but gives a deprecation warning.
+- update: expanded documentation
 
 ## [4.2.0] 09-06-2023
+
 ### Changed
- - feat: return route options for operationResolver
- - updated dependencies
-    - c8    ^7.13.0  →  ^7.14.0
-    - rome  ^12.0.0  →  ^12.1.3
-    - tap   ^16.3.4  →  ^16.3.6
+
+- feat: return route options for operationResolver
+- updated dependencies
+  - c8 ^7.13.0 → ^7.14.0
+    - rome ^12.0.0 → ^12.1.3
+      - tap ^16.3.4 → ^16.3.6
 
 ## [4.1.4] 02-05-2023
+
 ### Changed
- - fix: replaced context.schema by routeSchema in docs and tests
- - updated dependencies
-    - fastify   ^4.13.0  →  ^4.17.0
+
+- fix: replaced context.schema by routeSchema in docs and tests
+- updated dependencies
+  - fastify ^4.13.0 → ^4.17.0
 
 ## [4.1.3] - 05-03-2023
+
 ### Changed
- - fix: fixed "npm start" behaviour
- - updated dependencies
-    - c8        ^7.12.0  →  ^7.13.0
-    - fastify   ^4.11.0  →  ^4.13.0
-    - minimist   ^1.2.7  →   ^1.2.8
-    - tap       ^16.3.3  →  ^16.3.4
+
+- fix: fixed "npm start" behaviour
+- updated dependencies
+  - c8 ^7.12.0 → ^7.13.0
+    - fastify ^4.11.0 → ^4.13.0
+      - minimist ^1.2.7 → ^1.2.8
+        - tap ^16.3.3 → ^16.3.4
 
 ## [4.1.2] - 13-01-2023
+
 ### Changed
- - chore: replaced Prettier and ESlint by Rome
- - fix: fix query string array handling in V3 parsing
- - updated dependencies:
-    - fastify          ^4.9.2  →  ^4.11.0
-    - fastify-cli      ^5.5.0  →   ^5.7.1
-    - fastify-plugin   ^4.3.0  →   ^4.5.0
-    - husky            ^8.0.1  →   ^8.0.3
-    - tap             ^16.3.0  →  ^16.3.3
+
+- chore: replaced Prettier and ESlint by Rome
+- fix: fix query string array handling in V3 parsing
+- updated dependencies:
+  - fastify ^4.9.2 → ^4.11.0
+    - fastify-cli ^5.5.0 → ^5.7.1
+      - fastify-plugin ^4.3.0 → ^4.5.0
+        - husky ^8.0.1 → ^8.0.3
+          - tap ^16.3.0 → ^16.3.3
 
 ## [4.1.1] - 24-10-2022
+
 ### Changed
-- fix: Extend Typescript definitions for operationResolver option with method and path 
+
+- fix: Extend Typescript definitions for operationResolver option with method and path
 
 ## [4.1.0] - 24-10-2022
+
 ### Changed
-- feat: Extend operationResolver option with method and path 
+
+- feat: Extend operationResolver option with method and path
 
 ## [4.0.3] - 18-10-2022
+
 ### Changed
- - fix: remove FSTDEP012 warnings caused by test cases 
- - updated dependencies:
-    - @seriousme/openapi-schema-validator   ^2.0.3  →   ^2.1.0
-    - eslint                               ^8.23.0  →  ^8.25.0
-    - fastify                               ^4.5.3  →   ^4.9.2
-    - fastify-cli                           ^5.4.1  →   ^5.5.0
-    - fastify-plugin                        ^4.2.1  →   ^4.3.0
-    - minimist                              ^1.2.6  →   ^1.2.7
+
+- fix: remove FSTDEP012 warnings caused by test cases
+- updated dependencies:
+  - @seriousme/openapi-schema-validator ^2.0.3 → ^2.1.0
+    - eslint ^8.23.0 → ^8.25.0
+      - fastify ^4.5.3 → ^4.9.2
+        - fastify-cli ^5.4.1 → ^5.5.0
+          - fastify-plugin ^4.2.1 → ^4.3.0
+            - minimist ^1.2.6 → ^1.2.7
 
 ## [4.0.2] - 07-10-2022
+
 ### Changed
- - fix: add default export to package.json
+
+- fix: add default export to package.json
 
 ## [4.0.1] - 17-09-2022
+
 ### Changed
- - fix: handle recursive schema correctly
- - updated dependencies:
-    - @seriousme/openapi-schema-validator   ^2.0.2  →   ^2.0.3
-    - fastify-plugin                        ^4.0.0  →   ^4.2.1
-    - c8                                   ^7.11.3  →  ^7.12.0
-    - eslint                               ^8.18.0  →  ^8.23.0
-    - eslint-plugin-prettier                ^4.1.0  →   ^4.2.1
-    - fastify                               ^4.2.0  →   ^4.5.3
-    - fastify-cli                           ^5.0.0  →   ^5.4.1
+
+- fix: handle recursive schema correctly
+- updated dependencies:
+  - @seriousme/openapi-schema-validator ^2.0.2 → ^2.0.3
+    - fastify-plugin ^4.0.0 → ^4.2.1
+      - c8 ^7.11.3 → ^7.12.0
+        - eslint ^8.18.0 → ^8.23.0
+          - eslint-plugin-prettier ^4.1.0 → ^4.2.1
+            - fastify ^4.2.0 → ^4.5.3
+              - fastify-cli ^5.0.0 → ^5.4.1
 
 ## [4.0.0] - 29-06-2022
+
 ### Changed
- - fix: skip security if schemes empty (GuillaumeDeconinck)
- - chore: add lint autoformat (GuillaumeDeconinck)
- - updated dependencies:
-    - fastify                 ^4.0.3  →  ^4.2.0     
-    - fastify-cli             ^4.1.1  →  ^4.2.0     
- 
+
+- fix: skip security if schemes empty (GuillaumeDeconinck)
+- chore: add lint autoformat (GuillaumeDeconinck)
+- updated dependencies:
+  - fastify ^4.0.3 → ^4.2.0
+    - fastify-cli ^4.1.1 → ^4.2.0
 ## [3.3.1] - 26-06-2022
+
 ### Changed
- - fix: make cli working again
- - fix: add operationResolver to Typescript definitions
+
+- fix: make cli working again
+- fix: add operationResolver to Typescript definitions
 
 ## [3.3.0] - 24-06-2022
+
 ### Changed
- - feat: custom operation resolver (bluebrown)
+
+- feat: custom operation resolver (bluebrown)
 
 ## [3.2.0] - 18-06-2022
+
 ### Changed
- - feat: allow custom status code in security handlers
+
+- feat: allow custom status code in security handlers
 
 ## [3.1.0] - 17-06-2022
-### Changed
- - feat(route): allow passing route config in api spec (mhamann)
- - Updated dependencies:
-    fastify       ^4.0.0  →   ^4.0.3     
-    fastify-cli   ^4.0.0  →   ^4.1.1     
-    tap          ^16.2.0  →  ^16.3.0     
 
-## [3.0.1] - 10-06-2022
 ### Changed
- - Fixed import of fastify-openapi-glue in CommonJS code
+
+- feat(route): allow passing route config in api spec (mhamann)
+- Updated dependencies:
+  fastify ^4.0.0 → ^4.0.3  
+  fastify-cli ^4.0.0 → ^4.1.1  
+  tap ^16.2.0 → ^16.3.0
+## [3.0.1] - 10-06-2022
+
+### Changed
+
+- Fixed import of fastify-openapi-glue in CommonJS code
 
 ## [3.0.0] - 09-06-2022
+
 ### New
- - Support for Fastify 4.x
- - User has full control over AJV behaviour, outside of the plugin.
+
+- Support for Fastify 4.x
+- User has full control over AJV behaviour, outside of the plugin.
 
 ### Changed
- - Migrated to ES Modules format
- - Removed AJV options
- - Service and Securityhandlers options can now only be an object or a class instance and no longer a filename or a function.
+
+- Migrated to ES Modules format
+- Removed AJV options
+- Service and Securityhandlers options can now only be an object or a class instance and no longer a filename or a function.
 
 See [UPGRADING.md](UPGRADING.md) for more details on how to upgrade.
 ## [2.8.0] - 06-10-2023
- - Feat: backport async security initializer from 4.4.0
+
+- Feat: backport async security initializer from 4.4.0
 
 ## [2.7.2] - 07-06-2022
+
 ### Changed
- - Fix Typescript definition
+
+- Fix Typescript definition
 
 ## [2.7.1] - 06-06-2022
+
 ### Changed
- - Fix 'defaultAJV' option
+
+- Fix 'defaultAJV' option
 
 ## [2.7.0] - 03-06-2022
+
 ### Changed
- - Added 'defaultAJV' option
- - Updated dependencies:
-    fastify-cli                          ^3.0.1  →   ^3.1.0
+
+- Added 'defaultAJV' option
+- Updated dependencies:
+  fastify-cli ^3.0.1 → ^3.1.0
 
 ## [2.6.9] - 12-05-2022
-### Changed
- - Updated dependencies:
-    @seriousme/openapi-schema-validator   ^2.0.0  →   ^2.0.2     
-    fastify                              ^3.28.0  →  ^3.29.0     
-    fastify-cli                          ^2.15.0  →   ^3.0.1     
-    tap                                  ^16.1.0  →  ^16.2.0    
 
+### Changed
+
+- Updated dependencies:
+  @seriousme/openapi-schema-validator ^2.0.0 → ^2.0.2  
+  fastify ^3.28.0 → ^3.29.0  
+  fastify-cli ^2.15.0 → ^3.0.1  
+  tap ^16.1.0 → ^16.2.0
 ## [2.6.8] - 25-04-2022
-### Changed
- - Updated dependencies:
-    @seriousme/openapi-schema-validator   ^1.7.1  →   ^2.0.0      
-    tap                                  ^16.0.1  →  ^16.1.0   
 
+### Changed
+
+- Updated dependencies:
+  @seriousme/openapi-schema-validator ^1.7.1 → ^2.0.0  
+  tap ^16.0.1 → ^16.1.0
 ## [2.6.7] - 22-04-2022
-### Changed
- - Deprecation of Nodejs < 14 
- - Added Nodejs 18 to CI
- - Updated dependencies:
-    @seriousme/openapi-schema-validator   ^1.6.0  →   ^1.7.1    
-    ajv                                   ^8.9.0  →  ^8.11.0     
-    minimist                              ^1.2.5  →   ^1.2.6     
-    fastify                              ^3.27.0  →  ^3.28.0     
-    tap                                  ^15.1.6  →  ^16.0.1   
 
+### Changed
+
+- Deprecation of Nodejs < 14
+- Added Nodejs 18 to CI
+- Updated dependencies:
+  @seriousme/openapi-schema-validator ^1.6.0 → ^1.7.1  
+  ajv ^8.9.0 → ^8.11.0  
+  minimist ^1.2.5 → ^1.2.6  
+  fastify ^3.27.0 → ^3.28.0  
+  tap ^15.1.6 → ^16.0.1
 ## [2.6.6] - 28-01-2022
-### Changed
- - Updated dependencies:
-  - @seriousme/openapi-schema-validator   ^1.3.0  →   ^1.6.0     
-  - ajv                                   ^8.6.2  →   ^8.9.0     
-  - fastify-plugin                        ^3.0.0  →   ^3.0.1     
-  - fastify                              ^3.20.2  →  ^3.27.0     
-  - fastify-cli                          ^2.13.0  →  ^2.15.0     
-  - tap                                  ^15.0.9  →  ^15.1.6     
 
-## [2.6.5] - 29-08-2021
 ### Changed
+
+- Updated dependencies:
+- @seriousme/openapi-schema-validator ^1.3.0 → ^1.6.0
+- ajv ^8.6.2 → ^8.9.0
+- fastify-plugin ^3.0.0 → ^3.0.1
+- fastify ^3.20.2 → ^3.27.0
+- fastify-cli ^2.13.0 → ^2.15.0
+- tap ^15.0.9 → ^15.1.6
+## [2.6.5] - 29-08-2021
+
+### Changed
+
 - fix(log): debug log of security handlers shows `undefined`
 
 ## [2.6.4] - 27-08-2021
+
 ### Changed
+
 - fix(log): additional log params get swallowed (mhamann)
 
 ## [2.6.3] - 16-08-2021
+
 ### Changed
+
 - Replaced custom oai-formats by default ajv-formats
 - Updated dependencies:
-  - fastify                              ^3.18.0  →  ^3.20.2     
-  - tap                                  ^15.0.8  →  ^15.0.9     
-  - @seriousme/openapi-schema-validator   ^1.1.5  →   ^1.3.0     
-  - ajv                                   ^8.6.0  →   ^8.6.2     
-  - ajv-formats                           ^2.1.0  →   ^2.1.1 
+  - fastify ^3.18.0 → ^3.20.2
+  - tap ^15.0.8 → ^15.0.9
+  - @seriousme/openapi-schema-validator ^1.1.5 → ^1.3.0
+  - ajv ^8.6.0 → ^8.6.2
+  - ajv-formats ^2.1.0 → ^2.1.1
 
 ## [2.6.2] - 25-06-2021
-### Changed
-- Updated dependencies:
-  - fastify                              ^3.15.0  →  ^3.18.0     
-  - fastify-cli                           ^2.9.1  →  ^2.13.0     
-  - tap                                  ^15.0.4  →  ^15.0.8     
-  - @seriousme/openapi-schema-validator   ^1.1.2  →   ^1.1.5     
-  - ajv                                   ^8.1.0  →   ^8.6.0     
-  - ajv-formats                           ^2.0.2  →   ^2.1.0   
 
+### Changed
+
+- Updated dependencies:
+  - fastify ^3.15.0 → ^3.18.0
+  - fastify-cli ^2.9.1 → ^2.13.0
+  - tap ^15.0.4 → ^15.0.8
+  - @seriousme/openapi-schema-validator ^1.1.2 → ^1.1.5
+  - ajv ^8.1.0 → ^8.6.0
+  - ajv-formats ^2.0.2 → ^2.1.0
 ## [2.6.1] - 05-06-2021
+
 ### Changed
- - Fixed makeOperation so "get /user/{name}" becomes getUserByName as it used to
- 
+
+- Fixed makeOperation so "get /user/{name}" becomes getUserByName as it used to
+
 ## [2.6.0] - 15-05-2021
+
 ### Changed
- - Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
- - Added support for OpenApi 3.1
+
+- Replaced @apidevtools/swagger-parser by @seriousme/openapi-schema-validator
+- Added support for OpenApi 3.1
 
 ## [2.5.1] - 12-05-2021
+
 ### Changed
- - Fix: formats ajv error to include property names (kutyepov)
+
+- Fix: formats ajv error to include property names (kutyepov)
 
 ## [2.5.0] - 29-04-2021
+
 ### Changed
- - Added support for objects in querystring 
+
+- Added support for objects in querystring
 
 ## [2.4.1] - 23-04-2021
-### Changed
- - Removed dependency on decimal.js-light
- - Fixed bug in validation of 'Byte' format
- - Updated dependencies:
-    - ajv           ^7.0.3  →   ^8.1.0     
-    - ajv-formats   ^1.5.1  →   ^2.0.2   
-    - fastify      ^3.10.1  →  ^3.15.0    
-    - fastify-cli   ^2.7.0  →   ^2.9.1  
-    - js-yaml       ^4.0.0  →   ^4.1.0     
-    - tap          ^14.11.0  →  ^15.0.4    
 
-## [2.4.0] - 24-01-2021
 ### Changed
- - Removed dependency on ajv-oai
- - Removed workaround for hasContentTypeParser
- - Added AJV formats for 'binary' and 'password' to reduce warnings
- - Updated dependencies:
-    - ajv          ^6.12.6  →  ^7.0.3  
-    - js-yaml       ^3.14.1  →   ^4.0.0
-    - fastify  ^3.9.2  →  ^3.10.1 
+
+- Removed dependency on decimal.js-light
+- Fixed bug in validation of 'Byte' format
+- Updated dependencies:
+  - ajv ^7.0.3 → ^8.1.0
+    - ajv-formats ^1.5.1 → ^2.0.2
+      - fastify ^3.10.1 → ^3.15.0
+        - fastify-cli ^2.7.0 → ^2.9.1
+          - js-yaml ^4.0.0 → ^4.1.0
+            - tap ^14.11.0 → ^15.0.4
+## [2.4.0] - 24-01-2021
+
+### Changed
+
+- Removed dependency on ajv-oai
+- Removed workaround for hasContentTypeParser
+- Added AJV formats for 'binary' and 'password' to reduce warnings
+- Updated dependencies:
+  - ajv ^6.12.6 → ^7.0.3
+    - js-yaml ^3.14.1 → ^4.0.0
+      - fastify ^3.9.2 → ^3.10.1
 
 ## [2.3.1] - 30-12-2020
-### Changed 
- - Updated dependencies:
-    - js-yaml       ^3.14.0  →   ^3.14.1     
-    - fastify        ^3.8.0  →    ^3.9.2     
-    - fastify-cli    ^2.5.1  →    ^2.7.0     
-    - tap          ^14.10.8  →  ^14.11.0    
 
+### Changed 
+
+- Updated dependencies:
+  - js-yaml ^3.14.0 → ^3.14.1
+    - fastify ^3.8.0 → ^3.9.2
+      - fastify-cli ^2.5.1 → ^2.7.0
+        - tap ^14.10.8 → ^14.11.0
 ## [2.3.0] - 10-10-2020
-### Changed 
- - Added ES6 module support for service.js and security.js
- - Updated dependencies:
-    - fastify       ^3.7.0  →   ^3.8.0  
 
+### Changed 
+
+- Added ES6 module support for service.js and security.js
+- Updated dependencies:
+  - fastify ^3.7.0 → ^3.8.0
 ## [2.2.2] - 24-10-2020
-### Changed 
- - Added types property to package.json
- - Updated dependencies:
-    - ajv          ^6.12.5  →  ^6.12.6   
-    - ajv-oai       ^1.2.0  →   ^1.2.1   
-    - fastify       ^3.4.1  →   ^3.7.0   
-    - fastify-cli   ^2.2.0  →   ^2.5.1   
 
+### Changed 
+
+- Added types property to package.json
+- Updated dependencies:
+  - ajv ^6.12.5 → ^6.12.6
+    - ajv-oai ^1.2.0 → ^1.2.1
+      - fastify ^3.4.1 → ^3.7.0
+        - fastify-cli ^2.2.0 → ^2.5.1
 ## [2.2.1] - 20-09-2020
-### Changed 
- - Fixed missing slash in generator template
- - Updated dependencies:
-    - ajv             ^6.12.4  →  ^6.12.5   
-    - fastify-plugin   ^2.3.1  →   ^2.3.4   
-    - swagger-parser  ^10.0.1  →  ^10.0.2   
-    - fastify          ^3.2.1  →   ^3.4.1  
 
-## [2.2.0] - 20-08-2020
 ### Changed 
- - Added "x-" properties to the fastify reply context
- - Updated dependencies:
-  - ajv             ^6.12.3  →  ^6.12.4 
-  - fastify-plugin   ^2.3.0  →   ^2.3.1 
-  - fastify          ^3.2.0  →   ^3.2.1 
-  - fastify-cli      ^2.1.0  →   ^2.2.0 
+
+- Fixed missing slash in generator template
+- Updated dependencies:
+  - ajv ^6.12.4 → ^6.12.5
+    - fastify-plugin ^2.3.1 → ^2.3.4
+      - swagger-parser ^10.0.1 → ^10.0.2
+        - fastify ^3.2.1 → ^3.4.1
+## [2.2.0] - 20-08-2020
+
+### Changed 
+
+- Added "x-" properties to the fastify reply context
+- Updated dependencies:
+- ajv ^6.12.3 → ^6.12.4
+- fastify-plugin ^2.3.0 → ^2.3.1
+- fastify ^3.2.0 → ^3.2.1
+- fastify-cli ^2.1.0 → ^2.2.0
 
 ## [2.1.0] - 14-08-2020
+
 ### Changed 
- - Enable passthrough of security handler errors (mhamann)
- - Added parameters and initializer to securityHandlers (see docs/securityHandlers.md)
- - Refactored index.js and parsers
- - Updated examples to v3
- - Added tests
- - Updated dependencies:
-    - fastify-plugin    ^2.0.0  →    ^2.3.0 
-    - swagger-parser   ^10.0.0  →   ^10.0.1 
-    - fastify           ^3.0.0  →    ^3.2.0 
-    - fastify-cli       ^2.0.2  →    ^2.1.0 
-    - tap             ^14.10.7  →  ^14.10.8 
+
+- Enable passthrough of security handler errors (mhamann)
+- Added parameters and initializer to securityHandlers (see docs/securityHandlers.md)
+- Refactored index.js and parsers
+- Updated examples to v3
+- Added tests
+- Updated dependencies:
+  - fastify-plugin ^2.0.0 → ^2.3.0
+    - swagger-parser ^10.0.0 → ^10.0.1
+      - fastify ^3.0.0 → ^3.2.0
+        - fastify-cli ^2.0.2 → ^2.1.0
+          - tap ^14.10.7 → ^14.10.8
 
 ## [2.0.5] - 06-08-2020
+
 ### Changed 
- - Warnings for missing content handlers now go to the fastify log
- - Bump fastify-plugin from 2.0.2 to 2.1.1
+
+- Warnings for missing content handlers now go to the fastify log
+- Bump fastify-plugin from 2.0.2 to 2.1.1
 
 ## [2.0.4] - 28-07-2020
+
 ### Changed 
- - Fix stripResponseFormats for recursive schemas (lundibundi)
- - Bump fastify-plugin from 2.0.1 to 2.0.2
- - Bump tap from 14.10.7 to 14.10.8
+
+- Fix stripResponseFormats for recursive schemas (lundibundi)
+- Bump fastify-plugin from 2.0.1 to 2.0.2
+- Bump tap from 14.10.7 to 14.10.8
 
 ## [2.0.3] - 20-07-2020
+
 ### Changed
- - Bump fastify from 3.0.3 to 3.1.1
- - Bump swagger-parser from 10.0.0 to 10.0.
- - Fixed typescript definitions (zekth)
- 
+
+- Bump fastify from 3.0.3 to 3.1.1
+- Bump swagger-parser from 10.0.0 to 10.0.
+- Fixed typescript definitions (zekth)
+
 ## [2.0.2] - 16-07-2020
+
 ### Changed 
- - Just a version bump to fix operator error
+
+- Just a version bump to fix operator error
 
 ## [2.0.1] - 16-07-2020
+
 ### Changed 
- - Bump fastify from 3.0.0 to 3.0.3
- - Bump swagger-parser from 9.0.1 to 10.0.
- - Bump fastify-plugin from 2.0.0 to 2.0.1
- - [Security] Bump lodash from 4.17.15 to 4.17.19
+
+- Bump fastify from 3.0.0 to 3.0.3
+- Bump swagger-parser from 9.0.1 to 10.0.
+- Bump fastify-plugin from 2.0.0 to 2.0.1
+- [Security] Bump lodash from 4.17.15 to 4.17.19
 
 ## [2.0.0] 11-07-2020
+
 ### Changed
- - Migrated to fastify 3.0.0, major version as the change is not compatible with fastify 2.x.y.
+
+- Migrated to fastify 3.0.0, major version as the change is not compatible with fastify 2.x.y.
 
 ## [1.7.1] 09-07-2020
+
 ### Changed
-  - Made securityHandlers parameter optional in Typescript signature
+
+- Made securityHandlers parameter optional in Typescript signature
 
 ## [1.7.0] 08-07-2020
+
 ### Changed
-  - Added securityHandlers parameter (mhamann)
-  - Updated dependencies
-    - ajv      ^6.12.2  →  ^6.12.3 
-    - js-yaml  ^3.13.1  →  ^3.14.0 
-    - fastify  ^2.13.1  →  ^2.15.1
+
+- Added securityHandlers parameter (mhamann)
+- Updated dependencies
+  - ajv ^6.12.2 → ^6.12.3
+  - js-yaml ^3.13.1 → ^3.14.0
+  - fastify ^2.13.1 → ^2.15.1
 
 ## [1.6.0] 17-06-2020
+
 ### Changed
-  - Added ajvOptions parameter (justinsc )
+
+- Added ajvOptions parameter (justinsc )
 
 ## [1.5.2] 23-04-2020
+
 ### Changed
-  - Added Typescript definitions (Xaver Schulz)
-  - Fixed loss of 'this' in service.js (Xaver Schulz)
-  - Updated dependencies
-    - ajv              ^6.12.0  →   ^6.12.2
-    - fastify          ^2.13.0  →   ^2.13.1
+
+- Added Typescript definitions (Xaver Schulz)
+- Fixed loss of 'this' in service.js (Xaver Schulz)
+- Updated dependencies
+  - ajv ^6.12.0 → ^6.12.2
+  - fastify ^2.13.0 → ^2.13.1
 ## [1.5.1] 06-04-2020
+
 ### Changed
- - Updated dependencies
-   - ajv              ^6.11.0  →   ^6.12.0 
-   - fastify-plugin    ^1.6.0  →    ^1.6.1 
-   - minimist          ^1.2.0  →    ^1.2.5 
-   - swagger-parser    ^9.0.0  →    ^9.0.1 
-    - fastify          ^2.11.0  →   ^2.13.0 
-   - fastify-cli       ^1.3.0  →    ^1.5.0 
-    - tap             ^14.10.6  →  ^14.10.7 
+
+- Updated dependencies
+  - ajv ^6.11.0 → ^6.12.0
+  - fastify-plugin ^1.6.0 → ^1.6.1
+  - minimist ^1.2.0 → ^1.2.5
+  - swagger-parser ^9.0.0 → ^9.0.1 - fastify ^2.11.0 → ^2.13.0
+  - fastify-cli ^1.3.0 → ^1.5.0 - tap ^14.10.6 → ^14.10.7
 
 ## [1.5.0] 31-01-2020
+
 ### Changed
- - Added noAdditional option
+
+- Added noAdditional option
 
 ## [1.4.0] 21-01-2020
+
 ### Changed
- - Added nullable flag to ajv config
- - Updated dependencies
-   - ajv              ^6.10.2  →   ^6.11.0 
-   - ajv-oai           ^1.1.5  →    ^1.2.0 
-   - swagger-parser    ^8.0.3  →    ^8.0.4 
-   - fastify          ^2.10.0  →   ^2.11.0 
-   - tap             ^14.10.2  →  ^14.10.6 
+
+- Added nullable flag to ajv config
+- Updated dependencies
+  - ajv ^6.10.2 → ^6.11.0
+  - ajv-oai ^1.1.5 → ^1.2.0
+  - swagger-parser ^8.0.3 → ^8.0.4
+  - fastify ^2.10.0 → ^2.11.0
+  - tap ^14.10.2 → ^14.10.6
 
 ## [1.3.1] 29-11-2019
+
 ### Changed
- - Fixed bug in Petshop example
- - Updated dependencies:
-   - swagger-parser   ^8.0.2  →   ^8.0.3
-   - ajv-oai          ^1.1.1  →   ^1.1.5
-   - tap             ^14.7.1  →  ^14.10.2
+
+- Fixed bug in Petshop example
+- Updated dependencies:
+  - swagger-parser ^8.0.2 → ^8.0.3
+  - ajv-oai ^1.1.1 → ^1.1.5
+  - tap ^14.7.1 → ^14.10.2
 
 ## [1.3.0] 16-10-2019
+
 ### Changed
- - Enabled async service creation
- - Updated dependencies:
-   - swagger-parser   ^8.0.0  →   ^8.0.2
-   - fastify          ^2.6.0  →  ^2.10.0
-   - fastify-cli      ^1.1.0  →   ^1.3.0
-   - tap             ^14.4.2  →  ^14.7.1
+
+- Enabled async service creation
+- Updated dependencies:
+  - swagger-parser ^8.0.0 → ^8.0.2
+  - fastify ^2.6.0 → ^2.10.0
+  - fastify-cli ^1.1.0 → ^1.3.0
+  - tap ^14.4.2 → ^14.7.1
 ## [v1.2.0] 19-07-2019
+
 ### Changed
- - enabled generic parameters on path items
- - Added notes section to README.md to explain plugin behaviour better
- - Updated dependencies:
-   - swagger-parser  ^7.0.1  →   ^8.0.0
-   - fastify-plugin   ^1.5.0  →   ^1.6.0
-   - fastify          ^2.2.0  →   ^2.6.0
-   - fastify-cli      ^1.0.0  →   ^1.1.0
-   - tap             ^14.0.0  →  ^14.4.2
+
+- enabled generic parameters on path items
+- Added notes section to README.md to explain plugin behaviour better
+- Updated dependencies:
+  - swagger-parser ^7.0.1 → ^8.0.0
+  - fastify-plugin ^1.5.0 → ^1.6.0
+  - fastify ^2.2.0 → ^2.6.0
+  - fastify-cli ^1.0.0 → ^1.1.0
+  - tap ^14.0.0 → ^14.4.2
 ## [v1.1.0] 14-06-2019
+
 ### Added 
- - `prefix` option, see README.md
- - CHANGES.md
+
+- `prefix` option, see README.md
+- CHANGES.md
 ## [v1.0.6]
+
 ### Changed
- - Updated dependencies
+
+- Updated dependencies
 ## [v1.0.5]
+
 ### Changed
+
 - Updated dependencies
 ## [v1.0.4] 30-11-2018
+
 ### Changed
+
 - Fixed handling of no parameters on V2
 ## [v1.0.3]
+
 ### Changed
+
 - Updated dependencies
 ## [v1.0.1]
+
 ### Changed
+
 - Updated dependencies
 ## [v1.0.0] 30-06-2018
+
 Initial version

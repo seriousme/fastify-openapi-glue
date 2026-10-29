@@ -1,24 +1,24 @@
 name: Publish Package to npmjs
 on:
- release:
-   types: [created]
- workflow_dispatch:
-  inputs:
-    nodeVersion:
-      description: Node version to use
-      required: false
-      default: "lts/*"
+  release:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      nodeVersion:
+        description: Node version to use
+        required: false
+        default: "lts/*"
 jobs:
- build:
-   runs-on: ubuntu-latest
-   permissions:
-     contents: read
-     id-token: write
-   steps:
-     - uses: actions/checkout@v7
-     - uses: actions/setup-node@v7
-       with:
-         node-version: ${{ github.event.inputs.nodeVersion }}
-         registry-url: 'https://registry.npmjs.org'
-     - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
-     - run: npm stage publish --access public
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ github.event.inputs.nodeVersion }}
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci --ignore-scripts --no-audit --no-progress --prefer-offline
+      - run: npm stage publish --access public
