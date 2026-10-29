@@ -1,4 +1,6 @@
-### Implementing cookie validation
+<h1 align="center">fastify-openapi-glue</h1>
+
+## Implementing cookie validation
 
 The [OpenApi](https://www.openapis.org/) specification allows cookie validation, but Fastify itself does not validate or even parse cookies.
 
