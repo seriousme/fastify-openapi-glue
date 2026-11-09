@@ -9,6 +9,7 @@ However if you need more flexibility in mapping operationId's to methods then th
 You provide a function and that function returns the method that will handle the request.
 
 An example of a simple resolver is:
+
 ```javascript
 const myObject = { getPetbyId: async () => { pet: "Doggie the dog" }};
 
@@ -21,6 +22,7 @@ function (operationId) {
 But you can make the logic as complex as you like.
 
 In this example `myObject[operationId]` points to a function, but you can also point it to a full Fastify route definition, e.g.:
+
 ```javascript
 const myObject = { getPetbyId: {
     onSend: async (req, res) => {

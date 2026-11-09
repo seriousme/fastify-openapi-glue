@@ -10,6 +10,7 @@ If the provided object has an async `initialize` function then fastify-openapi-g
 ### Example
 
 In the petstore example specification there is a section:
+
 ```json
 "/pet": {
       "post": {
@@ -35,6 +36,7 @@ If you want authentication to succeed you can simply return. If you want authent
 If your error contains a `statusCode` property then the status code of the last failing handler will be passed to fastify. The default status code that is returned upon validation failure is `401`.
 
 Any errors that result from `securityHandlers` are available to registered error handlers. E.g.:
+
 ```javascript
 fastify.setErrorHandler((err, req, reply) => {
 	reply.code(err.statusCode).send(err);
@@ -47,6 +49,7 @@ You can use `err.errors` also to trigger other behaviour in a registered error h
 
 Using multiple securityHandlers it is possible to use AND and OR logic:
 E.g.:
+
 ```json
 ...
           {

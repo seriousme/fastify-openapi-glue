@@ -3,6 +3,7 @@
 ## OpenApi V3 servers
 
 The [OpenApi](https://www.openapis.org/) V3 specification allows for multiple servers, e.g:
+
 ```json
 {
 	"servers": [

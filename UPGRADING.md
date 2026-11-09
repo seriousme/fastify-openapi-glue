@@ -74,13 +74,13 @@ You now need to pass the AJV options to Fastify at startup. (see: https://fastif
 ### service and securityhandlers options
 
 In version 2.x you could either pass:
+
 - an object or a class instance
 - a name (to be interpreted as file name)
 - a function (that would be executed)
 
 as values to these parameters.
 In 3.x the `name` and `function` values have been removed. So you need to `import` or `require` code files yourself and if you passed a function that resulted in an object or class instance you now need to call that function yourself.
-
 
 ## From 1.x to 2.x
 
