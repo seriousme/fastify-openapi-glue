@@ -8,6 +8,7 @@ The `fastify-openapi-glue` plugin is intentionally designed to work without requ
 However, it does provide a boolean option `addCookieSchema` which tells it to insert JSON Schema describing OpenApi cookies into the Fastify [Routes options](https://fastify.dev/docs/latest/Reference/Routes/#routes-options).
 
 Using this `addCookieSchema` option, one possible way to implement cookie validation in your application might be:
+
 - Register a plugin for cookie parsing with Fastify (perhaps [fastify cookie plugin](https://github.com/fastify/fastify-cookie)).
 - Listen for Fastify's [`onRoute` Application Hook](https://fastify.dev/docs/latest/Reference/Hooks/#onroute).
 - In your `onRoute` handler:
@@ -20,6 +21,7 @@ Using this `addCookieSchema` option, one possible way to implement cookie valida
 - With your customizations in place, register `fastify-openapi-glue`.
 
 Example:
+
 ```javascript
 // Register a plugin for cookie parsing
 fastify.register(cookie);

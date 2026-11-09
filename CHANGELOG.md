@@ -5,7 +5,8 @@
 ### Changed
 
 - chore: updated dependencies
-  - @biomejs/biome ^2.5.15 → ^2.6.3
+  - @biomejs/biome ^2.5.15 → ^2.6.5
+  - fastify ^5.12.7 → ^5.12.8
 
 ## [4.12.0] 18-10-2026
 
@@ -270,7 +271,6 @@
     - @seriousme/openapi-schema-validator ^2.1.1 → ^2.1.2
       - fastify ^4.23.1 → ^4.23.2
 
-
 ## [4.3.3] 13-09-2023
 
 ### Changed
@@ -452,6 +452,7 @@
 - Service and Securityhandlers options can now only be an object or a class instance and no longer a filename or a function.
 
 See [UPGRADING.md](UPGRADING.md) for more details on how to upgrade.
+
 ## [2.8.0] - 06-10-2023
 
 - Feat: backport async security initializer from 4.4.0

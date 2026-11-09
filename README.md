@@ -5,30 +5,33 @@
 [![NPM version](https://img.shields.io/npm/v/fastify-openapi-glue.svg)](https://www.npmjs.com/package/fastify-openapi-glue)
 ![npm](https://img.shields.io/npm/dm/fastify-openapi-glue)
 
-
-
 A plugin for [fastify](https://fastify.dev) to auto-generate a configuration based on a [OpenApi](https://www.openapis.org/)(v2/v3) specification.
 
 It aims at facilitating ["design first" API development](https://swagger.io/blog/api-design/design-first-or-code-first-api-development/) i.e. you write or obtain an API specification and use that to generate code. Given an OpenApi specification Fastify-openapi-glue handles the fastify configuration of routes and validation schemas etc. You can also [generate](#generator) your own project from a OpenApi specification.
 
 <a name="upgrading"></a>
+
 ## Upgrading
 
 If you are upgrading from a previous major version of `fastify-openapi-glue` then please check out [UPGRADING.md](UPGRADING.md).
 
 <a name="install"></a>
+
 ## Install 
 
 ```
 npm i fastify-openapi-glue --save
 ```
 <a name="plugin"></a>
+
 ## Plugin
 
 <a name="pluginUsage"></a>
+
 ### Usage
 
 Add the plugin to your project with `register` and pass it some basic options and you are done !
+
 ```javascript
 import openapiGlue from "fastify-openapi-glue";
 import { Service } from "./service.js";
@@ -46,6 +49,7 @@ fastify.register(openapiGlue, options);
 
 All schema and routes will be taken from the OpenApi specification listed in the options. No need to specify them in your code.
 <a name="pluginOptions"></a>
+
 ### Options
 
 - `specification`: this can be a JSON object, or the name of a JSON or YAML file containing a valid OpenApi(v2/v3) file
@@ -62,11 +66,13 @@ See the [examples](#examples) section for a demo.
 Please be aware that `this` will refer to your serviceHandlers object or your securityHandler object and not to Fastify as explained in the [bindings documentation](docs/bindings.md)
 
 <a name="pluginApiExtensions"></a>
+
 ### OpenAPI extensions
 
 The OpenAPI specification supports [extending an API spec](https://spec.openapis.org/oas/latest.html#specification-extensions) to describe extra functionality that isn't covered by the official specification. Extensions start with `x-` (e.g., `x-myapp-logo`) and can contain a primitive, an array, an object, or `null`.
 
 The following extensions are provided by the plugin:
+
 - `x-fastify-config` (object): any properties will be added to the `routeOptions.config` property of the Fastify route.
 
   For example, if you wanted to use the fastify-raw-body plugin to compute a checksum of the request body, you could add the following extension to your OpenAPI spec to signal the plugin to specially handle this route:
@@ -99,17 +105,20 @@ The following extensions are provided by the plugin:
 You can also set custom OpenAPI extensions (e.g., `x-myapp-foo`) for use within your app's implementation. These properties are passed through unmodified to the Fastify route on `{req,reply}.routeOptions.config`. Extensions specified on a schema are also accessible (e.g., `routeOptions.schema.body` or `routeOptions.schema.responses[<statusCode>]`).
 
 <a name="generator"></a>
+
 ## Generator
 
 To make life even more easy there is the `openapi-glue` cli. The `openapi-glue` cli takes a valid OpenApi (v2/v3) file (JSON or YAML) and generates a project including a fastify plugin that you can use on any fastify server, a stub of the serviceHandlers class and a skeleton of a test harness to test the plugin.
 
 <a name="generatorUsage"></a>
+
 ### Usage
 
 ```
 openapi-glue [options] <OpenApi specification>
 ```
 or if you don't have `openapi-glue` installed:
+
 ```
 npx github:seriousme/fastify-openapi-glue <OpenApi specification>
 ```
@@ -117,6 +126,7 @@ This will generate a project based on the provided OpenApi specification.
 Any existing files in the project folder will be overwritten!
 See the [generator examples](#examples) section for a demo.
 <a name="generatorOptions"></a>
+
 ### Options
 
 ```
@@ -139,13 +149,14 @@ return checksums only.
 ```
 See the [generator example](#generatorExamples) section for a demo.
 
-
 <a name="examples"></a>
+
 ## Examples
 
 Clone this repository and run `npm i`
 
 <a name="pluginExamples"></a>
+
 ### Plugin
 
 Executing `npm start` will start fastify on localhost port 3000 with the
@@ -186,6 +197,7 @@ routes extracted from the [petstore example](examples/petstore/petstore-openapi.
 as the pet returned by service.js does not match the response schema.
 
 <a name="generatorExamples"></a>
+
 ### Generator
 
 The folder [examples/generated-javascript-project](examples/generated-javascript-project) contains the result of running `openapi-glue -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml`. The generated code can be started using `npm start` in `examples/generated-javascript-project` (you will need to run `npm i` in the generated folder first)
@@ -193,6 +205,7 @@ The folder [examples/generated-javascript-project](examples/generated-javascript
 The folder [examples/generated-standaloneJS-project](examples/generated-standaloneJS-project) contains the result of running `openapi-glue -l --baseDir=examples examples/petstore/petstore-swagger.v2.yaml --type=standaloneJS`. This project does NOT need `fastify-openapi-glue` anymore to run. This might be the most efficient way to run your openAPI specification as Fastify routes. The downside of course is that you need to regenerate the project every time your specification is updated.
 
 <a name="Notes"></a>
+
 ## Notes
 
 - the plugin ignores information in a v3 specification under `server/url` as there could be multiple values here, use the `prefix` [option](#pluginOptions) if you need to prefix your routes. See the [servers documentation](docs/servers.md) for more details.
@@ -208,6 +221,7 @@ The folder [examples/generated-standaloneJS-project](examples/generated-standalo
 - Fastify uses AJV with JSON schema draft-07 out of the box. If you want to use JSON schema draft-2020-12 features in your OpenApi 3.1+ schema then have a look at [using JSONschema 2020](docs/schema2020.md)
 
 <a name="Contributing"></a>
+
 ## Contributing
 
 - contributions are always welcome.
@@ -219,6 +233,7 @@ The folder [examples/generated-standaloneJS-project](examples/generated-standalo
 
 Fastify-openapi-glue is the successor to the now deprecated [fastify-swaggergen](https://github.com/seriousme/fastify-swaggergen) project.
 Main difference is that it:
+
 - aims to support OpenApi and not just Swagger V2 (hence the name change)
 - does not include fastify-swagger support anymore. If you need to show the swagger UI you can include it yourself. Removing the swagger UI clears up a number of dependencies.
   <a name="license"></a>

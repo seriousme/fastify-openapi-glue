@@ -14,6 +14,7 @@ The OpenApi specifications from 3.1 (e.g. [3.2.0](https://spec.openapis.org/oas/
 If you have/need these new additions in your OpenApi specification you need to tell `Fastify` to use `AJV` with `2020` schema.
 
 e.g. something like:
+
 ```js
 import openapiGlue from "fastify-openapi-glue";
 import { Service } from "./service.js";

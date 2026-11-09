@@ -3,6 +3,7 @@
 ## ServiceHandlers
 
 Each [OpenApi](https://www.openapis.org/) `Operation` object typically contains a unique `operationId` property. E.g. the [PetStore example](../examples/petstore) contains an [OpenApi specification](../examples/petstore/petstore-openapi.v3.json) which contains a section:
+
 ```json
 ...
 "/pet/{petId}": {
@@ -15,6 +16,7 @@ Each [OpenApi](https://www.openapis.org/) `Operation` object typically contains 
 ```
 
 In this Petstore example the `Service` class in [service.js](../examples/petstore/service.js) contains:
+
 ```javascript
 async getPetById(req, resp) {
 		console.log("getPetById", req.params.petId);
