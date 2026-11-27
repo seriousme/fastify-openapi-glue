@@ -4,9 +4,12 @@
 
 ### Changed
 
+- feat: add support for http query method (RFC 10008)
 - chore: updated dependencies
-  - @biomejs/biome ^2.5.15 → ^2.6.5
+  - @biomejs/biome ^2.5.15 → ^2.6.9
   - fastify ^5.12.7 → ^5.12.8
+  - fastify-cli ^8.0.3 → ^8.0.4
+  - @seriousme/openapi-schema-validator ^2.11.0 → ^2.12.0
 
 ## [4.12.0] 18-10-2026
 
