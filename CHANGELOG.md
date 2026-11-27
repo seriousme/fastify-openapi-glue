@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [4.13.0] 27-11-2026
+
 ### Changed
 
 - feat: add support for http query method (RFC 10008)
